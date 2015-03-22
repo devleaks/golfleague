@@ -21,6 +21,10 @@ phpunit.phar
 /frontend/web
 /frontend/runtime
 
+/console/config
+
+/golfleague.basic
+
 /common/config
 
 # yii console command
