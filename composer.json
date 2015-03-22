@@ -1,0 +1,79 @@
+{
+    "name": "devleaks/golfleague",
+    "description": "Yii 2 Golf League Application",
+    "keywords": ["yii2", "golf", "league", "sport"],
+    "homepage": "http://www.devleaks.be/golfleague/",
+    "type": "project",
+    "license": "MIT",
+    "support": {
+        "source": "https://github.com/devleaks/golfleague"
+    },
+    "minimum-stability": "dev",
+	"prefer-stable": true,
+	"repositories": [
+		{
+		    "type": "vcs",
+		    "url": "https://github.com/devleaks/yii2-introjs"
+		},
+		{
+		    "type": "vcs",
+		    "url": "https://github.com/devleaks/yii2-chardinjs"
+		},
+		{
+		    "type": "vcs",
+		    "url": "https://github.com/devleaks/yii2-metafizzy"
+		}
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*",
+        "yiisoft/yii2-swiftmailer": "*",
+		"yiisoft/yii2-apidoc": "*",
+		"bower-asset/chardin.js": "*",
+		"bower-asset/draggabilly": "*",
+		"bower-asset/intro.js": "*",
+		"bower-asset/isotope": "*",
+		"bower-asset/masonry": "*",
+		"bower-asset/packery": "*",
+        "mdmsoft/yii2-admin": "*",
+		"devleaks/yii2-chardinjs": "~1.0",
+		"devleaks/yii2-introjs": "~1.0",
+		"devleaks/yii2-metafizzy": "~1.0",
+		"kartik-v/yii2-builder": "dev-master",
+		"kartik-v/yii2-date-range": "*",
+		"kartik-v/yii2-datecontrol": "dev-master",
+		"kartik-v/yii2-detail-view": "*",
+		"kartik-v/yii2-grid": "*",
+		"kartik-v/yii2-helpers": "dev-master",
+		"kartik-v/yii2-icons": "dev-master",
+		"kartik-v/yii2-markdown": "dev-master",
+		"kartik-v/yii2-mpdf": "dev-master",
+		"kartik-v/yii2-slider": "*",
+		"kartik-v/yii2-widget-datepicker": "*",
+		"kartik-v/yii2-widgets": "dev-master",
+		"mdmsoft/yii2-ar-behaviors": "*",
+		"miloschuman/yii2-highcharts-widget": "*",
+		"2amigos/yii2-gallery-widget": "*",
+        "dektrium/yii2-user": "*",
+        "philippfrenzel/yii2fullcalendar": "*",
+        "vova07/yii2-imperavi-widget": "*",
+        "warrence/yii2-kartikgii": "dev-master"
+    },
+    "require-dev": {
+        "yiisoft/yii2-codeception": "*",
+        "yiisoft/yii2-debug": "*",
+        "yiisoft/yii2-gii": "*",
+        "yiisoft/yii2-faker": "*",
+		"jamband/yii2-schemadump": "*"
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+    "extra": {
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}
