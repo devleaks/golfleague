@@ -1,8 +1,10 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\DateTimePicker;
+use common\models\Facility;
 use common\models\Message;
 
 /* @var $this yii\web\View */
@@ -19,6 +21,8 @@ use common\models\Message;
     <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'message_type')->dropDownList(Message::getLocalizedConstants('TYPE_')) ?>
+
+    <?= $form->field($model, 'facility_id')->dropDownList([''=>''] + ArrayHelper::map(Facility::find()->asArray()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'message_start')->widget(DateTimePicker::classname(), [
             'pluginOptions' => [

@@ -17,6 +17,8 @@ use Yii;
  * @property string $updated_at
  *
  * @property Course[] $courses
+ * @property Golfer[] $golfers
+ * @property Message[] $messages
  */
 class _Facility extends \yii\db\ActiveRecord
 {
@@ -34,6 +36,7 @@ class _Facility extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'email'], 'string', 'max' => 80],
             [['phone', 'units'], 'string', 'max' => 20],
@@ -65,5 +68,21 @@ class _Facility extends \yii\db\ActiveRecord
     public function getCourses()
     {
         return $this->hasMany(Course::className(), ['facility_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGolfers()
+    {
+        return $this->hasMany(Golfer::className(), ['facility_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMessages()
+    {
+        return $this->hasMany(Message::className(), ['facility_id' => 'id']);
     }
 }

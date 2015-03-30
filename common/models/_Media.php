@@ -8,13 +8,13 @@ use Yii;
  * This is the model class for table "media".
  *
  * @property integer $id
- * @property string $object_type
- * @property integer $object_id
- * @property string $media_type
  * @property string $name
- * @property string $description
- * @property string $mime_type
- * @property string $filename
+ * @property integer $size
+ * @property string $type
+ * @property integer $related_id
+ * @property string $related_class
+ * @property string $related_attribute
+ * @property string $name_hash
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
@@ -35,12 +35,11 @@ class _Media extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['object_type'], 'string'],
-            [['object_id'], 'integer'],
+            [['size', 'related_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['media_type'], 'string', 'max' => 40],
-            [['name', 'mime_type'], 'string', 'max' => 80],
-            [['description', 'filename'], 'string', 'max' => 255],
+            [['name', 'type'], 'string', 'max' => 80],
+            [['related_class', 'related_attribute'], 'string', 'max' => 160],
+            [['name_hash'], 'string', 'max' => 255],
             [['status'], 'string', 'max' => 20]
         ];
     }
@@ -52,13 +51,13 @@ class _Media extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('igolf', 'ID'),
-            'object_type' => Yii::t('igolf', 'Object Type'),
-            'object_id' => Yii::t('igolf', 'Object'),
-            'media_type' => Yii::t('igolf', 'Media Type'),
             'name' => Yii::t('igolf', 'Name'),
-            'description' => Yii::t('igolf', 'Description'),
-            'mime_type' => Yii::t('igolf', 'Mime Type'),
-            'filename' => Yii::t('igolf', 'Filename'),
+            'size' => Yii::t('igolf', 'Size'),
+            'type' => Yii::t('igolf', 'Type'),
+            'related_id' => Yii::t('igolf', 'Related ID'),
+            'related_class' => Yii::t('igolf', 'Related Class'),
+            'related_attribute' => Yii::t('igolf', 'Related Attribute'),
+            'name_hash' => Yii::t('igolf', 'Name Hash'),
             'status' => Yii::t('igolf', 'Status'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),

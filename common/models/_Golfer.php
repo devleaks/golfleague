@@ -19,7 +19,9 @@ use Yii;
  * @property string $homecourse
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $facility_id
  *
+ * @property Facility $facility
  * @property User $user
  * @property Registration[] $registrations
  * @property Scorecard[] $scorecards
@@ -40,7 +42,8 @@ class _Golfer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'integer'],
+            [['user_id', 'facility_id'], 'integer'],
+            [['name'], 'required'],
             [['handicap'], 'number'],
             [['birthdate', 'created_at', 'updated_at'], 'safe'],
             [['name', 'homecourse'], 'string', 'max' => 80],
@@ -58,7 +61,7 @@ class _Golfer extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('igolf', 'ID'),
-            'user_id' => Yii::t('igolf', 'User'),
+            'user_id' => Yii::t('igolf', 'User ID'),
             'name' => Yii::t('igolf', 'Name'),
             'email' => Yii::t('igolf', 'Email'),
             'phone' => Yii::t('igolf', 'Phone'),
@@ -69,7 +72,16 @@ class _Golfer extends \yii\db\ActiveRecord
             'homecourse' => Yii::t('igolf', 'Homecourse'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
+            'facility_id' => Yii::t('igolf', 'Facility ID'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFacility()
+    {
+        return $this->hasOne(Facility::className(), ['id' => 'facility_id']);
     }
 
     /**

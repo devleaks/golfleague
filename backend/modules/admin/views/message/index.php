@@ -1,7 +1,10 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use common\models\Facility;
+use common\models\Message;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\MessageSearch */
@@ -21,19 +24,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
 
             // 'id',
             'subject',
-            'message_type',
-            'status',
+			[
+                'attribute'=>'message_type',
+				'filter' => Message::getLocalizedConstants('TYPE_'),
+			],
+			[
+                'attribute'=>'facility_id',
+				'filter' => ArrayHelper::map(Facility::find()->asArray()->all(), 'id', 'name'),
+                'value' => 'facility.name',
+			],
+			[
+                'attribute'=>'status',
+				'filter' => Message::getLocalizedConstants('STATUS_'),
+			],
             // 'created_at',
             'updated_at',
             // 'body:ntext',
             // 'message_start',
             // 'message_end',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'kartik\grid\ActionColumn'],
         ],
     ]); ?>
 

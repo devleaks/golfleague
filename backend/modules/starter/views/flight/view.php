@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\models\Registration;
-use common\models\RegistrationSearch;
+use common\models\search\RegistrationSearch;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Flight */

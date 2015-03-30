@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'name',
                 'label'=>'Facility',
                 'value'=> function($model, $key, $index, $widget) {
-					return $model->website ? Html::a($model->name. ' <span class="glyphicon glyphicon-link"></span>', $model->website, ['target' => '_blank']) : $model->name;
+					return $model->name . ($model->website ? ' ' . Html::a('<span class="glyphicon glyphicon-link"></span>', $model->website, ['target' => '_blank']) : '');
 				},
 				'format' => 'raw'
             ],

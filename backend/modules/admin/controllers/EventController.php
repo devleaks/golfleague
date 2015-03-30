@@ -4,7 +4,7 @@ namespace backend\modules\admin\controllers;
 
 use Yii;
 use common\models\Event;
-use common\models\EventSearch;
+use common\models\search\EventSearch;
 use backend\controllers\DefaultController as GolfLeagueController;;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

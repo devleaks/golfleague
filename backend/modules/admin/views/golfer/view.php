@@ -3,8 +3,10 @@
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use kartik\detail\DetailView;
+use common\models\Facility;
 use common\models\Golfer;
 use common\models\User;
+use yii2mod\selectize\Selectize;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Golfer */
@@ -38,6 +40,18 @@ $this->params['breadcrumbs'][] = $this->title;
 				'items' => [''=>Yii::t('igolf', 'Unspecified')]+Golfer::getLocalizedConstants('HAND_')
 			],
             'homecourse',
+			[
+				'attribute' => 'facility_id',
+                'value'=>isset($model->facility) ? $model->facility->name : '',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => ['' => 'Select home course...'] + ArrayHelper::map(Facility::find()->where(['>', 'id', 0])->asArray()->all(), 'id', 'name'),
+				'widgetOptions' => [
+					//'class' => Selectize::className(),
+			        'pluginOptions' => [
+			            'items' => ArrayHelper::map(Facility::find()->where(['>', 'id', 0])->asArray()->all(), 'id', 'name'),
+			        ]
+			    ]
+			],
             [
                 'attribute'=>'user_id',
                 'label'=>'User',

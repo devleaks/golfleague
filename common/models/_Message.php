@@ -13,9 +13,14 @@ use Yii;
  * @property string $message_start
  * @property string $message_end
  * @property string $message_type
+ * @property integer $facility_id
  * @property string $status
+ * @property integer $created_by
  * @property string $created_at
  * @property string $updated_at
+ *
+ * @property Facility $facility
+ * @property User $createdBy
  */
 class _Message extends \yii\db\ActiveRecord
 {
@@ -33,11 +38,12 @@ class _Message extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['subject', 'body'], 'required'],
             [['body'], 'string'],
             [['message_start', 'message_end', 'created_at', 'updated_at'], 'safe'],
+            [['facility_id', 'created_by'], 'integer'],
             [['subject'], 'string', 'max' => 80],
-            [['message_type'], 'string', 'max' => 40],
-            [['status'], 'string', 'max' => 20]
+            [['message_type', 'status'], 'string', 'max' => 20]
         ];
     }
 
@@ -47,15 +53,33 @@ class _Message extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'ID'),
-            'subject' => Yii::t('golfleague', 'Subject'),
-            'body' => Yii::t('golfleague', 'Body'),
-            'message_start' => Yii::t('golfleague', 'Message Start'),
-            'message_end' => Yii::t('golfleague', 'Message End'),
-            'message_type' => Yii::t('golfleague', 'Message Type'),
-            'status' => Yii::t('golfleague', 'Status'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
+            'id' => Yii::t('igolf', 'ID'),
+            'subject' => Yii::t('igolf', 'Subject'),
+            'body' => Yii::t('igolf', 'Body'),
+            'message_start' => Yii::t('igolf', 'Message Start'),
+            'message_end' => Yii::t('igolf', 'Message End'),
+            'message_type' => Yii::t('igolf', 'Message Type'),
+            'facility_id' => Yii::t('igolf', 'Facility ID'),
+            'status' => Yii::t('igolf', 'Status'),
+            'created_by' => Yii::t('igolf', 'Created By'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFacility()
+    {
+        return $this->hasOne(Facility::className(), ['id' => 'facility_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 }

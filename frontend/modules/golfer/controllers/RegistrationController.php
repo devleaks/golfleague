@@ -1,24 +1,24 @@
 <?php
 
-namespace backend\modules\golfer\controllers;
+namespace frontend\modules\golfer\controllers;
 
 use common\models\AllMatches;
-use common\models\AllMatchesSearch;
+use common\models\search\AllMatchesSearch;
 use common\models\Competition;
 use common\models\Golfer;
 use common\models\Match;
-use common\models\MatchSearch;
+use common\models\search\MatchSearch;
 use common\models\Registration;
 use common\models\Season;
-use common\models\SeasonSearch;
+use common\models\search\SeasonSearch;
 use common\models\Tournament;
-use common\models\TournamentSearch;
+use common\models\search\TournamentSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\web\Controller;
 
-class RegistrationController extends \backend\controllers\DefaultController
+class RegistrationController extends \frontend\controllers\DefaultController
 {
     /**
      * Displays all matches and a possibility to register or not.

@@ -5,7 +5,7 @@ namespace backend\modules\starter\controllers;
 use Yii;
 use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
-use common\models\CompetitionSearch;
+use common\models\search\CompetitionSearch;
 use common\models\Match;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;

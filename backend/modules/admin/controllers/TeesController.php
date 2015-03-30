@@ -6,7 +6,7 @@ use Yii;
 use common\models\Tees;
 use common\models\Course;
 use common\models\Hole;
-use common\models\TeesSearch;
+use common\models\search\TeesSearch;
 use backend\controllers\DefaultController as GolfLeagueController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

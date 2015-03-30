@@ -8,20 +8,9 @@ use common\models\Message;
 
 class NewsController extends Controller
 {
-    /**
-     * Lists all Message models.
-     * @return mixed
-     */
     public function actionIndex()
     {
-        return $this->render('index', [
-            'dataProvider' => new ActiveDataProvider([
-				'query' => Message::find()->orderBy('created_at desc'),
-				'pagination' => [
-				        'pageSize' => 5,
-				],
-			]),
-        ]);
+        return $this->render('index');
     }
 
     /**

@@ -9,6 +9,8 @@ use yii\widgets\Breadcrumbs;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
+if(isset(Yii::$app->params['BootswatchTheme']))
+	raoul2000\bootswatch\BootswatchAsset::$theme = Yii::$app->params['BootswatchTheme'];
 
 $asset = AppAsset::register($this);
 
@@ -43,10 +45,14 @@ $role = MenuHelper::getRole();
                 ['label' => 'Contact', 'url' => ['/site/contact']],
             ];
 
+            // golf league stuff
+
             if(!Yii::$app->user->isGuest) {
                 $who = Yii::$app->user->identity->username;
-                if (YII_DEBUG)
+                if (YII_DEBUG) {	
                     $who .= ($role ? '/'.$role : '/?');
+            		$menuItems[] = ['label' => Yii::t('igolf', 'Golf League'), 'items' => [['label' => 'Back End', 'url' => ['/../igolf']]]];
+				}
 
 				$user_menu = [];
 				$user_menu[] = ['label' => Yii::t('igolf', 'Profile'), 'url' => ['/user/settings']];
@@ -77,7 +83,7 @@ $role = MenuHelper::getRole();
 
     <footer class="footer">
         <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; <?= Yii::$app->name . ' ' . date('Y') ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>

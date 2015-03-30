@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel common\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', ucfirst(strtolower($type)));
+$this->title = Yii::t('igolf', ucfirst(strtolower(isset($type) ? $type : 'All')));
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="season-index">
@@ -35,6 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             //'competition_type',
             'name',
+			[
+                'attribute'=>'competition_type',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'noWrap' => true,
+				'visible' => !isset($type),
+				'filter' => Competition::getLocalizedConstants('TYPE_'),
+			],
             'description',
             //'parent_id',
             // 'course_id',

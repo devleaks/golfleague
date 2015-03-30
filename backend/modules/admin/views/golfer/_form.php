@@ -3,7 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dektrium\user\models\User;
+use common\models\Facility;
 use yii\helpers\ArrayHelper;
+use yii2mod\selectize\Selectize;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Golfer */
@@ -14,7 +16,7 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->dropDownList(ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'), ['prompt' => 'Select Yii User']/*, ['disabled' => 'true']*/) ?>
+    <?= $form->field($model, 'user_id')->dropDownList(ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'), ['prompt' => 'Select Yii User']) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 80]) ?>
 
@@ -23,6 +25,10 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'phone')->textInput(['maxlength' => 40]) ?>
 
     <?= $form->field($model, 'homecourse')->textInput(['maxlength' => 80]) ?>
+
+    <?= $form->field($model, 'facility_id')->widget( Selectize::className(), [
+			'items' => ['' => 'Select home course...'] + ArrayHelper::map(Facility::find()->where(['>', 'id', 0])->asArray()->all(), 'id', 'name'),
+	]) ?>
 
     <?= $form->field($model, 'gender')->radioList(['GENTLEMAN' => Yii::t('igolf', 'GENTLEMAN'), 'LADY' => Yii::t('igolf', 'LADY')]) ?>
 

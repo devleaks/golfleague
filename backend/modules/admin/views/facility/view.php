@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\detail\DetailView;
 use common\models\Course;
-use common\models\CourseSearch;
+use common\models\search\CourseSearch;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Facility */
@@ -51,5 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			'facility' => $model,
         ]);
 ?>
+
+
+<?=	$this->render('../media/_add', [
+	'model' => $model,
+])?>
 
 </div>

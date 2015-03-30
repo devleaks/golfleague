@@ -4,7 +4,7 @@ namespace backend\modules\admin\controllers;
 
 use Yii;
 use common\models\Competition;
-use common\models\CompetitionSearch;
+use common\models\search\CompetitionSearch;
 use backend\controllers\DefaultController as GolfLeagueController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -30,7 +30,7 @@ class CompetitionController extends GolfLeagueController
      * Lists all Competition models.
      * @return mixed
      */
-    public function actionIndex2()
+    public function actionIndex()
     {
         $searchModel = new CompetitionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -45,7 +45,7 @@ class CompetitionController extends GolfLeagueController
      * Lists all Competition models.
      * @return mixed
      */
-    public function actionIndex($type = Competition::TYPE_SEASON)
+    public function actionIndex2($type = Competition::TYPE_SEASON)
     {
         $searchModel = new CompetitionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -85,6 +85,8 @@ class CompetitionController extends GolfLeagueController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+			if(count($model->errors)>0)
+				Yii::$app->session->setFlash('warning', 'Errors: '.print_r($model->errors, true));
             return $this->render('create', [
                 'model' => $model,
             ]);

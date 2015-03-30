@@ -4,7 +4,7 @@ namespace backend\modules\admin\controllers;
 
 use Yii;
 use common\models\Flight;
-use common\models\FlightSearch;
+use common\models\search\FlightSearch;
 use backend\controllers\DefaultController as GolfLeagueController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

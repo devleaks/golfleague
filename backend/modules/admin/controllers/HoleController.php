@@ -4,7 +4,7 @@ namespace backend\modules\admin\controllers;
 
 use Yii;
 use common\models\Hole;
-use common\models\HoleSearch;
+use common\models\search\HoleSearch;
 use backend\controllers\DefaultController as GolfLeagueController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

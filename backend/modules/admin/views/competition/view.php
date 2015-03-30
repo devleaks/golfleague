@@ -2,11 +2,11 @@
 
 use common\models\Competition;
 use common\models\Course;
-use common\models\MatchSearch;
+use common\models\search\MatchSearch;
 use common\models\Rule;
 use common\models\Season;
 use common\models\Tournament;
-use common\models\TournamentSearch;
+use common\models\search\TournamentSearch;
 use kartik\detail\DetailView;
 use kartik\widgets\DatePicker;
 use kartik\widgets\DateTimePicker;
@@ -26,7 +26,7 @@ if($bcs = $model->breadcrumbs())
 array_pop($this->params['breadcrumbs']);
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="season-view">
+<div class="competition-view">
 
     <?= DetailView::widget([
         'model' => $model,

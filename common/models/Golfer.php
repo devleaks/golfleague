@@ -49,7 +49,7 @@ class Golfer extends _Golfer
         return array_merge(
 			parent::rules(),
 			[
-	            [['hand'], 'in','range' => ['left','right']],
+	            [['hand'], 'in','range' => [Golfer::HAND_LEFT,Golfer::HAND_RIGHT]],
 	            [['gender'], 'in','range' => [Golfer::GENDER_GENTLEMAN,Golfer::GENDER_LADY]],
         	]
 		);
@@ -70,6 +70,7 @@ class Golfer extends _Golfer
             'hand' => Yii::t('golfleague', 'Hand'),
             'homecourse' => Yii::t('golfleague', 'Homecourse'),
             'user_id' => Yii::t('golfleague', 'User'),
+            'facility_id' => Yii::t('igolf', 'Facility'),
         ];
     }
 

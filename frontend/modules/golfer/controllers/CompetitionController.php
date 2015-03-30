@@ -1,13 +1,13 @@
 <?php
 
-namespace backend\modules\golfer\controllers;
+namespace frontend\modules\golfer\controllers;
 
 use Yii;
-use backend\controllers\DefaultController;
+use frontend\controllers\DefaultController;
 use common\models\Competition;
-use common\models\CompetitionSearch;
+use common\models\search\CompetitionSearch;
 use common\models\Match;
-use common\models\MatchSearch;
+use common\models\search\MatchSearch;
 use common\models\Registration;
 use common\models\Season;
 use common\models\Tournament;

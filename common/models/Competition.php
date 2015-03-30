@@ -124,10 +124,6 @@ class Competition extends _Competition
         ];
     }
 
-    /*  Class Utility function
-     *
-     */
-
     /*  Registration Function
      *
      */
@@ -402,4 +398,61 @@ class Competition extends _Competition
 		return $new;
 	}
 
+	/**
+	 * Generates events for this competition
+	 */
+	public function getEvents() {
+		$events = [];
+		/*
+		$events[] = new Event([
+			'object_type' => $this->competition_type,
+			'object_id' => $this->id,
+			'name'	=> $this->name,
+			'description' => Yii::t('igolf', 'Competition registration'),
+			'event_type' => 'REGISTRATION',
+			'status' => Event::STATUS_ACTIVE,
+			'event_start' => $this->registration_begin,
+			'event_end' => $this->registration_end,
+		]);*/
+		if($this->competition_type == self::TYPE_MATCH) {
+			$events[] = new Event([
+				'object_type' => $this->competition_type,
+				'object_id' => $this->id,
+				'name'	=> $this->name,
+				'description' => Yii::t('igolf', $this->competition_type),
+				'event_type' => 'COMPETITION',
+				'status' => Event::STATUS_ACTIVE,
+				'event_start' => $this->start_date,
+				'event_end' => null,
+			]);
+		}
+		/*
+		foreach(CompetitionRegistration::find()->orderBy('event_start')->each() as $event) {
+			$start = \DateTime::createFromFormat('Y-m-d H:i:s', $event->event_start);
+			$end   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->event_end);
+						
+			$calendarEvents[] = new CalendarEvent([
+				'id' => $event->id,
+				'title' => $event->name,
+				'url' => Url::to(['view', 'id'=>$event->id]),
+				'className' => 'btn-'.$event->getColor(),
+ 				'start' => date('Y-m-d\TH:m:s\Z',$start->getTimestamp()),
+				'end' => $end ? date('Y-m-d\TH:m:s\Z',$end->getTimestamp()) : null,
+			]);
+		}
+		*/
+		return $events;
+	}
+	
+	/**
+	 * Get end date of a competition. Matches are assumes to be one day only.
+	 */
+	public function getEndDate() {
+		if($this->competition_type == self::TYPE_MATCH)
+			return $this->start_date;
+		else
+			if ($last_competition = $this->getCompetitions()->orderBy('start_date desc')->one())
+				return $last_competition->getEndDate();
+		return $this->start_date;
+	}
 }

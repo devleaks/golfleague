@@ -4,7 +4,7 @@ namespace backend\modules\admin\controllers;
 
 use Yii;
 use common\models\Rule;
-use common\models\RuleSearch;
+use common\models\search\RuleSearch;
 use common\models\Point;
 use backend\controllers\DefaultController as GolfLeagueController;
 use yii\web\NotFoundHttpException;

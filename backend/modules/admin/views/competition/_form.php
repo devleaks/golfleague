@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use kartik\widgets\DateTimePicker;
 use common\models\Rule;
+use common\models\Course;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Competition */
@@ -46,6 +47,22 @@ use common\models\Rule;
     <?= $form->field($model, 'gender')->radioList($model::getLocalizedConstants('GENDER_')) ?>
 
     <?= $form->field($model, 'special')->dropDownList([''=>'']+$model::getLocalizedConstants('SPECIAL_')) ?>
+
+	<?php if($model->competition_type == $model::TYPE_MATCH): ?>
+
+    <?= $form->field($model, 'course_id')->dropDownList(Course::getCoursesList()/*, ['disabled' => 'true']*/) ?>
+
+	<?= $form->field($model, 'holes')->dropDownList(array(18 => '18', 9 => '9')) ?>
+
+    <?= $form->field($model, 'start_date')->widget(DateTimePicker::classname(), [
+            'pluginOptions' => [
+                'format' => 'yyyy-mm-dd hh:ii:ss',
+                'todayHighlight' => true
+            ]
+        ]) ?>
+
+
+	<?php endif; ?>
 
     <?= $form->field($model, 'status')->dropDownList($model::getLocalizedConstants('STATUS_')) ?>
 

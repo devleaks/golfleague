@@ -45,42 +45,6 @@ $this->title = 'Golf League - Administration';
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Additional Menu for Super-Administrators</h2>
-
-                <ul>
-                    <li><a href="<?= Url::to(['/']) ?>">Manage Golf League Application</a></li>
-                    <li><a href="<?= Url::to(['/admin']) ?>">Site admin</a></li>
-                </ul>
-
-            </div>
-            <div class="col-lg-4">
-                <h2>Menu for Golfers</h2>
-
-                <ul>
-                    <li><a href="<?= Url::to(['/../golfleague']) ?>">Golfer Home</a></li>
-                </ul>
-
-            </div>
-            <div class="col-lg-4">
-                <h2>Menus for Visitors</h2>
-
-                <ul>
-                    <li><a href="<?= Url::to(['/competition']) ?>">«All» competitions</a></li>
-					<ul>
-                    <li>Upcoming competitions</li>
-                    <li>Recent competitions</li>
-                    <li>Archives (past competitions)</li>
-					</ul>
-                    <li>Calendar</li>
-                    <li>The Wire</li>
-                    <li>Leaderboards</li>
-                    <li>Standings</li>
-                </ul>
-
-            </div>
-        </div>
 
     </div>
 </div>

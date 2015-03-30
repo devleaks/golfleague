@@ -4,7 +4,7 @@ namespace backend\modules\scorer\controllers;
 
 use Yii;
 use common\models\Registration;
-use common\models\RegistrationSearch;
+use common\models\search\RegistrationSearch;
 use backend\controllers\DefaultController as GolfLeagueController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -51,6 +51,13 @@ class Message extends _Message
                         ],
                         'value' => function() { return date('Y-m-d H:i:s'); /* mysql datetime format is ‘AAAA-MM-JJ HH:MM:SS’*/},
                 ],
+                'userstamp' => [
+                        'class' => 'yii\behaviors\TimestampBehavior',
+                        'attributes' => [
+                                ActiveRecord::EVENT_BEFORE_INSERT => ['created_by'],
+                        ],
+                        'value' => function() { return Yii::$app->user->id;},
+                ],
         ];
     }
 
@@ -69,6 +76,7 @@ class Message extends _Message
             'message_start' => Yii::t('golfleague', 'Message Start'),
             'message_end' => Yii::t('golfleague', 'Message End'),
             'message_type' => Yii::t('golfleague', 'Message Type'),
+            'facility_id' => Yii::t('igolf', 'Facility'),
         ];
     }
 

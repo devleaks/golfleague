@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'facility_id')->dropDownList(ArrayHelper::map(Facility::find()->asArray()->all(), 'id', 'name')/*, ['disabled' => 'true']*/) ?>
+    <?= $form->field($model, 'facility_id')->dropDownList(ArrayHelper::map(Facility::find()->asArray()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 80]) ?>
 

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ListView;
+use frontend\widgets\LatestMessages;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\FlightSearch */
@@ -12,11 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="news-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= ListView::widget([
-        'dataProvider' => $dataProvider,
-		'itemView' => '_post-short',
-    ]); ?>
+    <?= LatestMessages::widget([
+			'message_count' => 3
+	]); ?>
 
 </div>

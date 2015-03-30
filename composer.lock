@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3281ba113284d122627e1b8774bed63b",
+    "hash": "4289e654a6613debb15777fd047abcdd",
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -240,6 +240,45 @@
             "keywords": [
                 "drag",
                 "draggable"
+            ]
+        },
+        {
+            "name": "bower-asset/drmonty-chosen",
+            "version": "1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drmonty/chosen.git",
+                "reference": "cfc9481dcb3541e849a33828e424cbc5d0861d4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drmonty/chosen/zipball/cfc9481dcb3541e849a33828e424cbc5d0861d4f",
+                "reference": "cfc9481dcb3541e849a33828e424cbc5d0861d4f",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.4.4"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "js/chosen.jquery.js",
+                "bower-asset-ignore": [
+                    "component.json",
+                    "package.json",
+                    "composer.json"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Chosen is a library for making long, unwieldy select boxes more friendly.",
+            "keywords": [
+                "dropdown",
+                "form",
+                "input",
+                "multiselect",
+                "select",
+                "ui"
             ]
         },
         {
@@ -590,16 +629,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.1.61",
+            "version": "3.1.62",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-                "reference": "f2c086411d2557fc485c47afb3cecfa6c1de9ee2"
+                "reference": "da1a274cefa18a52a0519ac7ffe8e8d31e950eae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/f2c086411d2557fc485c47afb3cecfa6c1de9ee2",
-                "reference": "f2c086411d2557fc485c47afb3cecfa6c1de9ee2",
+                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/da1a274cefa18a52a0519ac7ffe8e8d31e950eae",
+                "reference": "da1a274cefa18a52a0519ac7ffe8e8d31e950eae",
                 "shasum": ""
             },
             "require": {
@@ -1169,6 +1208,72 @@
             "time": "2014-10-20 23:24:21"
         },
         {
+            "name": "creocoder/yii2-flysystem",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/creocoder/yii2-flysystem.git",
+                "reference": "eeab6d226530ebdbf4355cd61734b833fdb857bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/creocoder/yii2-flysystem/zipball/eeab6d226530ebdbf4355cd61734b833fdb857bd",
+                "reference": "eeab6d226530ebdbf4355cd61734b833fdb857bd",
+                "shasum": ""
+            },
+            "require": {
+                "league/flysystem": "~1.0",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "league/flysystem-aws-s3-v2": "~1.0",
+                "league/flysystem-azure": "~1.0",
+                "league/flysystem-cached-adapter": "~1.0",
+                "league/flysystem-copy": "~1.0",
+                "league/flysystem-dropbox": "~1.0",
+                "league/flysystem-gridfs": "~1.0",
+                "league/flysystem-rackspace": "~1.0",
+                "league/flysystem-replicate-adapter": "~1.0",
+                "league/flysystem-sftp": "~1.0",
+                "league/flysystem-webdav": "~1.0",
+                "league/flysystem-ziparchive": "~1.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "creocoder\\flysystem\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kochetov",
+                    "email": "creocoder@gmail.com"
+                }
+            ],
+            "description": "The flysystem extension for the Yii framework",
+            "keywords": [
+                "Flysystem",
+                "GridFS",
+                "WebDAV",
+                "aws",
+                "azure",
+                "copy.com",
+                "dropbox",
+                "files",
+                "filesystem",
+                "ftp",
+                "rackspace",
+                "s3",
+                "sftp",
+                "yii2"
+            ],
+            "time": "2015-02-26 01:38:59"
+        },
+        {
             "name": "dektrium/yii2-user",
             "version": "v0.9.3",
             "source": {
@@ -1272,7 +1377,7 @@
                 "yii2"
             ],
             "support": {
-                "source": "https://github.com/devleaks/yii2-chardinjs/tree/master",
+                "source": "https://github.com/devleaks/yii2-chardinjs/tree/1.0",
                 "issues": "https://github.com/devleaks/yii2-chardinjs/issues"
             },
             "time": "2014-12-04 16:26:18"
@@ -1320,7 +1425,7 @@
                 "yii2"
             ],
             "support": {
-                "source": "https://github.com/devleaks/yii2-introjs/tree/master",
+                "source": "https://github.com/devleaks/yii2-introjs/tree/1.0",
                 "issues": "https://github.com/devleaks/yii2-introjs/issues"
             },
             "time": "2014-12-04 16:28:53"
@@ -1377,6 +1482,50 @@
                 "issues": "https://github.com/devleaks/yii2-metafizzy/issues"
             },
             "time": "2015-02-19 14:17:18"
+        },
+        {
+            "name": "devleaks/yii2-weather",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/devleaks/yii2-weather.git",
+                "reference": "cb63a90716cfca486138e595802c819f56d18367"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/devleaks/yii2-weather/zipball/cb63a90716cfca486138e595802c819f56d18367",
+                "reference": "cb63a90716cfca486138e595802c819f56d18367",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "devleaks\\weather\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pierre M",
+                    "email": "devleaks.be@gmail.com"
+                }
+            ],
+            "description": "Widget displays weather information for current location if allowed.",
+            "keywords": [
+                "extension",
+                "weather",
+                "yii2"
+            ],
+            "support": {
+                "source": "https://github.com/devleaks/yii2-weather/tree/master",
+                "issues": "https://github.com/devleaks/yii2-weather/issues"
+            },
+            "time": "2015-03-24 17:52:23"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -1930,12 +2079,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-helpers.git",
-                "reference": "97968e3b4b32c705c209928078d6ab3ddbeceda9"
+                "reference": "bd52ad81cd758e2b8062fb17e2a9720a347c5f43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-helpers/zipball/97968e3b4b32c705c209928078d6ab3ddbeceda9",
-                "reference": "97968e3b4b32c705c209928078d6ab3ddbeceda9",
+                "url": "https://api.github.com/repos/kartik-v/yii2-helpers/zipball/bd52ad81cd758e2b8062fb17e2a9720a347c5f43",
+                "reference": "bd52ad81cd758e2b8062fb17e2a9720a347c5f43",
                 "shasum": ""
             },
             "require": {
@@ -1968,7 +2117,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2015-03-16 18:10:44"
+            "time": "2015-03-26 15:49:39"
         },
         {
             "name": "kartik-v/yii2-icons",
@@ -3155,6 +3304,89 @@
             "time": "2015-02-26 16:21:10"
         },
         {
+            "name": "league/flysystem",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem.git",
+                "reference": "3c2400a99ccc3be6884d40361890010449c6b447"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3c2400a99ccc3be6884d40361890010449c6b447",
+                "reference": "3c2400a99ccc3be6884d40361890010449c6b447",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "ext-fileinfo": "*",
+                "league/phpunit-coverage-listener": "~1.1",
+                "mockery/mockery": "~0.9",
+                "phpspec/phpspec": "~2.0",
+                "phpspec/prophecy-phpunit": "~1.0",
+                "phpunit/phpunit": "~4.1",
+                "predis/predis": "~1.0",
+                "tedivm/stash": "~0.12.0"
+            },
+            "suggest": {
+                "ext-fileinfo": "Required for MimeType",
+                "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+                "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+                "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+                "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+                "league/flysystem-copy": "Allows you to use Copy.com storage",
+                "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+                "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+                "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+                "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+                "league/flysystem-webdav": "Allows you to use WebDAV storage",
+                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
+                "predis/predis": "Allows you to use Predis for caching"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "description": "Many filesystems, one API.",
+            "keywords": [
+                "Cloud Files",
+                "WebDAV",
+                "aws",
+                "cloud",
+                "copy.com",
+                "dropbox",
+                "file systems",
+                "files",
+                "filesystem",
+                "ftp",
+                "rackspace",
+                "remote",
+                "s3",
+                "sftp",
+                "storage"
+            ],
+            "time": "2015-03-29 14:01:43"
+        },
+        {
             "name": "mdmsoft/yii2-admin",
             "version": "1.0.3",
             "source": {
@@ -3674,6 +3906,51 @@
             "time": "2012-12-21 11:40:51"
         },
         {
+            "name": "raoul2000/yii2-bootswatch-asset",
+            "version": "1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raoul2000/yii2-bootswatch-asset.git",
+                "reference": "10b3f58db91c79d1aa599df273f8f907f84e3152"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raoul2000/yii2-bootswatch-asset/zipball/10b3f58db91c79d1aa599df273f8f907f84e3152",
+                "reference": "10b3f58db91c79d1aa599df273f8f907f84e3152",
+                "shasum": ""
+            },
+            "require": {
+                "thomaspark/bootswatch": "3.3.4",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "raoul2000\\bootswatch\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Raoul",
+                    "email": "raoul.boulard@gmail.com"
+                }
+            ],
+            "description": "Use Bootswatch theme in your Yii application with minimum effort",
+            "keywords": [
+                "assets",
+                "bootstrap",
+                "bootswatch",
+                "extension",
+                "skin",
+                "yii2"
+            ],
+            "time": "2015-03-25 09:53:41"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.0",
             "source": {
@@ -3724,6 +4001,64 @@
                 "mailer"
             ],
             "time": "2015-03-14 06:06:39"
+        },
+        {
+            "name": "thomaspark/bootswatch",
+            "version": "v3.3.4+1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thomaspark/bootswatch.git",
+                "reference": "49ccd07144a7ed8917ab8b715233ffe288a6a9f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/49ccd07144a7ed8917ab8b715233ffe288a6a9f0",
+                "reference": "49ccd07144a7ed8917ab8b715233ffe288a6a9f0",
+                "shasum": ""
+            },
+            "suggest": {
+                "robloach/component-installer": "Allows installation of Components via Composer"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "name": "bootswatch",
+                    "files": [
+                        "README.md",
+                        "LICENSE",
+                        "amelia/*",
+                        "cerulean/*",
+                        "cosmo/*",
+                        "cyborg/*",
+                        "darkly/*",
+                        "flatly/*",
+                        "fonts/*",
+                        "journal/*",
+                        "lumen/*",
+                        "paper/*",
+                        "readable/*",
+                        "sandstone/*",
+                        "simplex/*",
+                        "slate/*",
+                        "spacelab/*",
+                        "superhero/*",
+                        "united/*",
+                        "yeti/*"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thomaspark",
+                    "email": "thomas@bootswatch.com"
+                }
+            ],
+            "description": "Themes for Bootstrap",
+            "time": "2015-03-23 20:56:57"
         },
         {
             "name": "vova07/yii2-imperavi-widget",
@@ -3821,6 +4156,83 @@
             ],
             "description": "Gii Generator base on Kartik-V extension https://github.com/kartik-v",
             "time": "2015-01-13 15:55:32"
+        },
+        {
+            "name": "yii2mod/yii2-chosen-select",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yii2mod/yii2-chosen-select.git",
+                "reference": "ec327d9d2d7f412f3d4dccb6c496057dd0b246c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yii2mod/yii2-chosen-select/zipball/ec327d9d2d7f412f3d4dccb6c496057dd0b246c2",
+                "reference": "ec327d9d2d7f412f3d4dccb6c496057dd0b246c2",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/drmonty-chosen": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yii2mod\\chosen\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Chepurnoy",
+                    "email": "igorzfort@gmail.com"
+                }
+            ],
+            "description": "Chosen Select Widget based on Chosen jQuery plugin",
+            "keywords": [
+                "module",
+                "yii2"
+            ],
+            "time": "2015-03-28 18:27:06"
+        },
+        {
+            "name": "yii2mod/yii2-selectize",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yii2mod/yii2-selectize.git",
+                "reference": "06a3c1883f7823da32748d1295d502db753aa2be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yii2mod/yii2-selectize/zipball/06a3c1883f7823da32748d1295d502db753aa2be",
+                "reference": "06a3c1883f7823da32748d1295d502db753aa2be",
+                "shasum": ""
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yii2mod\\selectize\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Chepurnoy",
+                    "email": "igorzfort@gmail.com"
+                }
+            ],
+            "description": "selectize.js wrapper for yii2",
+            "keywords": [
+                "module",
+                "yii2"
+            ],
+            "time": "2015-03-15 18:24:28"
         },
         {
             "name": "yiisoft/yii2",
@@ -4208,6 +4620,49 @@
                 "yii2"
             ],
             "time": "2015-03-01 06:22:44"
+        },
+        {
+            "name": "yurkinx/yii2-image",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yurkinx/yii2-image.git",
+                "reference": "094488a6c644ebb2678858b82c335d24ddf46961"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yurkinx/yii2-image/zipball/094488a6c644ebb2678858b82c335d24ddf46961",
+                "reference": "094488a6c644ebb2678858b82c335d24ddf46961",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-0": {
+                    "yii\\image\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Yuri Kileev",
+                    "email": "kileev@gmail.com"
+                }
+            ],
+            "description": "Yii2 extension for image manipulating using Kohana Image Library.",
+            "homepage": "https://github.com/yurkinx/yii2-image",
+            "keywords": [
+                "extension",
+                "image",
+                "yii2"
+            ],
+            "time": "2014-07-09 21:11:29"
         }
     ],
     "packages-dev": [
@@ -4229,9 +4684,9 @@
                 "bower-asset/jquery": ">=1.7"
             },
             "require-dev": {
-                "bower-asset/jasmine-ajax": ">=1.3.1,<1.4",
-                "bower-asset/jasmine-jquery": ">=1.5.2,<1.6",
-                "bower-asset/jquery": ">=1.7,<1.8"
+                "bower-asset/jasmine-ajax": "~1.3.1",
+                "bower-asset/jasmine-jquery": "~1.5.2",
+                "bower-asset/jquery": "~1.7"
             },
             "type": "bower-asset-library",
             "extra": {
@@ -4564,7 +5019,9 @@
         "kartik-v/yii2-markdown": 20,
         "kartik-v/yii2-mpdf": 20,
         "kartik-v/yii2-widgets": 20,
-        "warrence/yii2-kartikgii": 20
+        "warrence/yii2-kartikgii": 20,
+        "creocoder/yii2-flysystem": 20,
+        "yurkinx/yii2-image": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

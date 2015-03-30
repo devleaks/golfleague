@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\detail\DetailView;
-use common\models\PointSearch;
+use common\models\search\PointSearch;
 use common\models\Competition;
 
 /* @var $this yii\web\View */

@@ -4,12 +4,16 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use common\behaviors\MediaBehavior;
 
 /**
  * This is the model class for table "facilities".
  */
 class Facility extends _Facility
 {
+	const MAX_IMAGES = 3;
+//	public $media;
+	
     /**
      * @inheritdoc
      */
@@ -24,6 +28,10 @@ class Facility extends _Facility
                         ],
                         'value' => function() { return date('Y-m-d H:i:s'); /* mysql datetime format is ‘AAAA-MM-JJ HH:MM:SS’*/},
                 ],
+				'uploadFile' => [
+	                'class' => MediaBehavior::className(),
+	                'mediasAttributes' => ['media']
+	            ]
         ];
     }
 
@@ -41,6 +49,7 @@ class Facility extends _Facility
             'units' => Yii::t('golfleague', 'Units'),
             'created_at' => Yii::t('golfleague', 'Created At'),
             'updated_at' => Yii::t('golfleague', 'Updated At'),
+            'media' => Yii::t('golfleague', 'Pictures'),
         ];
     }
 }

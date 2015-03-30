@@ -13,6 +13,8 @@ use yii\helpers\Url;
  */
 class MenuHelper extends \yii\base\Object
 {
+	const DEFAULT_ROLE = 'golfer';
+
 	/**
 	 * Returns "league" role of user, from roles attributiion. Default is golfer. Null if not loggued in.
 	 */
@@ -21,7 +23,7 @@ class MenuHelper extends \yii\base\Object
 			if($role = AuthAssignment::findOne(['user_id' => Yii::$app->user->identity->id]))
 				if($key = array_search($role->item_name, Yii::$app->params['league_roles']))
 					return $key;
-			return 'golfer';
+			return self::DEFAULT_ROLE;
 		}
 		return null;
 	}
@@ -36,7 +38,7 @@ class MenuHelper extends \yii\base\Object
         $menus = array();
 
         if(in_array($league_role, array('golfer', 'scorer', 'starter', 'manager', 'admin'))) {
-            $menus[] = ['label' => Yii::t('golfleague', 'Calendar'), 'url' => Url::to(['/golfer'])];
+			if (YII_DEBUG) $menus[] = ['label' => 'Front End', 'url' => ['/../golfleague']];
         }
 
         if(in_array($league_role, array('scorer', 'starter', 'manager', 'admin'))) {

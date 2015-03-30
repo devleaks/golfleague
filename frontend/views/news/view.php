@@ -10,10 +10,10 @@ $this->title = $model->subject;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'News'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="news-post-short">
+<div class="news-post">
 
     <h1><?= Html::encode($model->subject) ?></h1>
 
-    <?= $model->body ?>
+    <?= Html::encode($model->body) ?>
 
 </div>

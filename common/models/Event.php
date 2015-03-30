@@ -5,6 +5,8 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveRecord;
 use common\components\Constant;
+use yii2fullcalendar\models\Event as FullCalendarEvent;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "events".
@@ -87,5 +89,35 @@ class Event extends _Event
 			default:
 				return 'success';
 		}
+	}
+	
+	
+	/**
+	 * Transform Event into CalendarEvent for FullCalendar
+	 */
+	public function getFullCalendarEvent() {
+		if($this->event_start) $start = \DateTime::createFromFormat('Y-m-d H:i:s', $this->event_start);
+		if($this->event_end  ) $end   = \DateTime::createFromFormat('Y-m-d H:i:s', $this->event_end);
+
+		switch($this->object_type) {
+			case Competition::TYPE_MATCH:
+			case Competition::TYPE_TOURNAMENT:
+			case Competition::TYPE_SEASON:
+			case 'COMPETITION':
+				$url = Url::to(['/competition/view', 'id'=>$this->object_id]);
+				break;
+			default:
+				$url = Url::to(['view', 'id'=>$this->id]);
+				break;
+		}
+
+		return new FullCalendarEvent([
+			'id' => $this->id,
+			'title' => $this->name,
+			'url' => $url,
+			'className' => 'btn-'.$this->getColor(),
+			'start' => isset($start) ? date('Y-m-d\TH:m:s\Z',$start->getTimestamp()) : null,
+			'end' => isset($end) ? date('Y-m-d\TH:m:s\Z',$end->getTimestamp()) : null,
+		]);
 	}
 }

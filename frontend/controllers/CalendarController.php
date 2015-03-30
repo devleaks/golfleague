@@ -16,24 +16,7 @@ class CalendarController extends Controller
      */
     public function actionIndex()
     {
-		$calendarEvents = [];
-		foreach(Event::find()->orderBy('event_start')->each() as $event) {
-			$start = \DateTime::createFromFormat('Y-m-d H:i:s', $event->event_start);
-			$end   = \DateTime::createFromFormat('Y-m-d H:i:s', $event->event_end);
-						
-			$calendarEvents[] = new CalendarEvent([
-				'id' => $event->id,
-				'title' => $event->name,
-				'url' => Url::to(['view', 'id'=>$event->id]),
-				'className' => 'btn-'.$event->getColor(),
- 				'start' => date('Y-m-d\TH:m:s\Z',$start->getTimestamp()),
-				'end' => $end ? date('Y-m-d\TH:m:s\Z',$end->getTimestamp()) : null,
-			]);
-		}
-
-        return $this->render('index', [
-            'events' => $calendarEvents,
-        ]);
+        return $this->render('index');
     }
 
     /**
