@@ -12,7 +12,6 @@ use common\behaviors\MediaBehavior;
 class Facility extends _Facility
 {
 	const MAX_IMAGES = 3;
-//	public $media;
 	
     /**
      * @inheritdoc
