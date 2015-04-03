@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4289e654a6613debb15777fd047abcdd",
+    "hash": "1b77fad384f2060b9c9312b8473c7be6",
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -475,6 +475,41 @@
                 "CSS",
                 "DOM"
             ]
+        },
+        {
+            "name": "bower-asset/imagesloaded",
+            "version": "v3.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/desandro/imagesloaded.git",
+                "reference": "c0125592020bdbbb36f7506ea41dbdebad644a45"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/desandro/imagesloaded/zipball/c0125592020bdbbb36f7506ea41dbdebad644a45",
+                "reference": "c0125592020bdbbb36f7506ea41dbdebad644a45",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/eventemitter": "dev-4.x,|4.x",
+                "bower-asset/eventie": ">=1.0.4,<2"
+            },
+            "require-dev": {
+                "bower-asset/jquery": ">=1.9,<2.0",
+                "bower-asset/qunit": ">=1.10"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "imagesloaded.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "test",
+                    "component.json",
+                    "imagesloaded.jquery.json",
+                    "package.json"
+                ]
+            },
+            "description": "JavaScript is all like _You images done yet or what?_"
         },
         {
             "name": "bower-asset/intro.js",
@@ -1336,7 +1371,7 @@
         },
         {
             "name": "devleaks/yii2-chardinjs",
-            "version": "1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/devleaks/yii2-chardinjs.git",
@@ -1359,6 +1394,7 @@
                     "devleaks\\chardinjs\\": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1376,15 +1412,11 @@
                 "webtour",
                 "yii2"
             ],
-            "support": {
-                "source": "https://github.com/devleaks/yii2-chardinjs/tree/1.0",
-                "issues": "https://github.com/devleaks/yii2-chardinjs/issues"
-            },
             "time": "2014-12-04 16:26:18"
         },
         {
             "name": "devleaks/yii2-introjs",
-            "version": "1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/devleaks/yii2-introjs.git",
@@ -1407,6 +1439,7 @@
                     "devleaks\\introjs\\": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1424,28 +1457,25 @@
                 "webtour",
                 "yii2"
             ],
-            "support": {
-                "source": "https://github.com/devleaks/yii2-introjs/tree/1.0",
-                "issues": "https://github.com/devleaks/yii2-introjs/issues"
-            },
             "time": "2014-12-04 16:28:53"
         },
         {
             "name": "devleaks/yii2-metafizzy",
-            "version": "1.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/devleaks/yii2-metafizzy.git",
-                "reference": "95bb5b0e47b1b29cd6a605d9955fc80fa543db80"
+                "reference": "1de157b044abbd95e3d87338656561eb33d36ac2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/devleaks/yii2-metafizzy/zipball/95bb5b0e47b1b29cd6a605d9955fc80fa543db80",
-                "reference": "95bb5b0e47b1b29cd6a605d9955fc80fa543db80",
+                "url": "https://api.github.com/repos/devleaks/yii2-metafizzy/zipball/1de157b044abbd95e3d87338656561eb33d36ac2",
+                "reference": "1de157b044abbd95e3d87338656561eb33d36ac2",
                 "shasum": ""
             },
             "require": {
                 "bower-asset/draggabilly": "*",
+                "bower-asset/imagesloaded": "*",
                 "bower-asset/isotope": "*",
                 "bower-asset/masonry": "*",
                 "bower-asset/packery": "*",
@@ -1478,10 +1508,10 @@
                 "yii2"
             ],
             "support": {
-                "source": "https://github.com/devleaks/yii2-metafizzy/tree/1.0.1",
+                "source": "https://github.com/devleaks/yii2-metafizzy/tree/master",
                 "issues": "https://github.com/devleaks/yii2-metafizzy/issues"
             },
-            "time": "2015-02-19 14:17:18"
+            "time": "2015-04-02 14:33:08"
         },
         {
             "name": "devleaks/yii2-weather",
@@ -1489,16 +1519,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/devleaks/yii2-weather.git",
-                "reference": "cb63a90716cfca486138e595802c819f56d18367"
+                "reference": "2b2c44343f78a096d384e3f1412458fd8fca17f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/devleaks/yii2-weather/zipball/cb63a90716cfca486138e595802c819f56d18367",
-                "reference": "cb63a90716cfca486138e595802c819f56d18367",
+                "url": "https://api.github.com/repos/devleaks/yii2-weather/zipball/2b2c44343f78a096d384e3f1412458fd8fca17f9",
+                "reference": "2b2c44343f78a096d384e3f1412458fd8fca17f9",
                 "shasum": ""
             },
             "require": {
-                "yiisoft/yii2": "*"
+                "yiisoft/yii2": "*",
+                "yiisoft/yii2-bootstrap": "*"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -1525,7 +1556,7 @@
                 "source": "https://github.com/devleaks/yii2-weather/tree/master",
                 "issues": "https://github.com/devleaks/yii2-weather/issues"
             },
-            "time": "2015-03-24 17:52:23"
+            "time": "2015-04-03 09:18:17"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -4062,16 +4093,16 @@
         },
         {
             "name": "vova07/yii2-imperavi-widget",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vova07/yii2-imperavi-widget.git",
-                "reference": "958b9a4e325d907cb7c5d6d2a2ffb7771886ea79"
+                "reference": "d51f5708f123984cb16644c944fdfeb49de45a2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vova07/yii2-imperavi-widget/zipball/958b9a4e325d907cb7c5d6d2a2ffb7771886ea79",
-                "reference": "958b9a4e325d907cb7c5d6d2a2ffb7771886ea79",
+                "url": "https://api.github.com/repos/vova07/yii2-imperavi-widget/zipball/d51f5708f123984cb16644c944fdfeb49de45a2d",
+                "reference": "d51f5708f123984cb16644c944fdfeb49de45a2d",
                 "shasum": ""
             },
             "require": {
@@ -4120,7 +4151,7 @@
                 "yii 2",
                 "yii2"
             ],
-            "time": "2015-03-30 21:04:15"
+            "time": "2015-04-03 08:07:30"
         },
         {
             "name": "warrence/yii2-kartikgii",
@@ -5026,7 +5057,11 @@
         "kartik-v/yii2-widgets": 20,
         "warrence/yii2-kartikgii": 20,
         "creocoder/yii2-flysystem": 20,
-        "yurkinx/yii2-image": 20
+        "yurkinx/yii2-image": 20,
+        "devleaks/yii2-introjs": 20,
+        "devleaks/yii2-chardinjs": 20,
+        "devleaks/yii2-metafizzy": 20,
+        "devleaks/yii2-weather": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

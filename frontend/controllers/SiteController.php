@@ -35,7 +35,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render(Yii::$app->user->isGuest ? 'index' : 'golfer');
     }
 
     public function actionContact()

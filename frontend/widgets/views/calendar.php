@@ -8,13 +8,9 @@ use yii2fullcalendar\yii2fullcalendar as Calendar;
 /* @var $searchModel app\models\FlightSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Calendar');
-$this->params['breadcrumbs'][] = $this->title;
 $calendar_name = 'calendar';
 ?>
 <div class="calendar-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
 	<div id="date_picker"></div>
 

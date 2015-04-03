@@ -13,19 +13,11 @@
 	"repositories": [
 		{
 		    "type": "vcs",
-		    "url": "https://github.com/devleaks/yii2-introjs"
-		},
-		{
-		    "type": "vcs",
-		    "url": "https://github.com/devleaks/yii2-chardinjs"
+		    "url": "https://github.com/devleaks/yii2-metafizzy"
 		},
 		{
 		    "type": "vcs",
 		    "url": "https://github.com/devleaks/yii2-weather"
-		},
-		{
-		    "type": "vcs",
-		    "url": "https://github.com/devleaks/yii2-metafizzy"
 		}
     ],
     "require": {
@@ -36,15 +28,10 @@
 		"yiisoft/yii2-apidoc": "*",
 		"bower-asset/chardin.js": "*",
 		"bower-asset/draggabilly": "*",
-		"bower-asset/intro.js": "*",
 		"bower-asset/isotope": "*",
 		"bower-asset/masonry": "*",
 		"bower-asset/packery": "*",
         "mdmsoft/yii2-admin": "*",
-		"devleaks/yii2-chardinjs": "~1.0",
-		"devleaks/yii2-introjs": "~1.0",
-		"devleaks/yii2-metafizzy": "~1.0",
-		"devleaks/yii2-weather": "*",
 		"kartik-v/yii2-builder": "dev-master",
 		"kartik-v/yii2-date-range": "*",
 		"kartik-v/yii2-datecontrol": "dev-master",
@@ -68,7 +55,11 @@
         "creocoder/yii2-flysystem": "dev-master",
         "yurkinx/yii2-image": "dev-master",
         "yii2mod/yii2-selectize": "*",
-        "yii2mod/yii2-chosen-select": "*"
+        "yii2mod/yii2-chosen-select": "*",
+        "devleaks/yii2-introjs": "dev-master",
+        "devleaks/yii2-chardinjs": "dev-master",
+        "devleaks/yii2-metafizzy": "dev-master",
+        "devleaks/yii2-weather": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

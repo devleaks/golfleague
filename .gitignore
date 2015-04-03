@@ -24,6 +24,7 @@ phpunit.phar
 /console/config
 
 /golfleague.basic
+/old
 
 /common/config
 

@@ -1,20 +1,18 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ListView;
+use yii\helpers\Url;
 use frontend\widgets\LatestMessages;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\FlightSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Yii::t('igolf', 'News');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="news-index">
+<div class="news-post-short">
 
     <?= LatestMessages::widget([
-			'messages_count' => 3
+			'messages_count' => 3,
+			'words' => 30
 	]); ?>
 
 </div>

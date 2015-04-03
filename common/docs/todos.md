@@ -25,3 +25,13 @@ Move registerButtonn and createActionUrl out of model class(es)
 Nicer Editor for Message
 
 Add required fields in rules()
+
+
+## Repeatable events/competitions
+
+every n days/weeks/month
+
+first..fourth day-of-week of month
+last..fourth-last day-of-week of month
+
+nth day of month

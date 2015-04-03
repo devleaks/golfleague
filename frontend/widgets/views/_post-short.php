@@ -9,7 +9,7 @@ use yii\helpers\Url;
 ?>
 <div class="news-post-short">
 
-    <h2><?= Html::encode($model->subject) ?></h2>
+    <h4><?= Html::encode($model->subject) ?></h4>
 
     <?= $model->truncate_to_n_words(Url::to(['view', 'id'=>$model->id])) ?>
 

@@ -13,7 +13,10 @@ use common\models\Message;
 
 class LatestMessages extends Widget {
 	/** number of recent message to display */
-	public $message_count = 5;
+	public $messages_count = 5;
+	
+	/** Message excerpt length */
+	public $words = 50;
 	
 	/** Display messages from home club only. (and general messages from Yii golf League.) */
 	public $home_club_only;
@@ -28,11 +31,11 @@ class LatestMessages extends Widget {
 				$q->andWhere(['facility_id' => [0, $golfer->facility_id]]);
 		}
 
-        return $this->render('latest-message', [
+        return $this->render('latest-messages', [
             'dataProvider' => new ActiveDataProvider([
 				'query' => $q->orderBy('created_at desc'),
 				'pagination' => [
-			        'pageSize' => $this->message_count,
+			        'pageSize' => $this->messages_count,
 				],
 			]),
         ]);

@@ -1,71 +1,79 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use yii\bootstrap\Alert;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('golfleague', 'Competitions');
-$this->params['breadcrumbs'][] = $this->title;
-
+$this->title = Yii::t('golfleague', 'Seasons');
 ?>
 <div class="season-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
+
+	<?= Alert::widget([
+		'body' => 'Tournaments here under are multiple matches tournaments.',
+		'options' => ['class'=>'alert-info'],
+    ]) ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             [
                 'class' => 'yii\grid\DataColumn', // can be omitted, default
                 'label' => Yii::t('golfleague', 'Competition'),
-                'value' => function ($data) {
-                    return $data->name;
+                'value' => function ($model, $key, $index, $widget) {
+                    return $model->name;
                 },
             ],
             [
                 'class' => 'yii\grid\DataColumn', // can be omitted, default
                 'label' => Yii::t('golfleague', 'Registration start date'),
-                'value' => function ($data) {
-                    return $data->registration_begin;
+                'value' => function ($model, $key, $index, $widget) {
+                    return $model->registration_begin;
                 },
             ],
             [
                 'class' => 'yii\grid\DataColumn', // can be omitted, default
                 'label' => Yii::t('golfleague', 'Registration end date'),
-                'value' => function ($data) {
-                    return $data->registration_end;
+                'value' => function ($model, $key, $index, $widget) {
+                    return $model->registration_end;
                 },
             ],
             [
                 'class' => 'yii\grid\DataColumn', // can be omitted, default
                 'label' => Yii::t('golfleague', 'Handicap'),
-                'value' => function ($data) {
-                    return $data->handicap_min . '-' . $data->handicap_max;
+                'value' => function ($model, $key, $index, $widget) {
+                    return $model->handicap_min . '-' . $model->handicap_max;
                 },
             ],
             [
                 'class' => 'yii\grid\DataColumn', // can be omitted, default
                 'label' => Yii::t('golfleague', 'Age'),
-                'value' => function ($data) {
-                    return $data->age_min . '-' . $data->age_max;
+                'value' => function ($model, $key, $index, $widget) {
+                    return $model->age_min . '-' . $model->age_max;
                 },
             ],
             'name',
             [
                 'class' => 'yii\grid\DataColumn', // can be omitted, default
-                'label' => Yii::t('golfleague', 'Course'),
-                'value' => function ($data) {
-                    return $data->course->name;
+                'label' => Yii::t('golfleague', 'Number of Matches'),
+                'value' => function ($model, $key, $index, $widget) {
+					return $model->getTournaments()->count();
                 },
             ],
 
-            ['class' => 'common\models\action\CompetitionGolferActionColumn'], // $actionCol,
+            [
+                'class' => 'kartik\grid\ActionColumn',
+				'template' => '{view}',
+				'controller' => 'competition',
+				'noWrap' => true,
+            ],
 
         ],
     ]); ?>

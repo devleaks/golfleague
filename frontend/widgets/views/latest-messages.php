@@ -9,11 +9,10 @@ use yii\widgets\ListView;
 ?>
 <div class="latest-messages-portlet portlet">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
 		'itemView' => '_post-short',
+		'summary' => false,
     ]); ?>
 
 </div>

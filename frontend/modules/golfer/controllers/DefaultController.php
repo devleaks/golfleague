@@ -6,6 +6,9 @@ use Yii;
 use yii\web\Controller;
 use common\models\Golfer;
 
+/**
+ * Default Golfer Controller. Allows to edit profile (view).
+ */
 class DefaultController extends Controller {
 
 	public function actionIndex() {
