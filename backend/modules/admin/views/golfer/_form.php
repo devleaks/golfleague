@@ -1,11 +1,12 @@
 <?php
 
+use common\models\Facility;
+use common\models\Golfer;
+use dektrium\user\models\User;
+use yii2mod\selectize\Selectize;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use dektrium\user\models\User;
-use common\models\Facility;
-use yii\helpers\ArrayHelper;
-use yii2mod\selectize\Selectize;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Golfer */
@@ -30,9 +31,9 @@ use yii2mod\selectize\Selectize;
 			'items' => ['' => 'Select home course...'] + ArrayHelper::map(Facility::find()->where(['>', 'id', 0])->asArray()->all(), 'id', 'name'),
 	]) ?>
 
-    <?= $form->field($model, 'gender')->radioList(['GENTLEMAN' => Yii::t('igolf', 'GENTLEMAN'), 'LADY' => Yii::t('igolf', 'LADY')]) ?>
+    <?= $form->field($model, 'gender')->radioList(Golfer::getLocalizedConstants('GENDER_')) ?>
 
-    <?= $form->field($model, 'hand')->radioList(['left' => Yii::t('igolf', 'left'), 'right' => Yii::t('igolf', 'right')]) ?>
+    <?= $form->field($model, 'hand')->radioList(Golfer::getLocalizedConstants('HAND_')) ?>
 
     <?= $form->field($model, 'handicap')->textInput() ?>
 

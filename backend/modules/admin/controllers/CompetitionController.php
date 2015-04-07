@@ -114,17 +114,21 @@ class CompetitionController extends GolfLeagueController
         }
     }
 
-    public function actionCreate2()
+    /**
+     * Deletes an existing Competition model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
     {
-        $model = new Competition();
+        $model = $this->findModel($id);
+		if($model->getCompetitions()->exists())
+			Yii::$app->session->setFlash('warning', 'Competition contains other competitions and cannot be deleted. Delete dependent competitions first.');
+		else
+			$model->delete();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return $this->redirect(['index']);
     }
 
     /**

@@ -1,21 +1,23 @@
 <?php
 
-use yii\helpers\Html;
+use common\models\Golfer;
 use kartik\grid\GridView;
 use yii\bootstrap\Alert;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+$me = Golfer::me();
 $this->title = Yii::t('golfleague', 'Simple Matches');
 ?>
 <div class="season-index">
 
-    <h2><?= Html::encode($this->title) ?></h2>
+    <h3><?= Html::encode($this->title) ?></h3>
 
 	<?= Alert::widget([
-		'body' => 'Matches here under are single event matches',
+		'body' => 'Single event matches, not part of another competition.',
 		'options' => ['class'=>'alert-info'],
     ]) ?>
 
@@ -30,6 +32,13 @@ $this->title = Yii::t('golfleague', 'Simple Matches');
                 'label' => Yii::t('golfleague', 'Competition'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->name;
+                },
+            ],
+            [
+                'class' => 'yii\grid\DataColumn', // can be omitted, default
+                'label' => Yii::t('golfleague', 'Date'),
+                'value' => function ($model, $key, $index, $widget) {
+                    return $model->start_date;
                 },
             ],
             [
@@ -65,15 +74,31 @@ $this->title = Yii::t('golfleague', 'Simple Matches');
                 'class' => 'yii\grid\DataColumn', // can be omitted, default
                 'label' => Yii::t('golfleague', 'Course'),
                 'value' => function ($model, $key, $index, $widget) {
-                    return $model->course->name;
+                    return $model->course ? $model->course->name : null;
                 },
             ],
-
             [
                 'class' => 'kartik\grid\ActionColumn',
-				'template' => '{view}',
 				'controller' => 'competition',
 				'noWrap' => true,
+				'template' => '{view} {register}',
+	            'buttons' => [
+	                'register' => function ($url, $model) use ($me) {
+						if(!$me) return '';
+						if ($model->registered($me)) {
+							$url = Url::to(['registration/deregister', 'id' => $model->id]);
+		                    $a = Html::a('<i class="glyphicon glyphicon-minus"></i>', $url, [
+		                        'title' => Yii::t('store', 'Deregister'),
+		                    ]);
+						} else {
+							$url = Url::to(['registration/register', 'id' => $model->id]);
+		                    $a = Html::a('<i class="glyphicon glyphicon-plus"></i>', $url, [
+		                        'title' => Yii::t('store', 'Register'),
+		                    ]);
+						}
+						return $a;
+	                },
+				],
             ],
 
         ],

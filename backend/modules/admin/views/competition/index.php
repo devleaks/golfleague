@@ -43,6 +43,15 @@ $this->params['breadcrumbs'][] = $this->title;
 				'filter' => Competition::getLocalizedConstants('TYPE_'),
 			],
             'description',
+			[
+                'attribute'=>'parent_id',
+                'label' => Yii::t('igolf', 'Part Of'),
+				'hAlign' => GridView::ALIGN_CENTER,
+                'value' => function ($model, $key, $index, $widget) {
+                    return $model->parent ? $model->parent->name : '';
+                },
+				'noWrap' => true,
+			],
             //'parent_id',
             // 'course_id',
             // 'holes',

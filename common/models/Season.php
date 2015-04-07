@@ -16,7 +16,13 @@ class Season extends Competition
 
     public static function defaultScope($query)
     {
+		Yii::trace('Season::defaultScope');
         $query->andWhere(['competition_type' => Competition::TYPE_SEASON]);
+    }
+
+	public static function find()
+    {
+        return new CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);
     }
 
     /**

@@ -25,12 +25,15 @@ class RegistrationController extends \frontend\controllers\DefaultController
     public function actionIndex() {
         $registrationSearchModel = new RegistrationSearch();
         $registrationDataProvider = $registrationSearchModel->search(Yii::$app->request->queryParams);
-		$registrationDataProvider->query->andWhere(['golfer_id' => Golfer::me()]);
+		$registrationDataProvider->query->andWhere(['golfer_id' => Golfer::me()->id]);
+
+		$now = date('Y-m-d H:i:s');
 
 		// single matches (not part of a tournament)
 		$matchesSearchModel = new MatchSearch();
         $matchesDataProvider = $matchesSearchModel->search(Yii::$app->request->queryParams);
-		$matchesDataProvider->query->andWhere(['parent_id' => null]);
+		$matchesDataProvider->query->andWhere(['parent_id' => null])
+								   ->andWhere(['>', 'start_date', $now]);
 
 		// single tournaments not part of a season
 		/*
@@ -51,18 +54,17 @@ having tot_count = 1
 			->andWhere('m.parent_id = c.id')
 			->andWhere(['c.status' => Competition::STATUS_OPEN])
 			->andWhere(['m.status' => Competition::STATUS_OPEN])
+			->andWhere(['>', 'm.start_date', $now])
 			->groupBy('c.id')
 			;
 
-		$matches_id = [];
-		foreach($q->each() as $match)
-			$matches_id[] = $match['competition_id'];
+		$tournament_ids = [];
+		foreach($q->each() as $tournament)
+			$tournament_ids[] = $tournament['competition_id'];
 
 		$tournamentsSearchModel = new TournamentSearch();
         $tournamentsDataProvider = $tournamentsSearchModel->search(Yii::$app->request->queryParams);
-
-		if(count($matches_id)>0)
-			$tournamentsDataProvider->query->andWhere(['id' => $matches_id]);
+		$tournamentsDataProvider->query->andWhere(['id' => $tournament_ids]);
 		
 
 		// seasons
@@ -92,9 +94,9 @@ having tot_count = 1
      * @param integer $id
      * @return mixed
      */
-    public function actionView($competition_id)
+    public function actionView($id)
     {
-		$model = Registration::findOne($competition_id);
+		$model = Registration::findOne($id);
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -106,13 +108,14 @@ having tot_count = 1
      * @param  [type] $competition_id   Identifier of competition
      * @return [type]                   Action to do after. Set flash on success/error.
      */
-    public function actionRegister($competition_id) {
+    public function actionRegister($id) {
         if(!$me = Golfer::me()) {
             Yii::$app->session->setFlash('error', 'You need to be a golfer to register to matches.');            
         } else {
-            $model = Competition::findOne($competition_id);
+            $model = Competition::findOne($id);
             if ($model->register($me))
                 Yii::$app->session->setFlash('success', Yii::t('golfleague', 'You registered to competition "{0}".', $model->name));
+			// else flash set in register()
         }
         return $this->redirect(Yii::$app->request->getReferrer());
     }
@@ -123,11 +126,11 @@ having tot_count = 1
      * @param  [type] $competition_id   Identifier of competition
      * @return [type]                   Action to do after. Set flash on success/error.
      */
-    public function actionDeregister($competition_id) {
+    public function actionDeregister($id) {
         if(!$me = Golfer::me()) {
             Yii::$app->session->setFlash('error', 'You need to be a registered golfer of this site to register to matches.');            
         } else { 
-            $model = Competition::findOne($competition_id);
+            $model = Competition::findOne($id);
             if ($model->deregister($me))
                 Yii::$app->session->setFlash('success', Yii::t('golfleague', 'You deregistered from competition "{0}".', $model->name));
             else

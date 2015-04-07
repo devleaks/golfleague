@@ -17,7 +17,13 @@ class Tournament extends Competition
 
     public static function defaultScope($query)
     {
-        $query->andWhere(['competition_type' => self::TYPE_TOURNAMENT]);
+		Yii::trace('Tournament::defaultScope');
+         $query->andWhere(['competition_type' => self::TYPE_TOURNAMENT]);
+    }
+
+	public static function find()
+    {
+        return new CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);
     }
 
     /**

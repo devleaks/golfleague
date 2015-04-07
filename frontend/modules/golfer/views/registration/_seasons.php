@@ -1,18 +1,20 @@
 <?php
 
-use yii\helpers\Html;
+use common\models\Golfer;
 use kartik\grid\GridView;
 use yii\bootstrap\Alert;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+$me = Golfer::me();
 $this->title = Yii::t('golfleague', 'Seasons');
 ?>
 <div class="season-index">
 
-    <h2><?= Html::encode($this->title) ?></h2>
+    <h3><?= Html::encode($this->title) ?></h3>
 
 	<?= Alert::widget([
 		'body' => 'Tournaments here under are multiple matches tournaments.',
@@ -62,7 +64,7 @@ $this->title = Yii::t('golfleague', 'Seasons');
             'name',
             [
                 'class' => 'yii\grid\DataColumn', // can be omitted, default
-                'label' => Yii::t('golfleague', 'Number of Matches'),
+                'label' => Yii::t('golfleague', 'Number of Tournaments'),
                 'value' => function ($model, $key, $index, $widget) {
 					return $model->getTournaments()->count();
                 },
@@ -75,7 +77,31 @@ $this->title = Yii::t('golfleague', 'Seasons');
 				'noWrap' => true,
             ],
 
+            [
+                'class' => 'kartik\grid\ActionColumn',
+				'controller' => 'competition',
+				'noWrap' => true,
+				'template' => '{view} {register}',
+	            'buttons' => [
+	                'register' => function ($url, $model) use ($me) {
+						if(!$me) return '';
+						if ($model->registered($me)) {
+							$url = Url::to(['registration/deregister', 'id' => $model->id]);
+		                    $a = Html::a('<i class="glyphicon glyphicon-minus"></i>', $url, [
+		                        'title' => Yii::t('store', 'Deregister'),
+		                    ]);
+						} else {
+							$url = Url::to(['registration/register', 'id' => $model->id]);
+		                    $a = Html::a('<i class="glyphicon glyphicon-plus"></i>', $url, [
+		                        'title' => Yii::t('store', 'Register'),
+		                    ]);
+						}
+						return $a;
+	                },
+				],
+            ],
         ],
+
     ]); ?>
 
 </div>

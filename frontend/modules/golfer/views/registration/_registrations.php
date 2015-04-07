@@ -17,20 +17,20 @@ $this->title = Yii::t('golfleague', 'Current Registrations');
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
 
-            'competition.type',
+            'competition.competition_type',
             'competition.name',
             'competition.start_date',
             [
-                'class' => 'yii\grid\DataColumn', // can be omitted, default
                 'label' => Yii::t('golfleague', 'Status'),
                 'value' => function ($model, $key, $index, $widget) {
                         return Yii::t('golfleague', $model->status);
                     }
             ],
             [
-				'class' => 'yii\grid\ActionColumn'
+				'class' => 'kartik\grid\ActionColumn',
+				'template' => '{view}'
 			],
         ],
     ]); ?>

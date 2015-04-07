@@ -61,7 +61,7 @@ class GolferSearch extends Golfer
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'gender', $this->sex])
+            ->andFilterWhere(['like', 'gender', $this->gender])
             ->andFilterWhere(['like', 'hand', $this->hand])
             ->andFilterWhere(['like', 'homecourse', $this->homecourse]);
 

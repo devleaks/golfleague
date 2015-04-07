@@ -16,6 +16,8 @@ class Competition extends _Competition
 {
 	use Constant;
 	
+	const COMPETITION_TYPE = null;
+
     /** Competition type SEASON */
     const TYPE_SEASON = 'SEASON';
     /** Competition type TOURNAMENT */
@@ -124,46 +126,53 @@ class Competition extends _Competition
         ];
     }
 
+
+	public static function find()
+    {
+        return new CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);
+    }
+
     /*  Registration Function
      *
      */
 	public function getPhase() {
-		$status = null;
+		$phase = null;
 		if ($this->status == Competition::STATUS_CLOSED)
-			$status =  Competition::STATUS_CLOSED;
+			$phase =  Competition::PHASE_COMPLETED;
 		else if ($this->status == Competition::STATUS_READY)
-			$status =  Competition::PHASE_READY;
+			$phase =  Competition::PHASE_READY;
 		else { // if($this->status == Competition::STATUS_OPEN) {	// competition is open, look further
 			$now = date('Y-m-d H:i:s');
 			if($this->registration_begin) {
 				if($this->registration_begin < $now) { // open for reg
 					if($this->registration_end) {
 						if($this->registration_end > $now) { // open for reg
-							$status =  Competition::PHASE_REGISTRATION_OPEN;
+							$phase =  Competition::PHASE_REGISTRATION_OPEN;
 						} else { // no longer open for reg
 							if($this->start_date) { // start_date, must be a match
 								if($this->start_date > $now) {
-									$status =  Competition::PHASE_READY;
+									$phase =  Competition::PHASE_READY;
 								} if(substr($this->start_date, 10, 1) == substr($now, 10, 1)) { // same day
-									$status =  Competition::PHASE_ONGOING;
+									$phase =  Competition::PHASE_ONGOING;
 								} else {
-									$status =  Competition::PHASE_COMPLETED;
+									$phase =  Competition::PHASE_COMPLETED;
 								}
 							} else { // no start date, must be a season or tournament
-								$status =  Competition::PHASE_REGISTRATION_CLOSED;
+								$phase =  Competition::PHASE_REGISTRATION_CLOSED;
 							}
 						}
 					} else { // no reg end date, can always register
-						$status =  Competition::PHASE_REGISTRATION_OPEN;
+						$phase =  Competition::PHASE_REGISTRATION_OPEN;
 					}
 				} else { // not open for reg
-					$status =  Competition::PHASE_SCHEDULED;
+					$phase =  Competition::PHASE_SCHEDULED;
 				}
 			} else { // no reg start date, can always register
-				$status =  Competition::PHASE_REGISTRATION_OPEN;
+				$phase =  Competition::PHASE_REGISTRATION_OPEN;
 			}
 		}
-		return $status;
+		Yii::trace($this->id.' is '.$phase, 'Competition::getPhase');
+		return $phase;
 	}
 
     /**
@@ -172,8 +181,7 @@ class Competition extends _Competition
      * @var  Golfer $golfer Golfer to check
      * @return boolean
      */
-    public function registered($golfer)
-    {
+    public function registered($golfer) {
         return Registration::find()
                             ->where(['golfer_id' 		=> $golfer->id,
                                      'competition_id'   => $this->id,
@@ -181,7 +189,7 @@ class Competition extends _Competition
 																  Registration::STATUS_REGISTERED,
 																  Registration::STATUS_CONFIRMED )
                                     ])
-							->count() > 0;
+							->exists();
     }
 
 
@@ -192,27 +200,27 @@ class Competition extends _Competition
 	 * @param Golfer $golfer
 	 * @return boolean whether a golfer can register to this competition or not
 	 */
-	private function genderOk($golfer) {
+	protected function genderOk($golfer) {
 		return $this->gender ? ($this->gender === Competition::GENDER_BOTH) ||  ($this->gender === $golfer->gender) : true;
 	}
 
-	private function handicapMinOk($golfer) {
+	protected function handicapMinOk($golfer) {
 		return $this->handicap_min ? ($this->handicap_min < $golfer->handicap) : true;
 	}
 
-	private function handicapMaxOk($golfer) {
+	protected function handicapMaxOk($golfer) {
 		return $this->handicap_max ? ($this->handicap_max > $golfer->handicap) : true;
 	}
 
-	private function ageMinOk($golfer) {
+	protected function ageMinOk($golfer) {
 		return $this->age_min ? ($this->age_min < $golfer->age()) : true;
 	}
 
-	private function ageMaxOk($golfer) {
+	protected function ageMaxOk($golfer) {
 		return $this->age_max ? ($this->age_max > $golfer->age()) : true;
 	}
 
-	private function golferOk($golfer) {
+	protected function golferOk($golfer) {
 		$canRegister = $this->genderOk($golfer)
 					&& $this->handicapMinOk($golfer)
 					&& $this->handicapMaxOk($golfer)
@@ -225,7 +233,7 @@ class Competition extends _Competition
 		return $canRegister;
 	}
 	
-	private function maxPlayerOk() {
+	protected function maxPlayerOk() {
 		return intval($this->maxplayers) > 0 ?
 				$this->getRegistrations()
 					 ->andWhere(['status' => [Registration::STATUS_REGISTERED, Registration::STATUS_CONFIRMED]])
@@ -233,20 +241,28 @@ class Competition extends _Competition
 			   : true;
 	}
 
-	private function dateOk() {
+	protected function dateOk() {
 		if($this->status == Competition::STATUS_OPEN) {	// competition is open
-			$phase = $this->getPhase();
-			
-			if ($phase == Competition::PHASE_REGISTRATION_OPEN) {
+			$now = date('Y-m-d H:i:s');
+
+			if($this->registration_begin) {
+				if($this->registration_begin < $now) { // open for reg
+					if($this->registration_end) {
+						if($this->registration_end > $now) { // open for reg
+							return true;
+						} else {
+							Yii::$app->session->setFlash('error', 'Competition is no longer open for registration.');
+						}
+					} else { // no reg end date, and after reg start, assume can always register after reg start
+						return true;
+					}
+				} else {
+					Yii::$app->session->setFlash('error', 'Competition is not yet open for registration.');
+				}
+			} else { // no reg start date,assume can always register
 				return true;
-			} else if ($phase == Competition::PHASE_SCHEDULED) {
-				Yii::$app->session->setFlash('error', 'Competition is not yet open for registration.');
-			} else if ($phase == Competition::REGISTRATION_CLOSED) {
-				Yii::$app->session->setFlash('error', 'Competition is no longer open for registration.');
-			}			
-		} else {
-			Yii::$app->session->setFlash('error', 'Competition is closed.');
-		}		
+			}
+		}
 		return false;
 	}
 
@@ -263,8 +279,8 @@ class Competition extends _Competition
 	function register($golfer, $force = false) {
 		$canRegister = true;
 
-		if($this->parent_id) {
-			$parent = $this->getParent()->one();
+//		Yii::trace($this->id.' for '.$golfer->id, 'Competition::register');
+		if($parent = $this->getParent()->one()) {
 			$canRegister = $parent->register($golfer, $force);
 		}
 
@@ -280,8 +296,10 @@ class Competition extends _Competition
 	        } // force can only be used by starters
 	        $model->status = $force ? Registration::STATUS_REGISTERED : Registration::STATUS_PENDING;
 	        $model->save();
+			Yii::trace('OK for '.$this->id.' for '.$golfer->id, 'Competition::register');
 			return true;
 		}
+		Yii::trace('NOT for '.$this->id.' for '.$golfer->id, 'Competition::register');
 		return false;
 	}
 	
@@ -453,6 +471,18 @@ class Competition extends _Competition
 		else
 			if ($last_competition = $this->getCompetitions()->orderBy('start_date desc')->one())
 				return $last_competition->getEndDate();
+		return $this->start_date;
+	}
+
+	/**
+	 * Get end date of a competition. Matches are assumes to be one day only.
+	 */
+	public function getStartDate() {
+		if($this->competition_type == self::TYPE_MATCH)
+			return $this->start_date;
+		else
+			if ($first_competition = $this->getCompetitions()->orderBy('start_date asc')->one())
+				return $first_competition->getStartDate();
 		return $this->start_date;
 	}
 }

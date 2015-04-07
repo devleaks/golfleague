@@ -14,6 +14,16 @@ class Match extends Competition
 {
 	const COMPETITION_TYPE = self::TYPE_MATCH;
 
+    public static function defaultScope($query)
+    {
+		Yii::trace('Match::defaultScope');
+        $query->andWhere(['competition_type' => self::TYPE_MATCH]);
+    }
+
+	public static function find()
+    {
+        return new CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);
+    }
 
     /**
      * @inheritdoc
@@ -26,13 +36,6 @@ class Match extends Competition
 	            [['course_id', 'holes', 'rule_id', 'start_date'], 'required'],
         	]
 		);
-    }
-
-
-
-    public static function defaultScope($query)
-    {
-        $query->andWhere(['competition_type' => self::TYPE_MATCH]);
     }
 
     /**

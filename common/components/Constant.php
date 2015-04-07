@@ -25,7 +25,7 @@ trait Constant
 		foreach($oClass->getConstants() as $k => $v)
 			if(strpos($k, $constant_prefix) === 0)
 				$result[$v] = Yii::t('golfleague', ucfirst(strtolower($v)));
-		Yii::trace(print_r($result, true), 'trait');
+		//Yii::trace(print_r($result, true), 'trait');
         return $result;
     }
 
@@ -37,7 +37,7 @@ trait Constant
 	 * @return array of key,localized value.
 	 */
     function getConstants($constant_prefix) {
-		Yii::trace(__CLASS__, 'trait');
+		//Yii::trace(__CLASS__, 'trait');
         $oClass = new \ReflectionClass(__CLASS__);
         $result = [];
 		foreach($oClass->getConstants() as $k => $v)
