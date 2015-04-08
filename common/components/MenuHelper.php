@@ -46,6 +46,7 @@ class MenuHelper extends \yii\base\Object
             $menus[] = '<li class="dropdown-header">'.Yii::t('golfleague', 'Scoring').'</li>';
             $menus[] = ['label' => Yii::t('golfleague', 'Scorecards'), 'url' => '#'];
             $menus[] = ['label' => Yii::t('golfleague', 'Scores'), 'url' => '#'];
+            $menus[] = ['label' => Yii::t('golfleague', 'Events'), 'url' => Url::to(['/admin/event'])];
         }
 
         if(in_array($league_role, array('starter', 'manager', 'admin'))) {
@@ -58,10 +59,11 @@ class MenuHelper extends \yii\base\Object
         if(in_array($league_role, array('manager', 'admin'))) {
             $menus[] = '<li class="divider"></li>';
             $menus[] = '<li class="dropdown-header">'.Yii::t('golfleague', 'Managing').'</li>';
-            $menus[] = ['label' => Yii::t('golfleague', 'Courses'), 'url' => Url::to(['/admin/'])];
-            $menus[] = ['label' => Yii::t('golfleague', 'Competitions'), 'url' => Url::to(['/admin/season'])];
+            $menus[] = ['label' => Yii::t('golfleague', 'Courses'), 'url' => Url::to(['/admin/course'])];
+            $menus[] = ['label' => Yii::t('golfleague', 'Competitions'), 'url' => Url::to(['/admin/competition'])];
             $menus[] = ['label' => Yii::t('golfleague', 'Rules'), 'url' => Url::to(['/admin/rule'])];
             $menus[] = ['label' => Yii::t('golfleague', 'Golfers'), 'url' => Url::to(['/admin/golfer'])];
+            $menus[] = ['label' => Yii::t('golfleague', 'Messages'), 'url' => Url::to(['/admin/message'])];
         }
 
         return $menus;

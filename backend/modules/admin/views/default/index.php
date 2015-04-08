@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 /* @var $this yii\web\View */
-$this->title = 'Web Site Administration';
+$this->title = 'Site Administration';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-index">
