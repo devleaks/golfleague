@@ -61,15 +61,15 @@ class Golfer extends _Golfer
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'Golfer'),
-            'name' => Yii::t('golfleague', 'Name'),
-            'email' => Yii::t('golfleague', 'Email'),
-            'phone' => Yii::t('golfleague', 'Phone'),
-            'handicap' => Yii::t('golfleague', 'Handicap'),
-            'gender' => Yii::t('golfleague', 'Gender'),
-            'hand' => Yii::t('golfleague', 'Hand'),
-            'homecourse' => Yii::t('golfleague', 'Homecourse'),
-            'user_id' => Yii::t('golfleague', 'User'),
+            'id' => Yii::t('igolf', 'Golfer'),
+            'name' => Yii::t('igolf', 'Name'),
+            'email' => Yii::t('igolf', 'Email'),
+            'phone' => Yii::t('igolf', 'Phone'),
+            'handicap' => Yii::t('igolf', 'Handicap'),
+            'gender' => Yii::t('igolf', 'Gender'),
+            'hand' => Yii::t('igolf', 'Hand'),
+            'homecourse' => Yii::t('igolf', 'Homecourse'),
+            'user_id' => Yii::t('igolf', 'User'),
             'facility_id' => Yii::t('igolf', 'Facility'),
         ];
     }

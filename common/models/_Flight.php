@@ -37,7 +37,7 @@ class _Flight extends \yii\db\ActiveRecord
             [['competition_id', 'position'], 'integer'],
             [['position'], 'required'],
             [['created_at', 'updated_at', 'start_time'], 'safe'],
-            [['note'], 'string', 'max' => 80]
+            [['note'], 'string', 'max' => 160]
         ];
     }
 
@@ -47,13 +47,13 @@ class _Flight extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'ID'),
-            'competition_id' => Yii::t('golfleague', 'Competition ID'),
-            'position' => Yii::t('golfleague', 'Position'),
-            'note' => Yii::t('golfleague', 'Note'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
-            'start_time' => Yii::t('golfleague', 'Start Time'),
+            'id' => Yii::t('igolf', 'ID'),
+            'competition_id' => Yii::t('igolf', 'Competition ID'),
+            'position' => Yii::t('igolf', 'Position'),
+            'note' => Yii::t('igolf', 'Note'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'start_time' => Yii::t('igolf', 'Start Time'),
         ];
     }
 

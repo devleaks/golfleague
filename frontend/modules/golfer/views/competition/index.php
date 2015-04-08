@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\CompetitionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('golfleague', 'Competitions');
+$this->title = Yii::t('igolf', 'Competitions');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-index">
@@ -16,37 +16,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= $this->render('list_registration', [
-			'title' => Yii::t('golfleague', 'Open for Registration'),
+			'title' => Yii::t('igolf', 'Open for Registration'),
 	        'dataProvider' => $registrationProvider,
 	        'filterModel' => $registrationSearch,
 	]) ?>
 
     <?= $this->render('list_start', [
-			'title' => Yii::t('golfleague','Played Soon'),
+			'title' => Yii::t('igolf','Played Soon'),
 	        'dataProvider' => $startProvider,
 	        'filterModel' => $startSearch,
 	]) ?>
 
     <?= $this->render('list_result', [
-			'title' => Yii::t('golfleague', 'Scores'),
+			'title' => Yii::t('igolf', 'Scores'),
 	        'dataProvider' => $resultProvider,
 	        'filterModel' => $resultSearch,
 	]) ?>
 
     <?= $this->render('list_result', [
-			'title' => Yii::t('golfleague', 'Standings'),
+			'title' => Yii::t('igolf', 'Standings'),
 	        'dataProvider' => $result2Provider,
 	        'filterModel' => $result2Search,
 	]) ?>
 
     <?= $this->render('list_planned', [
-			'title' => Yii::t('golfleague','Planned'),
+			'title' => Yii::t('igolf','Planned'),
 	        'dataProvider' => $planProvider,
 	        'filterModel' => $planSearch,
 	]) ?>
 
     <?= $this->render('list_closed', [
-			'title' => Yii::t('golfleague','Archive'),
+			'title' => Yii::t('igolf','Archive'),
 	        'dataProvider' => $closedProvider,
 	        'filterModel' => $closedSearch,
 	]) ?>

@@ -117,7 +117,7 @@ class Competition extends _Competition
             'age_min' => Yii::t('igolf', 'Age Min'),
             'age_max' => Yii::t('igolf', 'Age Max'),
             'gender' => Yii::t('igolf', 'Gender'),
-            'maxplayers' => Yii::t('igolf', 'Maxplayers'),
+            'max_players' => Yii::t('igolf', 'Maxplayers'),
             'status' => Yii::t('igolf', 'Status'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
@@ -234,10 +234,10 @@ class Competition extends _Competition
 	}
 	
 	protected function maxPlayerOk() {
-		return intval($this->maxplayers) > 0 ?
+		return intval($this->max_players) > 0 ?
 				$this->getRegistrations()
 					 ->andWhere(['status' => [Registration::STATUS_REGISTERED, Registration::STATUS_CONFIRMED]])
-					 ->count() <= intval($this->maxplayers)
+					 ->count() <= intval($this->max_players)
 			   : true;
 	}
 

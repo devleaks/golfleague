@@ -36,8 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
 				'attribute' => 'user_id',
                 'label' => Yii::t('igolf', 'Account'),
-                'value' => function ($data) {
-                    return isset($data->user) ? $data->user->username : 'None';
+                'value' => function($model, $key, $index, $widget) {
+                    return isset($model->user) ? $model->user->username : null;
                 },
             ],
             [

@@ -114,7 +114,7 @@ having tot_count = 1
         } else {
             $model = Competition::findOne($id);
             if ($model->register($me))
-                Yii::$app->session->setFlash('success', Yii::t('golfleague', 'You registered to competition "{0}".', $model->name));
+                Yii::$app->session->setFlash('success', Yii::t('igolf', 'You registered to competition "{0}".', $model->name));
 			// else flash set in register()
         }
         return $this->redirect(Yii::$app->request->getReferrer());
@@ -132,9 +132,9 @@ having tot_count = 1
         } else { 
             $model = Competition::findOne($id);
             if ($model->deregister($me))
-                Yii::$app->session->setFlash('success', Yii::t('golfleague', 'You deregistered from competition "{0}".', $model->name));
+                Yii::$app->session->setFlash('success', Yii::t('igolf', 'You deregistered from competition "{0}".', $model->name));
             else
-                Yii::$app->session->setFlash('error', Yii::t('golfleague', 'You cannot deregister from competition "{0}".', $model->name));
+                Yii::$app->session->setFlash('error', Yii::t('igolf', 'You cannot deregister from competition "{0}".', $model->name));
         }
         return $this->redirect(Yii::$app->request->getReferrer());
     }

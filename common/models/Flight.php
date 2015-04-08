@@ -41,10 +41,10 @@ class Flight extends _Flight
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'Flight'),
-            'competition_id' => Yii::t('golfleague', 'Match'),
-            'position' => Yii::t('golfleague', 'Position'),
-            'note' => Yii::t('golfleague', 'Note'),
+            'id' => Yii::t('igolf', 'Flight'),
+            'competition_id' => Yii::t('igolf', 'Match'),
+            'position' => Yii::t('igolf', 'Position'),
+            'note' => Yii::t('igolf', 'Note'),
         ];
     }
 

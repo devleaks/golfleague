@@ -33,19 +33,19 @@ class Score extends _Score
     public function attributeLabels()
     {
         return [
-            'scorecard_id' => Yii::t('golfleague', 'Scorecard'),
-            'hole_id' => Yii::t('golfleague', 'Hole'),
-            'score' => Yii::t('golfleague', 'Score'),
-            'putts' => Yii::t('golfleague', 'Putts'),
-            'penalty' => Yii::t('golfleague', 'Penalty'),
-            'sand' => Yii::t('golfleague', 'Sand'),
-            'note' => Yii::t('golfleague', 'Note'),
-            'drive' => Yii::t('golfleague', 'Drive'),
-            'regulation' => Yii::t('golfleague', 'Regulation'),
-            'approach' => Yii::t('golfleague', 'Approach'),
-            'putt' => Yii::t('golfleague', 'Putt'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
+            'scorecard_id' => Yii::t('igolf', 'Scorecard'),
+            'hole_id' => Yii::t('igolf', 'Hole'),
+            'score' => Yii::t('igolf', 'Score'),
+            'putts' => Yii::t('igolf', 'Putts'),
+            'penalty' => Yii::t('igolf', 'Penalty'),
+            'sand' => Yii::t('igolf', 'Sand'),
+            'note' => Yii::t('igolf', 'Note'),
+            'drive' => Yii::t('igolf', 'Drive'),
+            'regulation' => Yii::t('igolf', 'Regulation'),
+            'approach' => Yii::t('igolf', 'Approach'),
+            'putt' => Yii::t('igolf', 'Putt'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
         ];
     }
 }

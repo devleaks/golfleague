@@ -48,7 +48,7 @@ class _Registration extends \yii\db\ActiveRecord
             [['competition_id', 'golfer_id', 'team_id', 'flight_id', 'tees_id', 'score', 'score_net', 'points', 'position'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['status'], 'string', 'max' => 20],
-            [['note'], 'string', 'max' => 80]
+            [['note'], 'string', 'max' => 160]
         ];
     }
 
@@ -58,20 +58,20 @@ class _Registration extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'ID'),
-            'competition_id' => Yii::t('golfleague', 'Competition ID'),
-            'golfer_id' => Yii::t('golfleague', 'Golfer ID'),
-            'status' => Yii::t('golfleague', 'Status'),
-            'team_id' => Yii::t('golfleague', 'Team ID'),
-            'flight_id' => Yii::t('golfleague', 'Flight ID'),
-            'tees_id' => Yii::t('golfleague', 'Tees ID'),
-            'note' => Yii::t('golfleague', 'Note'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
-            'score' => Yii::t('golfleague', 'Score'),
-            'score_net' => Yii::t('golfleague', 'Score Net'),
-            'points' => Yii::t('golfleague', 'Points'),
-            'position' => Yii::t('golfleague', 'Position'),
+            'id' => Yii::t('igolf', 'ID'),
+            'competition_id' => Yii::t('igolf', 'Competition ID'),
+            'golfer_id' => Yii::t('igolf', 'Golfer ID'),
+            'status' => Yii::t('igolf', 'Status'),
+            'team_id' => Yii::t('igolf', 'Team ID'),
+            'flight_id' => Yii::t('igolf', 'Flight ID'),
+            'tees_id' => Yii::t('igolf', 'Tees ID'),
+            'note' => Yii::t('igolf', 'Note'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'score' => Yii::t('igolf', 'Score'),
+            'score_net' => Yii::t('igolf', 'Score Net'),
+            'points' => Yii::t('igolf', 'Points'),
+            'position' => Yii::t('igolf', 'Position'),
         ];
     }
 

@@ -51,6 +51,9 @@ class Registration extends _Registration
     /** Golfer is invited to next stage */
     const STATUS_QUALIFIED = 'QUALIFIED';
 
+    /** Special status keyword */
+    const ACTION_DELETE = 'DELETE';
+
 
     /**
      * @inheritdoc
@@ -75,20 +78,20 @@ class Registration extends _Registration
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'Registration'),
-            'competition_id' => Yii::t('golfleague', 'Competition'),
-            'golfer_id' => Yii::t('golfleague', 'Golfer'),
-            'status' => Yii::t('golfleague', 'Status'),
-            'flight_id' => Yii::t('golfleague', 'Flight'),
-            'tees_id' => Yii::t('golfleague', 'Tees'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
-            'position' => Yii::t('golfleague', 'Position'),
-            'score' => Yii::t('golfleague', 'Score'),
-            'points' => Yii::t('golfleague', 'Points'),
-            'note' => Yii::t('golfleague', 'Note'),
-            'team_id' => Yii::t('golfleague', 'Team'),
-            'score_net' => Yii::t('golfleague', 'Score Net'),
+            'id' => Yii::t('igolf', 'Registration'),
+            'competition_id' => Yii::t('igolf', 'Competition'),
+            'golfer_id' => Yii::t('igolf', 'Golfer'),
+            'status' => Yii::t('igolf', 'Status'),
+            'flight_id' => Yii::t('igolf', 'Flight'),
+            'tees_id' => Yii::t('igolf', 'Tees'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'position' => Yii::t('igolf', 'Position'),
+            'score' => Yii::t('igolf', 'Score'),
+            'points' => Yii::t('igolf', 'Points'),
+            'note' => Yii::t('igolf', 'Note'),
+            'team_id' => Yii::t('igolf', 'Team'),
+            'score_net' => Yii::t('igolf', 'Score Net'),
         ];
     }
 

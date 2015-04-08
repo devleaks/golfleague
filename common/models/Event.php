@@ -66,17 +66,17 @@ class Event extends _Event
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'Event'),
-            'object_type' => Yii::t('golfleague', 'Object Type'),
-            'object_id' => Yii::t('golfleague', 'Object'),
-            'name' => Yii::t('golfleague', 'Name'),
-            'description' => Yii::t('golfleague', 'Description'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
-            'event_type' => Yii::t('golfleague', 'Event Type'),
-            'status' => Yii::t('golfleague', 'Status'),
-            'event_start' => Yii::t('golfleague', 'Event Start'),
-            'event_end' => Yii::t('golfleague', 'Event End'),
+            'id' => Yii::t('igolf', 'Event'),
+            'object_type' => Yii::t('igolf', 'Object Type'),
+            'object_id' => Yii::t('igolf', 'Object'),
+            'name' => Yii::t('igolf', 'Name'),
+            'description' => Yii::t('igolf', 'Description'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'event_type' => Yii::t('igolf', 'Event Type'),
+            'status' => Yii::t('igolf', 'Status'),
+            'event_start' => Yii::t('igolf', 'Event Start'),
+            'event_end' => Yii::t('igolf', 'Event End'),
         ];
     }
 

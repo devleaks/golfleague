@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('golfleague', 'Your Profile');
+$this->title = Yii::t('igolf', 'Your Profile');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

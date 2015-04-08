@@ -7,7 +7,7 @@ use kartik\detail\DetailView;
 /* @var $model common\models\Registration */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('golfleague', 'Registrations'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Registrations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="registration-view">

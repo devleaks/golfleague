@@ -40,10 +40,10 @@ class Point extends _Point
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'Point'),
-            'rule_id' => Yii::t('golfleague', 'Rules'),
-            'position' => Yii::t('golfleague', 'Position'),
-            'points' => Yii::t('golfleague', 'Points'),
+            'id' => Yii::t('igolf', 'Point'),
+            'rule_id' => Yii::t('igolf', 'Rules'),
+            'position' => Yii::t('igolf', 'Position'),
+            'points' => Yii::t('igolf', 'Points'),
         ];
     }
 

@@ -42,10 +42,10 @@ class _Team extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'ID'),
-            'name' => Yii::t('golfleague', 'Name'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
+            'id' => Yii::t('igolf', 'ID'),
+            'name' => Yii::t('igolf', 'Name'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
         ];
     }
 

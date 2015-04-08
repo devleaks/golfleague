@@ -14,7 +14,6 @@ use Yii;
  * @property integer $parent_id
  * @property integer $course_id
  * @property integer $holes
- * @property integer $rule_id
  * @property string $start_date
  * @property string $registration_begin
  * @property string $registration_end
@@ -23,18 +22,21 @@ use Yii;
  * @property integer $age_min
  * @property integer $age_max
  * @property string $gender
- * @property integer $maxplayers
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
  * @property integer $flight_size
  * @property integer $delta_time
- * @property string $special
+ * @property integer $rule_id
+ * @property integer $recurrence_id
+ * @property integer $max_players
+ * @property string $registration_special
  *
- * @property Rule $rules
  * @property _Competition $parent
  * @property _Competition[] $competitions
  * @property Course $course
+ * @property Rule $rule
+ * @property Reccurence $recurrence
  * @property Flight[] $flights
  * @property Registration[] $registrations
  * @property Scorecard[] $scorecards
@@ -56,10 +58,10 @@ class _Competition extends \yii\db\ActiveRecord
     {
         return [
             [['competition_type', 'name', 'registration_begin', 'registration_end'], 'required'],
-            [['parent_id', 'course_id', 'holes', 'rule_id', 'age_min', 'age_max', 'maxplayers', 'flight_size', 'delta_time'], 'integer'],
+            [['parent_id', 'course_id', 'holes', 'age_min', 'age_max', 'flight_size', 'delta_time', 'rule_id', 'recurrence_id', 'max_players'], 'integer'],
             [['start_date', 'registration_begin', 'registration_end', 'created_at', 'updated_at'], 'safe'],
             [['handicap_min', 'handicap_max'], 'number'],
-            [['competition_type', 'gender', 'status', 'special'], 'string', 'max' => 20],
+            [['competition_type', 'gender', 'status', 'registration_special'], 'string', 'max' => 20],
             [['name'], 'string', 'max' => 80],
             [['description'], 'string', 'max' => 255],
             [['name'], 'unique']
@@ -72,38 +74,31 @@ class _Competition extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'ID'),
-            'competition_type' => Yii::t('golfleague', 'Competition Type'),
-            'name' => Yii::t('golfleague', 'Name'),
-            'description' => Yii::t('golfleague', 'Description'),
-            'parent_id' => Yii::t('golfleague', 'Parent ID'),
-            'course_id' => Yii::t('golfleague', 'Course ID'),
-            'holes' => Yii::t('golfleague', 'Holes'),
-            'rule_id' => Yii::t('golfleague', 'Rules ID'),
-            'start_date' => Yii::t('golfleague', 'Start Date'),
-            'registration_begin' => Yii::t('golfleague', 'Registration Begin'),
-            'registration_end' => Yii::t('golfleague', 'Registration End'),
-            'handicap_min' => Yii::t('golfleague', 'Handicap Min'),
-            'handicap_max' => Yii::t('golfleague', 'Handicap Max'),
-            'age_min' => Yii::t('golfleague', 'Age Min'),
-            'age_max' => Yii::t('golfleague', 'Age Max'),
-            'gender' => Yii::t('golfleague', 'Gender'),
-            'maxplayers' => Yii::t('golfleague', 'Maxplayers'),
-            'status' => Yii::t('golfleague', 'Status'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
-            'flight_size' => Yii::t('golfleague', 'Flight Size'),
-            'delta_time' => Yii::t('golfleague', 'Delta Time'),
-            'special' => Yii::t('golfleague', 'Special'),
+            'id' => Yii::t('igolf', 'ID'),
+            'competition_type' => Yii::t('igolf', 'Competition Type'),
+            'name' => Yii::t('igolf', 'Name'),
+            'description' => Yii::t('igolf', 'Description'),
+            'parent_id' => Yii::t('igolf', 'Parent ID'),
+            'course_id' => Yii::t('igolf', 'Course ID'),
+            'holes' => Yii::t('igolf', 'Holes'),
+            'start_date' => Yii::t('igolf', 'Start Date'),
+            'registration_begin' => Yii::t('igolf', 'Registration Begin'),
+            'registration_end' => Yii::t('igolf', 'Registration End'),
+            'handicap_min' => Yii::t('igolf', 'Handicap Min'),
+            'handicap_max' => Yii::t('igolf', 'Handicap Max'),
+            'age_min' => Yii::t('igolf', 'Age Min'),
+            'age_max' => Yii::t('igolf', 'Age Max'),
+            'gender' => Yii::t('igolf', 'Gender'),
+            'status' => Yii::t('igolf', 'Status'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'flight_size' => Yii::t('igolf', 'Flight Size'),
+            'delta_time' => Yii::t('igolf', 'Delta Time'),
+            'rule_id' => Yii::t('igolf', 'Rule ID'),
+            'recurrence_id' => Yii::t('igolf', 'Recurrence ID'),
+            'max_players' => Yii::t('igolf', 'Max Players'),
+            'registration_special' => Yii::t('igolf', 'Registration Special'),
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRule()
-    {
-        return $this->hasOne(Rule::className(), ['id' => 'rule_id']);
     }
 
     /**
@@ -133,6 +128,22 @@ class _Competition extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getRule()
+    {
+        return $this->hasOne(Rule::className(), ['id' => 'rule_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecurrence()
+    {
+        return $this->hasOne(Reccurence::className(), ['id' => 'recurrence_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getFlights()
     {
         return $this->hasMany(Flight::className(), ['competition_id' => 'id']);
@@ -154,23 +165,24 @@ class _Competition extends \yii\db\ActiveRecord
         return $this->hasMany(Scorecard::className(), ['competition_id' => 'id']);
     }
 
-    /**
-     * @inheritdoc
-     *
-	 * Note: Overrides default to create properly typed row.
-     */
-	public static function instantiate($row)
-	{
-	    switch ($row['competition_type']) {
-	        case Competition::TYPE_SEASON:
-	            return new Season();
-	        case Competition::TYPE_TOURNAMENT:
-	            return new Tournament();
-	        case Competition::TYPE_MATCH:
-	            return new Match();
-	        default:
-	           return new self;
-	    }
-	}
+
+   /** 
+    * @inheritdoc 
+    * 
+    * Note: Overrides default to create properly typed row. 
+    */ 
+   public static function instantiate($row) 
+   { 
+       switch ($row['competition_type']) { 
+           case Competition::TYPE_SEASON: 
+               return new Season(); 
+           case Competition::TYPE_TOURNAMENT: 
+               return new Tournament(); 
+           case Competition::TYPE_MATCH: 
+               return new Match(); 
+           default: 
+              return new self; 
+       } 
+   }
 
 }

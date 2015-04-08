@@ -10,7 +10,7 @@ use yii\data\ActiveDataProvider;
 /* @var $model common\models\Competition */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('golfleague', 'Competitions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-view">
@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'competition_type',
                 'label'=>'Competition Type',
-                'value'=> Yii::t('golfleague', $model->competition_type),
+                'value'=> Yii::t('igolf', $model->competition_type),
             ],
             'name',
             'description',
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'status',
                 'label'=>'Status',
-                'value'=> Yii::t('golfleague', $model->status),
+                'value'=> Yii::t('igolf', $model->status),
             ],
         ],
     ]) ?>
@@ -66,12 +66,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div>
 	<?php
 	 	if($model->competition_type != Competition::TYPE_MATCH) {
-			echo ' '.Html::a(Yii::t('golfleague', 'Update Points'), ['points', 'id' => $model->id], ['class' => 'btn btn-success']);
-			echo ' '.Html::a(Yii::t('golfleague', 'Close Competition'), ['close', 'id' => $model->id], ['class' => 'btn btn-warning']);
+			echo ' '.Html::a(Yii::t('igolf', 'Update Points'), ['points', 'id' => $model->id], ['class' => 'btn btn-success']);
+			echo ' '.Html::a(Yii::t('igolf', 'Close Competition'), ['close', 'id' => $model->id], ['class' => 'btn btn-warning']);
 		} else {
-			echo ' '.Html::a(Yii::t('golfleague', 'Update Positions'), ['positions', 'id' => $model->id], ['class' => 'btn btn-success']);
-			echo ' '.Html::a(Yii::t('golfleague', 'Update Points'), ['points', 'id' => $model->id], ['class' => 'btn btn-success']);
-			echo ' '.Html::a(Yii::t('golfleague', 'Close Competition'), ['close', 'id' => $model->id], ['class' => 'btn btn-warning']);
+			echo ' '.Html::a(Yii::t('igolf', 'Update Positions'), ['positions', 'id' => $model->id], ['class' => 'btn btn-success']);
+			echo ' '.Html::a(Yii::t('igolf', 'Update Points'), ['points', 'id' => $model->id], ['class' => 'btn btn-success']);
+			echo ' '.Html::a(Yii::t('igolf', 'Close Competition'), ['close', 'id' => $model->id], ['class' => 'btn btn-warning']);
 		}
 	?>
 

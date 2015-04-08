@@ -41,7 +41,7 @@ class _Scorecard extends \yii\db\ActiveRecord
             [['competition_id', 'golfer_id', 'tees_id', 'points'], 'integer'],
             [['golfer_id'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['note'], 'string', 'max' => 255]
+            [['note'], 'string', 'max' => 160]
         ];
     }
 
@@ -51,14 +51,14 @@ class _Scorecard extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'ID'),
-            'competition_id' => Yii::t('golfleague', 'Competition ID'),
-            'golfer_id' => Yii::t('golfleague', 'Golfer ID'),
-            'tees_id' => Yii::t('golfleague', 'Tees ID'),
-            'note' => Yii::t('golfleague', 'Note'),
-            'points' => Yii::t('golfleague', 'Points'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
+            'id' => Yii::t('igolf', 'ID'),
+            'competition_id' => Yii::t('igolf', 'Competition ID'),
+            'golfer_id' => Yii::t('igolf', 'Golfer ID'),
+            'tees_id' => Yii::t('igolf', 'Tees ID'),
+            'note' => Yii::t('igolf', 'Note'),
+            'points' => Yii::t('igolf', 'Points'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
         ];
     }
 

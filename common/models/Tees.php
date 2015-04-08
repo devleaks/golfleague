@@ -34,12 +34,12 @@ class Tees extends _Tees
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'Tees'),
-            'course_id' => Yii::t('golfleague', 'Course'),
-            'name' => Yii::t('golfleague', 'Tees Set Name'),
-            'color' => Yii::t('golfleague', 'Tees Color'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
+            'id' => Yii::t('igolf', 'Tees'),
+            'course_id' => Yii::t('igolf', 'Course'),
+            'name' => Yii::t('igolf', 'Tees Set Name'),
+            'color' => Yii::t('igolf', 'Tees Color'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
         ];
     }
 

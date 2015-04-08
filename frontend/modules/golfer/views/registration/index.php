@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('golfleague', 'Registration');
+$this->title = Yii::t('igolf', 'Registration');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'dataProvider' => $registrationDataProvider,
 	])?>
 
-    <h2><?= Html::encode(Yii::t('golfleague', 'Competitions')) ?></h2>
+    <h2><?= Html::encode(Yii::t('igolf', 'Competitions')) ?></h2>
 
 	<?= $this->render('_matches', [
 		'searchModel'  => $matchesSearchModel,

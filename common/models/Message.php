@@ -67,15 +67,15 @@ class Message extends _Message
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'Message'),
-            'subject' => Yii::t('golfleague', 'Subject'),
-            'status' => Yii::t('golfleague', 'Status'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
-            'body' => Yii::t('golfleague', 'Body'),
-            'message_start' => Yii::t('golfleague', 'Message Start'),
-            'message_end' => Yii::t('golfleague', 'Message End'),
-            'message_type' => Yii::t('golfleague', 'Message Type'),
+            'id' => Yii::t('igolf', 'Message'),
+            'subject' => Yii::t('igolf', 'Subject'),
+            'status' => Yii::t('igolf', 'Status'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'body' => Yii::t('igolf', 'Body'),
+            'message_start' => Yii::t('igolf', 'Message Start'),
+            'message_end' => Yii::t('igolf', 'Message End'),
+            'message_type' => Yii::t('igolf', 'Message Type'),
             'facility_id' => Yii::t('igolf', 'Facility'),
         ];
     }
@@ -101,7 +101,7 @@ class Message extends _Message
 	   $excerpt = $this->first_n_words($number_of_words);
 	   // we can't just look at the length or try == because we strip carriage returns
 	   if( str_word_count($text) !== str_word_count($excerpt) ) {
-	      $excerpt .= '... <a href="'.$url.'">'.Yii::t('golfleague', 'Read more...').'</a>';
+	      $excerpt .= '... <a href="'.$url.'">'.Yii::t('igolf', 'Read more...').'</a>';
 	   }
 	   return $excerpt;
 	}

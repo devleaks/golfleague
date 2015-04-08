@@ -58,8 +58,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'delta_time') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('golfleague', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('golfleague', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(Yii::t('igolf', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Yii::t('igolf', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('golfleague', 'Current Registrations');
+$this->title = Yii::t('igolf', 'Current Registrations');
 ?>
 <div class="season-index">
 
@@ -23,9 +23,9 @@ $this->title = Yii::t('golfleague', 'Current Registrations');
             'competition.name',
             'competition.start_date',
             [
-                'label' => Yii::t('golfleague', 'Status'),
+                'label' => Yii::t('igolf', 'Status'),
                 'value' => function ($model, $key, $index, $widget) {
-                        return Yii::t('golfleague', $model->status);
+                        return Yii::t('igolf', $model->status);
                     }
             ],
             [

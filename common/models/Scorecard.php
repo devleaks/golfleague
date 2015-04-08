@@ -33,14 +33,14 @@ class Scorecard extends _Scorecard
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'Scorecard'),
-            'competition_id' => Yii::t('golfleague', 'Match'),
-            'golfer_id' => Yii::t('golfleague', 'Golfer'),
-            'tees' => Yii::t('golfleague', 'Tees'),
-            'note' => Yii::t('golfleague', 'Note'),
-            'points' => Yii::t('golfleague', 'Points'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
+            'id' => Yii::t('igolf', 'Scorecard'),
+            'competition_id' => Yii::t('igolf', 'Match'),
+            'golfer_id' => Yii::t('igolf', 'Golfer'),
+            'tees' => Yii::t('igolf', 'Tees'),
+            'note' => Yii::t('igolf', 'Note'),
+            'points' => Yii::t('igolf', 'Points'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
         ];
     }
 

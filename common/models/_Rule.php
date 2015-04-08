@@ -41,7 +41,8 @@ class _Rule extends \yii\db\ActiveRecord
             [['competition_type'], 'required'],
             [['object_type', 'rule_type'], 'string', 'max' => 40],
             [['name', 'classname'], 'string', 'max' => 80],
-            [['description', 'note'], 'string', 'max' => 255],
+            [['description'], 'string', 'max' => 255],
+            [['note'], 'string', 'max' => 160],
             [['competition_type'], 'string', 'max' => 20],
             [['name'], 'unique'],
             [['classname'], 'unique']
@@ -54,16 +55,16 @@ class _Rule extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('golfleague', 'ID'),
-            'object_type' => Yii::t('golfleague', 'Object Type'),
-            'rule_type' => Yii::t('golfleague', 'Rule Type'),
-            'name' => Yii::t('golfleague', 'Name'),
-            'description' => Yii::t('golfleague', 'Description'),
-            'note' => Yii::t('golfleague', 'Note'),
-            'created_at' => Yii::t('golfleague', 'Created At'),
-            'updated_at' => Yii::t('golfleague', 'Updated At'),
-            'competition_type' => Yii::t('golfleague', 'Competition Type'),
-            'classname' => Yii::t('golfleague', 'Classname'),
+            'id' => Yii::t('igolf', 'ID'),
+            'object_type' => Yii::t('igolf', 'Object Type'),
+            'rule_type' => Yii::t('igolf', 'Rule Type'),
+            'name' => Yii::t('igolf', 'Name'),
+            'description' => Yii::t('igolf', 'Description'),
+            'note' => Yii::t('igolf', 'Note'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'competition_type' => Yii::t('igolf', 'Competition Type'),
+            'classname' => Yii::t('igolf', 'Classname'),
         ];
     }
 

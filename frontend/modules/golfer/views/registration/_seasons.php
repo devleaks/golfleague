@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $me = Golfer::me();
-$this->title = Yii::t('golfleague', 'Seasons');
+$this->title = Yii::t('igolf', 'Seasons');
 ?>
 <div class="season-index">
 
@@ -27,44 +27,38 @@ $this->title = Yii::t('golfleague', 'Seasons');
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-                'class' => 'yii\grid\DataColumn', // can be omitted, default
-                'label' => Yii::t('golfleague', 'Competition'),
+                'label' => Yii::t('igolf', 'Competition'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->name;
                 },
             ],
             [
-                'class' => 'yii\grid\DataColumn', // can be omitted, default
-                'label' => Yii::t('golfleague', 'Registration start date'),
+                'label' => Yii::t('igolf', 'Registration start date'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->registration_begin;
                 },
             ],
             [
-                'class' => 'yii\grid\DataColumn', // can be omitted, default
-                'label' => Yii::t('golfleague', 'Registration end date'),
+                'label' => Yii::t('igolf', 'Registration end date'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->registration_end;
                 },
             ],
             [
-                'class' => 'yii\grid\DataColumn', // can be omitted, default
-                'label' => Yii::t('golfleague', 'Handicap'),
+                'label' => Yii::t('igolf', 'Handicap'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->handicap_min . '-' . $model->handicap_max;
                 },
             ],
             [
-                'class' => 'yii\grid\DataColumn', // can be omitted, default
-                'label' => Yii::t('golfleague', 'Age'),
+                'label' => Yii::t('igolf', 'Age'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->age_min . '-' . $model->age_max;
                 },
             ],
             'name',
             [
-                'class' => 'yii\grid\DataColumn', // can be omitted, default
-                'label' => Yii::t('golfleague', 'Number of Tournaments'),
+                'label' => Yii::t('igolf', 'Number of Tournaments'),
                 'value' => function ($model, $key, $index, $widget) {
 					return $model->getTournaments()->count();
                 },

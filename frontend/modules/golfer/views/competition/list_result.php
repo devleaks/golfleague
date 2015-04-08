@@ -22,18 +22,16 @@ use yii\data\ActiveDataProvider;
 
             //'id',
             [
-                'class' => 'yii\grid\DataColumn', // can be omitted, default
-                'label' => Yii::t('golfleague', 'Competition'),
-                'value' => function ($data) {
-                    return Yii::t('golfleague', $data->competition_type);
+                'label' => Yii::t('igolf', 'Competition'),
+                'value' => function($model, $key, $index, $widget) {
+                    return Yii::t('igolf', $model->competition_type);
                 },
             ],
             'name',
             [
-                'class' => 'yii\grid\DataColumn', // can be omitted, default
-                'label' => Yii::t('golfleague', 'Competition'),
-                'value' => function ($data) {
-                    return $data->parent ? $data->parent->name : '';
+                'label' => Yii::t('igolf', 'Competition'),
+                'value' => function($model, $key, $index, $widget) {
+                    return $model->parent ? $model->parent->name : '';
                 },
             ],
             'description',

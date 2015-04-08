@@ -81,7 +81,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'age_max',
             // 'gender',
             [
-                'class' => 'yii\grid\DataColumn', // can be omitted, default
                 'label' => Yii::t('igolf', 'Status'),
                 'value' => function ($model, $key, $index, $widget) {
                     return Yii::t('igolf', $model->status);
