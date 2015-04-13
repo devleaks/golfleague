@@ -8,25 +8,38 @@
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
-            "version": "0.1.0",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/2amigos/yii2-gallery-widget.git",
-                "reference": "9a9808c26df93e5a07cdde88b27b55b3c27a9a51"
+                "reference": "f488ad42081eace2a90e0640ac30903e7c09b431"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/2amigos/yii2-gallery-widget/zipball/9a9808c26df93e5a07cdde88b27b55b3c27a9a51",
-                "reference": "9a9808c26df93e5a07cdde88b27b55b3c27a9a51",
+                "url": "https://api.github.com/repos/2amigos/yii2-gallery-widget/zipball/f488ad42081eace2a90e0640ac30903e7c09b431",
+                "reference": "f488ad42081eace2a90e0640ac30903e7c09b431",
                 "shasum": ""
             },
             "require": {
-                "yiisoft/yii2": "*"
+                "bower-asset/blueimp-gallery": "~2.15",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
             },
             "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                },
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "dosamigos\\gallery\\": ""
+                    "dosamigos\\gallery\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -35,19 +48,90 @@
             ],
             "authors": [
                 {
-                    "name": "Antonio Ramirez",
-                    "email": "ramirez.cobos@gmail.com",
-                    "homepage": "http://www.ramirezcobos.com"
+                    "name": "2amigOS! Consulting Group",
+                    "email": "hola@2amigos.us",
+                    "homepage": "http://2amigos.us",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Alexander Kochetov",
+                    "email": "creocoder@gmail.com",
+                    "role": "Developer"
                 }
             ],
-            "description": "BlueImp Gallery Widget for Yii2.",
+            "description": "Blueimp gallery widget for the Yii framework",
+            "homepage": "https://github.com/2amigos/yii2-gallery-widget",
             "keywords": [
-                "extension",
+                "2amigos",
                 "gallery",
                 "widget",
-                "yii"
+                "yii",
+                "yii 2",
+                "yii2"
             ],
-            "time": "2014-04-07 22:24:40"
+            "time": "2015-04-12 20:19:40"
+        },
+        {
+            "name": "bower-asset/blueimp-gallery",
+            "version": "2.15.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blueimp/Gallery.git",
+                "reference": "a20d8735def7fd964ef90c2ab5c9505ff1f69f8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blueimp/Gallery/zipball/a20d8735def7fd964ef90c2ab5c9505ff1f69f8d",
+                "reference": "a20d8735def7fd964ef90c2ab5c9505ff1f69f8d",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "css/blueimp-gallery.css",
+                    "css/blueimp-gallery-indicator.css",
+                    "css/blueimp-gallery-video.css",
+                    "img/error.png",
+                    "img/error.svg",
+                    "img/loading.gif",
+                    "img/play-pause.png",
+                    "img/play-pause.svg",
+                    "img/video-play.png",
+                    "img/video-play.svg",
+                    "js/blueimp-helper.js",
+                    "js/blueimp-gallery.js",
+                    "js/blueimp-gallery-fullscreen.js",
+                    "js/blueimp-gallery-indicator.js",
+                    "js/blueimp-gallery-video.js",
+                    "js/blueimp-gallery-vimeo.js",
+                    "js/blueimp-gallery-youtube.js"
+                ],
+                "bower-asset-ignore": [
+                    "/*.*",
+                    "css/demo.css",
+                    "js/demo.js"
+                ]
+            },
+            "description": "blueimp Gallery is a touch-enabled, responsive and customizable image and video gallery, carousel and lightbox, optimized for both mobile and desktop web browsers. It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality, fullscreen support and on-demand content loading and can be extended to display additional content types.",
+            "keywords": [
+                "carousel",
+                "desktop",
+                "effects",
+                "fullscreen",
+                "gallery",
+                "image",
+                "keyboard",
+                "lightbox",
+                "mobile",
+                "mouse",
+                "navigation",
+                "responsive",
+                "slideshow",
+                "swipe",
+                "touch",
+                "transition",
+                "video"
+            ]
         },
         {
             "name": "bower-asset/bootstrap",
@@ -348,6 +432,45 @@
             ]
         },
         {
+            "name": "bower-asset/fizzy-ui-utils",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/metafizzy/fizzy-ui-utils.git",
+                "reference": "72dc1353bbc1646ee160e6a9dcb946eb0b66fe67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/metafizzy/fizzy-ui-utils/zipball/72dc1353bbc1646ee160e6a9dcb946eb0b66fe67",
+                "reference": "72dc1353bbc1646ee160e6a9dcb946eb0b66fe67",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/doc-ready": "~1.0.4",
+                "bower-asset/matches-selector": "~1.0.2"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "utils.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests",
+                    "package.json"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "UI utilities",
+            "keywords": [
+                "ui",
+                "utility"
+            ]
+        },
+        {
             "name": "bower-asset/fullcalendar",
             "version": "v2.2.7",
             "source": {
@@ -541,23 +664,24 @@
         },
         {
             "name": "bower-asset/isotope",
-            "version": "v2.1.1",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/metafizzy/isotope.git",
-                "reference": "5bd5acb7ce933aa8ff00a40e6dbf4e4bc53c36e3"
+                "reference": "9a5457acbdba74a37065ae853f6426d1e12cced8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/metafizzy/isotope/zipball/5bd5acb7ce933aa8ff00a40e6dbf4e4bc53c36e3",
-                "reference": "5bd5acb7ce933aa8ff00a40e6dbf4e4bc53c36e3",
+                "url": "https://api.github.com/repos/metafizzy/isotope/zipball/9a5457acbdba74a37065ae853f6426d1e12cced8",
+                "reference": "9a5457acbdba74a37065ae853f6426d1e12cced8",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/get-size": ">=1.2.2,<1.3",
-                "bower-asset/masonry": "dev-3.2.x,|3.2.x",
+                "bower-asset/fizzy-ui-utils": "~1.0.1",
+                "bower-asset/get-size": "~1.2.2",
+                "bower-asset/masonry": "~3.3.0",
                 "bower-asset/matches-selector": ">=1,<2",
-                "bower-asset/outlayer": "dev-1.3.x,|1.3.x"
+                "bower-asset/outlayer": "~1.4.0"
             },
             "require-dev": {
                 "bower-asset/doc-ready": "dev-1.x,|1.x",
@@ -572,14 +696,7 @@
             },
             "type": "bower-asset-library",
             "extra": {
-                "bower-asset-main": [
-                    "js/item.js",
-                    "js/layout-mode.js",
-                    "js/isotope.js",
-                    "js/layout-modes/vertical.js",
-                    "js/layout-modes/fit-rows.js",
-                    "js/layout-modes/masonry.js"
-                ],
+                "bower-asset-main": "js/isotope.js",
                 "bower-asset-ignore": [
                     "test/",
                     "examples/",
@@ -716,21 +833,22 @@
         },
         {
             "name": "bower-asset/masonry",
-            "version": "v3.2.3",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/desandro/masonry.git",
-                "reference": "c5c64b7bb842c74284dab47b44738f67accbd059"
+                "reference": "843b498cdb1af3f92020c0d126d4d6730424f971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/desandro/masonry/zipball/c5c64b7bb842c74284dab47b44738f67accbd059",
-                "reference": "c5c64b7bb842c74284dab47b44738f67accbd059",
+                "url": "https://api.github.com/repos/desandro/masonry/zipball/843b498cdb1af3f92020c0d126d4d6730424f971",
+                "reference": "843b498cdb1af3f92020c0d126d4d6730424f971",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/get-size": ">=1.1.4,<1.3",
-                "bower-asset/outlayer": "dev-1.3.x,|1.3.x"
+                "bower-asset/fizzy-ui-utils": "~1.0.1",
+                "bower-asset/get-size": "~1.2.2",
+                "bower-asset/outlayer": "~1.4.0"
             },
             "require-dev": {
                 "bower-asset/doc-ready": "dev-1.x,|1.x",
@@ -807,16 +925,16 @@
         },
         {
             "name": "bower-asset/moment",
-            "version": "2.10.0",
+            "version": "2.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment.git",
-                "reference": "751665636d3f19aeccd5c0c023ff74c4f9c7772b"
+                "reference": "ce233cecf3d07aa15869a1db0fd8a8c43efccfcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moment/moment/zipball/751665636d3f19aeccd5c0c023ff74c4f9c7772b",
-                "reference": "751665636d3f19aeccd5c0c023ff74c4f9c7772b",
+                "url": "https://api.github.com/repos/moment/moment/zipball/ce233cecf3d07aa15869a1db0fd8a8c43efccfcd",
+                "reference": "ce233cecf3d07aa15869a1db0fd8a8c43efccfcd",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -841,25 +959,26 @@
         },
         {
             "name": "bower-asset/outlayer",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/metafizzy/outlayer.git",
-                "reference": "6d4ce485b0afe93a039ce8d3caaf6973d45488f8"
+                "reference": "426e906fb2827d1d79f39ed0b33c6fd24257f34a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/metafizzy/outlayer/zipball/6d4ce485b0afe93a039ce8d3caaf6973d45488f8",
-                "reference": "6d4ce485b0afe93a039ce8d3caaf6973d45488f8",
+                "url": "https://api.github.com/repos/metafizzy/outlayer/zipball/426e906fb2827d1d79f39ed0b33c6fd24257f34a",
+                "reference": "426e906fb2827d1d79f39ed0b33c6fd24257f34a",
                 "shasum": ""
             },
             "require": {
                 "bower-asset/doc-ready": "dev-1.0.x,|1.0.x",
                 "bower-asset/eventemitter": ">=4.2,<5",
                 "bower-asset/eventie": "~1.0.3",
-                "bower-asset/get-size": ">=1.1.4,<1.3",
-                "bower-asset/get-style-property": "dev-1.x,|1.x",
-                "bower-asset/matches-selector": "dev-1.x,|1.x"
+                "bower-asset/fizzy-ui-utils": "~1.0.1",
+                "bower-asset/get-size": "~1.2.2",
+                "bower-asset/get-style-property": "~1.0.4",
+                "bower-asset/matches-selector": "~1.0.2"
             },
             "require-dev": {
                 "bower-asset/jquery": ">=1.4.3,<2",
@@ -868,10 +987,7 @@
             },
             "type": "bower-asset-library",
             "extra": {
-                "bower-asset-main": [
-                    "item.js",
-                    "outlayer.js"
-                ],
+                "bower-asset-main": "outlayer.js",
                 "bower-asset-ignore": [
                     "test/",
                     "docs/",
@@ -882,7 +998,8 @@
                     "node_modules",
                     "bower_components",
                     "test",
-                    "tests"
+                    "tests",
+                    "package.json"
                 ]
             },
             "license": [
@@ -890,29 +1007,30 @@
             ],
             "description": "the brains and guts of a layout library",
             "keywords": [
-                "DOM",
-                "layout"
+                "isotope",
+                "layout",
+                "masonry"
             ]
         },
         {
             "name": "bower-asset/packery",
-            "version": "v1.3.2",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/metafizzy/packery.git",
-                "reference": "ae963a119517f472fcf1ee5314561c7ede40905f"
+                "reference": "61c553add93c2203a897f86ec336c9995e48a37f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/metafizzy/packery/zipball/ae963a119517f472fcf1ee5314561c7ede40905f",
-                "reference": "ae963a119517f472fcf1ee5314561c7ede40905f",
+                "url": "https://api.github.com/repos/metafizzy/packery/zipball/61c553add93c2203a897f86ec336c9995e48a37f",
+                "reference": "61c553add93c2203a897f86ec336c9995e48a37f",
                 "shasum": ""
             },
             "require": {
                 "bower-asset/classie": "dev-1.x,|1.x",
                 "bower-asset/get-size": "dev-1.2.x,|1.2.x",
                 "bower-asset/get-style-property": "dev-1.x,|1.x",
-                "bower-asset/outlayer": "dev-1.3.x,|1.3.x"
+                "bower-asset/outlayer": "dev-1.4.x,|1.4.x"
             },
             "require-dev": {
                 "bower-asset/draggabilly": "dev-1.x,|1.x",
@@ -923,12 +1041,7 @@
             },
             "type": "bower-asset-library",
             "extra": {
-                "bower-asset-main": [
-                    "js/rect.js",
-                    "js/packer.js",
-                    "js/item.js",
-                    "js/packery.js"
-                ],
+                "bower-asset-main": "js/packery.js",
                 "bower-asset-ignore": [
                     "**/.*",
                     "test/",
@@ -1878,12 +1991,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-builder.git",
-                "reference": "e7ef7de89e5b40bb174fd27004acc96363a767cf"
+                "reference": "2fd817dd836c7f11a1deb87cd0c791aab99c5bd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-builder/zipball/e7ef7de89e5b40bb174fd27004acc96363a767cf",
-                "reference": "e7ef7de89e5b40bb174fd27004acc96363a767cf",
+                "url": "https://api.github.com/repos/kartik-v/yii2-builder/zipball/2fd817dd836c7f11a1deb87cd0c791aab99c5bd4",
+                "reference": "2fd817dd836c7f11a1deb87cd0c791aab99c5bd4",
                 "shasum": ""
             },
             "require": {
@@ -1917,7 +2030,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-03-15 09:08:45"
+            "time": "2015-04-12 19:26:22"
         },
         {
             "name": "kartik-v/yii2-date-range",
@@ -4782,16 +4895,16 @@
         },
         {
             "name": "jamband/yii2-schemadump",
-            "version": "v0.9.5",
+            "version": "v0.9.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jamband/yii2-schemadump.git",
-                "reference": "ee38293d002dd094c9dc61dde8ad1e618200ac6b"
+                "reference": "9e81b661ed07ed019323e6792da8d088bec50a85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jamband/yii2-schemadump/zipball/ee38293d002dd094c9dc61dde8ad1e618200ac6b",
-                "reference": "ee38293d002dd094c9dc61dde8ad1e618200ac6b",
+                "url": "https://api.github.com/repos/jamband/yii2-schemadump/zipball/9e81b661ed07ed019323e6792da8d088bec50a85",
+                "reference": "9e81b661ed07ed019323e6792da8d088bec50a85",
                 "shasum": ""
             },
             "require": {
@@ -4823,7 +4936,7 @@
                 "migration",
                 "yii2"
             ],
-            "time": "2014-12-08 22:03:06"
+            "time": "2015-04-09 03:17:48"
         },
         {
             "name": "phpspec/php-diff",
