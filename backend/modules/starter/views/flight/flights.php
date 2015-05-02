@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use devleaks\golfleague\assets\FlightsAsset;
+use backend\assets\FlightsAsset;
 use yii\widgets\ActiveForm;
 use kartik\widgets\TimePicker;
 use kartik\widgets\TouchSpin;
@@ -27,38 +27,54 @@ $this->params['breadcrumbs'][] = $this->title;
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<p>Drag and drop golfers between flights.</p>
 	<p>Drop golfer on dashed flight to create a new one.</p>
-	<p>Flight framed in green is full (4 golfers).</p>
+	<p>Flight framed in green is full (maximum nummber of golfers per flight reached).</p>
 	<p>Reorder flights by moving them up and down the list.</p>
 	<p>Set start time of first flight and time between 2 flights.</p>
 	<p>Save flights or Reset to restart new fresh list. Select flight distribution algorithm from popup list.</p>
 	<p>Publish final flights when done.</p>
 </div>
 
-<div class="gl-infoline">
-<label class="control-label">First flight time</label> 
-<div style='width: 140px; display: inline-block;'>
-<?= TimePicker::widget([
-	'name' => 'GLtimeStart',
-	'options' => ['id' => 'GLtimeStart'],
-	'pluginOptions' => [
-		'defaultTime' => substr($competition->start_date, 11, 5),
-		'minuteStep' => 1,
-		'showMeridian' => false
-	]
-]); ?>
-</div>
+<div class="row">
+	<div class="col-lg-2">
+		<label class="control-label">Competition start</label> 
+		<p><strong><?= Yii::$app->formatter->asDate($competition->start_date) ?></strong></p>
+	</div>
 
-<label class="control-label">Flight time</label>
-<div style='width: 180px; display: inline-block;'>
-<?= TouchSpin::widget([
-    'name' => 'GLdeltaStart',
-    'options' => ['id' => 'GLdeltaStart'],
-	'pluginOptions' => ['postfix' => 'min', 'initval' => 10]
-]); ?>
-</div>
+	<div class="col-lg-2">
+		<label class="control-label">First flight start time</label> 
+				<?= TimePicker::widget([
+			'name' => 'GLtimeStart',
+			'options' => ['id' => 'GLtimeStart'],
+			'pluginOptions' => [
+				'defaultTime' => substr($competition->start_date, 11, 5),
+				'minuteStep' => 1,
+				'showMeridian' => false
+			]
+		]); ?>
+	</div>
 
-<label class="control-label">Competition start</label> 
-<?= $competition->start_date ?>.
+
+	<div class="col-lg-3">
+		<label class="control-label">Flight time</label>
+		<?= TouchSpin::widget([
+		    'name' => 'GLdeltaStart',
+		    'options' => ['id' => 'GLdeltaStart'],
+			'pluginOptions' => ['postfix' => 'min', 'initval' => 10, 'min' => 4, 'max' => 30]
+		]); ?>
+	</div>
+
+	<div class="col-lg-3">
+		<label class="control-label">Flight size</label>
+		<?= TouchSpin::widget([
+		    'name' => 'GLflightSize',
+		    'options' => ['id' => 'GLflightSize'],
+			'pluginOptions' => ['postfix' => 'golfers', 'initval' => 4, 'min' => 1, 'max' => $competition->flight_size ? $competition->flight_size : Competition::FLIGHT_SIZE_DEFAULT],
+			'pluginEvents' => [
+				'change' => 'cleanUp',
+			]
+		]); ?>
+	</div>
+
 </div>
 
 <ul id="flight-case">
@@ -83,21 +99,28 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= Html::hiddenInput( 'flights', null, ['id' => 'savedflights'] )?>
 <?= Html::submitButton(Yii::t('igolf', 'Save flights'), ['class' => 'btn btn-success']) ?>
 
-
-
-        <div class="btn-group">
-            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-            <?= Yii::t('igolf', 'Restart flights') ?> <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <?php
-                    echo '<li>'.Html::a(Yii::t('igolf', 'Reset Chronological Order'), ['flight/reset', 'competition_id' => $competition->id]).'</a></li>';
-                ?>
-            </ul>
-        </div>
+<div class="btn-group">
+    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+    <?= Yii::t('igolf', 'Restart flights') ?> <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <?php
+            echo '<li>'.Html::a(Yii::t('igolf', 'Reset Chronological Order'), ['flight/reset', 'competition_id' => $competition->id]).'</a></li>';
+        ?>
+    </ul>
+</div>
 
 <?= Html::a(Yii::t('igolf', 'Publish Flights'), ['flight/publish', 'id' => $competition->id], ['class' => 'btn btn-primary']) ?>
 
 <?php ActiveForm::end(); ?>
 
 </div>
+<script type="text/javascript">
+<?php
+$this->beginBlock('JS_FLIGHT_INIT') ?>
+adjustDate();
+cleanUp();
+<?php $this->endBlock(); ?>
+</script>
+<?php
+$this->registerJs($this->blocks['JS_FLIGHT_INIT'], yii\web\View::POS_READY);

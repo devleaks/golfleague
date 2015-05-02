@@ -6,7 +6,7 @@ use Yii;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\db\ActiveRecord;
-use common\components\Constant;
+use common\behaviors\Constant;
 
 /**
  * This is the model class for table "competitions".

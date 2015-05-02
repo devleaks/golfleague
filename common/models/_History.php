@@ -11,10 +11,11 @@ use Yii;
  * @property string $object_type
  * @property integer $object_id
  * @property string $action
- * @property string $name
  * @property string $note
  * @property integer $performer_id
  * @property string $created_at
+ * @property string $payload
+ * @property string $summary
  */
 class _History extends \yii\db\ActiveRecord
 {
@@ -32,13 +33,13 @@ class _History extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['object_type'], 'string'],
+            [['object_type', 'payload'], 'string'],
             [['object_id', 'performer_id'], 'integer'],
             [['action'], 'required'],
             [['created_at'], 'safe'],
-            [['action'], 'string', 'max' => 20],
-            [['name'], 'string', 'max' => 80],
-            [['note'], 'string', 'max' => 160]
+            [['action'], 'string', 'max' => 40],
+            [['note'], 'string', 'max' => 160],
+            [['summary'], 'string', 'max' => 80]
         ];
     }
 
@@ -52,10 +53,11 @@ class _History extends \yii\db\ActiveRecord
             'object_type' => Yii::t('igolf', 'Object Type'),
             'object_id' => Yii::t('igolf', 'Object ID'),
             'action' => Yii::t('igolf', 'Action'),
-            'name' => Yii::t('igolf', 'Name'),
             'note' => Yii::t('igolf', 'Note'),
             'performer_id' => Yii::t('igolf', 'Performer ID'),
             'created_at' => Yii::t('igolf', 'Created At'),
+            'payload' => Yii::t('igolf', 'Payload'),
+            'summary' => Yii::t('igolf', 'Summary'),
         ];
     }
 }

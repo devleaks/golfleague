@@ -1,0 +1,51 @@
+ul { list-style: none; }
+
+ul#flight-case > li { cursor: pointer; }
+
+
+ul#flight-case > li {
+    border: 1px solid;
+	margin: 4px;
+	padding: 4px;
+}
+
+.handle {
+	margin-right: 10px;
+}
+
+.flight.source {
+	border: 2px solid #060;
+}
+
+.flight.new {
+	border: 1px dashed #0f0;
+}
+
+.flight-nohandle,
+.flight {
+    padding: 10px;
+	width: 400px;
+}
+
+.placeholder {
+	border: 1px solid green;
+	height: 5px;
+}
+
+.dragged {
+	border: 1px solid #0f0;
+	background-color: rgba(230, 255, 230, 0.5);
+}
+
+.flight-info {
+	background-color: #eee;
+	font-size: smaller;
+}
+
+.flight-full {
+	border: 1px solid #0d0;
+}
+
+.flight-error {
+	border: 2px solid #f00;
+}

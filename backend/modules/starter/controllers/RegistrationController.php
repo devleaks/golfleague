@@ -140,6 +140,113 @@ class RegistrationController extends GolfLeagueController
 	        }
     }
 
+    /**
+     * Prepare registration models for a competition for bulk registration by starter.
+     * @return mixed
+     */
+    public function actionBulk($id)
+    {
+		$model = Competition::findOne($id);
+        $golfers = Golfer::find()->all();
+		$availables = [];
+		foreach($golfers as $golfer)
+			$availables[$golfer->id] = $golfer->name;
+			
+        $registrations = Registration::find()
+			->where([
+				'competition_id' => $id,
+				'status' => array(Registration::STATUS_PENDING,Registration::STATUS_REGISTERED)
+			])
+			->all();
+        $registereds = [];
+        foreach ($registrations as $registration) {
+            $registereds[$registration->golfer_id] = $availables[$registration->golfer_id];
+            unset($availables[$registration->golfer_id]);
+        }
+
+        return $this->render('bulk', [
+			'model'	      => $model,
+            'availables'  => $availables,
+            'registereds' => $registereds,
+        ]);
+    }
+
+
+    /**
+     * Create registration or suppress registratino.
+     * @param integer $id
+     * @return mixed
+     */
+    private function doRegistration($competition_id, $action)
+    {
+        $post = Yii::$app->request->post();
+        $golfers = $post['golfers'];
+		$competition = Competition::findOne($competition_id);
+        $error = [];
+
+        foreach ($golfers as $golfer_id) {
+			$golfer = Golfer::findOne($golfer_id);
+            try {
+				if($action === 'register')
+                	$competition->register($golfer, true); // force = true, by-pass registration check, starter can overwrite them.
+				else
+                	$competition->deregister($golfer);
+            } catch (\Exception $exc) {
+                $error[] = $exc->getMessage();
+            }
+        }
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return [$this->actionGolferSearch($competition_id, 'availables',  $post['search_avail']),
+                $this->actionGolferSearch($competition_id, 'registereds', $post['search_regs']),
+                $error];
+    }
+
+    public function actionRegister($competition_id)
+    {
+        return $this->doRegistration($competition_id, 'register');
+    }
+
+    public function actionDeregister($competition_id)
+    {
+        return $this->doRegistration($competition_id, 'deregister');
+    }
+
+    public function actionGolferSearch($id, $target, $term = '')
+    {
+		$model = Competition::findOne($id);
+
+        $golfers = Golfer::find()->all();
+		$availables = [];
+		foreach($golfers as $golfer)
+			$availables[$golfer->id] = $golfer->name;
+			
+        $registrations = Registration::find()
+			->where([
+				'competition_id' => $id,
+				'status' => array(Registration::STATUS_PENDING,Registration::STATUS_REGISTERED)
+			])
+			->all();
+        $registereds = [];
+        foreach ($registrations as $registration) {
+            $registereds[$registration->golfer_id] = $availables[$registration->golfer_id];
+            unset($availables[$registration->golfer_id]);
+        }
+
+        $result = [];
+        if (!empty($term)) {
+            foreach (${$target} as $golfer) {
+                if (strpos($golfer, $term) !== false) {
+					$id = Golfer::findOne(['name' => $golfer]);
+                    $result[$id->id] = $golfer;
+                }
+            }
+        } else {
+            $result = ${$target};
+        }
+        return Html::renderSelectOptions('', $result);
+    }
+
+
 
 	
 

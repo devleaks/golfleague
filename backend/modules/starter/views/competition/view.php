@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
             'course.name',
             'holes',
-            'rules.name',
+            'rule_id.name',
             'start_date',
             'registration_begin',
             'registration_end',

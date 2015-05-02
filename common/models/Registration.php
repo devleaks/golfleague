@@ -6,7 +6,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use common\components\Constant;
+use common\behaviors\Constant;
 
 /**
  * This is the model class for table "registrations".

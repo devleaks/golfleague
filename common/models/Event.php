@@ -4,7 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use common\components\Constant;
+use common\behaviors\Constant;
 use yii2fullcalendar\models\Event as FullCalendarEvent;
 use yii\helpers\Url;
 

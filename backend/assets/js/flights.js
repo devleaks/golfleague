@@ -4,8 +4,17 @@
  */
 var handleString = '<div class="flight-info"><span class="handle glyphicon glyphicon-move"></span>Flight No <span class="flight-number">#</span>—Start Time <span class="flight-time">00:00</span>—Total handicap: <span class="flight-handicap">0</span>.</div>';
 
+function getFlightMaxSize() {
+	var maxSize = $('#GLflightSize').val();
+	if(!parseInt(maxSize) > 0) maxSize = 4;
+	console.log("max size="+maxSize);
+	return maxSize;
+}
+
 function initSortable(element) {
 	
+	var maxSize = getFlightMaxSize();
+
 	element.sortable({
 		items: 'li',
 		connectWith: ".flight",
@@ -17,7 +26,7 @@ function initSortable(element) {
 				ui.item.toggleClass("dragged");
 			},
 		receive: function(event, ui) {
-				if ($(this).children('li').length > 4) {
+				if ($(this).children('li').length > maxSize) {
 					//console.log('would have '+$(this).children('li').length+' items, cancelling...');
 					$(ui.sender).sortable('cancel');
 				} else {
@@ -43,27 +52,31 @@ function initSortable(element) {
 function cleanUp() {
 	
 	var cnt = 1;
+	var maxSize = getFlightMaxSize();
     
-    $('.flight').not('.new').each(function() {
+    $('.flight').not('.new').not('.bench').each(function() {
 		var len = $(this).find('li').length;
-		if(len == 4) {
+		if(len == maxSize) {
+			$(this).removeClass("flight-error");
 			$(this).addClass("flight-full");
-		} else if(len <= 4) {
+		} else if(len <= maxSize) {
+			$(this).removeClass("flight-error");
 			$(this).removeClass("flight-full");
-		} else if(len >= 4) {
+		} else if(len >= maxSize) {
+			$(this).removeClass("flight-full");
 			$(this).addClass("flight-error");
 		}
 		if(len === 0) {
 			$(this).parent().remove();
 		} else {
-			flight_handicap($(this), cnt++);
+			flightHandicap($(this), cnt++);
 		}
 	});
     
 }
 
 
-function flight_handicap(list, orderNr) {
+function flightHandicap(list, orderNr) {
 
 	var sum = 0;
 
@@ -77,6 +90,7 @@ function flight_handicap(list, orderNr) {
 	});
 
 	startTime = new Date(startDate.getTime() + ((orderNr - 1)*startDelta*60*1000));
+	console.log('start time:'+startDelta+':'+startTime);
 	list.parent().find('span.flight-number').text(orderNr);
 	list.parent().find('span.flight-time').text(startTime.toTimeString().substr(0, 5));
 	list.parent().find('span.flight-handicap').text(Math.round(10*sum)/10);
@@ -91,12 +105,13 @@ function adjustDate() {
 	var minutes = startTime.substr(idx+1, startTime.length - idx - 1);
 	startDate.setHours(hours,minutes,0);
 	startDelta = parseInt($('#GLdeltaStart').val());
+	console.log('startDelta:'+$('#GLdeltaStart').val());
 }
 
 
 function saveFlights() {
 	var flights = new Array();
-	$( ".flight" ).not('.new').each(function() {
+	$( ".flight" ).not('.new').not('.bench').each(function() {
 		flights.push( {
 			id: $(this).attr('id'),
 			golfers: $(this).sortable( "toArray" )
@@ -122,22 +137,23 @@ $("#flight-case").sortable({
 });
 
 /** To recompute flights start time when first start time and time interval changed */
-$('#GLtimeStart,#GLdeltaStart').change(function() {
+$('#GLtimeStart,#GLdeltaStart,#GLflightSize').change(function() {
 	adjustDate();
 	cleanUp();
 });
 
 /** to change golfers from flights to flights */
 initSortable($(".flight"));
-$(".flight").not('.new').prepend(handleString);
+$(".flight").not('.new').not('.bench').prepend(handleString);
 
-/** Initialization on first run */
+/** Initialization on first run - Now called in view
 adjustDate();
 cleanUp();
+*/
 
 $('#flights-form').submit(function () {
 	var flights = new Array();
-	$( ".flight" ).not('.new').each(function() {
+	$( ".flight" ).not('.new').not('.bench').each(function() {
 		flights.push( {
 			id: $(this).attr('id'),
 			position: $(this).find('span.flight-number').text(),

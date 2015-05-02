@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\grid\GridView;
 use yii\data\ActiveDataProvider;
 
@@ -10,7 +11,7 @@ use yii\data\ActiveDataProvider;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 ?>
-<div class="competition-list">
+<div id="registration" class="competition-list">
 
     <h2><?= Html::encode($title) ?></h2>
 
@@ -45,8 +46,18 @@ use yii\data\ActiveDataProvider;
             // 'updated_at',
             // 'parent_id',
 
-            ['class' => 'kartik\grid\ActionColumn',
-			 'template' => '{view} {update} {pending} {registration} {team}'],
+            [
+				'class' => 'kartik\grid\ActionColumn',
+			 	'template' => '{view} {update} {register}',
+	            'buttons' => [
+	                'register' => function ($url, $model) {
+						$url = Url::to(['registration/competition', 'id' => $model->id]);
+	                    return Html::a('<i class="glyphicon glyphicon-plus"></i>', $url, [
+	                        'title' => Yii::t('store', 'Registrations'),
+	                    ]);
+	                },
+				],
+			],
         ],
     ]); ?>
 

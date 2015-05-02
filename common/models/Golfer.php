@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-use common\components\Constant;
+use common\behaviors\Constant;
 use dektrium\user\models\User;
 use yii\db\ActiveRecord;
 

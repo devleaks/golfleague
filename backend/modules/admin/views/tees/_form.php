@@ -18,7 +18,7 @@ $tees_colors = $golfleague_module->tees_colors;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'course_id')->dropDownList(Course::getCoursesList()/*, ['disabled' => 'true']*/) ?>
+    <?= $form->field($model, 'course_id')->dropDownList(Course::getList()/*, ['disabled' => 'true']*/) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 20]) ?>
 

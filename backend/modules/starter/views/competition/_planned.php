@@ -10,7 +10,7 @@ use yii\data\ActiveDataProvider;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 ?>
-<div class="competition-list">
+<div id="planned" class="competition-list">
 
     <h2><?= Html::encode($title) ?></h2>
 

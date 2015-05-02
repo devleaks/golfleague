@@ -80,7 +80,7 @@ class Course extends _Course
     /**
      *  @return  array id,name pairs
      */
-    public function getCoursesList($id = 0) {
+    public function getList($id = 0) {
         if($id !== 0)
             $models = Course::find()->where(['facility_id', $id])->asArray()->all();
         else

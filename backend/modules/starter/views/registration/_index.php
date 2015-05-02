@@ -105,6 +105,7 @@ foreach(Registration::getLocalizedConstants('STATUS_') as $key => $value)
 $statuses .= '</ul></div>';
 
 echo Html::a(Yii::t('igolf', 'New Registration'), ['create'], ['class' => 'btn btn-success']).' '.
+	 Html::a(Yii::t('igolf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']).' '.
 	 Html::a(Yii::t('igolf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data-status' => Registration::ACTION_DELETE]).' '.
 	 $statuses
 ?>

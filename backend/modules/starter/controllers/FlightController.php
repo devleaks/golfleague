@@ -38,14 +38,26 @@ class FlightController extends GolfLeagueController
      * Lists all Flight models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        $searchModel = new FlightSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$competition = $this->findCompetition($id);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+		$flights = $competition->getFlights();
+
+		$regs_ok = [];
+		foreach($flights->each() as $flight) {
+			foreach($flight->getRegistrations()->each() as $registration) {
+				$regs_ok[] = $registration->id;
+			}
+		}
+
+		// collect new registrations not in existing flights
+		$registrations = $competition->getRegistrations()->andWhere(['not', ['registration_id' => $regs_ok]]);	
+
+        return $this->render('flights', [
+			'competition' => $competition,
+            'flights' => $flights,
+            'registrations' => $registrations,
         ]);
     }
 
@@ -98,7 +110,7 @@ class FlightController extends GolfLeagueController
 	 * @return flight_id updated or created
 	 */
 	private function makeFlight($flight_str, $competition) {
-		$competition_date = substr($competition->start_date, 1, 11);
+		$competition_date = substr($competition->start_date, 0, 10);
 		$flight_arr = explode('-', $flight_str->id); // flight-123
 		$flight = Flight::findOne($flight_arr[1]);
 		if(!$flight) { // need to create it
@@ -108,7 +120,8 @@ class FlightController extends GolfLeagueController
 			$flight->cleanRegistrations();
 		}
 		$flight->position = $flight_str->position;
-		$flight->start_time = $competition_date . $flight_str->start_time . ':00';
+		Yii::trace($competition_date . ' ' . $flight_str->start_time . ':00'  , 'FlightController::makeFlight');
+		$flight->start_time = $competition_date . ' ' . $flight_str->start_time . ':00';
 		$flight->save();
 		// add currents
 		foreach($flight_str->registrations as $registration_str) {
@@ -270,6 +283,22 @@ class FlightController extends GolfLeagueController
     protected function findModel($id)
     {
         if (($model = Flight::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    /**
+     * Finds the Flight model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Flight the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findCompetition($id)
+    {
+        if (($model = Competition::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -2,7 +2,7 @@
 
 namespace common\models;
 use yii\db\ActiveRecord;
-use common\components\Constant;
+use common\behaviors\Constant;
 
 use Yii;
 

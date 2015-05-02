@@ -15,19 +15,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= $this->render('list_registration', [
+    <?= $this->render('_registration', [
 			'title' => Yii::t('igolf', 'Registration'),
 	        'dataProvider' => $registrationProvider,
 	        'filterModel' => $registrationSearch,
 	]) ?>
 
-    <?= $this->render('list_start', [
+    <?= $this->render('_start', [
 			'title' => Yii::t('igolf','Start'),
 	        'dataProvider' => $startProvider,
 	        'filterModel' => $startSearch,
 	]) ?>
 
-    <?= $this->render('list_planned', [
+    <?= $this->render('_planned', [
 			'title' => Yii::t('igolf','Planned'),
 	        'dataProvider' => $planProvider,
 	        'filterModel' => $planSearch,

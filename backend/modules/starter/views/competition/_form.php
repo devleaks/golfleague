@@ -1,10 +1,11 @@
 <?php
 
-use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
-use yii\widgets\ActiveForm;
-use kartik\widgets\DateTimePicker;
+use common\models\Course;
 use common\models\Rule;
+use kartik\widgets\DateTimePicker;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Competition */
@@ -19,7 +20,7 @@ use common\models\Rule;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'course_id')->textInput() ?>
+    <?= $form->field($model, 'course_id')->dropDownList(Course::getList()/*, ['disabled' => 'true']*/) ?>
 
 	<?= $form->field($model, 'holes')->dropDownList(array(18 => '18', 9 => '9')) ?>
 
@@ -62,7 +63,7 @@ use common\models\Rule;
                 'BOTH' => Yii::t('igolf', 'BOTH')
                 ]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList($model::getStatuses()) ?>
+    <?= $form->field($model, 'status')->dropDownList($model::getLocalizedConstants('STATUS_')) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('giveaway', 'Create') : Yii::t('giveaway', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
