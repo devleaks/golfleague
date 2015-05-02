@@ -49,10 +49,9 @@ $role = MenuHelper::getRole();
 
             if(!Yii::$app->user->isGuest) {
                 $who = Yii::$app->user->identity->username;
-                if (YII_DEBUG) {	
-                    $who .= ($role ? '/'.$role : '/?');
-            		$menuItems[] = ['label' => Yii::t('igolf', 'Golf League'), 'items' => [['label' => 'Back End', 'url' => ['/../igolf']]]];
-				}
+
+				if(YII_ENV == 'dev')
+					$menuItems[] = ['label' => Yii::t('store', 'Development'), 'items' => MenuHelper::getDeveloperMenu($role)];
 
 				$user_menu = [];
 				$user_menu[] = ['label' => Yii::t('igolf', 'Profile'), 'url' => ['/user/settings']];

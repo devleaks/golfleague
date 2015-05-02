@@ -37,12 +37,7 @@ class MenuHelper extends \yii\base\Object
  
         $menus = array();
 
-        if(in_array($league_role, array('golfer', 'scorer', 'starter', 'manager', 'admin'))) {
-			if (YII_DEBUG) $menus[] = ['label' => 'Front End', 'url' => ['/../golfleague']];
-        }
-
         if(in_array($league_role, array('scorer', 'starter', 'manager', 'admin'))) {
-            $menus[] = '<li class="divider"></li>';
             $menus[] = '<li class="dropdown-header">'.Yii::t('igolf', 'Scoring').'</li>';
             $menus[] = ['label' => Yii::t('igolf', 'Scorecards'), 'url' => '#'];
             $menus[] = ['label' => Yii::t('igolf', 'Scores'), 'url' => '#'];
@@ -68,6 +63,14 @@ class MenuHelper extends \yii\base\Object
 
         return $menus;
     }
+
+    static public function getDeveloperMenu($role = null) {
+		$dev_menu = [];
+    	$dev_menu[] = ['label' => Yii::t('store', 'Gii'), 'url' => ['/gii']];
+		$dev_menu[] = ['label' => 'Back End', 'url' => ['/../igolf']];
+		$dev_menu[] = ['label' => 'Front End', 'url' => ['/../golfleague']];
+        return $dev_menu;
+	}
 
     private function getSubMenus($parent) {
         $ret = [];

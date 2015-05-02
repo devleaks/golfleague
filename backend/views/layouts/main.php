@@ -56,6 +56,9 @@ $role = MenuHelper::getRole();
                 if (YII_DEBUG)
                     $who .= ($role ? '/'.$role : '/?');
 
+				if(YII_ENV == 'dev')
+					$menus[] = ['label' => Yii::t('store', 'Development'), 'items' => MenuHelper::getDeveloperMenu($role)];
+
 				$user_menu = [];
 				$user_menu[] = ['label' => Yii::t('igolf', 'Profile'), 'url' => ['/user/settings']];
 				$user_menu[] = ['label' => Yii::t('igolf', 'Logout'), 'url' => ['/user/security/logout'], 'linkOptions' => ['data-method' => 'post']];
