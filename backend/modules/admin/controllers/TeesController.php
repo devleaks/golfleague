@@ -87,14 +87,6 @@ class TeesController extends GolfLeagueController
         $model->course_id = $course_id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            // create holes
-            $course = Course::findOne($model->course_id);
-            for($i = 1; $i <= $course->holes; $i++) {
-                $hole = new Hole();
-                $hole->position = intval($i);
-                $hole->tees_id = intval($model->id);
-                $hole->save(); //@todo: check for errors and report
-           }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -113,8 +105,7 @@ class TeesController extends GolfLeagueController
         $model = Tees::findOne($id);
 
         if(sizeof($model->getHoles()->all()) == 0) {
-            $course = Course::findOne($model->course_id);
-            for($i = 1; $i <= $course->holes; $i++) {
+            for($i = 1; $i <= $model->holes; $i++) {
                 $hole = new Hole();
                 $hole->position = intval($i);
                 $hole->tees_id = intval($model->id);
@@ -133,10 +124,15 @@ class TeesController extends GolfLeagueController
      */
     public function actionCopyholes($id, $copy_id)
     {
-        $src = Tees::findOne($copy_id)->getHoles()->all();
+		$model = $this->findModel($id);
+        $src = $this->findModel($copy_id)->getHoles()->all();
 
-        if(sizeof($src) > 0)
-            foreach($src as $srchole) {
+        if(sizeof($src) > 0) {
+			$start = ($model->front_back == Tees::TEE_BACK) ? 9 : 0;
+			$offset = (count($src) == 9) && ($model->front_back == Tees::TEE_BACK) ? 9 : 0;
+			Yii::trace('s='.$start.'/o='.$offset);
+			for($i = 0; $i < $model->holes; $i++) {
+				$srchole = $src[$start + $i - $offset];
                 $hole = new Hole();
                 $hole->tees_id = intval($id);
                 $hole->position = $srchole->position;
@@ -144,8 +140,8 @@ class TeesController extends GolfLeagueController
                 $hole->si = $srchole->si;
                 $hole->length = $srchole->length;
                 $hole->save(); //@todo: check for errors and report
-           }
-        else
+			}
+		} else
             Yii::$app->session->setFlash('error', 'Could not find source holes.');
 
         return $this->redirect(['view', 'id' => $id]);
@@ -159,9 +155,11 @@ class TeesController extends GolfLeagueController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+		$course_id = $model->course_id;
+		Hole::deleteAll(['tees_id' => $model->id]);
+		$model->delete();
+        return $this->redirect(['course/view', 'id' => $course_id]);
     }
 
     /**

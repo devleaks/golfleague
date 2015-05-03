@@ -53,6 +53,8 @@ $this->params['breadcrumbs'][] = $this->title . ' (' . Yii::t('igolf', ucfirst($
 				'items' => Tees::getLocalizedConstants('TEE_'),
 				'visible' => $model->holes == 9,
             ],
+			'course_rating',
+			'slope_rating',
         ],
     ]) ?>
 

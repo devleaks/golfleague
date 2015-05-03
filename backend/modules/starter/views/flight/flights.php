@@ -1,11 +1,12 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
 use backend\assets\FlightsAsset;
-use yii\widgets\ActiveForm;
+use common\models\Competition;
 use kartik\widgets\TimePicker;
 use kartik\widgets\TouchSpin;
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\FlightSearch */
@@ -110,7 +111,12 @@ $this->params['breadcrumbs'][] = $this->title;
     </ul>
 </div>
 
-<?= Html::a(Yii::t('igolf', 'Publish Flights'), ['flight/publish', 'id' => $competition->id], ['class' => 'btn btn-primary']) ?>
+<?= Html::a(Yii::t('igolf', 'Publish Flights'), ['flight/publish', 'id' => $competition->id], [
+		'class' => 'btn btn-primary',
+		'data' => [
+    		'confirm' => Yii::t('igolf', 'Are you sure you want to publish flights for this competition?'),
+		],
+]) ?>
 
 <?php ActiveForm::end(); ?>
 

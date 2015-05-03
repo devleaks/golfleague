@@ -73,7 +73,7 @@ use common\models\Competition;
 				'attribute' => 'created_by',
 				'filter' => ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'),
 	            'value' => function ($model, $key, $index, $widget) {
-					$user = $model->getCreatedBy()->one();
+					$user = $model->createdBy;
 	                return $user ? $user->username : '?';
 	            },
 	            'format' => 'raw',
@@ -104,10 +104,11 @@ foreach(Registration::getLocalizedConstants('STATUS_') as $key => $value)
 	$statuses .= '<li>'.Html::a(Yii::t('store', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
 $statuses .= '</ul></div>';
 
-echo Html::a(Yii::t('igolf', 'New Registration'), ['create'], ['class' => 'btn btn-success']).' '.
-	 Html::a(Yii::t('igolf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']).' '.
-	 Html::a(Yii::t('igolf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data-status' => Registration::ACTION_DELETE]).' '.
-	 $statuses
+$buttons = Html::a(Yii::t('igolf', 'New Registration'), ['create'], ['class' => 'btn btn-success']);
+if($competition) $buttons .= ' '.Html::a(Yii::t('igolf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']);
+$buttons .= ' '.Html::a(Yii::t('igolf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data-status' => Registration::ACTION_DELETE]);
+$buttons .= ' '.$statuses;
+echo $buttons;
 ?>
 
 </div>

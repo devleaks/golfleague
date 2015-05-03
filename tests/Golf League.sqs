@@ -348,7 +348,7 @@
         </SQLField>
         <SQLField>
             <name><![CDATA[name]]></name>
-            <type><![CDATA[VARCHAR(20)]]></type>
+            <type><![CDATA[VARCHAR(40)]]></type>
             <forcedUnique><![CDATA[0]]></forcedUnique>
             <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[9D335F55-8153-4F24-8981-83DA098F7311]]></uid>
@@ -365,14 +365,14 @@
             <zorder><![CDATA[0]]></zorder>
         </SQLField>
         <SQLField>
-            <name><![CDATA[slope]]></name>
-            <type><![CDATA[DECIMAL(3,0)]]></type>
-            <uid><![CDATA[E2EB5623-003D-4D46-8D9E-E5020CB7AEE9]]></uid>
+            <name><![CDATA[course_rating]]></name>
+            <type><![CDATA[DECIMAL(3,1)]]></type>
+            <uid><![CDATA[11DC5BC6-F2DD-4712-BBC4-1773AB70709D]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[rating]]></name>
-            <type><![CDATA[DECIMAL(2,1)]]></type>
-            <uid><![CDATA[11DC5BC6-F2DD-4712-BBC4-1773AB70709D]]></uid>
+            <name><![CDATA[slope_rating]]></name>
+            <type><![CDATA[DECIMAL(3,0)]]></type>
+            <uid><![CDATA[E2EB5623-003D-4D46-8D9E-E5020CB7AEE9]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[holes]]></name>
@@ -380,7 +380,7 @@
             <autoIncrement><![CDATA[0]]></autoIncrement>
             <defaultValue><![CDATA[18]]></defaultValue>
             <forcedUnique><![CDATA[0]]></forcedUnique>
-            <notNull><![CDATA[0]]></notNull>
+            <notNull><![CDATA[1]]></notNull>
             <temporaryOriginalName><![CDATA[holes]]></temporaryOriginalName>
             <uid><![CDATA[EF0C5332-DC7A-4940-85C2-C2892D53AB16]]></uid>
         </SQLField>
@@ -2085,7 +2085,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[102.000000]]></windowLocationX>
         <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{1, 11}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{18, 0}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

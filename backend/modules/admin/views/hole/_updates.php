@@ -16,7 +16,7 @@ $buttons = '';
 if( sizeof($tees->getHoles()->all()) == 0 ) {
     $buttons .= Html::a(Yii::t('igolf', 'Create holes'), ['tees/addholes', 'id' => $tees->id], ['class' => 'btn btn-primary']);
 
-    $tees_with_holes = $tees->getCourse()->one()->getTeesWithHoles();
+    $tees_with_holes = $tees->course->getTeesWithHoles();
     if(sizeof($tees_with_holes) > 0 ) {
 	    $buttons .= ' <div class="btn-group">';
 	    $buttons .= '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'. Yii::t('igolf', 'Copy tees set from') . ' <span class="caret"></span></button>';

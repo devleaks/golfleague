@@ -173,7 +173,7 @@ class FlightController extends GolfLeagueController
 
 		$flights = $this->getFlights($competition);
 		if(!$flights) // no registration
-        	throw new NotFoundHttpException('There are no registration for competition.');
+        	throw new NotFoundHttpException('There is no registration for this competition.');
 
         return $this->render('flights', [
 			'competition' => $competition,
@@ -205,9 +205,8 @@ class FlightController extends GolfLeagueController
 		$competition->status = Competition::STATUS_READY;
 		$competition->save();
 
-        return $this->render('list_flights', [
+        return $this->render('list', [
 			'competition' => $competition,
-            'flights' => $flights,
         ]);
     }
 
@@ -220,6 +219,22 @@ class FlightController extends GolfLeagueController
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Displays a single Flight model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionList($id)
+    {
+		$competition = Competition::findOne($id);
+		if(!$competition)
+        	throw new NotFoundHttpException('The requested page does not exist.');
+
+        return $this->render('list', [
+			'model' => $competition,
         ]);
     }
 

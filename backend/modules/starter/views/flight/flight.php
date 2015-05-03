@@ -12,8 +12,8 @@ use yii\grid\GridView;
 
     <?php
 	foreach($flight->getRegistrations()->each() as $registration) {
-		$golfer = $registration->getGolfer()->one();
-		$teesColor = isset($registration->getTees()->one()->color) ? $registration->getTees()->one()->color : 'black';
+		$golfer = $registration->golfer;
+		$teesColor = isset($registration->tees->color) ? $registration->tees->color : 'black';
 		echo '<li id="registration-'.$registration->id.'" class="golfer"  data-handicap="'.$golfer->handicap.'">'.$golfer->name.' ('.
 			'<span class="glyphicon glyphicon-filter" style="color: '.$teesColor.';"></span> '.$golfer->handicap.')</li>';
 	}

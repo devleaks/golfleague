@@ -25,6 +25,9 @@ $tees_color = Yii::$app->params['tees_colors'];
 			[
             	'attribute' => 'name',
             	'label' => Yii::t('igolf', 'Tees Name'),
+                'value'=> function($model, $key, $index, $widget) use ($tees_color) {
+					return $model->name . ($model->holes == 9 ? ' - '.Yii::t('igolf', $model->front_back) : '');
+				},
 			],
             [
                 'attribute'=>'color',

@@ -92,3 +92,9 @@ a.desc:after {
 a.navbar-brand {
 	padding: 2px 2px!important;
 }
+ol.flight {
+	margin-bottom: 0;
+}
+ul.flight2 li:before {
+	content:"▹ ";
+}

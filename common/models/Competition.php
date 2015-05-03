@@ -296,7 +296,7 @@ class Competition extends _Competition
 		$canRegister = true;
 
 //		Yii::trace($this->id.' for '.$golfer->id, 'Competition::register');
-		if($parent = $this->getParent()->one()) {
+		if($parent = $this->parent) {
 			$canRegister = $parent->register($golfer, $force);
 		}
 

@@ -45,13 +45,13 @@ class CompetitionController extends GolfLeagueController
 //										  ->andWhere(['>','start_date', $now]),
         ]);
 
-		/** Competition awaiting results entry.
+		/** Competition ready to be played.
 		 *  Registration must be READY and in the past (terminated).
 		 */
-		$resultSearch = new CompetitionSearch();
-		$resultProvider = new ActiveDataProvider([
+		$readySearch = new CompetitionSearch();
+		$readyProvider = new ActiveDataProvider([
             'query' => Competition::find()->where(['status' => Competition::STATUS_READY])
-										  ->andWhere(['<=','start_date', $now]),
+										  ->andWhere(['>=','start_date', $now]),
         ]);
 
 		/** Planned competition.
@@ -81,8 +81,8 @@ class CompetitionController extends GolfLeagueController
 	        'registrationSearch'    => $registrationSearch,
 	        'startProvider'  => $startProvider,
 	        'startSearch'    => $startSearch,
-	        'resultProvider' => $resultProvider,
-	        'resultSearch'   => $resultSearch,
+	        'readyProvider' => $readyProvider,
+	        'readySearch'   => $readySearch,
 	        'planProvider'   => $planProvider,
 	        'planSearch'     => $planSearch,
 	        'closedProvider' => $closedProvider,

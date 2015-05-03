@@ -11,7 +11,6 @@ use common\models\Competition;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('igolf', 'Registrations');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Registrations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

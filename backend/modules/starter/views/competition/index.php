@@ -27,6 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $startSearch,
 	]) ?>
 
+    <?= $this->render('_ready', [
+			'title' => Yii::t('igolf','Ready'),
+	        'dataProvider' => $readyProvider,
+	        'filterModel' => $readySearch,
+	]) ?>
+
     <?= $this->render('_planned', [
 			'title' => Yii::t('igolf','Planned'),
 	        'dataProvider' => $planProvider,

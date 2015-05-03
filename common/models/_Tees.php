@@ -13,10 +13,10 @@ use Yii;
  * @property string $color
  * @property string $created_at
  * @property string $updated_at
- * @property string $slope
- * @property string $rating
  * @property integer $holes
  * @property string $front_back
+ * @property string $course_rating
+ * @property string $slope_rating
  *
  * @property Hole[] $holes
  * @property Registration[] $registrations
@@ -43,8 +43,9 @@ class _Tees extends \yii\db\ActiveRecord
             [['course_id', 'name', 'color'], 'required'],
             [['course_id', 'holes'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['slope', 'rating'], 'number'],
-            [['name', 'color', 'front_back'], 'string', 'max' => 20]
+            [['course_rating', 'slope_rating'], 'number'],
+            [['name'], 'string', 'max' => 40],
+            [['color', 'front_back'], 'string', 'max' => 20]
         ];
     }
 
@@ -60,10 +61,10 @@ class _Tees extends \yii\db\ActiveRecord
             'color' => Yii::t('igolf', 'Color'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
-            'slope' => Yii::t('igolf', 'Slope'),
-            'rating' => Yii::t('igolf', 'Rating'),
             'holes' => Yii::t('igolf', 'Holes'),
             'front_back' => Yii::t('igolf', 'Front Back'),
+            'course_rating' => Yii::t('igolf', 'Course Rating'),
+            'slope_rating' => Yii::t('igolf', 'Slope Rating'),
         ];
     }
 
