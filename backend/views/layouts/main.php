@@ -95,7 +95,14 @@ $role = MenuHelper::getRole();
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; Golf League <?= date('Y') ?></p>
+            <p class="pull-left">&copy; <?= Yii::$app->name . ' ' . date('Y') ?>
+				<small><?php $apphomedir = Yii::getAlias('@app'); echo ' — Version '.`cd $apphomedir ; git describe --tags`;
+					if(YII_DEBUG) {
+						echo ' — Last commit: '.`git log -1 --format=%cd --relative-date`;
+						echo ' — '.`hostname`;
+						echo ' — '.Yii::$app->getDb()->dsn;
+					}
+				?></small></p>
             <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>

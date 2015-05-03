@@ -32,7 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>$model->facility->name,
             ],
             'name',
-            'holes',
+            [
+                'attribute'=>'holes',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => array(18 => '18', 9 => '9'),
+            ],
         ],
     ]) ?>
 

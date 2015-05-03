@@ -2,6 +2,7 @@
 
 use common\models\Hole;
 use common\models\Course;
+use common\models\Tees;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -40,6 +41,17 @@ $this->params['breadcrumbs'][] = $this->title . ' (' . Yii::t('igolf', ucfirst($
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => Yii::$app->params['tees_colors'],
                 'value'=>Yii::t('igolf', ucfirst($model->color)),
+            ],
+            [
+                'attribute'=>'holes',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => array(18 => '18', 9 => '9'),
+            ],
+            [
+                'attribute'=>'front_back',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => Tees::getLocalizedConstants('TEE_'),
+				'visible' => $model->holes == 9,
             ],
         ],
     ]) ?>

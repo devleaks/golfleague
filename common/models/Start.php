@@ -4,19 +4,12 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use common\behaviors\Constant;
 
 /**
- * This is the model class for table "tees".
- *
+ *	Gii Extension class
  */
-class Tees extends _Tees
+class Start extends _Start
 {
-	use Constant;
-	
-	const TEE_FRONT = 'FRONT';
-	const TEE_BACK  = 'BACK';
-
     /**
      * @inheritdoc
      */
@@ -40,17 +33,18 @@ class Tees extends _Tees
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'Tees'),
-            'course_id' => Yii::t('igolf', 'Course'),
-            'name' => Yii::t('igolf', 'Tees Set Name'),
-            'color' => Yii::t('igolf', 'Tees Color'),
+            'id' => Yii::t('igolf', 'ID'),
+            'gender' => Yii::t('igolf', 'Gender'),
+            'age_min' => Yii::t('igolf', 'Age Min'),
+            'age_max' => Yii::t('igolf', 'Age Max'),
+            'handicap_min' => Yii::t('igolf', 'Handicap Min'),
+            'handicap_max' => Yii::t('igolf', 'Handicap Max'),
+            'tees_id' => Yii::t('igolf', 'Tees'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
+            'competition_id' => Yii::t('igolf', 'Competition ID'),
         ];
     }
 
-	public function hasHoles() {
-		return $this->getHoles()->count() > 0;
-	}
 
 }

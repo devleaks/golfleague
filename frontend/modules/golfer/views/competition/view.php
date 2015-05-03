@@ -10,7 +10,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Competition */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('giveaway', 'Competitions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-view">

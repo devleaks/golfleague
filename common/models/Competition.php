@@ -127,6 +127,22 @@ class Competition extends _Competition
     }
 
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getParent()
+    {
+        return $this->hasOne(Competition::className(), ['id' => 'parent_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompetitions()
+    {
+        return $this->hasMany(Competition::className(), ['parent_id' => 'id']);
+    }
+
 	public static function find()
     {
         return new CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);

@@ -3,6 +3,7 @@
 use common\models\Competition;
 use common\models\Course;
 use common\models\search\MatchSearch;
+use common\models\search\StartSearch;
 use common\models\Rule;
 use common\models\Season;
 use common\models\Tournament;
@@ -146,6 +147,15 @@ $this->params['breadcrumbs'][] = $this->title;
 				'type' => $type
 	        ]);
 		}
+
+        $startSearchModel = new StartSearch();
+        $startDataProvider = $startSearchModel->search(['StartSearch'=>['competition_id' => $model->id]]);
+
+        echo $this->render('../start/_list', [
+            'searchModel' => $startSearchModel,
+            'dataProvider' => $startDataProvider,
+			'competition' => $model,
+        ]);
 ?>
 
 </div>

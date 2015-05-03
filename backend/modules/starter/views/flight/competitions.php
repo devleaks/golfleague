@@ -8,7 +8,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\CompetitionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('giveaway', 'Competitions');
+$this->title = Yii::t('igolf', 'Competitions');
 $this->params['breadcrumbs'][] = $this->title;
 
 $actionCol = ['class' => 'yii\grid\ActionColumn',
@@ -31,7 +31,7 @@ $actionCol = ['class' => 'yii\grid\ActionColumn',
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('giveaway', 'Create {modelClass}', [
+        <?= Html::a(Yii::t('igolf', 'Create {modelClass}', [
     'modelClass' => 'Competition',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>

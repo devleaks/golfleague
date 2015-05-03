@@ -5,12 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Competition */
 
-$this->title = Yii::t('giveaway', 'Update {modelClass}: ', [
+$this->title = Yii::t('igolf', 'Update {modelClass}: ', [
     'modelClass' => 'Competition',
 ]) . ' ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('giveaway', 'Competitions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('giveaway', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('igolf', 'Update');
 ?>
 <div class="competition-update">
 
