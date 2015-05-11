@@ -2,11 +2,13 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\GridView;
+use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\CompetitionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+Icon::map($this, Icon::WHHG); 
 
 $this->title = Yii::t('igolf', 'Competitions');
 $this->params['breadcrumbs'][] = $this->title;
@@ -21,12 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $ongoingSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {update} {register}',
+			 	'template' => '{view} {update} {score}',
 	            'buttons' => [
-	                'register' => function ($url, $model) {
-						$url = Url::to(['registration/competition', 'id' => $model->id]);
-	                    return Html::a('<i class="glyphicon glyphicon-plus"></i>', $url, [
-	                        'title' => Yii::t('store', 'Registrations'),
+	                'score' => function ($url, $model) {
+						$url = Url::to(['score/competition', 'id' => $model->id]);
+	                    return Html::a(Icon::show('trophy'), $url, [
+	                        'title' => Yii::t('store', 'Enter scores'),
 	                    ]);
 	                },
 				],
@@ -39,18 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $completedSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {update} {flight} {team} {tees}',
+			 	'template' => '{view} {update} {score}',
 	            'buttons' => [
-	                'flight' => function ($url, $model) {
-						$url = Url::to(['flight/competition', 'id' => $model->id, 'sort' => 'position']);
-	                    return Html::a('<i class="glyphicon glyphicon-play"></i>', $url, [
-	                        'title' => Yii::t('store', 'Make Flights'),
-	                    ]);
-	                },
-	                'team' => function ($url, $model) {
-						$url = Url::to(['team/index', 'id' => $model->id]);
-	                    return Html::a('<i class="glyphicon glyphicon-tag"></i>', $url, [
-	                        'title' => Yii::t('store', 'Make Teams'),
+	                'score' => function ($url, $model) {
+						$url = Url::to(['score/competition', 'id' => $model->id, 'sort' => 'position']);
+	                    return Html::a(Icon::show('trophy'), $url, [
+	                        'title' => Yii::t('store', 'Enter scores'),
 	                    ]);
 	                },
 				],
@@ -63,12 +59,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $closedSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {flight}',
+			 	'template' => '{view} {result}',
 	            'buttons' => [
-	                'flight' => function ($url, $model) {
-						$url = Url::to(['flight/list', 'id' => $model->id, 'sort' => 'position']);
-	                    return Html::a('<i class="glyphicon glyphicon-play"></i>', $url, [
-	                        'title' => Yii::t('store', 'Make Flights'),
+	                'result' => function ($url, $model) {
+						$url = Url::to(['score/result', 'id' => $model->id, 'sort' => 'position']);
+	                    return Html::a(Icon::show('podium-winner', [], Icon::WHHG), $url, [
+	                        'title' => Yii::t('store', 'View scores'),
 	                    ]);
 	                },
 				],

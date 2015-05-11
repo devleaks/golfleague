@@ -17,8 +17,10 @@ use Yii;
  * @property string $updated_at
  * @property string $competition_type
  * @property string $classname
+ * @property integer $team
  *
  * @property Competition[] $competitions
+ * @property Competition[] $competitions0
  * @property Point[] $points
  */
 class _Rule extends \yii\db\ActiveRecord
@@ -39,6 +41,7 @@ class _Rule extends \yii\db\ActiveRecord
         return [
             [['created_at', 'updated_at'], 'safe'],
             [['competition_type'], 'required'],
+            [['team'], 'integer'],
             [['object_type', 'rule_type'], 'string', 'max' => 40],
             [['name', 'classname'], 'string', 'max' => 80],
             [['description'], 'string', 'max' => 255],
@@ -65,6 +68,7 @@ class _Rule extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('igolf', 'Updated At'),
             'competition_type' => Yii::t('igolf', 'Competition Type'),
             'classname' => Yii::t('igolf', 'Classname'),
+            'team' => Yii::t('igolf', 'Team'),
         ];
     }
 
@@ -74,6 +78,14 @@ class _Rule extends \yii\db\ActiveRecord
     public function getCompetitions()
     {
         return $this->hasMany(Competition::className(), ['rule_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompetitions0()
+    {
+        return $this->hasMany(Competition::className(), ['rule_final_id' => 'id']);
     }
 
     /**

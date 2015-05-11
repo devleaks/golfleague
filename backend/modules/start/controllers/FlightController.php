@@ -5,13 +5,15 @@ namespace backend\modules\start\controllers;
 use Yii;
 use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
-use common\models\search\CompetitionSearch;
 use common\models\Flight;
-use common\models\search\FlightSearch;
 use common\models\Registration;
+use common\models\Team;
 use common\models\TeesForm;
 use common\models\flight\BuildFlightChrono;
+use common\models\flight\BuildFlightForTeam;
 use common\models\flight\BuildFlightStandard;
+use common\models\search\CompetitionSearch;
+use common\models\search\FlightSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
@@ -88,7 +90,7 @@ class FlightController extends GolfLeagueController
 	private function getFlights($competition) {
 		$flights = $competition->getFlights()->orderBy('position')->all();		
 		if(!$flights) {// need to make them
-			$method = new BuildFlightChrono(); // later, method will be chosen from list of value
+			$method = $competition->isTeamCompetition() ? new BuildFlightForTeam() : new BuildFlightChrono(); // later, method will be chosen from list of value
 			$method->execute($competition);
 			$flights = $competition->getFlights()->orderBy('position')->all();		
 		} else { // we got flights, but may be some players registered after the last time we arranged flights
@@ -97,8 +99,11 @@ class FlightController extends GolfLeagueController
 						->andWhere(['flight_id' => null])
 						;
 			// build additional flights with new registrations
-			if($newRegs) {
-				BuildFlightStandard::addFlights($competition, $newRegs);
+			if($newRegs->exists()) {
+				if($competition->isTeamCompetition())
+					BuildFlightForTeam::addFlights($competition, $newRegs);
+				else
+					BuildFlightStandard::addFlights($competition, $newRegs);
 				$flights = $competition->getFlights()->orderBy('position')->all();		
 			}
 		}
@@ -124,12 +129,25 @@ class FlightController extends GolfLeagueController
 		$flight->start_time = $competition_date . ' ' . $flight_str->start_time . ':00';
 		$flight->save();
 		// add currents
-		foreach($flight_str->registrations as $registration_str) {
-			$registration_arr = explode('-', $registration_str); // registration-456
-			$registration = Registration::findOne($registration_arr[1]);
-			if($registration) {
-				$registration->flight_id = $flight->id;
-				$registration->save();
+		if($competition->isTeamCompetition()) {
+			foreach($flight_str->registrations as $registration_str) {
+				$registration_arr = explode('-', $registration_str); // registration-456
+				$team = Team::findOne($registration_arr[1]);
+				if($team) {
+					foreach($team->getRegistrations()->each() as $registration) {
+						$registration->flight_id = $flight->id;
+						$registration->save();
+					}
+				}
+			}
+		} else {
+			foreach($flight_str->registrations as $registration_str) {
+				$registration_arr = explode('-', $registration_str); // registration-456
+				$registration = Registration::findOne($registration_arr[1]);
+				if($registration) {
+					$registration->flight_id = $flight->id;
+					$registration->save();
+				}
 			}
 		}
 		return $flight->id;
@@ -145,6 +163,11 @@ class FlightController extends GolfLeagueController
 		$competition = Competition::findOne($id);
 		if(!$competition)
         	throw new NotFoundHttpException('The requested page does not exist.');
+
+		if($competition->isTeamCompetition() && !$competition->isTeamOk()) {
+			Yii::$app->session->setFlash('error', Yii::t('igolf', 'Teams for competition not completed.'));
+			return $this->redirect(Yii::$app->request->referrer);;
+		}
 
 		//should check that competition exists or exit.
 		$savedflights = Yii::$app->request->post('flights');
@@ -206,7 +229,7 @@ class FlightController extends GolfLeagueController
 		$competition->save();
 
         return $this->render('list', [
-			'competition' => $competition,
+			'model' => $competition,
         ]);
     }
 
@@ -236,24 +259,6 @@ class FlightController extends GolfLeagueController
         return $this->render('list', [
 			'model' => $competition,
         ]);
-    }
-
-    /**
-     * Creates a new Flight model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Flight();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
     }
 
     /**

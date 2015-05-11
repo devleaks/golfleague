@@ -47,4 +47,16 @@ class Team extends _Team
         ];
     }
 
+    /**
+     * Delete model after removing from registrations
+     */
+    public function cleanRegistrations($delete = false)
+    {
+        foreach($this->getRegistrations()->each() as $r) {
+			$r->team_id = null;
+			$r->save();
+		}
+		if($delete)
+			$this->delete();
+    }
 }

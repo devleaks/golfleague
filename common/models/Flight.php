@@ -60,4 +60,8 @@ class Flight extends _Flight
 		if($delete)
 			$this->delete();
     }
+
+	public function getTeams() {
+		return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['flight_id' => 'id']);
+	}
 }

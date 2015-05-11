@@ -12,10 +12,12 @@ class TeamsAsset extends AssetBundle
         'css/flights.css',
     ];
 
+    public $js = [
+        'js/teams.js',
+    ];
+
     public $depends = [
-        'yii\jui\SortableAsset',
-//        'yii\jui\DraggableAsset',
-//        'yii\jui\DroppableAsset',
+        'yii\jui\JuiAsset',
     ];
  
 }

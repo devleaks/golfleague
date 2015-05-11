@@ -552,6 +552,7 @@
             <destinationCardinality>0</destinationCardinality>
             <referencesFieldUID><![CDATA[EA1277BD-8E6E-41DE-BD67-B5AF9448707B]]></referencesFieldUID>
             <referencesTableUID><![CDATA[88E2CF29-8885-4EC1-9DEC-DD559767B51A]]></referencesTableUID>
+            <connectorMidPoint><![CDATA[793.000000]]></connectorMidPoint>
             <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[9C161E45-766C-49CD-A81A-7ED7B4E0168C]]></uid>
         </SQLField>
@@ -1105,6 +1106,11 @@
             <name><![CDATA[rule_type]]></name>
             <type><![CDATA[VARCHAR(40)]]></type>
             <uid><![CDATA[CCB5D3BA-1152-4664-AD05-2642C94AACAB]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[team]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[97385F7A-E7E9-4659-BBEB-D6C2ED45F5AB]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[name]]></name>
@@ -1677,6 +1683,11 @@
             <unique><![CDATA[1]]></unique>
         </SQLField>
         <SQLField>
+            <name><![CDATA[handicap]]></name>
+            <type><![CDATA[FLOAT]]></type>
+            <uid><![CDATA[DE3987A3-A5E9-4468-888B-28F0699080C3]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[created_at]]></name>
             <type><![CDATA[DATETIME]]></type>
             <temporaryOriginalName><![CDATA[limit_0]]></temporaryOriginalName>
@@ -2117,7 +2128,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[102.000000]]></windowLocationX>
         <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{0, 2}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{1, 265}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

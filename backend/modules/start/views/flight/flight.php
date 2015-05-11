@@ -11,12 +11,19 @@ use yii\grid\GridView;
 <ul id="flight-<?= $flight->id ?>" class="flight">
 
     <?php
-	foreach($flight->getRegistrations()->each() as $registration) {
-		$golfer = $registration->golfer;
-		$teesColor = isset($registration->tees->color) ? $registration->tees->color : 'black';
-		echo '<li id="registration-'.$registration->id.'" class="golfer"  data-handicap="'.$golfer->handicap.'">'.$golfer->name.' ('.
-			'<span class="glyphicon glyphicon-filter" style="color: '.$teesColor.';"></span> '.$golfer->handicap.')</li>';
-	}
+	if ($flight->competition->isTeamCompetition())
+		foreach($flight->getTeams()->each() as $team) {
+			$teesColor = 'black';
+			echo '<li id="registration-'.$team->id.'" class="golfer"  data-handicap="'.$team->handicap.'">'.$team->name.' ('.
+				'<span class="glyphicon glyphicon-filter" style="color: '.$teesColor.';"></span> '.$team->handicap.')</li>';
+		}
+	else
+		foreach($flight->getRegistrations()->each() as $registration) {
+			$player = $registration->golfer;
+			$teesColor = isset($registration->tees->color) ? $registration->tees->color : 'black';
+			echo '<li id="registration-'.$registration->id.'" class="golfer"  data-handicap="'.$player->handicap.'">'.$player->name.' ('.
+				'<span class="glyphicon glyphicon-filter" style="color: '.$teesColor.';"></span> '.$player->handicap.')</li>';
+		}
 	?>
 	
 </ul>

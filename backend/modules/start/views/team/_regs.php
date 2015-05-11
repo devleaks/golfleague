@@ -21,14 +21,9 @@ use kartik\grid\GridView;
 				'attribute' => 'golfers',
 				'value' => function($model, $key, $index, $widget) {
 					$s = '<ol class="flight">';
-					if($model->competition->isTeamCompetition())
-						foreach($model->getTeams()->each() as $team) {
-							$s .= '<li>'.$team->name.'</li>';
-						}
-					else
-						foreach($model->getRegistrations()->each() as $registration) {
-							$s .= '<li>'.$registration->golfer->name.'</li>';
-						}
+					foreach($model->getRegistrations()->each() as $registration) {
+						$s .= '<li>'.$registration->golfer->name.'</li>';
+					}
 					return $s . '</ol>';
 				},
 				'format' => 'raw',

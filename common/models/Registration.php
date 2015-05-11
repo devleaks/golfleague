@@ -95,24 +95,4 @@ class Registration extends _Registration
         ];
     }
 
-    public function registerButton($url, $action)
-    {
-        switch($action) {
-            case 'approve':
-                $icon    = 'thumbs-up';
-                break;
-            case 'reject':
-                $icon    = 'thumbs-down';
-                break;
-            default:
-                return null;
-                break;
-        }
-        return Html::a('<span class="glyphicon glyphicon-'.$icon.'"></span>', $url);
-    }
-
-    public function createActionUrl($action, $key, $index)
-    {
-        return Url::to(['registration/'.strtolower($action), 'id' => $this->id ]);
-    }
 }

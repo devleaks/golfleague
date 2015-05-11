@@ -25,6 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'description',
             [
+                'attribute'=>'competition_type',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => Competition::getConstants('TYPE_'),
+            ],
+            [
                 'attribute'=>'object_type',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => Competition::getConstants('TYPE_'),
@@ -33,6 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'rule_type',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => Competition::getConstants('TYPE_'),
+            ],
+            [
+                'attribute'=>'team',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => [null => Yii::t('store', 'Individual'),
+						2 => '2 '.Yii::t('store', 'Players'),
+						3 => '3 '.Yii::t('store', 'Players'),
+						4 => '4 '.Yii::t('store', 'Players'),
+				],
             ],
             'note',
             'classname',

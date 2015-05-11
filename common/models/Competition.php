@@ -341,27 +341,6 @@ class Competition extends _Competition
     }
 
 
-    public static function open($query)
-    {
-        $query->andWhere(['status', self::STATUS_OPEN]);
-    }
-
-    public static function closed($query)
-    {
-        $query->andWhere(['status', self::STATUS_CLOSED]);
-    }
-
-    public static function ready($query)
-    {
-        $query->andWhere(['status', self::STATUS_READY]);
-    }
-/*
-    public static function defaultScope($query)
-    {
-        $query->andWhere(['>', 'id', 0]);
-    }
-*/
-
 	public function createEvents() {
 		if(isset($this->registration_start) && $this->registration_start > $now) {
 			$event = new Event();
@@ -502,5 +481,41 @@ class Competition extends _Competition
 			if ($first_competition = $this->getCompetitions()->orderBy('start_date asc')->one())
 				return $first_competition->getStartDate();
 		return $this->start_date;
+	}
+	
+	public function getTeams() {
+		return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['competition_id' => 'id']);
+	}
+	
+	public function isTeamCompetition() {
+		return $this->rule->team > 1;
+	}
+
+	/**
+	 * Checks whether some registrations are not in team yet
+	 */
+	public function isTeamOk() {
+		$team_size = $this->rule->team;
+		if(!$this->getTeams()->exists())
+			return false;
+		$registrations = [];
+		foreach($this->getRegistrations()->andWhere(['status' => Registration::STATUS_REGISTERED])->each() as $registration) {
+			$registrations[$registration->id] = $registration;
+			Yii::trace('adding '.$registration->id);
+		}
+			
+		foreach($this->getTeams()->each() as $team) {
+			$regcount = 0;
+			foreach($team->getRegistrations()->each() as $registration) {
+				$regcount++;
+				unset($registrations[$registration->id]);
+				Yii::trace('removing '.$registration->id);
+			}
+			Yii::trace('checking '.$regcount.' vs '.$team_size);
+			if($regcount != $team_size)
+				return false;
+		}
+		Yii::trace('final '.count($registrations));
+		return count($registrations) == 0;
 	}
 }

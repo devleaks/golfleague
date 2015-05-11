@@ -1,7 +1,16 @@
 ul { list-style: none; }
 
-ul#flight-case > li { cursor: pointer; }
+.placeholder {
+	border: 1px solid green;
+	height: 5px;
+}
 
+.dragged {
+	border: 1px solid #0f0;
+	background-color: rgba(230, 255, 230, 0.5);
+}
+
+ul#flight-case > li { cursor: pointer; }
 
 ul#flight-case > li {
     border: 1px solid;
@@ -27,14 +36,11 @@ ul#flight-case > li {
 	width: 400px;
 }
 
-.placeholder {
-	border: 1px solid green;
-	height: 5px;
-}
-
-.dragged {
-	border: 1px solid #0f0;
-	background-color: rgba(230, 255, 230, 0.5);
+.bench-info {
+	background-color: #eee;
+	font-size: larger;
+	margin-bottom: 4px;
+	padding-left: 4px;
 }
 
 .flight-info {

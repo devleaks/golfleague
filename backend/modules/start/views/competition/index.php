@@ -2,11 +2,13 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\GridView;
+use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\CompetitionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+Icon::map($this, Icon::FA); 
+Icon::map($this, Icon::WHHG); 
 
 $this->title = Yii::t('igolf', 'Competitions');
 $this->params['breadcrumbs'][] = $this->title;
@@ -25,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	            'buttons' => [
 	                'register' => function ($url, $model) {
 						$url = Url::to(['registration/competition', 'id' => $model->id]);
-	                    return Html::a('<i class="glyphicon glyphicon-plus"></i>', $url, [
+	                    return Html::a(Icon::show('group', [], Icon::FA), $url, [
 	                        'title' => Yii::t('store', 'Registrations'),
 	                    ]);
 	                },
@@ -41,17 +43,29 @@ $this->params['breadcrumbs'][] = $this->title;
 				'class' => 'kartik\grid\ActionColumn',
 			 	'template' => '{view} {update} {flight} {team} {tees}',
 	            'buttons' => [
+	                'team' => function ($url, $model) {
+						if($model->rule->team) {
+							$url = Url::to(['team/competition', 'id' => $model->id]);
+		                    return Html::a(Icon::show('groups-friends', [], Icon::WHHG), $url, [
+		                        'title' => Yii::t('store', 'Make Teams'),
+		                    ]);
+						}
+						return null;
+	                },
 	                'flight' => function ($url, $model) {
-						$url = Url::to(['flight/competition', 'id' => $model->id, 'sort' => 'position']);
-	                    return Html::a('<i class="glyphicon glyphicon-play"></i>', $url, [
+						$url = Url::to(['flight/competition', 'id' => $model->id]);
+	                    return Html::a(Icon::show('flag', [], Icon::FA), $url, [
 	                        'title' => Yii::t('store', 'Make Flights'),
 	                    ]);
 	                },
-	                'team' => function ($url, $model) {
-						$url = Url::to(['team/index', 'id' => $model->id]);
-	                    return Html::a('<i class="glyphicon glyphicon-tag"></i>', $url, [
-	                        'title' => Yii::t('store', 'Make Teams'),
-	                    ]);
+	                'tees' => function ($url, $model) {
+						if($model->rule->team) {
+							$url = Url::to(['team/index', 'id' => $model->id]);
+		                    return Html::a(Icon::show('golf', [], Icon::WHHG), $url, [
+		                        'title' => Yii::t('store', 'Assign Tees'),
+		                    ]);
+						}
+						return null;
 	                },
 				],
 			],
@@ -66,8 +80,8 @@ $this->params['breadcrumbs'][] = $this->title;
 			 	'template' => '{view} {flight}',
 	            'buttons' => [
 	                'flight' => function ($url, $model) {
-						$url = Url::to(['flight/list', 'id' => $model->id, 'sort' => 'position']);
-	                    return Html::a('<i class="glyphicon glyphicon-play"></i>', $url, [
+						$url = Url::to(['flight/list', 'id' => $model->id]);
+	                    return Html::a('<i class="glyphicon glyphicon-list"></i>', $url, [
 	                        'title' => Yii::t('store', 'Make Flights'),
 	                    ]);
 	                },

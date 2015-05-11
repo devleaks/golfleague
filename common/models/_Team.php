@@ -11,6 +11,7 @@ use Yii;
  * @property string $name
  * @property string $created_at
  * @property string $updated_at
+ * @property double $handicap
  *
  * @property Registration[] $registrations
  */
@@ -30,7 +31,9 @@ class _Team extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
+            [['handicap'], 'number'],
             [['name'], 'string', 'max' => 80],
             [['name'], 'unique']
         ];
@@ -46,6 +49,7 @@ class _Team extends \yii\db\ActiveRecord
             'name' => Yii::t('igolf', 'Name'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
+            'handicap' => Yii::t('igolf', 'Handicap'),
         ];
     }
 

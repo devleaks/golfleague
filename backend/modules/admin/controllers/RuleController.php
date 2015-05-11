@@ -9,6 +9,7 @@ use common\models\Point;
 use backend\controllers\DefaultController as GolfLeagueController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 
 /**
  * RuleController implements the CRUD actions for Rule model.
@@ -53,6 +54,7 @@ class RuleController extends GolfLeagueController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id'=>$model->id]);
         } else {
+			Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($model->errors, 4, true)]));
             return $this->render('view', ['model'=>$model]);
         }
     }
