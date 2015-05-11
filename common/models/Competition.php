@@ -25,10 +25,12 @@ class Competition extends _Competition
     /** Competition type MATCH */
     const TYPE_MATCH = 'MATCH';
 
-    /** Competition is open for registration */
+    /** Competition is open, for registration if within time frame */
     const STATUS_OPEN = 'OPEN';
     /** Competition is ready to be played, or played */
     const STATUS_READY = 'READY';
+    /** Competition is ready to be played, or played */
+    const STATUS_COMPLETED = 'COMPLETED';
     /** Competition is closed for registration (full, expired...) */
     const STATUS_CLOSED = 'CLOSED';
 

@@ -47,7 +47,7 @@ class MenuHelper extends \yii\base\Object
         if(in_array($league_role, array('starter', 'manager', 'admin'))) {
             $menus[] = '<li class="divider"></li>';
             $menus[] = '<li class="dropdown-header">'.Yii::t('igolf', 'Planning').'</li>';
-            $menus[] = ['label' => Yii::t('igolf', 'Registrations'), 'url' => Url::to(['/starter/registration'])];
+            $menus[] = ['label' => Yii::t('igolf', 'Registrations'), 'url' => Url::to(['/start/registration'])];
             $menus[] = ['label' => Yii::t('igolf', 'Flights'), 'url' => '#'];
         }
         

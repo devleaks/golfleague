@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 use kartik\grid\GridView;
 use yii\data\ActiveDataProvider;
 
@@ -35,7 +34,7 @@ use yii\data\ActiveDataProvider;
             // 'rule_id',
              'start_date',
             // 'registration_begin',
-            // 'registration_end',
+             'registration_end',
             // 'handicap_min',
             // 'handicap_max',
             // 'age_min',
@@ -46,18 +45,7 @@ use yii\data\ActiveDataProvider;
             // 'updated_at',
             // 'parent_id',
 
-            [
-				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {flight}',
-	            'buttons' => [
-	                'flight' => function ($url, $model) {
-						$url = Url::to(['flight/list', 'id' => $model->id, 'sort' => 'position']);
-	                    return Html::a('<i class="glyphicon glyphicon-play"></i>', $url, [
-	                        'title' => Yii::t('store', 'Make Flights'),
-	                    ]);
-	                },
-				],
-			],
+            $actionButtons,
         ],
     ]); ?>
 

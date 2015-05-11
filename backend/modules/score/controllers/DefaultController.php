@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\scorer\controllers;
+namespace backend\modules\score\controllers;
 
 use yii\web\Controller;
 

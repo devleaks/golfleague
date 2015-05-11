@@ -1,10 +1,10 @@
 <?php
 
-namespace backend\modules\starter;
+namespace backend\modules\score;
 
 class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'backend\modules\starter\controllers';
+    public $controllerNamespace = 'backend\modules\score\controllers';
 
     public function init()
     {

@@ -10,7 +10,7 @@ use yii\data\ActiveDataProvider;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 ?>
-<div id="planned" class="competition-list">
+<div class="competition-list">
 
     <h2><?= Html::encode($title) ?></h2>
 
@@ -33,8 +33,8 @@ use yii\data\ActiveDataProvider;
             // 'holes',
             // 'rule_id',
              'start_date',
-             'registration_begin',
-            // 'registration_end',
+            // 'registration_begin',
+             'registration_end',
             // 'handicap_min',
             // 'handicap_max',
             // 'age_min',
@@ -45,8 +45,7 @@ use yii\data\ActiveDataProvider;
             // 'updated_at',
             // 'parent_id',
 
-            ['class' => 'kartik\grid\ActionColumn',
-			 'template' => '{view} {update} {delete}'],
+            $actionButtons,
         ],
     ]); ?>
 

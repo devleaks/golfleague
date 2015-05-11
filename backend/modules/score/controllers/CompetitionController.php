@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\starter\controllers;
+namespace backend\modules\score\controllers;
 
 use Yii;
 use backend\controllers\DefaultController as GolfLeagueController;
@@ -29,38 +29,18 @@ class CompetitionController extends GolfLeagueController
 		 *  to the day the competition is 'published'.
 		 *  So any competition in status OPEN can accept registrations.
 		 */
-		$registrationSearch = new CompetitionSearch();
-        $registrationProvider = new ActiveDataProvider([
-            'query' => Competition::find()->where(['status' => Competition::STATUS_OPEN])
+		$ongoingSearch = new CompetitionSearch();
+        $ongoingProvider = new ActiveDataProvider([
+            'query' => Match::find()->where(['status' => Competition::STATUS_READY])
+										  ->andWhere(['<=','start_date', $now])
         ]);
 
-		/** Competition ready to be prepared. It must be a Match.
-		 *  Registration must be officially closed, and competition cannot be started yet.
-		 *  So any competition in status OPEN, after the closing registration date is ready to be prepared.
-		 */
-		$startSearch = new CompetitionSearch();
-		$startProvider = new ActiveDataProvider([
-            'query' => Match::find()->where(['status' => Competition::STATUS_OPEN])
-										  ->andWhere(['<','registration_end', $now])
-//										  ->andWhere(['>','start_date', $now]),
-        ]);
-
-		/** Competition ready to be played.
-		 *  Registration must be READY and in the past (terminated).
-		 */
-		$readySearch = new CompetitionSearch();
-		$readyProvider = new ActiveDataProvider([
-            'query' => Competition::find()->where(['status' => Competition::STATUS_READY])
-										  ->andWhere(['>=','start_date', $now]),
-        ]);
-
-		/** Planned competition.
+		/** Awaiting scores competition.
 		 *  Registration must be OPEN and we must be before the registration 
 		 */
-		$planSearch = new CompetitionSearch();
-		$planProvider = new ActiveDataProvider([
-            'query' => Competition::find()->where(['status' => Competition::STATUS_OPEN])
-										  ->andWhere(['>','registration_begin', $now]),
+		$completedSearch = new CompetitionSearch();
+		$completedProvider = new ActiveDataProvider([
+            'query' => Competition::find()->where(['status' => Competition::STATUS_COMPLETED])
         ]);
 
 		/** Closed or terminated competition.
@@ -71,20 +51,11 @@ class CompetitionController extends GolfLeagueController
             'query' => Competition::find()->where(['status' => Competition::STATUS_CLOSED]),
         ]);
 
-		$allSearch = new CompetitionSearch();
-		$allProvider = new ActiveDataProvider([
-            'query' => Competition::find(),
-        ]);
-
     	return $this->render('index', [
-	        'registrationProvider'  => $registrationProvider,
-	        'registrationSearch'    => $registrationSearch,
-	        'startProvider'  => $startProvider,
-	        'startSearch'    => $startSearch,
-	        'readyProvider' => $readyProvider,
-	        'readySearch'   => $readySearch,
-	        'planProvider'   => $planProvider,
-	        'planSearch'     => $planSearch,
+	        'ongoingProvider' => $ongoingProvider,
+	        'ongoingSearch'   => $ongoingSearch,
+	        'completedProvider'   => $completedProvider,
+	        'completedSearch'     => $completedSearch,
 	        'closedProvider' => $closedProvider,
 	        'closedSearch'   => $closedSearch,
         ]);

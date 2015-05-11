@@ -33,14 +33,14 @@ $this->title = 'Golf League - Administration';
                 <h2>Menu for Starters</h2>
 
                 <ul>
-                    <li><a href="<?= Url::to(['/starter']) ?>">Starter Home</a></li>
+                    <li><a href="<?= Url::to(['/start']) ?>">Starter Home</a></li>
                 </ul>
             </div>
             <div class="col-lg-4">
                 <h2>Menus for Scorers</h2>
 
                 <ul>
-                    <li><a href="<?= Url::to(['/scorer']) ?>">Scorer Home</a></li>
+                    <li><a href="<?= Url::to(['/score']) ?>">Scorer Home</a></li>
                 </ul>
             </div>
         </div>

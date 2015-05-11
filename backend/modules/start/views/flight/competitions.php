@@ -28,7 +28,6 @@ $actionCol = ['class' => 'yii\grid\ActionColumn',
 <div class="competition-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('igolf', 'Create {modelClass}', [

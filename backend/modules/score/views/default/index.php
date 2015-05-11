@@ -4,9 +4,9 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 $this->title = 'Golf League - Scorer';
 ?>
-<div class="starter-default-index">
+<div class="start-default-index">
 
-	<h1>The Starter</h1>
+	<h1>The Scorer</h1>
 	<p>
 	    The role of the scorer is to enter match score, and adjust tournament and season scores accordingly.
 	</p>

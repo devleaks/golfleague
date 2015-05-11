@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\starter\controllers;
+namespace backend\modules\start\controllers;
 
 use Yii;
 use backend\controllers\DefaultController as GolfLeagueController;

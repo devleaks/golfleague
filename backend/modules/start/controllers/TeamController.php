@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\starter\controllers;
+namespace backend\modules\start\controllers;
 
 class TeamController extends \backend\controllers\DefaultController
 {

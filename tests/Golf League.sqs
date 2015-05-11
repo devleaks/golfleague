@@ -90,7 +90,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>576.00</height>
+            <height>600.00</height>
         </size>
         <zorder>14</zorder>
         <SQLField>
@@ -137,6 +137,12 @@
             <connectorMidPoint><![CDATA[660.000000]]></connectorMidPoint>
             <temporaryOriginalName><![CDATA[tournament_id]]></temporaryOriginalName>
             <uid><![CDATA[C08DAC62-115C-4A49-A897-619727F1D66B]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[tour]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <temporaryOriginalName><![CDATA[tournament_0]]></temporaryOriginalName>
+            <uid><![CDATA[DB36A22A-91B9-4658-995A-CC9734CFBF49]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[course_id]]></name>
@@ -255,6 +261,13 @@
             <uid><![CDATA[FBF3184E-A347-40FF-A074-56C4A958946A]]></uid>
         </SQLField>
         <SQLField>
+            <name><![CDATA[player_type]]></name>
+            <type><![CDATA[VARCHAR(20)]]></type>
+            <notNull><![CDATA[0]]></notNull>
+            <temporaryOriginalName><![CDATA[status]]></temporaryOriginalName>
+            <uid><![CDATA[1CF4DE03-ABEC-480A-B014-A6CFDB65B83B]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[max_players]]></name>
             <type><![CDATA[INTEGER]]></type>
             <temporaryOriginalName><![CDATA[age_0]]></temporaryOriginalName>
@@ -276,6 +289,11 @@
             <name><![CDATA[flight_time]]></name>
             <type><![CDATA[INTEGER]]></type>
             <uid><![CDATA[F0D6A03E-7B8E-4935-BF54-C703566ED651]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[flight_window]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[E9109F41-C0D9-4E7A-9948-C82B505199E9]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[registration_time]]></name>
@@ -496,7 +514,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>192.00</height>
+            <height>200.00</height>
         </size>
         <zorder>3</zorder>
         <SQLField>
@@ -562,6 +580,13 @@
             <type><![CDATA[INTEGER]]></type>
             <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
             <uid><![CDATA[3331F789-89A4-4E58-9EBD-1958D387FFEB]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[status]]></name>
+            <type><![CDATA[VARCHAR(20)]]></type>
+            <notNull><![CDATA[0]]></notNull>
+            <temporaryOriginalName><![CDATA[status]]></temporaryOriginalName>
+            <uid><![CDATA[36442021-B6B0-4144-81C7-BF9EE105562F]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[created_at]]></name>
@@ -1515,7 +1540,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>280.00</height>
+            <height>300.00</height>
         </size>
         <zorder>10</zorder>
         <SQLField>
@@ -1598,6 +1623,13 @@
             <type><![CDATA[VARCHAR(20)]]></type>
             <uid><![CDATA[BD380D7B-6110-4F90-B9F6-E983F31E436E]]></uid>
             <zorder><![CDATA[0]]></zorder>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[status]]></name>
+            <type><![CDATA[VARCHAR(20)]]></type>
+            <notNull><![CDATA[0]]></notNull>
+            <temporaryOriginalName><![CDATA[status]]></temporaryOriginalName>
+            <uid><![CDATA[34EF8A5D-C468-4944-BA4C-D0CF5D75A184]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[created_at]]></name>
@@ -2085,7 +2117,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[102.000000]]></windowLocationX>
         <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{18, 0}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{0, 2}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
