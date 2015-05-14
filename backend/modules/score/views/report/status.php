@@ -9,6 +9,9 @@ use common\models\Competition;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$this->title = $competition->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="registration-index">
 
@@ -98,16 +101,12 @@ use common\models\Competition;
     ]); ?>
 
 <?php
-$statuses = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
+$buttons = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
 				Yii::t('igolf', 'Change Status of Selected Registrations to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
 foreach(Registration::getLocalizedConstants('STATUS_') as $key => $value)
-	$statuses .= '<li>'.Html::a(Yii::t('igolf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
-$statuses .= '</ul></div>';
+	$buttons .= '<li>'.Html::a(Yii::t('igolf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
+$buttons .= '</ul></div>';
 
-$buttons = Html::a(Yii::t('igolf', 'New Registration'), ['create'], ['class' => 'btn btn-success']);
-if($competition) $buttons .= ' '.Html::a(Yii::t('igolf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']);
-$buttons .= ' '.Html::a(Yii::t('igolf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data-status' => Registration::ACTION_DELETE]);
-$buttons .= ' '.$statuses;
 echo $buttons;
 ?>
 

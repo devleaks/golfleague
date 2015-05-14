@@ -25,14 +25,14 @@ use yii\helpers\Url;
 		'options' => ['accept' => 'image/jpeg, image/png, image/gif', 'multiple' => true],
 		'pluginOptions' => [
 			'initialPreview'    => $items,
-			'initialCaption'    => Yii::t('store', 'Select pictures'),
+			'initialCaption'    => Yii::t('igolf', 'Select pictures'),
 			'overwriteInitial'  => false
 		]
 	]);
 ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('store', 'Add Pictures'), ['class' => 'btn btn-primary', 'id' => 'documentlinedetail-submit']) ?>
+        <?= Html::submitButton(Yii::t('igolf', 'Add Pictures'), ['class' => 'btn btn-primary', 'id' => 'documentlinedetail-submit']) ?>
     </div>
 
 <?php ActiveForm::end(); ?>

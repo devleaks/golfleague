@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'register' => function ($url, $model) {
 						$url = Url::to(['registration/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('group', [], Icon::FA), $url, [
-	                        'title' => Yii::t('store', 'Registrations'),
+	                        'title' => Yii::t('igolf', 'Registrations'),
 	                    ]);
 	                },
 				],
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						if($model->rule->team) {
 							$url = Url::to(['team/competition', 'id' => $model->id]);
 		                    return Html::a(Icon::show('groups-friends', [], Icon::WHHG), $url, [
-		                        'title' => Yii::t('store', 'Make Teams'),
+		                        'title' => Yii::t('igolf', 'Make Teams'),
 		                    ]);
 						}
 						return null;
@@ -55,14 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'flight' => function ($url, $model) {
 						$url = Url::to(['flight/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('flag', [], Icon::FA), $url, [
-	                        'title' => Yii::t('store', 'Make Flights'),
+	                        'title' => Yii::t('igolf', 'Make Flights'),
 	                    ]);
 	                },
 	                'tees' => function ($url, $model) {
 						if($model->rule->team) {
 							$url = Url::to(['team/index', 'id' => $model->id]);
 		                    return Html::a(Icon::show('golf', [], Icon::WHHG), $url, [
-		                        'title' => Yii::t('store', 'Assign Tees'),
+		                        'title' => Yii::t('igolf', 'Assign Tees'),
 		                    ]);
 						}
 						return null;
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'flight' => function ($url, $model) {
 						$url = Url::to(['flight/list', 'id' => $model->id]);
 	                    return Html::a('<i class="glyphicon glyphicon-list"></i>', $url, [
-	                        'title' => Yii::t('store', 'Make Flights'),
+	                        'title' => Yii::t('igolf', 'Make Flights'),
 	                    ]);
 	                },
 				],

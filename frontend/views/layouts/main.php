@@ -51,7 +51,7 @@ $role = MenuHelper::getRole();
                 $who = Yii::$app->user->identity->username;
 
 				if(YII_ENV == 'dev')
-					$menuItems[] = ['label' => Yii::t('store', 'Development'), 'items' => MenuHelper::getDeveloperMenu($role)];
+					$menuItems[] = ['label' => Yii::t('igolf', 'Development'), 'items' => MenuHelper::getDeveloperMenu($role)];
 
 				$user_menu = [];
 				$user_menu[] = ['label' => Yii::t('igolf', 'Profile'), 'url' => ['/user/settings']];

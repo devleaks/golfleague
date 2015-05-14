@@ -37,7 +37,6 @@ $this->title = 'Golf League - Starter';
 	<ul style="list-style: none;">
 		<li>&raquo; <a href="<?= Url::to(['/start/competition']) ?>">Competitions</a></li>
 		<li>&raquo; <a href="<?= Url::to(['/start/registration']) ?>">Registrations</a></li>
-		<li>&raquo; <a href="<?= Url::to(['/start/competition', '#' => 'start']) ?>">Flights</a></li>
 	</ul>
 
 </div>

@@ -14,7 +14,7 @@ use common\behaviors\Constant;
 class Registration extends _Registration
 {
 	use Constant;
-	
+
     /** Golfer has not registered to the competition, registration does not exist */
     const STATUS_UNREGISTERED = 'UNREGISTERED';
 
@@ -51,7 +51,18 @@ class Registration extends _Registration
     /** Golfer is invited to next stage */
     const STATUS_QUALIFIED = 'QUALIFIED';
 
-    /** Special status keyword */
+	/** Score types */
+	const SCORE_GROSS = 'GROSS';
+	const SCORE_NET = 'NET';
+	const SCORE_POINTS = 'POINTS';
+	const SCORE_POSITION = 'POSITION';
+	
+	/** Scorecard statuses */
+	const CARD_RETURNED = 'RETURNED';
+	const CARD_DISQUAL = 'RETURNED';
+	const CARD_NOSHOW = 'NOSHOW';
+	
+    /** Special action keyword */
     const ACTION_DELETE = 'DELETE';
 
 
@@ -81,18 +92,29 @@ class Registration extends _Registration
             'id' => Yii::t('igolf', 'Registration'),
             'competition_id' => Yii::t('igolf', 'Competition'),
             'golfer_id' => Yii::t('igolf', 'Golfer'),
-            'status' => Yii::t('igolf', 'Status'),
             'flight_id' => Yii::t('igolf', 'Flight'),
+            'team_id' => Yii::t('igolf', 'Team'),
             'tees_id' => Yii::t('igolf', 'Tees'),
+            'points' => Yii::t('igolf', 'Points'),
+            'position' => Yii::t('igolf', 'Position'),
+            'note' => Yii::t('igolf', 'Note'),
+            'score' => Yii::t('igolf', 'Score'),
+            'score_net' => Yii::t('igolf', 'Score Net'),
+            'status' => Yii::t('igolf', 'Status'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
-            'position' => Yii::t('igolf', 'Position'),
-            'score' => Yii::t('igolf', 'Score'),
-            'points' => Yii::t('igolf', 'Points'),
-            'note' => Yii::t('igolf', 'Note'),
-            'team_id' => Yii::t('igolf', 'Team'),
-            'score_net' => Yii::t('igolf', 'Score Net'),
         ];
     }
+
+	static public function getTerminatedStatuses() {
+		return [
+		    self::STATUS_FORFEIT,
+		    self::STATUS_MISSEDCUT,
+		    self::STATUS_ELIMINATED,
+		    self::STATUS_DISQUALIFIED,
+		    self::STATUS_WITHDRAWN,
+		    self::STATUS_QUALIFIED,
+		];
+	}
 
 }

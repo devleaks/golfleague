@@ -89,12 +89,12 @@ $this->title = Yii::t('igolf', 'Simple Tournaments');
 						if ($model->registered($me)) {
 							$url = Url::to(['registration/deregister', 'id' => $model->id]);
 		                    $a = Html::a('<i class="glyphicon glyphicon-minus"></i>', $url, [
-		                        'title' => Yii::t('store', 'Deregister'),
+		                        'title' => Yii::t('igolf', 'Deregister'),
 		                    ]);
 						} else {
 							$url = Url::to(['registration/register', 'id' => $model->id]);
 		                    $a = Html::a('<i class="glyphicon glyphicon-plus"></i>', $url, [
-		                        'title' => Yii::t('store', 'Register'),
+		                        'title' => Yii::t('igolf', 'Register'),
 		                    ]);
 						}
 						return $a;

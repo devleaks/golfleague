@@ -90,7 +90,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>600.00</height>
+            <height>620.00</height>
         </size>
         <zorder>14</zorder>
         <SQLField>
@@ -272,6 +272,11 @@
             <type><![CDATA[INTEGER]]></type>
             <temporaryOriginalName><![CDATA[age_0]]></temporaryOriginalName>
             <uid><![CDATA[9269F3A5-4ADD-4AA1-9A03-3A4BFF8F3CA3]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[cba]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[77E48EE8-8B61-4110-A5C4-906DCACE2B8F]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[registration_special]]></name>
@@ -1163,7 +1168,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>320.00</height>
+            <height>380.00</height>
         </size>
         <zorder>8</zorder>
         <SQLField>
@@ -1255,6 +1260,12 @@
             <uid><![CDATA[298006A1-F2D8-4E53-B398-FB7D772AD0FE]]></uid>
         </SQLField>
         <SQLField>
+            <name><![CDATA[handicap]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <objectComment><![CDATA[Playing handicap]]></objectComment>
+            <uid><![CDATA[C9F51167-5BD8-4673-8A67-448411449536]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[score]]></name>
             <type><![CDATA[INTEGER]]></type>
             <uid><![CDATA[562576C8-26AD-46A4-90A6-BA76C0927555]]></uid>
@@ -1264,6 +1275,16 @@
             <type><![CDATA[INTEGER]]></type>
             <temporaryOriginalName><![CDATA[score_1]]></temporaryOriginalName>
             <uid><![CDATA[4A8998CD-B41B-4359-ADCD-BB8AE05ACA19]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[stableford]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[D24C0453-FCB4-409E-A94E-DDF415E3CB31]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[stableford_net]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[ADBC2D0E-D1AA-4C38-BC28-BB5F54D5F7EE]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[points]]></name>
@@ -1277,6 +1298,11 @@
             <type><![CDATA[INTEGER]]></type>
             <temporaryOriginalName><![CDATA[score_1]]></temporaryOriginalName>
             <uid><![CDATA[34B88A02-0C18-4D3A-92F2-D10529E1A938]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[card_status]]></name>
+            <type><![CDATA[VARCHAR(20)]]></type>
+            <uid><![CDATA[556E7A24-EE8E-4BCE-AAE1-C0718A7D0156]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[status]]></name>
@@ -2128,7 +2154,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[102.000000]]></windowLocationX>
         <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{1, 265}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{0, 67}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

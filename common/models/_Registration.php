@@ -21,6 +21,10 @@ use Yii;
  * @property integer $score_net
  * @property integer $points
  * @property integer $position
+ * @property integer $handicap
+ * @property integer $stableford
+ * @property integer $stableford_net
+ * @property string $card_status
  *
  * @property Tees $tees
  * @property Competition $competition
@@ -45,9 +49,9 @@ class _Registration extends \yii\db\ActiveRecord
     {
         return [
             [['competition_id', 'golfer_id', 'status'], 'required'],
-            [['competition_id', 'golfer_id', 'team_id', 'flight_id', 'tees_id', 'score', 'score_net', 'points', 'position'], 'integer'],
+            [['competition_id', 'golfer_id', 'team_id', 'flight_id', 'tees_id', 'score', 'score_net', 'points', 'position', 'handicap', 'stableford', 'stableford_net'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['status'], 'string', 'max' => 20],
+            [['status', 'card_status'], 'string', 'max' => 20],
             [['note'], 'string', 'max' => 160]
         ];
     }
@@ -72,6 +76,10 @@ class _Registration extends \yii\db\ActiveRecord
             'score_net' => Yii::t('igolf', 'Score Net'),
             'points' => Yii::t('igolf', 'Points'),
             'position' => Yii::t('igolf', 'Position'),
+            'handicap' => Yii::t('igolf', 'Handicap'),
+            'stableford' => Yii::t('igolf', 'Stableford'),
+            'stableford_net' => Yii::t('igolf', 'Stableford Net'),
+            'card_status' => Yii::t('igolf', 'Card Status'),
         ];
     }
 
