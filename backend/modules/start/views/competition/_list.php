@@ -29,12 +29,29 @@ use yii\data\ActiveDataProvider;
             ],
             'name',
             'description',
-            'course_id',
+			[
+				'attribute' => 'course_id',
+				'value' => function ($model, $key, $index, $widget) {
+					return $model->course ? $model->course->name : '';
+				}
+			],
             // 'holes',
             // 'rule_id',
-             'start_date',
+			[
+				'attribute' => 'start_date',
+				'format' => 'datetime',
+				'value' => function ($model, $key, $index, $widget) {
+					return new DateTime($model->start_date);
+				}
+			],
+			[
+				'attribute' => 'registration_end',
+				'format' => 'datetime',
+				'value' => function ($model, $key, $index, $widget) {
+					return new DateTime($model->registration_end);
+				}
+			],
             // 'registration_begin',
-             'registration_end',
             // 'handicap_min',
             // 'handicap_max',
             // 'age_min',

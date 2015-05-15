@@ -109,18 +109,6 @@ function adjustDate() {
 }
 
 
-function saveFlights() {
-	var flights = new Array();
-	$( ".flight" ).not('.new').not('.bench').each(function() {
-		flights.push( {
-			id: $(this).attr('id'),
-			golfers: $(this).sortable( "toArray" )
-		} );
-	});
-	return JSON.stringify(flights);
-}
-
-
 /** M A I N
  *
  */
@@ -132,8 +120,8 @@ $("#flight-case").sortable({
 	handle : '.handle',
 	cursor: 'move',
 	stop: function (event, ui) {
-				cleanUp();
-			},
+		cleanUp();
+	},
 });
 
 /** To recompute flights start time when first start time and time interval changed */

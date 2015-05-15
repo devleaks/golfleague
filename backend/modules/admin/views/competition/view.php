@@ -116,6 +116,15 @@ $this->params['breadcrumbs'][] = $this->title;
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => [''=>'']+Competition::getLocalizedConstants('GENDER_')
 			],
+            'max_players',
+            [
+                'attribute'=>'registration_special',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => [''=>'']+Competition::getLocalizedConstants('SPECIAL_')
+            ],
+        	'registration_time',
+            'flight_size',
+			'flight_time',
             [
 				'attribute' => 'status',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
@@ -127,16 +136,16 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 		if(in_array($model->competition_type, [Competition::TYPE_SEASON, Competition::TYPE_TOURNAMENT])) {
 			switch($model->competition_type) {
-			case Competition::TYPE_SEASON:
-		        $searchModel = new TournamentSearch();
-		        $dataProvider = $searchModel->search(['TournamentSearch'=>['parent_id' => $model->id]]);
-				$type = Competition::TYPE_TOURNAMENT;
-				break;
-			case Competition::TYPE_TOURNAMENT:
-		        $searchModel = new MatchSearch();
-		        $dataProvider = $searchModel->search(['MatchSearch'=>['parent_id' => $model->id]]);
-				$type = Competition::TYPE_MATCH;
-				break;
+				case Competition::TYPE_SEASON:
+			        $searchModel = new TournamentSearch();
+			        $dataProvider = $searchModel->search(['TournamentSearch'=>['parent_id' => $model->id]]);
+					$type = Competition::TYPE_TOURNAMENT;
+					break;
+				case Competition::TYPE_TOURNAMENT:
+			        $searchModel = new MatchSearch();
+			        $dataProvider = $searchModel->search(['MatchSearch'=>['parent_id' => $model->id]]);
+					$type = Competition::TYPE_MATCH;
+					break;
 			}
 				//$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

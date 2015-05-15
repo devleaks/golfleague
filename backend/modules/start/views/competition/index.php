@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $registrationSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {update} {register}',
+			 	'template' => '{view} {register}',
 	            'buttons' => [
 	                'register' => function ($url, $model) {
 						$url = Url::to(['registration/competition', 'id' => $model->id]);
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $startSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {update} {flight} {team} {tees}',
+			 	'template' => '{view} {flight} {team} {tees}',
 	            'buttons' => [
 	                'team' => function ($url, $model) {
 						if($model->rule->team) {
@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $planSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {update} {delete}'
+			 	'template' => '{view} {delete}'
 			]
 	]) ?>
 

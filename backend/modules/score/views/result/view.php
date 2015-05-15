@@ -30,6 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
 		'panel'=>[
 	        'heading' => '<h3>'.Yii::t('igolf', $model->competition_type).' '.$model->name.'</h3>',
+			'headingOptions' => [
+				'template' => '{title}',
+			],
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
@@ -80,40 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	            	]
 				],
             ],
-            [
-                'attribute'=>'registration_begin',
-				'format' => 'datetime',
-				'type' => DetailView::INPUT_DATETIME,
-				'widgetOptions' => [
-					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
-	                	'todayHighlight' => true
-	            	]
-				],
-				'value' => $model->registration_begin ? new DateTime($model->registration_begin) : '',
-            ],
-            [
-                'attribute'=>'registration_end',
-				'format' => 'datetime',
-				'type' => DetailView::INPUT_DATETIME,
-				'widgetOptions' => [
-					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
-	                	'todayHighlight' => true
-	            	]
-				],
-				'value' => $model->registration_end ? new DateTime($model->registration_end) : '',
-            ],
             'cba',
-            'handicap_min',
-            'handicap_max',
-            'age_min',
-            'age_max',
-            [
-				'attribute' => 'gender',
-				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => [''=>'']+Competition::getLocalizedConstants('GENDER_')
-			],
             [
 				'attribute' => 'status',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,

@@ -41,12 +41,18 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $completedSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-				 	'template' => '{view} {score}',
+				 	'template' => '{view} {score} {rule}',
 	            'buttons' => [
 	                'score' => function ($url, $model) {
 						$url = Url::to(['report/view', 'id' => $model->id, 'sort' => 'position']);
 	                    return Html::a(Icon::show('trophy', [], Icon::WHHG), $url, [
 	                        'title' => Yii::t('igolf', 'Enter scores'),
+	                    ]);
+	                },
+	                'rule' => function ($url, $model) {
+						$url = Url::to(['rule/view', 'id' => $model->id, 'sort' => 'position']);
+	                    return Html::a(Icon::show('certificatealt', [], Icon::WHHG), $url, [
+	                        'title' => Yii::t('igolf', 'Apply competition rules'),
 	                    ]);
 	                },
 				],
@@ -62,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			 	'template' => '{view} {result}',
 	            'buttons' => [
 	                'result' => function ($url, $model) {
-						$url = Url::to(['score/result', 'id' => $model->id, 'sort' => 'position']);
+						$url = Url::to(['result/view', 'id' => $model->id, 'sort' => 'position']);
 	                    return Html::a(Icon::show('podium-winner', [], Icon::WHHG), $url, [
 	                        'title' => Yii::t('igolf', 'View scores'),
 	                    ]);

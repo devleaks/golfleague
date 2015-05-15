@@ -116,5 +116,30 @@ class Registration extends _Registration
 		    self::STATUS_QUALIFIED,
 		];
 	}
+	
+
+	/**
+	 * Also delete parent registration if not used
+	 */
+	public function hasChildren() {
+		$has_children = false;
+		if( $competition = $this->competition ) {
+			foreach($competition->getCompetitions()->each() as $child) {
+				if(!$has_children)
+					$has_children = Registration::find()->andWhere(['competition_id' => $child->id, 'golfer_id' => $this->golfer_id])->exists();
+			}
+		}
+		Yii::trace('return='.($has_children ? 'true' : 'false'), 'hasChildren');
+		return $has_children;
+	}
+
+
+	/**
+	 * Also delete parent registration if not used
+	 */
+	public function delete() {
+		if(!$this->hasChildren())
+			parent::delete();
+	}
 
 }

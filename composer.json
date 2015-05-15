@@ -35,7 +35,7 @@
 		"kartik-v/yii2-builder": "dev-master",
 		"kartik-v/yii2-date-range": "*",
 		"kartik-v/yii2-datecontrol": "dev-master",
-		"kartik-v/yii2-detail-view": "*",
+		"kartik-v/yii2-detail-view": "dev-master",
 		"kartik-v/yii2-grid": "*",
 		"kartik-v/yii2-helpers": "dev-master",
 		"kartik-v/yii2-icons": "dev-master",

@@ -107,7 +107,7 @@ class Competition extends _Competition
             'competition_type' => Yii::t('igolf', 'Competition Type'),
             'name' => Yii::t('igolf', 'Name'),
             'description' => Yii::t('igolf', 'Description'),
-            'parent_id' => Yii::t('igolf', 'Parent'),
+            'parent_id' => Yii::t('igolf', 'Part of'),
             'course_id' => Yii::t('igolf', 'Course'),
             'holes' => Yii::t('igolf', 'Holes'),
             'rule_id' => Yii::t('igolf', 'Rules'),
@@ -149,49 +149,6 @@ class Competition extends _Competition
     {
         return new CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);
     }
-
-    /*  Registration Function
-     *
-     */
-	public function getPhase() {
-		$phase = null;
-		if ($this->status == Competition::STATUS_CLOSED)
-			$phase =  Competition::PHASE_COMPLETED;
-		else if ($this->status == Competition::STATUS_READY)
-			$phase =  Competition::PHASE_READY;
-		else { // if($this->status == Competition::STATUS_OPEN) {	// competition is open, look further
-			$now = date('Y-m-d H:i:s');
-			if($this->registration_begin) {
-				if($this->registration_begin < $now) { // open for reg
-					if($this->registration_end) {
-						if($this->registration_end > $now) { // open for reg
-							$phase =  Competition::PHASE_REGISTRATION_OPEN;
-						} else { // no longer open for reg
-							if($this->start_date) { // start_date, must be a match
-								if($this->start_date > $now) {
-									$phase =  Competition::PHASE_READY;
-								} if(substr($this->start_date, 10, 1) == substr($now, 10, 1)) { // same day
-									$phase =  Competition::PHASE_ONGOING;
-								} else {
-									$phase =  Competition::PHASE_COMPLETED;
-								}
-							} else { // no start date, must be a season or tournament
-								$phase =  Competition::PHASE_REGISTRATION_CLOSED;
-							}
-						}
-					} else { // no reg end date, can always register
-						$phase =  Competition::PHASE_REGISTRATION_OPEN;
-					}
-				} else { // not open for reg
-					$phase =  Competition::PHASE_SCHEDULED;
-				}
-			} else { // no reg start date, can always register
-				$phase =  Competition::PHASE_REGISTRATION_OPEN;
-			}
-		}
-		Yii::trace($this->id.' is '.$phase, 'Competition::getPhase');
-		return $phase;
-	}
 
     /**
      * Checks whether golfer registered to event

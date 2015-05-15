@@ -46,7 +46,7 @@ use common\models\Course;
 
     <?= $form->field($model, 'gender')->radioList($model::getLocalizedConstants('GENDER_')) ?>
 
-    <?= $form->field($model, 'special')->dropDownList([''=>'']+$model::getLocalizedConstants('SPECIAL_')) ?>
+    <?= $form->field($model, 'registration_special')->dropDownList([''=>'']+$model::getLocalizedConstants('SPECIAL_')) ?>
 
 	<?php if($model->competition_type == $model::TYPE_MATCH): ?>
 

@@ -57,7 +57,7 @@ use common\models\Competition;
 				'attribute' => 'created_at',
 				'format' => 'datetime',
 				'value' => function ($model, $key, $index, $widget) {
-					return new DateTime($model->updated_at);
+					return new DateTime($model->created_at);
 				}
 			],
 			[
@@ -88,11 +88,6 @@ use common\models\Competition;
             // 'flight_id',
             // 'tees_id',
 
-            [
-				'class' => 'kartik\grid\ActionColumn',
-				'noWrap' => true,
-			],
-
             ['class' => 'kartik\grid\CheckboxColumn'],
         ],
     ]); ?>
@@ -106,7 +101,10 @@ $statuses .= '</ul></div>';
 
 $buttons = Html::a(Yii::t('igolf', 'New Registration'), ['create'], ['class' => 'btn btn-success']);
 if($competition) $buttons .= ' '.Html::a(Yii::t('igolf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']);
-$buttons .= ' '.Html::a(Yii::t('igolf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data-status' => Registration::ACTION_DELETE]);
+$buttons .= ' '.Html::a(Yii::t('igolf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data' => [
+				'status' => Registration::ACTION_DELETE,
+			    'confirm-local' => Yii::t('igolf', 'Are you sure you want to delete selected registration(s)?'), // interference with bootbox
+]]);
 $buttons .= ' '.$statuses;
 echo $buttons;
 ?>
@@ -116,20 +114,32 @@ echo $buttons;
 <?php
 $this->beginBlock('JS_PJAXREG') ?>
 $("a.igolf-bulk-action").click(function(e) {
-	status = $(this).data('status');
-	console.log('status to '+status);
 	collected = $('#registration').yiiGridView('getSelectedRows');
 	if(collected != '') {
-		$.post(
-		    "bulk-status", 
-		    {
-		        ids : collected,
-				status : status
-		    },
-		    function () {
-		        $.pjax.reload({container:'#registration-pjax'});
-		    }
-		);
+		status = $(this).data('status');
+		console.log('status to '+status);
+		
+		confirm_str = $(this).data('confirm-local');
+		console.log('confirm to '+confirm_str);
+		ok = confirm_str ? confirm(confirm_str) : true;
+		console.log('ok to '+ok);
+		
+		if(ok) {
+			console.log('sending to '+collected);
+			$.ajax({
+				type: "POST",
+				url: "bulk-status",
+				data: {
+			        ids : collected,
+					status : status
+			    },
+				success: function () {
+					console.log('reloaded');
+			        $.pjax.reload({container:'#registration-pjax'});
+			    }
+			});
+			console.log('sent');
+		}
 	}
 });
 <?php $this->endBlock(); ?>

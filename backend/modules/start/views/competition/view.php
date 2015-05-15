@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\detail\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Competition */
@@ -12,14 +12,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('igolf', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    </p>
-
     <?= DetailView::widget([
         'model' => $model,
+		'panel'=>[
+	        'heading' => '<h3>'.Yii::t('igolf', $model->competition_type).' '.$model->name.'</h3>',
+			'headingOptions' => [
+				'template' => '{title}'
+			],
+	    ],
         'attributes' => [
             'id',
             [
@@ -34,9 +34,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'name',
             'description',
-            'course.name',
+            [
+                'attribute'=>'course_id',
+                'label'=>'Competition',
+                'value'=> $model->course ? $model->course->name : '',
+            ],
             'holes',
-            'rule_id.name',
+            [
+                'attribute'=>'rule_id',
+                'label'=>'Competition',
+                'value'=> $model->rule ? $model->rule->name : '',
+            ],
             'start_date',
             'registration_begin',
             'registration_end',
@@ -45,10 +53,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'age_min',
             'age_max',
             [
-                'attribute'=>'gender',
-                'label'=>'Gender',
-                'value'=> Yii::t('igolf', $model->gender),
+				'attribute' => 'gender',
+            	'value'=> Yii::t('igolf', $model->gender),
+			],
+            'max_players',
+            [
+                'attribute'=>'registration_special',
+            	'value'=> Yii::t('igolf', $model->registration_special),
             ],
+        	'registration_time',
+            'flight_size',
+			'flight_time',
             [
                 'attribute'=>'status',
                 'label'=>'Status',

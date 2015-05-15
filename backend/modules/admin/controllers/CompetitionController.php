@@ -108,6 +108,24 @@ class CompetitionController extends GolfLeagueController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+			/** copy initial data from parent competition */
+			foreach([
+	            'flight_size',
+	            'registration_begin',
+	            'registration_end',
+	            'handicap_min',
+	            'handicap_max',
+	            'age_min',
+	            'age_max',
+	            'gender',
+	            'recurrence_id',
+	            'max_players',
+	            'registration_special',
+	            'flight_time',
+	            'registration_time',
+			] as $attribute)
+				$model->$attribute = $parent->$attribute;
+			
             return $this->render('create', [
                 'model' => $model,
             ]);

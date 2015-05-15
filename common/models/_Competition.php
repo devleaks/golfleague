@@ -68,8 +68,7 @@ class _Competition extends \yii\db\ActiveRecord
             [['competition_type', 'status', 'gender'], 'string', 'max' => 20],
             [['name'], 'string', 'max' => 80],
             [['description'], 'string', 'max' => 255],
-            [['registration_special'], 'string', 'max' => 160],
-            [['name'], 'unique']
+            [['registration_special'], 'string', 'max' => 160]
         ];
     }
 

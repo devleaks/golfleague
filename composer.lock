@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a849b940d37b0fb41f7638cafa5041d6",
+    "hash": "b3d8404c8a7bcc021626b9e7472c8bbf",
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -2332,16 +2332,16 @@
         },
         {
             "name": "kartik-v/yii2-detail-view",
-            "version": "v1.7.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "9368466d74434c0135b8bc42544efc511fcc09ad"
+                "reference": "cbc1513360e3b3604996af24c84329398883be0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/9368466d74434c0135b8bc42544efc511fcc09ad",
-                "reference": "9368466d74434c0135b8bc42544efc511fcc09ad",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/cbc1513360e3b3604996af24c84329398883be0d",
+                "reference": "cbc1513360e3b3604996af24c84329398883be0d",
                 "shasum": ""
             },
             "require": {
@@ -2376,7 +2376,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-03-02 13:30:23"
+            "time": "2015-05-14 17:23:28"
         },
         {
             "name": "kartik-v/yii2-grid",
@@ -5604,6 +5604,7 @@
     "stability-flags": {
         "kartik-v/yii2-builder": 20,
         "kartik-v/yii2-datecontrol": 20,
+        "kartik-v/yii2-detail-view": 20,
         "kartik-v/yii2-helpers": 20,
         "kartik-v/yii2-icons": 20,
         "kartik-v/yii2-markdown": 20,

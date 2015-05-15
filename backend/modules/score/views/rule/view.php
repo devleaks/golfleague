@@ -129,5 +129,9 @@ $this->params['breadcrumbs'][] = $this->title;
 			'query' => $model->getRegistrations()->andWhere(['status' => Registration::getTerminatedStatuses()]),
 		]),		
 	])?>
+	
+	<?= Html::a(Yii::t('igolf','Apply Rule'), ['apply', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+
+	<?= Html::a(Yii::t('igolf','Terminate Competition'), ['terminate', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
 
 </div>

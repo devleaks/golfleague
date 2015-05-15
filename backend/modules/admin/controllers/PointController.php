@@ -98,9 +98,11 @@ class PointController extends GolfLeagueController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+		$rule_id = $model->rule_id;		
+		$model->delete();
 
-        return $this->redirect(Yii::$app->request->referrer/*['index']*/);
+        return $this->redirect(['rule/view', 'id' => $rule_id]);
     }
 
     /**

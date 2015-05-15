@@ -9,9 +9,6 @@ use common\models\Flight;
 use common\models\Registration;
 use common\models\Team;
 use common\models\TeesForm;
-use common\models\flight\BuildFlightChrono;
-use common\models\flight\BuildFlightForTeam;
-use common\models\flight\BuildFlightStandard;
 use common\models\search\CompetitionSearch;
 use common\models\search\FlightSearch;
 use common\models\search\RegistrationSearch;
@@ -45,7 +42,8 @@ class ReportController extends GolfLeagueController
 				foreach($models as $model) {
 					$errors += $model->errors;
 				}
-				Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($errors, 4, true)]));
+				if(count($errors)>0)
+					Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($errors, 4, true)]));
 			} else {
 				foreach ($models as $model) {
 					$model->save();

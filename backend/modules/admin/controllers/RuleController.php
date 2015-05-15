@@ -54,7 +54,8 @@ class RuleController extends GolfLeagueController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id'=>$model->id]);
         } else {
-			Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($model->errors, 4, true)]));
+			if(count($model->errors)>0)
+				Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($model->errors, 4, true)]));
             return $this->render('view', ['model'=>$model]);
         }
     }

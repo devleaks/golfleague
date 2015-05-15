@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use kartik\detail\DetailView;
 use common\models\search\PointSearch;
 use common\models\Competition;
+use common\models\Rule;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Rule */
@@ -32,12 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'object_type',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => Competition::getConstants('TYPE_'),
+				'items' => Rule::getConstants('TYPE_'),
             ],
             [
                 'attribute'=>'rule_type',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => Competition::getConstants('TYPE_'),
+				'items' => Rule::getConstants('RULE_'),
             ],
             [
                 'attribute'=>'team',

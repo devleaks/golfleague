@@ -17,6 +17,7 @@ use common\models\search\FlightSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -227,6 +228,8 @@ class FlightController extends GolfLeagueController
 				
 		$competition->status = Competition::STATUS_READY;
 		$competition->save();
+		if(count($competition->errors)>0)
+			Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($competition->errors, 4, true)]));
 
         return $this->render('list', [
 			'model' => $competition,

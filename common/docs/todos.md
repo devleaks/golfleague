@@ -1,15 +1,4 @@
-
-## Flight building
-
-Variable flight size (4 hardcoded in js); could be 2 (2 teams of 2), or 3, or 4. What else?
-
-
-## Clean-Up / Structure
-
-Move registerButtonn and createActionUrl out of model class(es) 
-
-
-## Calendar
+### Calendar
 
 ##match date
 
@@ -35,3 +24,24 @@ first..fourth day-of-week of month
 last..fourth-last day-of-week of month
 
 nth day of month
+
+
+### Registration
+
+Fix bootbox when bulk delete.
+
+
+### Competition
+
+
+
+### Rules
+
+Use checkbox to select/manipulate points
+
+
+### Flights
+
+Bug: If flight setup changes flight time, it should be brought back to competition setup.
+Use other mthod to build flight manually (create + add/remove golfer).
+

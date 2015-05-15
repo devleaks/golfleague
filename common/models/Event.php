@@ -36,6 +36,10 @@ class Event extends _Event
     const TYPE_DINNER = 'DINNER';
     /** Competition prize ceremony */
     const TYPE_CEREMONY = 'CEREMONY';
+    /** Golfer birthday */
+    const TYPE_BIRTHDAY = 'BIRTHDAY';
+    /** Other event */
+    const TYPE_MISC = 'MISCELLANEOUS';
 
     /** Status */
     const STATUS_ACTIVE = 'ACTIVE';

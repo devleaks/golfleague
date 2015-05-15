@@ -7,6 +7,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('golfleague', 'Registrations for ').$model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('golfleague', 'Competitions'), 'url' => ['competition/index']];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['registration/competition', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="registration-index">
