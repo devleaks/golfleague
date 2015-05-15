@@ -1,87 +1,136 @@
 <?php
 
-use common\models\Tees;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-use yii\widgets\ActiveForm;
+use kartik\grid\GridView;
+use common\models\Registration;
+use common\models\Competition;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\FlightSearch */
+/* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Tees for ').$competition->name;
+$starts = [];
+foreach($competition->getStarts()->each() as $start)
+	$starts[$start->tees_id] = $start->tees->name;
+
+
+$this->title = $competition->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
-<div id="feedback"></div>
+<div class="registration-index">
 
-<div class="tees-index">
+     <?= GridView::widget([
+		'options' => ['id' => 'registration'],
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+		'panel'=>[
+	        'heading' => '<h4>'.$this->title.'</h4>',
+			'footer' => false,
+	    ],
+		'pjax' => true,
+		'pjaxSettings' => [
+	        'neverTimeout' => true,
+        ],
+		'export' => false,
+        'columns' => [
+            ['class' => 'kartik\grid\SerialColumn'],
 
-    <h1><?= Html::encode($this->title) ?></h1>
+            [
+            	'attribute' => 'competition_name',
+                'label' => Yii::t('igolf', 'Competition'),
+                'value' => function($model, $key, $index, $widget) {
+                    return  $model->competition->name;
+                },
+				'visible' => $competition === null,
+            ],
+            [
+            	'attribute' => 'competition_type',
+                'label' => Yii::t('igolf', 'Competition Type'),
+                'value' => function($model, $key, $index, $widget) {
+                    return  Yii::t('igolf', $model->competition->competition_type);
+                },
+				'filter' => Competition::getLocalizedConstants('TYPE_'),
+				'visible' => $competition === null,
+            ],
+            [
+            	'attribute' => 'golfer_name',
+                'label' => Yii::t('igolf', 'Golfer'),
+                'value' => function($model, $key, $index, $widget) {
+                    return  $model->golfer->name;
+                },
+			],
+			[
+				'attribute' => 'tees_id',
+				'filter' => $starts,
+				'format' => 'raw',
+				'value' => function ($model, $key, $index, $widget) {
+					return $model->tees ? $model->tees->getLabel() : '';
+				}
+			],
+/*	        [
+	            'label' => Yii::t('igolf', 'Created By'),
+				'attribute' => 'created_by',
+				'filter' => ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'),
+	            'value' => function ($model, $key, $index, $widget) {
+					$user = $model->createdBy;
+	                return $user ? $user->username : '?';
+	            },
+	            'format' => 'raw',
+	        ],*/
+            [
+                'attribute' => 'status',
+                'value' => function($model, $key, $index, $widget) {
+                	return Yii::t('igolf', $model->status);
+                },
+				'filter' => Registration::getLocalizedConstants('STATUS_'),
+            ],
+            // 'flight_id',
+            // 'tees_id',
 
-<div class="alert alert-info">
-	<a href="#" class="close" data-dismiss="alert">&times;</a>
-	<p>Assign tees based on gender and handicap.</p>
+            ['class' => 'kartik\grid\CheckboxColumn'],
+        ],
+    ]); ?>
+
+<?php
+$statuses = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
+				Yii::t('igolf', 'Set Tees of Selected Golfer to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
+foreach($starts as $key => $value)
+	$statuses .= '<li>'.Html::a(Yii::t('igolf', $value), null, ['class' => 'igolf-bulk-action', 'data-tees_id' => $key]).'</li>';
+$statuses .= '</ul></div>';
+
+$buttons = Html::a(Yii::t('igolf', 'Assign Tees'), ['assign-tees', 'id' => $competition->id], ['class' => 'btn btn-success']);
+$buttons .= ' '.$statuses;
+echo $buttons;
+?>
+
 </div>
-
-    <?php $form = ActiveForm::begin(); ?>
-
-    <h2><?= Yii::t('igolf', 'Gentlemen') ?></h2>
-
-	<?= $data ? $data : 'no data' ?>
-		<table>
-			<thead>
-				<tr>
-					<td><?= Yii::t('igolf', 'Handicap From') ?></td>
-					<td><?= Yii::t('igolf', 'Handicap To') ?></td>
-					<td><?= Yii::t('igolf', 'Minimum Age') ?></td>
-					<td><?= Yii::t('igolf', 'Tees') ?></td>
-				</tr>
-			</thead>
-			</tbody>
-			<?php for($i=0;$i<4;$i++) { ?>
-				<tr>
-					<td><?= Html::hiddenInput( "TeesForm[".$i."][gender]", 'GENTLEMAN') ?>
-						<?= Html::textInput( "TeesForm[".$i."][handicap_from]") ?></td>
-					<td><?= Html::textInput( "TeesForm[".$i."][handicap_to]") ?></td>
-					<td><?= Html::textInput( "TeesForm[".$i."][age_from]") ?></td>
-					<td><?= Html::dropDownList("TeesForm[".$i."][tees_id]",null,
-									ArrayHelper::map(Tees::find()->where(['course_id' => $competition->course_id])->asArray()->all(), 'id', 'name')
-								) ?></td>
-				</tr>
-			</tbody>
-			<?php } ?>
-		</table>
-
-
-    <h2><?= Yii::t('igolf', 'Ladies') ?></h2>
-
-		<table>
-			<thead>
-				<tr>
-					<td><?= Yii::t('igolf', 'Handicap From') ?></td>
-					<td><?= Yii::t('igolf', 'Handicap To') ?></td>
-					<td><?= Yii::t('igolf', 'Tees') ?></td>
-				</tr>
-			</thead>
-			</tbody>
-			<?php for($i=4;$i<8;$i++) { ?>
-				<tr>
-					<td><?= Html::hiddenInput( "TeesForm[".$i."][gender]", 'LADY') ?>
-						<?= Html::textInput( "TeesForm[".$i."][handicap_from]") ?></td>
-					<td><?= Html::textInput( "TeesForm[".$i."][handicap_to]") ?></td>
-					<td><?= Html::textInput( "TeesForm[".$i."][age_from]") ?></td>
-					<td><?= Html::dropDownList("TeesForm[".$i."][tees_id]",null,
-									ArrayHelper::map(Tees::find()->where(['course_id' => $competition->course_id])->asArray()->all(), 'id', 'name')
-								) ?></td>
-				</tr>
-			</tbody>
-			<?php } ?>
-		</table>
-
-		<?= Html::submitButton(Yii::t('igolf', 'Assign tees'), ['class' => 'btn btn-primary']) ?>
-
-<?php ActiveForm::end(); ?>
-
-</div>
+<script type="text/javascript">
+<?php
+$this->beginBlock('JS_PJAXREG') ?>
+$("a.igolf-bulk-action").click(function(e) {
+	collected = $('#registration').yiiGridView('getSelectedRows');
+	if(collected != '') {
+		tees_id = $(this).data('tees_id');
+		console.log('status to '+status);
+		$.ajax({
+			type: "POST",
+			url: "bulk-assign",
+			data: {
+		        ids : collected,
+				tees_id : tees_id
+		    },
+			success: function () {
+				console.log('reloaded');
+		        $.pjax.reload({container:'#registration-pjax'});
+		    }
+		});
+		console.log('sent');
+	}
+});
+<?php $this->endBlock(); ?>
+</script>
+<?php
+$this->registerJs($this->blocks['JS_PJAXREG'], yii\web\View::POS_READY);

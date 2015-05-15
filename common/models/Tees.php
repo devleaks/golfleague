@@ -57,4 +57,7 @@ class Tees extends _Tees
 		return $this->getHoles()->count() > 0;
 	}
 
+	public function getLabel($mode = 'name') {
+		return '<span class="label" style="background-color: '.$this->color.';">'.($mode == 'name' ? $this->name : '').'</span>';
+	}
 }

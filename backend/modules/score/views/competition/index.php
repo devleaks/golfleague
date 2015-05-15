@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $ongoingSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {update} {score}',
+			 	'template' => '{view} {score}',
 	            'buttons' => [
 	                'score' => function ($url, $model) {
-						$url = Url::to(['score/competition', 'id' => $model->id]);
-	                    return Html::a(Icon::show('trophy'), $url, [
+						$url = Url::to(['report/competition', 'id' => $model->id]);
+	                    return Html::a(Icon::show('trophy', [], Icon::WHHG), $url, [
 	                        'title' => Yii::t('igolf', 'Enter scores'),
 	                    ]);
 	                },

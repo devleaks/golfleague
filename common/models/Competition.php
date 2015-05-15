@@ -475,4 +475,12 @@ class Competition extends _Competition
 		Yii::trace('final '.count($registrations));
 		return count($registrations) == 0;
 	}
+	
+	public function setTees($registration) {
+		foreach($this->getStarts()->each() as $start) {
+			if($start->isOk($registration->golfer) && !$registration->tees_id)
+				$registration->tees_id = $start->tees_id;
+				$registration->save();
+		}
+	}
 }

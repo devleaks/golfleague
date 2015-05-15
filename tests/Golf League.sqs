@@ -1168,7 +1168,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>380.00</height>
+            <height>400.00</height>
         </size>
         <zorder>8</zorder>
         <SQLField>
@@ -1264,6 +1264,11 @@
             <type><![CDATA[INTEGER]]></type>
             <objectComment><![CDATA[Playing handicap]]></objectComment>
             <uid><![CDATA[C9F51167-5BD8-4673-8A67-448411449536]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[thru]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[572D4C9B-87B0-4FAD-9340-8AFAA3D567DF]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[score]]></name>
@@ -2154,7 +2159,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[300.000000]]></windowLocationX>
         <windowLocationY><![CDATA[77.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{1, 30}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{0, 340}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

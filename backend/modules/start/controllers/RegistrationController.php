@@ -140,11 +140,9 @@ class RegistrationController extends GolfLeagueController
 				}
 			}
 		} else
-			foreach($ids as $id) {
-				if($r = Registration::findOne($id)) {
-					$r->status = $status;
-					$r->save();
-				}
+			foreach(Registration::find()->andWhere(['id' => $ids])->each() as $r) {
+				$r->status = $status;
+				$r->save();
 	        }
     }
 
@@ -255,7 +253,56 @@ class RegistrationController extends GolfLeagueController
     }
 
 
+    /**
+     * Lists all Registration models.
+     * @return mixed
+     */
+    public function actionTees($id)
+    {
+        if (($competition = Competition::findOne($id)) === null) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $searchModel = new RegistrationSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->query->andWhere(['competition_id' => intval($id)]);
 
+        return $this->render('tees', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+			'competition' => $competition,
+        ]);
+    }
+
+	/**
+	 * Bulk update status or delete for PJAXed gridview.
+	 */
+    public function actionBulkAssign()
+    {
+		$ids = (array)Yii::$app->request->post('ids'); // Array or selected records primary keys
+		$tees_id = Yii::$app->request->post('tees_id');
+
+	    if (!$ids) // Preventing extra unnecessary query
+	        return;
+
+		foreach(Registration::find()->andWhere(['id' => $ids])->each() as $r) {
+			$r->tees_id = $tees_id;
+			$r->save();
+		}
+    }
+
+	public function actionAssignTees($id) {
+		$model = Competition::findOne($id);
+		
+		foreach(Registration::find()
+			->where([
+				'competition_id' => $model->id,
+				'status' => array(Registration::STATUS_PENDING,Registration::STATUS_REGISTERED)
+			])->each() as $registration) {
+			$model->setTees($registration);
+		}
+		
+		return $this->redirect(['tees', 'id' => $model->id]);
+	}
 	
 
 

@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $startSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {flight} {team} {tees}',
+			 	'template' => '{view} {tees} {flight} {team}',
 	            'buttons' => [
 	                'team' => function ($url, $model) {
 						if($model->rule->team) {
@@ -59,13 +59,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	                    ]);
 	                },
 	                'tees' => function ($url, $model) {
-						if($model->rule->team) {
-							$url = Url::to(['team/index', 'id' => $model->id]);
-		                    return Html::a(Icon::show('golf', [], Icon::WHHG), $url, [
-		                        'title' => Yii::t('igolf', 'Assign Tees'),
-		                    ]);
-						}
-						return null;
+						$url = Url::to(['registration/assign-tees', 'id' => $model->id]);
+	                    return Html::a(Icon::show('filter', [], Icon::WHHG), $url, [
+	                        'title' => Yii::t('igolf', 'Assign Tees'),
+	                    ]);
 	                },
 				],
 			],

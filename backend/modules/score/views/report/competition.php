@@ -44,6 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	            'value' => function($model, $key, $index, $widget) {
 	                return  $model->golfer->name;
 	            },
+				'noWrap' => true,
+			],
+			'thru' => [
+				'type' => TabularForm::INPUT_TEXT,
 			],
 			'score' => [
 				'type' => TabularForm::INPUT_TEXT,

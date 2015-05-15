@@ -98,9 +98,11 @@ class StartController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $start = $this->findModel($id);
+		$competition = $start->competition;
+		$start->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['competition/view', 'id' => $competition->id]);
     }
 
     /**

@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\data\ActiveDataProvider;
+use kartik\icons\Icon;
+
+Icon::map($this); 
 
 /* @var $this yii\web\View */
 /* @var $title String */

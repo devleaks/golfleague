@@ -33,7 +33,8 @@ Fix bootbox when bulk delete.
 
 ### Competition
 
-
+Copy starts from parent?
+(actually, copy a lot from parent!)
 
 ### Rules
 

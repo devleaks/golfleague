@@ -58,8 +58,9 @@ class Registration extends _Registration
 	const SCORE_POSITION = 'POSITION';
 	
 	/** Scorecard statuses */
+	const CARD_ONGOING = 'ONGOING';
 	const CARD_RETURNED = 'RETURNED';
-	const CARD_DISQUAL = 'RETURNED';
+	const CARD_DISQUAL = 'DISQUA';
 	const CARD_NOSHOW = 'NOSHOW';
 	
     /** Special action keyword */
