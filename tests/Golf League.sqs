@@ -5,7 +5,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>64.00</x>
-            <y>768.00</y>
+            <y>832.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -341,7 +341,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>220.00</height>
+            <height>260.00</height>
         </size>
         <zorder>1</zorder>
         <SQLField>
@@ -413,6 +413,18 @@
             <uid><![CDATA[DBC9D65C-7ED5-491C-AD43-EEBE3E25C77C]]></uid>
         </SQLField>
         <SQLField>
+            <name><![CDATA[gender]]></name>
+            <type><![CDATA[VARCHAR(20)]]></type>
+            <temporaryOriginalName><![CDATA[sex]]></temporaryOriginalName>
+            <uid><![CDATA[261EE04F-20C9-4D89-8FB7-49AC0032BA87]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[category]]></name>
+            <type><![CDATA[VARCHAR(20)]]></type>
+            <temporaryOriginalName><![CDATA[sex]]></temporaryOriginalName>
+            <uid><![CDATA[069A5B22-AA03-44CF-84B9-D1137ACF540D]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[created_at]]></name>
             <type><![CDATA[DATETIME]]></type>
             <temporaryOriginalName><![CDATA[limit_0]]></temporaryOriginalName>
@@ -433,8 +445,8 @@
         <name><![CDATA[media]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>64.00</x>
-            <y>1728.00</y>
+            <x>448.00</x>
+            <y>1664.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -1416,7 +1428,7 @@
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
             <x>64.00</x>
-            <y>1344.00</y>
+            <y>1408.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -1435,6 +1447,7 @@
         <SQLField>
             <name><![CDATA[name]]></name>
             <type><![CDATA[VARCHAR(80)]]></type>
+            <forcedUnique><![CDATA[0]]></forcedUnique>
             <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[DA2A880F-CFBD-461E-98D2-A40FCCA8791D]]></uid>
         </SQLField>
@@ -1740,7 +1753,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>64.00</x>
-            <y>1024.00</y>
+            <y>1088.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2159,7 +2172,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[300.000000]]></windowLocationX>
         <windowLocationY><![CDATA[77.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{0, 340}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{8, 14}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

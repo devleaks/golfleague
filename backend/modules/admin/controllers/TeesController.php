@@ -3,13 +3,14 @@
 namespace backend\modules\admin\controllers;
 
 use Yii;
-use common\models\Tees;
+use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Course;
 use common\models\Hole;
+use common\models\Tees;
 use common\models\search\TeesSearch;
-use backend\controllers\DefaultController as GolfLeagueController;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
+use yii\web\NotFoundHttpException;
 
 /**
  * TeesController implements the CRUD actions for Tees model.
@@ -109,7 +110,8 @@ class TeesController extends GolfLeagueController
                 $hole = new Hole();
                 $hole->position = intval($i);
                 $hole->tees_id = intval($model->id);
-                $hole->save(); //@todo: check for errors and report
+                if(!$hole->save())
+					Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($hole->errors, 4, true)]));
            }
         } else
             Yii::$app->session->setFlash('error', 'There are already holes defined for this tees set.');
@@ -139,7 +141,8 @@ class TeesController extends GolfLeagueController
                 $hole->par = $srchole->par;
                 $hole->si = $srchole->si;
                 $hole->length = $srchole->length;
-                $hole->save(); //@todo: check for errors and report
+                if(!$hole->save())
+					Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($hole->errors, 4, true)]));
 			}
 		} else
             Yii::$app->session->setFlash('error', 'Could not find source holes.');

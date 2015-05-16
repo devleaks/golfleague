@@ -87,6 +87,20 @@ class Registration extends _Registration
     /**
      * @inheritdoc
      */
+    public function rules()
+    {
+        return array_merge(
+			parent::rules(),
+			[
+            [['thru'], 'in', 'range' => Hole::validNumber()],
+            [['card_status'], 'in', 'range' => array_keys(self::getConstants('CARD_'))],
+            [['status'], 'in', 'range' => array_keys(self::getConstants('STATUS_'))],
+        	]
+		);
+    }
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [

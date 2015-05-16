@@ -17,8 +17,10 @@ use Yii;
  * @property string $front_back
  * @property string $course_rating
  * @property string $slope_rating
+ * @property string $gender
+ * @property string $category
  *
- * @property Hole[] $holes
+ * @property Hole[] $holes0
  * @property Registration[] $registrations
  * @property Scorecard[] $scorecards
  * @property Start[] $starts
@@ -45,7 +47,7 @@ class _Tees extends \yii\db\ActiveRecord
             [['created_at', 'updated_at'], 'safe'],
             [['course_rating', 'slope_rating'], 'number'],
             [['name'], 'string', 'max' => 40],
-            [['color', 'front_back'], 'string', 'max' => 20]
+            [['color', 'front_back', 'gender', 'category'], 'string', 'max' => 20]
         ];
     }
 
@@ -65,13 +67,15 @@ class _Tees extends \yii\db\ActiveRecord
             'front_back' => Yii::t('igolf', 'Front Back'),
             'course_rating' => Yii::t('igolf', 'Course Rating'),
             'slope_rating' => Yii::t('igolf', 'Slope Rating'),
+            'gender' => Yii::t('igolf', 'Gender'),
+            'category' => Yii::t('igolf', 'Category'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getHoles()
+    public function getHoles0()
     {
         return $this->hasMany(Hole::className(), ['tees_id' => 'id']);
     }

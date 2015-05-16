@@ -91,8 +91,10 @@ class Competition extends _Competition
         return array_merge(
 			parent::rules(),
 			[
-	            [['competition_type'], 'in', 'range' => [Competition::TYPE_SEASON,Competition::TYPE_TOURNAMENT,Competition::TYPE_MATCH]],
-	            [['gender'], 'in','range' => [Competition::GENDER_GENTLEMEN,Competition::GENDER_LADIES,Competition::GENDER_BOTH]],
+	            [['competition_type'], 'in', 'range' => array_keys(self::getConstants('TYPE_'))],
+	            [['gender'], 'in','range' => array_keys(self::getConstants('GENDER_'))],
+	            [['registration_special'], 'in','range' => array_keys(self::getConstants('SPECIAL_'))],
+	            [['status'], 'in', 'range' => array_keys(self::getConstants('STATUS_'))],
         	]
 		);
     }

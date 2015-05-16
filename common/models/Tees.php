@@ -16,6 +16,11 @@ class Tees extends _Tees
 	
 	const TEE_FRONT = 'FRONT';
 	const TEE_BACK  = 'BACK';
+	
+	const CATEGORY_CHAMPIONSHIP = 'CHAMPIONSHIP';
+	const CATEGORY_BACK = 'BACK';
+	const CATEGORY_FRONT = 'FRONT';
+	const CATEGORY_BEGIN = 'BEGIN';
 
     /**
      * @inheritdoc
@@ -58,6 +63,6 @@ class Tees extends _Tees
 	}
 
 	public function getLabel($mode = 'name') {
-		return '<span class="label" style="background-color: '.$this->color.';">'.($mode == 'name' ? $this->name : '').'</span>';
+		return '<span class="label" style="background-color: black;"><span class="glyphicon glyphicon-filter" style="color: '.$this->color.';"></span> '.($mode == 'name' ? $this->name : '').'</span>';
 	}
 }

@@ -167,7 +167,7 @@ class FlightController extends GolfLeagueController
 
 		if($competition->isTeamCompetition() && !$competition->isTeamOk()) {
 			Yii::$app->session->setFlash('error', Yii::t('igolf', 'Teams for competition not completed.'));
-			return $this->redirect(Yii::$app->request->referrer);;
+			return $this->redirect(Url::to(['competition/index']));
 		}
 
 		//should check that competition exists or exit.

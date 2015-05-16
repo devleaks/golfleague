@@ -56,4 +56,11 @@ class Hole extends _Hole
             'length' => Yii::t('igolf', 'Length'),
         ];
     }
+
+	public static function validNumber($max = 18) {
+		$holes = [];
+		for($i = 1; $i <= $max; $i++)
+			$holes[] = $i;
+		return $holes;
+	}
 }

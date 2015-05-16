@@ -36,6 +36,8 @@ $tees_color = Yii::$app->params['tees_colors'];
 				},
 				'format' => 'raw'
             ],
+			'gender',
+			'category',
             [
                 'class' => 'yii\grid\ActionColumn',
 				'template' => '{view} {delete}',
