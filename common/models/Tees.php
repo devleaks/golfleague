@@ -14,13 +14,22 @@ class Tees extends _Tees
 {
 	use Constant;
 	
-	const TEE_FRONT = 'FRONT';
-	const TEE_BACK  = 'BACK';
-	
+    /** Competition is open for men only */
+    const GENDER_GENTLEMEN = Golfer::GENDER_GENTLEMAN;
+    /** Competition is open for women only */
+    const GENDER_LADIES = Golfer::GENDER_LADY;
+    /** Competition is open for order men and women */
+    const GENDER_SENIOR = 'SENIOR';
+    /** Competition is open for younger men and women */
+    const GENDER_JUNIOR = 'JUNIOR';
+
 	const CATEGORY_CHAMPIONSHIP = 'CHAMPIONSHIP';
 	const CATEGORY_BACK = 'BACK';
 	const CATEGORY_FRONT = 'FRONT';
 	const CATEGORY_BEGIN = 'BEGIN';
+
+	const TEE_FRONT = 'FRONT';
+	const TEE_BACK  = 'BACK';	
 
     /**
      * @inheritdoc

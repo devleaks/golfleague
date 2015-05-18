@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\data\ActiveDataProvider;
 use kartik\widgets\TimePicker;
 use kartik\widgets\TouchSpin;

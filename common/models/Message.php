@@ -3,6 +3,7 @@
 namespace common\models;
 use yii\db\ActiveRecord;
 use common\behaviors\Constant;
+use common\behaviors\MediaBehavior;
 
 use Yii;
 
@@ -23,6 +24,8 @@ class Message extends _Message
 {
 	use Constant;
 	
+	const MAX_IMAGES = 2;
+
     /** Type */
     const TYPE_BLOG = 'BLOG';
     /** Type */
@@ -31,6 +34,8 @@ class Message extends _Message
     const TYPE_REGISTRATION = 'REGISTRATION';
     /** Type */
     const TYPE_RESULT = 'RESULT';
+    /** Type */
+    const TYPE_FIXED = 'FIXED';
 	
     /** Status */
     const STATUS_ACTIVE = 'ACTIVE';
@@ -58,6 +63,10 @@ class Message extends _Message
                         ],
                         'value' => function() { return Yii::$app->user->id;},
                 ],
+				'uploadFile' => [
+	                'class' => MediaBehavior::className(),
+	                'mediasAttributes' => ['media']
+	            ]
         ];
     }
 
@@ -77,6 +86,7 @@ class Message extends _Message
             'message_end' => Yii::t('igolf', 'Message End'),
             'message_type' => Yii::t('igolf', 'Message Type'),
             'facility_id' => Yii::t('igolf', 'Facility'),
+            'media' => Yii::t('igolf', 'Images'),
         ];
     }
 

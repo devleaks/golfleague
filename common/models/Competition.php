@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\db\ActiveRecord;
 use common\behaviors\Constant;
+use common\behaviors\MediaBehavior;
 
 /**
  * This is the model class for table "competitions".
@@ -80,6 +81,10 @@ class Competition extends _Competition
                         ],
                         'value' => function() { return date('Y-m-d H:i:s'); /* mysql datetime format is ‘AAAA-MM-JJ HH:MM:SS’*/},
                 ],
+				'uploadFile' => [
+	                'class' => MediaBehavior::className(),
+	                'mediasAttributes' => ['media']
+	            ]
         ];
     }
 
@@ -127,6 +132,7 @@ class Competition extends _Competition
             'updated_at' => Yii::t('igolf', 'Updated At'),
             'flight_size' => Yii::t('igolf', 'Flight Size'),
             'delta_time' => Yii::t('igolf', 'Delta Time'),
+            'media' => Yii::t('igolf', 'Pictures'),
         ];
     }
 

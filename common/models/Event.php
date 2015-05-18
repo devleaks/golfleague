@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveRecord;
 use common\behaviors\Constant;
+use common\behaviors\MediaBehavior;
 use yii2fullcalendar\models\Event as FullCalendarEvent;
 use yii\helpers\Url;
 
@@ -61,6 +62,10 @@ class Event extends _Event
                         ],
                         'value' => function() { return date('Y-m-d H:i:s'); /* mysql datetime format is ‘AAAA-MM-JJ HH:MM:SS’*/},
                 ],
+				'uploadFile' => [
+	                'class' => MediaBehavior::className(),
+	                'mediasAttributes' => ['media']
+	            ]
         ];
     }
 
@@ -81,6 +86,7 @@ class Event extends _Event
             'status' => Yii::t('igolf', 'Status'),
             'event_start' => Yii::t('igolf', 'Event Start'),
             'event_end' => Yii::t('igolf', 'Event End'),
+            'media' => Yii::t('igolf', 'Pictures'),
         ];
     }
 

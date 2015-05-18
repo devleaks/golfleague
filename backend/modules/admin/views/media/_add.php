@@ -12,7 +12,7 @@ $delete_picture = Yii::t('igolf', 'Remove picture');
 $items = array();
 foreach($model->media as $picture)
     $items[] = Html::img($picture->getFileUrl(), ['class'=>'file-preview-image', 'alt'=>$picture->name, 'title'=>$picture->name]).
-				'<br><i class="glyphicon glyphicon-trash remove-action pull-right" style="padding-top: 2px;" data-id="'.$picture->id.'" title="'.$delete_picture.'"></i>';
+				'<br><i class="glyphicon glyphicon-trash remove-action pull-right" data-id="'.$picture->id.'" title="'.$delete_picture.'"></i>';
 	;
 ?>
 <div class="media-add">

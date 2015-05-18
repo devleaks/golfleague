@@ -3,7 +3,7 @@
 use common\models\Facility;
 use common\models\Golfer;
 use kartik\detail\DetailView;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;

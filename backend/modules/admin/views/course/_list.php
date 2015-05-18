@@ -13,20 +13,19 @@ $this->title = Yii::t('igolf', 'Courses');
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
 		'panel'=>[
 	        'heading' => '<h4>'.$this->title.'</h4>',
 			'footer' => Html::a(Yii::t('igolf', 'Add Course'), ['course/add', 'facility_id' => $facility->id], ['class' => 'btn btn-primary']),
 	    ],
 		'export' => false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
 
             'name',
             'holes',
 
             [
-                'class' => 'yii\grid\ActionColumn',
+                'class' => 'kartik\grid\ActionColumn',
 				'template' => '{view} {delete}',
                 'controller' => 'course'
             ],

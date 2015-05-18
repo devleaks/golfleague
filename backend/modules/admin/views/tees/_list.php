@@ -14,14 +14,13 @@ $tees_color = Yii::$app->params['tees_colors'];
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
 		'panel'=>[
 	        'heading' => '<h4>'.$this->title.'</h4>',
 			'footer' => Html::a(Yii::t('igolf', 'Add Tee Set'), ['tees/add', 'course_id' => $course->id], ['class' => 'btn btn-primary']),
 	    ],
 		'export' => false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
 			[
             	'attribute' => 'name',
             	'label' => Yii::t('igolf', 'Tees Name'),
@@ -29,6 +28,7 @@ $tees_color = Yii::$app->params['tees_colors'];
 					return $model->name . ($model->holes == 9 ? ' - '.Yii::t('igolf', $model->front_back) : '');
 				},
 			],
+			'holes',
             [
                 'attribute'=>'color',
                 'value'=> function($model, $key, $index, $widget) use ($tees_color) {
@@ -39,7 +39,7 @@ $tees_color = Yii::$app->params['tees_colors'];
 			'gender',
 			'category',
             [
-                'class' => 'yii\grid\ActionColumn',
+                'class' => 'kartik\grid\ActionColumn',
 				'template' => '{view} {delete}',
                 'controller' => 'tees'
             ],

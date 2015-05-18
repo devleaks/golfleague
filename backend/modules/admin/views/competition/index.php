@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel common\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', ucfirst(strtolower(isset($type) ? $type : 'All')));
+$this->title = Yii::t('igolf', ucfirst(strtolower(isset($type) ? $type : 'Competitions')));
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="season-index">
@@ -19,9 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="btn-group">
 			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><?= Yii::t('igolf', 'New')?> <span class="caret"></span></button>
 			<ul class="dropdown-menu" role="menu">
-				<li><?= Html::a(Yii::t('igolf', Competition::TYPE_SEASON), ['create', 'type' => Competition::TYPE_SEASON]) ?></li>
-				<li><?= Html::a(Yii::t('igolf', Competition::TYPE_TOURNAMENT), ['create', 'type' => Competition::TYPE_TOURNAMENT]) ?></li>
-				<li><?= Html::a(Yii::t('igolf', Competition::TYPE_MATCH), ['create', 'type' => Competition::TYPE_MATCH]) ?></li>
+				<?php foreach(Competition::getConstants('TYPE_') as $competition): ?>
+				<li><?= Html::a(Yii::t('igolf', $competition), ['create', 'type' => $competition]) ?></li>
+				<?php endforeach; ?>
 			</ul>
 		</div>
 	</h1>
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
 
             //'id',
             //'competition_type',

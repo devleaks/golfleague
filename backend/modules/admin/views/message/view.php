@@ -1,43 +1,67 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\detail\DetailView;
+use common\models\Message;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Message */
 
-$this->title = $model->id;
+$this->title = $model->subject;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Messages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="message-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('igolf', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('igolf', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('igolf', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
     <?= DetailView::widget([
         'model' => $model,
+		'panel'=>[
+	        'heading' => '<h3>'.$this->title.'</h3>',
+	    ],
+		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
-            'id',
             'subject',
-            'status',
-            'created_at',
-            'updated_at',
-            'body:ntext',
-            'message_start',
-            'message_end',
-            'message_type',
+			[
+                'attribute'=>'body',
+				'type' => DetailView::INPUT_TEXTAREA,
+			],
+			[
+                'attribute'=>'message_start',
+				'type' => DetailView::INPUT_DATETIME,
+			],
+			[
+                'attribute'=>'message_end',
+				'type' => DetailView::INPUT_DATETIME,
+			],
+			[
+                'attribute'=>'message_type',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => Message::getLocalizedConstants('TYPE_'),
+			],
+			[
+                'attribute'=>'status',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => Message::getLocalizedConstants('STATUS_'),
+			],
+			[
+                'attribute'=>'created_at',
+				'format' => 'datetime',
+				'displayOnly' => true,
+				'noWrap' => true,
+				'value' => new DateTime($model->created_at),
+			],
+			[
+                'attribute'=>'updated_at',
+				'format' => 'datetime',
+				'displayOnly' => true,
+				'noWrap' => true,
+				'value' => new DateTime($model->updated_at),
+			],
         ],
     ]) ?>
+
+	<?=	$this->render('../media/_add', [
+		'model' => $model,
+	])?>
 
 </div>

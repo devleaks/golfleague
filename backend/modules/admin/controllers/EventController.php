@@ -42,16 +42,22 @@ class EventController extends GolfLeagueController
     }
 
     /**
-     * Displays a single Event model.
+     * Displays a single Rule model.
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+	public function actionView($id) {
+        $model=$this->findModel($id);
+ 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id'=>$model->id]);
+        } else {
+			if(count($model->errors)>0)
+				Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($model->errors, 4, true)]));
+            return $this->render('view', ['model'=>$model]);
+        }
     }
+
 
     /**
      * Creates a new Event model.

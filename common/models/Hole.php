@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use common\behaviors\MediaBehavior;
 
 /**
  * This is the model class for table "holes".
@@ -24,6 +25,10 @@ class Hole extends _Hole
                         ],
                         'value' => function() { return date('Y-m-d H:i:s'); /* mysql datetime format is ‘AAAA-MM-JJ HH:MM:SS’*/},
                 ],
+				'uploadFile' => [
+	                'class' => MediaBehavior::className(),
+	                'mediasAttributes' => ['media']
+	            ]
         ];
     }
 

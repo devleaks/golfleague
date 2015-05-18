@@ -14,6 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($model->subject) ?></h1>
 
+	<?php if($model->media && count($model->media) > 0) {
+		$picture = $model->media[0];
+		echo Html::img($picture->getThumbnailUrl(), ['class' => 'img-responsive pull-left', 'style' => 'padding: 4px;', 'alt'=>$picture->name, 'title'=>$picture->name]);
+	} ?>
+
     <?= Html::encode($model->body) ?>
 
 </div>

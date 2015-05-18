@@ -3,6 +3,7 @@
 use common\models\Hole;
 use common\models\Course;
 use common\models\Tees;
+use common\models\Competition;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -48,6 +49,16 @@ $this->params['breadcrumbs'][] = $this->title . ' (' . Yii::t('igolf', ucfirst($
 				'items' => array(18 => '18', 9 => '9'),
             ],
             [
+				'attribute' => 'gender',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => Tees::getLocalizedConstants('GENDER_')
+			],
+	        [
+				'attribute' => 'category',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => Tees::getLocalizedConstants('CATEGORY_')
+			],
+            [
                 'attribute'=>'front_back',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => Tees::getLocalizedConstants('TEE_'),
@@ -60,10 +71,8 @@ $this->params['breadcrumbs'][] = $this->title . ' (' . Yii::t('igolf', ucfirst($
 
 <?php
     //TabularForm requires that dataProvider is build from Model::find()
-    $query = Hole::find();
-    $query->andWhere(['tees_id' => $model->id]);
     $dataProvider = new ActiveDataProvider([
-        'query' => $query,
+        'query' => $model->getHoles(),
     ]);
 
     echo $this->render('../hole/_updates', [

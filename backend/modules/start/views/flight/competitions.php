@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\CompetitionSearch */
@@ -11,7 +11,7 @@ use yii\grid\GridView;
 $this->title = Yii::t('igolf', 'Competitions');
 $this->params['breadcrumbs'][] = $this->title;
 
-$actionCol = ['class' => 'yii\grid\ActionColumn',
+$actionCol = ['class' => 'kartik\grid\ActionColumn',
     'template' => '{flight}',
     'buttons' => [
         'flight' => function ($url, $model) {
@@ -39,7 +39,7 @@ $actionCol = ['class' => 'yii\grid\ActionColumn',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
 
             [
                 'label' => Yii::t('igolf', 'Part of'),

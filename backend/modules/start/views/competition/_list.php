@@ -21,7 +21,7 @@ Icon::map($this);
         'dataProvider' => $dataProvider,
         // 'filterModel'  => $filterModel,
         'columns' => [
-//            ['class' => 'yii\grid\SerialColumn'],
+//            ['class' => 'kartik\grid\SerialColumn'],
 
             //'id',
             [

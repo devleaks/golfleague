@@ -99,3 +99,7 @@ ul.flight2 li:before {
 	content:"▹ ";
 }
 
+.remove-action {
+	padding-top: 2px;
+	color: #aaa;
+}

@@ -17,7 +17,7 @@ use devleaks\golfleague\components\Competition;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
 
             'golfer.name',
             'created_at',

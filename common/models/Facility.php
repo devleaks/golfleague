@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use common\behaviors\Constant;
 use common\behaviors\MediaBehavior;
 
 /**
@@ -11,7 +12,12 @@ use common\behaviors\MediaBehavior;
  */
 class Facility extends _Facility
 {
+	use Constant;
+	
 	const MAX_IMAGES = 3;
+	
+	const UNITS_METRIC = 'METRIC';
+	const UNITS_IMPERIAL = 'IMPERIAL';
 	
     /**
      * @inheritdoc

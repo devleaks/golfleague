@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-//use yii\grid\GridView;
+//use kartik\grid\GridView;
 use kartik\widgets\ActiveForm;
 use kartik\grid\GridView;
 use kartik\builder\TabularForm;
@@ -17,10 +17,7 @@ $this->title = Yii::t('igolf', 'Holes');
  
 
     <?php
-        $form = ActiveForm::begin(['action'=> Yii::$app->homeUrl.'golfleague/admin/hole/updates']);
-
-        echo TabularForm::widget([
-            'form' => $form,
+        echo GridView::widget([
             'dataProvider' => $dataProvider,
             'serialColumn' => false,
             'actionColumn' => false,
@@ -37,12 +34,6 @@ $this->title = Yii::t('igolf', 'Holes');
             ],
             //'showPageSummary' => true,
         ]);
-
-        echo '<div>' . 
-                Html::submitButton(Yii::t('igolf', 'Update Holes'), ['class'=>'btn btn-primary']) .
-             '<div>';
-
-        ActiveForm::end();
     ?>
 
 </div>

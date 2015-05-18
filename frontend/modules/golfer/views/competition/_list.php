@@ -21,7 +21,7 @@ $this->title = Yii::t('igolf', $parent->childType());
 	    ],
 		'export' => false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
 
             //'id',
             //'competition_type',

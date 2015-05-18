@@ -38,11 +38,13 @@ if( sizeof($tees->getHoles()->all()) == 0 ) {
         $form = ActiveForm::begin(['action'=> Url::to(['/admin/hole/updates'])]);
 
         echo TabularForm::widget([
-			'id' => 'thetable',
             'form' => $form,
             'dataProvider' => $dataProvider,
             'serialColumn' => false,
-            'actionColumn' => false,
+            'actionColumn' => [
+				'template' => '{view}',
+				'controller' => 'hole'
+			],
             'checkboxColumn' => false,
 		    'gridSettings' => [
 		        'floatHeader' => true,

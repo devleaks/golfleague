@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
+use yii\data\ActiveDataProvider;
 use kartik\detail\DetailView;
 use common\models\Facility;
 use common\models\search\TeesSearch;
@@ -42,11 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <?php
-        $searchModel = new TeesSearch();
-        $dataProvider = $searchModel->search(['TeesSearch'=>['course_id' => $model->id]]);
+		$dataProvider = new ActiveDataProvider([
+			'query' => $model->getTees(),
+		]);
 
         echo $this->render('../tees/_list', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
 			'course' => $model,
         ]);

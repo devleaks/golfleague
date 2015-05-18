@@ -25,7 +25,7 @@ $this->title = Yii::t('igolf', 'Simple Tournaments');
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
             [
                 'label' => Yii::t('igolf', 'Competition'),
                 'value' => function ($model, $key, $index, $widget) {

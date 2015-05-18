@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use backend\assets\FlightsAsset;
 use yii\widgets\ActiveForm;
 use kartik\widgets\TimePicker;

@@ -75,7 +75,7 @@ class _Tees extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getHoles0()
+    public function getHoles()
     {
         return $this->hasMany(Hole::className(), ['tees_id' => 'id']);
     }

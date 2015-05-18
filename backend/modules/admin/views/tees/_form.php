@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Competition;
 use common\models\Course;
 use common\models\Tees;
 
@@ -20,13 +21,15 @@ use common\models\Tees;
 
 	<?= $form->field($model, 'holes')->dropDownList(array(18 => '18', 9 => '9')) ?>
 
+	<?= $form->field($model, 'gender')->dropDownList(['' => ''] + Competition::getLocalizedConstants('GENDER_')) ?>
+
+	<?= $form->field($model, 'category')->dropDownList(['' => ''] + Tees::getLocalizedConstants('CATEGORY_')) ?>
+
 	<?= $form->field($model, 'front_back')->dropDownList(['' => ''] + Tees::getLocalizedConstants('TEE_')) ?>
 
     <?= $form->field($model, 'course_rating')->textInput(['maxlength' => 20]) ?>
 
     <?= $form->field($model, 'slope_rating')->textInput(['maxlength' => 20]) ?>
-
-
 
 
     <?= $form->field($model, 'color')->dropDownList(Yii::$app->params['tees_colors']) ?>

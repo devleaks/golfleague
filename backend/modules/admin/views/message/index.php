@@ -46,8 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'body:ntext',
             // 'message_start',
             // 'message_end',
-
-            ['class' => 'kartik\grid\ActionColumn'],
+            [
+				'class' => 'kartik\grid\ActionColumn',
+				'template' => '{view} {delete}'
+			],
         ],
     ]); ?>
 

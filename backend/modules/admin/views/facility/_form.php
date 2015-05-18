@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Facility;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Facility */
@@ -20,11 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'website')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'units')->dropDownList(
-            array('metric' => Yii::t('igolf', 'Metric'), 'imperial' => Yii::t('igolf', 'Imperial')),
-            ['maxlength' => 20]
-        ) ?>
-
+    <?= $form->field($model, 'units')->dropDownList(Facility::getLocalizedConstants('STATUS_')) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('igolf', 'Create') : Yii::t('igolf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

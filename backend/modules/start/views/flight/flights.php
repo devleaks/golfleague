@@ -4,7 +4,7 @@ use backend\assets\FlightsAsset;
 use common\models\Competition;
 use kartik\widgets\TimePicker;
 use kartik\widgets\TouchSpin;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 

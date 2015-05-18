@@ -2,11 +2,11 @@
 
 use common\models\Competition;
 use common\models\Course;
-use common\models\search\MatchSearch;
-use common\models\search\StartSearch;
 use common\models\Rule;
 use common\models\Season;
 use common\models\Tournament;
+use common\models\search\MatchSearch;
+use common\models\search\StartSearch;
 use common\models\search\TournamentSearch;
 use kartik\detail\DetailView;
 use kartik\widgets\DatePicker;
