@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Registrations'), '
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?=	$this->render('_index', [
+<?=	$this->render('_registrations', [
 		'searchModel' => $searchModel,
 		'dataProvider' => $dataProvider,
 		'competition' => $competition,

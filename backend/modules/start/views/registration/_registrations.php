@@ -83,7 +83,7 @@ use common\models\Competition;
                 'value' => function($model, $key, $index, $widget) {
                 	return Yii::t('igolf', $model->status);
                 },
-				'filter' => Registration::getLocalizedConstants('STATUS_'),
+				'filter' => Registration::getLocalizedPreCompetitionStatuses(),
             ],
             // 'flight_id',
             // 'tees_id',
@@ -99,7 +99,7 @@ foreach(Registration::getLocalizedConstants('STATUS_') as $key => $value)
 	$statuses .= '<li>'.Html::a(Yii::t('igolf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
 $statuses .= '</ul></div>';
 
-$buttons = Html::a(Yii::t('igolf', 'New Registration'), ['create'], ['class' => 'btn btn-success']);
+$buttons = Html::a(Yii::t('igolf', 'New Registration'), ['create', 'id' => $competition->id], ['class' => 'btn btn-success']);
 if($competition) $buttons .= ' '.Html::a(Yii::t('igolf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']);
 $buttons .= ' '.Html::a(Yii::t('igolf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data' => [
 				'status' => Registration::ACTION_DELETE,

@@ -41,6 +41,7 @@ class RegistrationController extends GolfLeagueController
     {
         $searchModel = new RegistrationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->query->andWhere(['registration.status' => Registration::getPreCompetitionStatuses()]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -88,9 +89,10 @@ class RegistrationController extends GolfLeagueController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Registration();
+		$model->competition_id = $id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

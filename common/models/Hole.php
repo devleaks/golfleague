@@ -68,4 +68,14 @@ class Hole extends _Hole
 			$holes[] = $i;
 		return $holes;
 	}
+	
+	/**
+	 *	Returns ActiveQuery of same hole from different tees.
+	 */
+	public function shareMedia() {
+		return Hole::find()
+			->andWhere(['position' => $this->position])
+			->andWhere(['tees_id' => $this->tees->course->getTees()->select('id')])
+		;
+	}
 }

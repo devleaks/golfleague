@@ -106,6 +106,22 @@ class PointController extends GolfLeagueController
     }
 
     /**
+     * Deletes an existing Point model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDeleteGet($id)
+    {
+        $model = $this->findModel($id);
+		$rule_id = $model->rule_id;		
+		$model->delete();
+        Yii::$app->session->setFlash('success', Yii::t('igolf', "Point deleted."));
+
+        return $this->redirect(['rule/view', 'id' => $rule_id]);
+    }
+
+    /**
      * Finds the Point model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id

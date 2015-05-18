@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title ;
 	        'heading' => '<h2>'.Yii::t('igolf', 'Hole').' '.$model->position.'</h2>',
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
+		'buttons1' => '{update}',
         'attributes' => [
 			'par',
 			'si',

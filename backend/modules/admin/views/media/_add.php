@@ -10,10 +10,15 @@ use yii\helpers\Url;
 /* @var $model app\models\Model-with-picture */
 $delete_picture = Yii::t('igolf', 'Remove picture');
 $items = array();
-foreach($model->media as $picture)
-    $items[] = Html::img($picture->getFileUrl(), ['class'=>'file-preview-image', 'alt'=>$picture->name, 'title'=>$picture->name]).
-				'<br><i class="glyphicon glyphicon-trash remove-action pull-right" data-id="'.$picture->id.'" title="'.$delete_picture.'"></i>';
-	;
+if(method_exists($model, 'shareMedia'))
+	foreach($model->shareMedia()->each() as $sharer)
+		foreach($sharer->media as $picture)
+		    $items[] = Html::img($picture->getFileUrl(), ['class'=>'file-preview-image', 'alt'=>$picture->name, 'title'=>$picture->name]).
+						'<br><i class="glyphicon glyphicon-trash remove-action pull-right" data-id="'.$picture->id.'" title="'.$delete_picture.'"></i>';
+else
+	foreach($model->media as $picture)
+	    $items[] = Html::img($picture->getFileUrl(), ['class'=>'file-preview-image', 'alt'=>$picture->name, 'title'=>$picture->name]).
+					'<br><i class="glyphicon glyphicon-trash remove-action pull-right" data-id="'.$picture->id.'" title="'.$delete_picture.'"></i>';
 ?>
 <div class="media-add">
 	

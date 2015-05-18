@@ -1,27 +1,15 @@
 <?php
 
-use common\models\Competition;
-use common\models\Course;
-use common\models\Rule;
-use common\models\Season;
-use common\models\Tournament;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\detail\DetailView;
 use yii\data\ActiveDataProvider;
-use common\models\Registration;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Competition */
 
 $this->title = $model->name;
-
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
-if($bcs = $model->breadcrumbs())
-	foreach($bcs as $bc)
-		$this->params['breadcrumbs'][] = $bc;
-array_pop($this->params['breadcrumbs']);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-view">
@@ -30,108 +18,71 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
 		'panel'=>[
 	        'heading' => '<h3>'.Yii::t('igolf', $model->competition_type).' '.$model->name.'</h3>',
+			'headingOptions' => [
+				'template' => '{title}'
+			],
+			'footer' => Html::a(Yii::t('igolf', 'Apply Rule(s)'), Url::to(['apply', 'id' => $model->id]), ['class'=>'btn btn-success']).' '.
+						Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $model->id]), ['class'=>'btn btn-success']),
 	    ],
-		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
-            //'competition_type',
+            'id',
+            [
+                'attribute'=>'competition_type',
+                'label'=>'Competition Type',
+                'value'=> Yii::t('igolf', $model->competition_type),
+            ],
+            [
+                'attribute'=>'parent_id',
+                'label'=>'Competition',
+                'value'=> $model->parent ? $model->parent->name : '',
+            ],
             'name',
             'description',
             [
-                'attribute'=>'parent_id',
-				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => 	$model->parentType() == Competition::TYPE_SEASON ?
-								ArrayHelper::map(Season::find()->asArray()->all(), 'id', 'name')
-								:
-								(	$model->parentType() == Competition::TYPE_TOURNAMENT ?
-										ArrayHelper::map(Tournament::find()->asArray()->all(), 'id', 'name')
-										:
-										[]
-								),
-                'label'=>Yii::t('igolf','Parent'),
-                'value'=> $model->parent ? $model->parent->name : '',
-				'visible' => $model->competition_type != Competition::TYPE_SEASON,
-            ],
-            [
                 'attribute'=>'course_id',
-				'type' => DetailView::INPUT_DROPDOWN_LIST,
-                'label'=> Yii::t('igolf', 'Course'),
-				'items' => ArrayHelper::map(Course::find()->asArray()->all(), 'id', 'name'),
-                'value' => $model->course ? $model->course->name : '' ,
+                'label'=>'Competition',
+                'value'=> $model->course ? $model->course->name : '',
             ],
+            'holes',
             [
-                'attribute'=>'holes',
-				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => array(18 => '18', 9 => '9'),
+                'attribute'=>'rule_id',
+                'label'=>'Competition',
+                'value'=> $model->rule ? $model->rule->name : '',
             ],
-            [
-				'attribute' => 'rule_id',
-				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => ArrayHelper::map([''=>'']+Rule::find()->where(['rule_type' => $model->competition_type])->asArray()->all(), 'id', 'name'),
-				'value' => $model->rule_id ? $model->rule->name : '',
-			],
-            [
-                'attribute'=>'start_date',
-				'format' => 'date',
-				'type' => DetailView::INPUT_DATE,
-				'widgetOptions' => [
-					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
-	                	'todayHighlight' => true
-	            	]
-				],
-            ],
-            [
-                'attribute'=>'registration_begin',
-				'format' => 'datetime',
-				'type' => DetailView::INPUT_DATETIME,
-				'widgetOptions' => [
-					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
-	                	'todayHighlight' => true
-	            	]
-				],
-				'value' => $model->registration_begin ? new DateTime($model->registration_begin) : '',
-            ],
-            [
-                'attribute'=>'registration_end',
-				'format' => 'datetime',
-				'type' => DetailView::INPUT_DATETIME,
-				'widgetOptions' => [
-					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
-	                	'todayHighlight' => true
-	            	]
-				],
-				'value' => $model->registration_end ? new DateTime($model->registration_end) : '',
-            ],
-            'cba',
+            'start_date',
+            'registration_begin',
+            'registration_end',
             'handicap_min',
             'handicap_max',
             'age_min',
             'age_max',
             [
 				'attribute' => 'gender',
-				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => [''=>'']+Competition::getLocalizedConstants('GENDER_')
+            	'value'=> Yii::t('igolf', $model->gender),
 			],
+            'max_players',
             [
-				'attribute' => 'status',
-				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => Competition::getLocalizedConstants('STATUS_')
-			],
+                'attribute'=>'registration_special',
+            	'value'=> Yii::t('igolf', $model->registration_special),
+            ],
+        	'registration_time',
+            'flight_size',
+			'flight_time',
+            [
+                'attribute'=>'status',
+                'label'=>'Status',
+                'value'=> Yii::t('igolf', $model->status),
+            ],
+            'created_at',
+            'updated_at',
         ],
     ]) ?>
-
 
 	<?= $this->render('_registrations', [
 		'competition' => $model,
 		'dataProvider' => new ActiveDataProvider([
-			'query' => $model->getRegistrations()->andWhere(['status' => Registration::getTerminatedStatuses()]),
+			'query' => $model->getRegistrations(),
 		]),		
 	])?>
-	
-	<?= Html::a(Yii::t('igolf','Apply Rule'), ['apply', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-
-	<?= Html::a(Yii::t('igolf','Terminate Competition'), ['terminate', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
 
 </div>

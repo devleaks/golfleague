@@ -53,7 +53,7 @@ use common\models\Competition;
             [
                 'attribute' => 'card_status',
                 'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('igolf', $model->status);
+                	return Yii::t('igolf', $model->card_status);
                 },
 				'filter' => Registration::getLocalizedConstants('CARD_'),
             ],
@@ -67,7 +67,7 @@ use common\models\Competition;
                 'value' => function($model, $key, $index, $widget) {
                 	return Yii::t('igolf', $model->status);
                 },
-				'filter' => Registration::getLocalizedConstants('STATUS_'),
+				'filter' => Registration::getLocalizedPostCompetitionStatuses(),
             ],
         ],
     ]); ?>

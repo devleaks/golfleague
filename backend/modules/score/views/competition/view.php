@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\detail\DetailView;
+use yii\data\ActiveDataProvider;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Competition */
@@ -73,5 +74,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
         ],
     ]) ?>
+
+	<?= $this->render('_registrations', [
+		'competition' => $model,
+		'dataProvider' => new ActiveDataProvider([
+			'query' => $model->getRegistrations(),
+		]),		
+	])?>
 
 </div>

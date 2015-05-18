@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\data\ActiveDataProvider;
 use kartik\detail\DetailView;
 use common\models\search\PointSearch;
 use common\models\Competition;
@@ -57,11 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <?php
-        $searchModel = new PointSearch();
-        $dataProvider = $searchModel->search(['PointSearch'=>['rule_id' => $model->id]]);
+		$dataProvider = new ActiveDataProvider([
+			'query' => $model->getPoints(),
+		]);
 
         echo $this->render('../point/_updates', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
 			'rule' => $model
         ]);

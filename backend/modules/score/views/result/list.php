@@ -80,40 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	            	]
 				],
             ],
-            [
-                'attribute'=>'registration_begin',
-				'format' => 'datetime',
-				'type' => DetailView::INPUT_DATETIME,
-				'widgetOptions' => [
-					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
-	                	'todayHighlight' => true
-	            	]
-				],
-				'value' => $model->registration_begin ? new DateTime($model->registration_begin) : '',
-            ],
-            [
-                'attribute'=>'registration_end',
-				'format' => 'datetime',
-				'type' => DetailView::INPUT_DATETIME,
-				'widgetOptions' => [
-					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
-	                	'todayHighlight' => true
-	            	]
-				],
-				'value' => $model->registration_end ? new DateTime($model->registration_end) : '',
-            ],
             'cba',
-            'handicap_min',
-            'handicap_max',
-            'age_min',
-            'age_max',
-            [
-				'attribute' => 'gender',
-				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => [''=>'']+Competition::getLocalizedConstants('GENDER_')
-			],
             [
 				'attribute' => 'status',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
@@ -126,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= $this->render('_registrations', [
 		'competition' => $model,
 		'dataProvider' => new ActiveDataProvider([
-			'query' => $model->getRegistrations()->andWhere(['status' => Registration::getTerminatedStatuses()]),
+			'query' => $model->getRegistrations()->andWhere(['status' => Registration::getPostCompetitionStatuses()]),
 		]),		
 	])?>
 

@@ -56,7 +56,7 @@ class ResultController extends GolfLeagueController
         return $this->render('competition', [
 			'competition' => $competition,
             'dataProvider' => new ActiveDataProvider([
-				'query' => $competition->getRegistrations()->andWhere(['status' => array_merge([Registration::STATUS_CONFIRMED], Registration::getTerminatedStatuses())]),
+				'query' => $competition->getRegistrations()->andWhere(['status' => array_merge([Registration::STATUS_CONFIRMED], Registration::getPostCompetitionStatuses())]),
 			]),
         ]);
 
@@ -77,18 +77,6 @@ class ResultController extends GolfLeagueController
 		$competition->save();
 
         return $this->redirect(Url::to(['result/view', 'id' => $competition->id]));
-    }
-
-    /**
-     * Displays a single Flight model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findCompetition($id),
-        ]);
     }
 
     /**

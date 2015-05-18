@@ -54,7 +54,7 @@ class RuleController extends GolfLeagueController
      * Displays and/or update Flight models for a competition.
      * @return mixed
      */
-    public function actionTerminate($id)
+    public function actionPublish($id)
     {
 		$competition = Competition::findOne($id);
 		if(!$competition)

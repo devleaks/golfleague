@@ -36,7 +36,28 @@ if( $rule->getPoints()->count() > 0 ) {
             'form' => $form,
             'dataProvider' => $dataProvider,
             'serialColumn' => false,
-            'actionColumn' => false,
+            'actionColumn' => [
+				'template' => '{delete}',
+				'controller' => 'point',
+	            'buttons' => [
+	                'delete' => function ($url, $model) {
+	                    return Html::a('<i class="glyphicon glyphicon-trash"></i>', $url, [
+	                        'class' => 'btn',
+	                        'data-confirm' => Yii::t('igolf', 'Are you sure to delete this point?'),
+	                        'title' => Yii::t('igolf', 'Delete'),
+	                    ]);
+	                },
+	            ],
+				'urlCreator' => function ($action, $model, $key, $index) {
+					$url = '';
+					switch($action) {
+						case 'delete':
+							$url = Url::to(['point/delete-get', 'id' => $model->id]);
+							break;
+					}
+					return $url;
+				}
+			],
             'checkboxColumn' => false,
 		    'gridSettings' => [
 		        'floatHeader' => true,
@@ -49,11 +70,6 @@ if( $rule->getPoints()->count() > 0 ) {
                 'position' => [ 'type' => TabularForm::INPUT_TEXT, ],
                 'points' => [ 'type' => TabularForm::INPUT_TEXT, ],
 			],
-			'actionColumn' => [
-			    'class' => '\kartik\grid\ActionColumn',
-				'controller' => 'point',
-			    'template' => '{delete}'
-			]
         ]);
 
         ActiveForm::end();

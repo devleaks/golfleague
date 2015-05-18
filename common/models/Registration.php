@@ -121,16 +121,45 @@ class Registration extends _Registration
         ];
     }
 
-	static public function getTerminatedStatuses() {
-		return [
+
+
+	static public function getLocalizedPreCompetitionStatuses() {
+		$s = [];
+		foreach([
+		    self::STATUS_UNREGISTERED,
+		    self::STATUS_PENDING,
+		    self::STATUS_REGISTERED,
+		    self::STATUS_REJECTED,
+		    self::STATUS_CONFIRMED,
+		    self::STATUS_CANCELLED,
+		] as $r)
+			$s[$r] = Yii::t('igolf', $r);
+		return $s;
+	}
+	
+	static public function getPreCompetitionStatuses() {
+		return array_keys(self::getLocalizedPreCompetitionStatuses());
+	}
+
+
+	static public function getLocalizedPostCompetitionStatuses() {
+		$s = [];
+		foreach([
 		    self::STATUS_FORFEIT,
 		    self::STATUS_MISSEDCUT,
 		    self::STATUS_ELIMINATED,
 		    self::STATUS_DISQUALIFIED,
 		    self::STATUS_WITHDRAWN,
 		    self::STATUS_QUALIFIED,
-		];
+		] as $r)
+			$s[$r] = Yii::t('igolf', $r);
+		return $s;
 	}
+
+	static public function getPostCompetitionStatuses() {
+		return array_keys(self::getLocalizedPostCompetitionStatuses());
+	}
+
 	
 
 	/**
