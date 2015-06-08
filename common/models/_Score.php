@@ -18,8 +18,14 @@ use Yii;
  * @property string $regulation
  * @property string $approach
  * @property string $putt
+ * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property string $drive_length
+ * @property string $approach_length
+ * @property string $putt_length
+ * @property string $putt2
+ * @property string $putt2_length
  *
  * @property Hole $hole
  * @property Scorecard $scorecard
@@ -44,7 +50,7 @@ class _Score extends \yii\db\ActiveRecord
             [['hole_id', 'score', 'putts', 'penalty', 'sand'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
-            [['drive', 'regulation', 'approach', 'putt'], 'string', 'max' => 20]
+            [['drive', 'regulation', 'approach', 'putt', 'status', 'drive_length', 'approach_length', 'putt_length', 'putt2', 'putt2_length'], 'string', 'max' => 20]
         ];
     }
 
@@ -65,8 +71,14 @@ class _Score extends \yii\db\ActiveRecord
             'regulation' => Yii::t('igolf', 'Regulation'),
             'approach' => Yii::t('igolf', 'Approach'),
             'putt' => Yii::t('igolf', 'Putt'),
+            'status' => Yii::t('igolf', 'Status'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
+            'drive_length' => Yii::t('igolf', 'Drive Length'),
+            'approach_length' => Yii::t('igolf', 'Approach Length'),
+            'putt_length' => Yii::t('igolf', 'Putt Length'),
+            'putt2' => Yii::t('igolf', 'Putt2'),
+            'putt2_length' => Yii::t('igolf', 'Putt2 Length'),
         ];
     }
 

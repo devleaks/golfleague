@@ -15,10 +15,13 @@ use Yii;
  * @property integer $points
  * @property string $created_at
  * @property string $updated_at
+ * @property string $status
+ * @property integer $registration_id
  *
  * @property Score[] $scores
  * @property Hole[] $holes
  * @property Tees $tees
+ * @property Registration $registration
  * @property Competition $competition
  * @property Golfer $golfer
  */
@@ -38,10 +41,10 @@ class _Scorecard extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['competition_id', 'golfer_id', 'tees_id', 'points'], 'integer'],
-            [['golfer_id'], 'required'],
+            [['competition_id', 'golfer_id', 'tees_id', 'points', 'registration_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['note'], 'string', 'max' => 160]
+            [['note'], 'string', 'max' => 160],
+            [['status'], 'string', 'max' => 20]
         ];
     }
 
@@ -59,6 +62,8 @@ class _Scorecard extends \yii\db\ActiveRecord
             'points' => Yii::t('igolf', 'Points'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
+            'status' => Yii::t('igolf', 'Status'),
+            'registration_id' => Yii::t('igolf', 'Registration ID'),
         ];
     }
 
@@ -84,6 +89,14 @@ class _Scorecard extends \yii\db\ActiveRecord
     public function getTees()
     {
         return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegistration()
+    {
+        return $this->hasOne(Registration::className(), ['id' => 'registration_id']);
     }
 
     /**

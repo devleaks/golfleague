@@ -17,6 +17,7 @@ $this->title = 'Golf League - Administration';
     <div class="body-content">
 
         <div class="row">
+	
             <div class="col-lg-4">
                 <h2>Menu for Managers</h2>
 
@@ -29,22 +30,31 @@ $this->title = 'Golf League - Administration';
                 </ul>
 
             </div>
+
             <div class="col-lg-4">
                 <h2>Menu for Starters</h2>
 
                 <ul>
                     <li><a href="<?= Url::to(['/start']) ?>">Starter Home</a></li>
                 </ul>
+				<ul style="list-style: none;">
+					<li>&raquo; <a href="<?= Url::to(['/start/competition']) ?>">Competitions</a></li>
+					<li>&raquo; <a href="<?= Url::to(['/start/registration']) ?>">Registrations</a></li>
+				</ul>
             </div>
+
             <div class="col-lg-4">
                 <h2>Menus for Scorers</h2>
 
                 <ul>
                     <li><a href="<?= Url::to(['/score']) ?>">Scorer Home</a></li>
                 </ul>
+				<ul style="list-style: none;">
+					<li>&raquo; <a href="<?= Url::to(['/score/competition']) ?>">Competitions</a></li>
+					<li>&raquo; <a href="<?= Url::to(['/score/scorecards']) ?>">Scorecards</a></li>
+				</ul>
             </div>
         </div>
-
 
     </div>
 </div>

@@ -32,6 +32,7 @@ use Yii;
  * @property Golfer $golfer
  * @property Team $team
  * @property Flight $flight
+ * @property Scorecard[] $scorecards
  */
 class _Registration extends \yii\db\ActiveRecord
 {
@@ -123,5 +124,13 @@ class _Registration extends \yii\db\ActiveRecord
     public function getFlight()
     {
         return $this->hasOne(Flight::className(), ['id' => 'flight_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getScorecards()
+    {
+        return $this->hasMany(Scorecard::className(), ['registration_id' => 'id']);
     }
 }

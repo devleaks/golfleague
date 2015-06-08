@@ -4,12 +4,27 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use common\behaviors\Constant;
 
 /**
  * This is the model class for table "score".
  */
 class Score extends _Score
 {
+	use Constant;
+	
+	const TARGET_LL = '1';
+	const TARGET_LC = '2';
+	const TARGET_LR = '3';
+	const TARGET_CL = '4';
+	const TARGET_CC = '5';
+	const TARGET_CR = '6';
+	const TARGET_SL = '7';
+	const TARGET_SC = '8';
+	const TARGET_SR = '9';
+	const TARGET_WATER = 'W';
+	const TARGET_BUNKER = 'B';
+	
     /**
      * @inheritdoc
      */
@@ -43,7 +58,10 @@ class Score extends _Score
             'drive' => Yii::t('igolf', 'Drive'),
             'regulation' => Yii::t('igolf', 'Regulation'),
             'approach' => Yii::t('igolf', 'Approach'),
-            'putt' => Yii::t('igolf', 'Putt'),
+            'putt' => Yii::t('igolf', 'First Putt'),
+            'putt_length' => Yii::t('igolf', 'First Putt Length'),
+            'putt2' => Yii::t('igolf', 'Second Putt'),
+            'putt2_length' => Yii::t('igolf', 'Seccond Putt Length'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
         ];

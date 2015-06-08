@@ -27,6 +27,21 @@ class Scorecard extends _Scorecard
         ];
     }
 
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return array_merge(
+			parent::rules(),
+			[
+            	[['tees_id'], 'required'],
+        	]
+		);
+    }
+
+
     /**
      * @inheritdoc
      */
@@ -34,6 +49,7 @@ class Scorecard extends _Scorecard
     {
         return [
             'id' => Yii::t('igolf', 'Scorecard'),
+        	'registration_id' => Yii::t('igolf', 'Registration'),
             'competition_id' => Yii::t('igolf', 'Match'),
             'golfer_id' => Yii::t('igolf', 'Golfer'),
             'tees' => Yii::t('igolf', 'Tees'),
@@ -43,5 +59,20 @@ class Scorecard extends _Scorecard
             'updated_at' => Yii::t('igolf', 'Updated At'),
         ];
     }
+
+	/**
+	 * Creates Score entry for each hole of the scorecard.
+	 */
+	public function init2() {
+		if($this->tees) {
+			foreach($this->tees->getHoles()->each() as $hole) {
+				$score = new Score([
+					'scorecard_id' => $this->id,
+					'hole_id' => $hole->id,
+				]);
+				$score->save();
+			}
+		}
+	}
 
 }
