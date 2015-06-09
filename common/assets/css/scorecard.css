@@ -1,0 +1,264 @@
+/*  Golf Turbo
+ *
+ *    Personal scorecards with optional legend.
+ */
+@import url(http://fonts.googleapis.com/css?family=Oxygen+Mono);
+
+/* SCORECARD TABLE
+ *
+ */
+
+/* general */
+table.scoreupdate,
+table.scorecard {
+	margin: 10px auto;
+}
+
+table.scoreupdate td, 
+table.scoreupdate th, 
+table.scorecard td,
+table.scorecard th {
+	min-width: 1.2em;
+	text-align: center;
+}
+
+table.scorecard th {
+	font-weight: normal;
+}
+
+tr.scorecard-split th {
+	font-weight: bold;
+}
+
+table.scorecard tr.score td input {
+	width: 2em;
+}
+
+/* caption */
+table.scorecard .golferhandicap,
+table.scorecard .matchtime {
+	font-size: xx-small;
+}
+
+/* thead labels */
+table.scorecard thead tr th:first-child,
+table.scorecard tbody tr td:first-child {
+	text-align: right;
+}
+
+table.scorecard th.label,
+table.scorecard td.label {
+	text-align: left;
+}
+
+table.scorecard th.labelr,
+table.scorecard td.labelr {
+	text-align: right;
+}
+
+
+/* SCORES
+ *
+ */
+table.scorecard tr.gross td div,
+table.scorecard tr.net td div,
+table.scorecard tr.stableford td div {
+	display: inline-block;
+	width: 1.8em;
+	height: 1.8em;
+	padding: 1px 0px 0px 2px;
+}
+
+tr.to_par td.red {
+	color: red;
+}
+
+/* COLORS */
+table.scorecard .color,
+table.scorecard-legend .color{
+	
+}
+
+table.scorecard .c3,
+table.scorecard-legend .c3{
+	background-color: #d1998e;
+}
+
+table.scorecard .c2,
+table.scorecard-legend .c2{
+	background-color: #ddb082;
+}
+
+table.scorecard .c1,
+table.scorecard-legend .c1{
+	background-color: #f2d08c;
+}
+
+table.scorecard .c0,
+table.scorecard-legend .c0{
+	background-color: ;
+}
+
+table.scorecard .c-1,
+table.scorecard-legend .c-1{
+	background-color: #98cae0;
+}
+
+table.scorecard .c-2,
+table.scorecard-legend .c-2{
+	background-color: #81a7e8;
+}
+
+table.scorecard .c-3,
+table.scorecard-legend .c-3{
+	background-color: #9e8fd3;
+}
+
+table.scorecard .c-4,
+table.scorecard-legend .c-4{
+	background-color: #00ACFF;
+}
+
+/* SHAPE */
+table.scorecard .shape,
+table.scorecard-legend .shape{
+    text-align: center;
+    border: 1px solid;
+    text-align: center;
+	font-family: 'Oxygen Mono', sans-serif; /* more "square" typeface to try to get circle rounds around glyphs, reduce size too */
+	font-size: smaller;
+}
+
+table.scorecard .s3,
+table.scorecard-legend .s3{
+    border-color: #000;
+    background-color: #000;
+    color: #fff;
+}
+
+table.scorecard .s2,
+table.scorecard-legend .s2{
+    border-color:  #666;
+    background-color: #666;
+    color: #fff;
+}
+
+table.scorecard .s1,
+table.scorecard-legend .s1{
+    border-color: #666;
+    background-color: #fff;
+    color: #666;
+}
+
+table.scorecard .s0,
+table.scorecard-legend .s0{
+	border: none;
+    background-color: #fff;
+    color: #666;
+}
+
+table.scorecard .s-1,
+table.scorecard-legend .s-1{
+    border-radius: 50%;
+    border-color: #666;
+    background-color: #fff;
+    color: #666;
+}
+
+table.scorecard .s-2,
+table.scorecard-legend .s-2{
+    border-radius: 50%;
+    border-color: #666;
+    background-color: #666;
+    color: #fff;
+}
+
+table.scorecard .s-3,
+table.scorecard-legend .s-3{
+    border-radius: 50%;
+    border-color: #666;
+    background-color: #666;
+    color: #fff;
+}
+
+table.scorecard .s-4,
+table.scorecard-legend .s-4{
+    border-radius: 50%;
+    border-color: #000;
+    background-color: #000;
+    color: #fff;
+}
+
+/*	LEGEND TABLE
+ *
+ */
+table.scorecard-legend {
+	margin: 10px auto;
+	border-spacing: 2px;
+}
+
+table.scorecard-legend td {
+	padding: 0 6px 0 6px;
+}
+
+table.scorecard-legend td div {
+	display: inline-block;
+	text-align: center;
+	width: 1.8em;
+	height: 1.8em;
+	padding: 1px; /* note: there are 2 characters in each mark +1, -2... */
+}
+
+/* RESPONSIVE MOBILE
+ *		Hides hole detail columns if screen is too narrow.
+ */
+
+@media only screen and (max-width: 1200px) { /* hide front/back */
+	table.scorecard th:nth-child(21), 
+	table.scorecard th:nth-child(22),
+	table.scorecard td:nth-child(21),
+	table.scorecard td:nth-child(22) {display: none;} 
+}
+ 
+@media only screen and (max-width: 800px) { /* hide hole scores */
+	table.scorecard th:nth-child(2),
+	table.scorecard th:nth-child(3),
+	table.scorecard th:nth-child(4),
+	table.scorecard th:nth-child(5),
+	table.scorecard th:nth-child(6),
+	table.scorecard th:nth-child(7),
+	table.scorecard th:nth-child(8),
+	table.scorecard th:nth-child(9),
+	table.scorecard th:nth-child(10),
+	table.scorecard th:nth-child(11),
+	table.scorecard th:nth-child(12),
+	table.scorecard th:nth-child(13),
+	table.scorecard th:nth-child(14),
+	table.scorecard th:nth-child(15),
+	table.scorecard th:nth-child(16),
+	table.scorecard th:nth-child(17),
+	table.scorecard th:nth-child(18),
+	table.scorecard th:nth-child(19),
+	table.scorecard td:nth-child(2),
+	table.scorecard td:nth-child(3),
+	table.scorecard td:nth-child(4),
+	table.scorecard td:nth-child(5),
+	table.scorecard td:nth-child(6),
+	table.scorecard td:nth-child(7),
+	table.scorecard td:nth-child(8),
+	table.scorecard td:nth-child(9),
+	table.scorecard td:nth-child(10),
+	table.scorecard td:nth-child(11),
+	table.scorecard td:nth-child(12),
+	table.scorecard td:nth-child(13),
+	table.scorecard td:nth-child(14),
+	table.scorecard td:nth-child(15),
+	table.scorecard td:nth-child(16),
+	table.scorecard td:nth-child(17),
+	table.scorecard td:nth-child(18),
+	table.scorecard td:nth-child(19) {display: none;}
+	table.scorecard th:nth-child(21), 
+	table.scorecard th:nth-child(22),
+	table.scorecard td:nth-child(21),
+	table.scorecard td:nth-child(22) {display: table-cell;} 
+}

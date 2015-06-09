@@ -176,6 +176,13 @@ class Competition extends _Competition
     }
 
 
+	public function getFullName() {
+		if($this->parent)
+			return $this->parent->getFullName() . ' » ' . $this->name;
+		else
+			return $this->name;
+	}
+
 	/**
 	 * Return whether a golfer can register to this competition or not
 	 * Numerous small functions to check part of global check
@@ -490,5 +497,9 @@ class Competition extends _Competition
 				$registration->tees_id = $start->tees_id;
 				$registration->save();
 		}
+	}
+	
+	public function getScorecards() { //@todo: redo with viaTable
+		return Scorecard::find()->where(['registration_id' => $this->getRegistrations()->select('id')]);
 	}
 }

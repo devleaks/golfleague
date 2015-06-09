@@ -74,4 +74,22 @@ class Tees extends _Tees
 	public function getLabel($mode = 'name') {
 		return '<span class="label" style="background-color: black;"><span class="glyphicon glyphicon-filter" style="color: '.$this->color.';"></span> '.($mode == 'name' ? $this->name : '').'</span>';
 	}
+	
+	private function getHoleData($data) {
+		$r = [];
+		foreach($this->getHoles()->orderBy('position')->each() as $hole) {
+			$r[] = $hole->$data;
+		}
+		return $r;
+	}
+	
+	public function lengths() {
+		return $this->getHoleData('length');
+	}
+	public function pars() {
+		return $this->getHoleData('par');
+	}
+	public function sis() {
+		return $this->getHoleData('si');
+	}
 }

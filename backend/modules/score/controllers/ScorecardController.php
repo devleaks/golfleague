@@ -7,7 +7,6 @@ use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\Registration;
 use common\models\Scorecard;
-use common\models\Score;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
@@ -22,64 +21,49 @@ class ScorecardController extends GolfLeagueController
 {
 
     /**
-     * Displays and/or update Flight models for a competition.
+     * Displays and/or update Score models for a competition.
      * @return mixed
      */
-    public function actionIndex($id)
+    public function actionCompetition($id)
     {
 		$competition = Competition::findOne($id);
 		if(!$competition)
         	throw new NotFoundHttpException('The requested page does not exist.');
 
-        return $this->render('index', [
+
+		if(isset($_POST['Scorecard'])) {
+	        $models = Scorecard::find()->andWhere(['id' => array_keys($_POST['Scorecard'])])->indexBy('id')->all();
+	        if (! Scorecard::loadMultiple($models, Yii::$app->request->post()) || ! Scorecard::validateMultiple($models)) {
+				$errors = [];
+				foreach($models as $model) {
+					$errors += $model->errors;
+				}
+				if(count($errors)>0)
+					Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($errors, 4, true)]));
+			} else {
+				foreach ($models as $model) {
+					$model->save();
+				}
+				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scores updated.'));
+			}
+		}
+
+        return $this->render('competition', [
 			'competition' => $competition,
             'dataProvider' => new ActiveDataProvider([
-				'query' => $competition->getRegistrations()->andWhere(['status' => array_merge([Registration::STATUS_CONFIRMED], Registration::getPostCompetitionStatuses())]),
+				'query' => Scorecard::find()->where([
+					'registration_id' =>	$competition->getRegistrations()
+														->andWhere(['registration.status' => array_merge([Registration::STATUS_CONFIRMED], Registration::getPostCompetitionStatuses())])
+														->select('id')
+				]),
 			]),
         ]);
 
     }
 
 
-	public function actionUpdate($id) {
-		$registration = $this->findRegistration($id);
-		if(! $scorecard = $registration->getScorecards()->one()) { // Scorecard::findOne(['registration_id'=>$registration->id])
-			$scorecard = new Scorecard([
-				'registration_id' => $registration->id,
-				'tees_id' => $registration->tees->id,
-			]);
-			$scorecard->save();
-			$scorecard->init2();
-		}
-		
-		if(isset($_POST['Score'])) {
-			$count = 0;
-			foreach (Yii::$app->request->post('Score') as $k => $dataToLoad) {
-				$pk = explode('_', $k);
-				if($model = Score::findOne(['scorecard_id'=>$pk[0], 'hole_id' =>$pk[1]])) {
-	                $ret = $model->setAttributes($dataToLoad);
-	                if ($model->save()) {
-	                    $count++;
-	                }
-				}
-			}
-			if($count > 0) {
-				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scorecard updated.'));
-			}
-		}
-
-        return $this->render('update', [
-			'competition' => $registration->competition,
-			'registration' => $registration,
-			'scorecard' => $scorecard,
-            'dataProvider' => new ActiveDataProvider([
-				'query' => $scorecard->getScores(),
-			]),
-        ]);
-	}
-
     /**
-     * Displays and/or update Flight models for a competition.
+     * Displays and/or update Score models for a competition.
      * @return mixed
      */
     public function actionPublish($id)
@@ -91,48 +75,35 @@ class ScorecardController extends GolfLeagueController
 		$competition->status = Competition::STATUS_COMPLETED;
 		$competition->save();
 
-        return $this->redirect(Url::to(['view', 'id' => $competition->id]));
+        return $this->redirect(Url::to(['result/view', 'id' => $competition->id]));
     }
 
     /**
-     * Deletes an existing Flight model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Displays a single Score model.
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionList($id)
     {
-        $this->findModel($id)->delete();
+		$competition = Competition::findOne($id);
+		if(!$competition)
+        	throw new NotFoundHttpException('The requested page does not exist.');
 
-        return $this->redirect(['index']);
+        return $this->render('list', [
+			'model' => $competition,
+        ]);
     }
 
     /**
-     * Finds the Flight model based on its primary key value.
+     * Finds the Score model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Flight the loaded model
+     * @return Score the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findCompetition($id)
     {
         if (($model = Competition::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-
-    /**
-     * Finds the Flight model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Flight the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findRegistration($id)
-    {
-        if (($model = Registration::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

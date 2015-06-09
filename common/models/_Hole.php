@@ -15,6 +15,7 @@ use Yii;
  * @property integer $length
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $duration
  *
  * @property Tees $tees
  * @property Score[] $scores
@@ -36,8 +37,8 @@ class _Hole extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tees_id'], 'required'],
-            [['tees_id', 'position', 'par', 'si', 'length'], 'integer'],
+            [['tees_id', 'position', 'par'], 'required'],
+            [['tees_id', 'position', 'par', 'si', 'length', 'duration'], 'integer'],
             [['created_at', 'updated_at'], 'safe']
         ];
     }
@@ -49,13 +50,14 @@ class _Hole extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('igolf', 'ID'),
-            'tees_id' => Yii::t('igolf', 'Tees'),
+            'tees_id' => Yii::t('igolf', 'Tees ID'),
             'position' => Yii::t('igolf', 'Position'),
             'par' => Yii::t('igolf', 'Par'),
             'si' => Yii::t('igolf', 'Si'),
             'length' => Yii::t('igolf', 'Length'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
+            'duration' => Yii::t('igolf', 'Duration'),
         ];
     }
 

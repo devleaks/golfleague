@@ -14,18 +14,19 @@ use Yii;
  * @property integer $penalty
  * @property integer $sand
  * @property string $note
- * @property string $drive
  * @property string $regulation
  * @property string $approach
  * @property string $putt
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
- * @property string $drive_length
  * @property string $approach_length
  * @property string $putt_length
  * @property string $putt2
  * @property string $putt2_length
+ * @property string $teeshot
+ * @property string $teeshot_length
+ * @property integer $allowed
  *
  * @property Hole $hole
  * @property Scorecard $scorecard
@@ -47,10 +48,10 @@ class _Score extends \yii\db\ActiveRecord
     {
         return [
             [['hole_id'], 'required'],
-            [['hole_id', 'score', 'putts', 'penalty', 'sand'], 'integer'],
+            [['hole_id', 'score', 'putts', 'penalty', 'sand', 'allowed'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
-            [['drive', 'regulation', 'approach', 'putt', 'status', 'drive_length', 'approach_length', 'putt_length', 'putt2', 'putt2_length'], 'string', 'max' => 20]
+            [['regulation', 'approach', 'putt', 'status', 'approach_length', 'putt_length', 'putt2', 'putt2_length', 'teeshot', 'teeshot_length'], 'string', 'max' => 20]
         ];
     }
 
@@ -67,18 +68,19 @@ class _Score extends \yii\db\ActiveRecord
             'penalty' => Yii::t('igolf', 'Penalty'),
             'sand' => Yii::t('igolf', 'Sand'),
             'note' => Yii::t('igolf', 'Note'),
-            'drive' => Yii::t('igolf', 'Drive'),
             'regulation' => Yii::t('igolf', 'Regulation'),
             'approach' => Yii::t('igolf', 'Approach'),
             'putt' => Yii::t('igolf', 'Putt'),
             'status' => Yii::t('igolf', 'Status'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
-            'drive_length' => Yii::t('igolf', 'Drive Length'),
             'approach_length' => Yii::t('igolf', 'Approach Length'),
             'putt_length' => Yii::t('igolf', 'Putt Length'),
             'putt2' => Yii::t('igolf', 'Putt2'),
             'putt2_length' => Yii::t('igolf', 'Putt2 Length'),
+            'teeshot' => Yii::t('igolf', 'Teeshot'),
+            'teeshot_length' => Yii::t('igolf', 'Teeshot Length'),
+            'allowed' => Yii::t('igolf', 'Allowed'),
         ];
     }
 

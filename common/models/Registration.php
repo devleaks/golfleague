@@ -57,12 +57,6 @@ class Registration extends _Registration
 	const SCORE_POINTS = 'POINTS';
 	const SCORE_POSITION = 'POSITION';
 	
-	/** Scorecard statuses */
-	const CARD_ONGOING = 'ONGOING';
-	const CARD_RETURNED = 'RETURNED';
-	const CARD_DISQUAL = 'DISQUA';
-	const CARD_NOSHOW = 'NOSHOW';
-	
     /** Special action keyword */
     const ACTION_DELETE = 'DELETE';
 
@@ -93,7 +87,6 @@ class Registration extends _Registration
 			parent::rules(),
 			[
             [['thru'], 'in', 'range' => Hole::validNumber()],
-            [['card_status'], 'in', 'range' => array_keys(self::getConstants('CARD_'))],
             [['status'], 'in', 'range' => array_keys(self::getConstants('STATUS_'))],
         	]
 		);
@@ -184,6 +177,28 @@ class Registration extends _Registration
 	public function delete() {
 		if(!$this->hasChildren())
 			parent::delete();
+	}
+
+	/**
+	 * Returns registration's associated scorecard. Creates one if none exists.
+	 *
+	 * @param boolean $detailed Whether to create hole detail score for scorecard
+	 *
+	 * return common\models\Scorecard
+	 */
+	public function getScorecard($detailed = false) {
+		if(! $scorecard = $this->getScorecards()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
+			$scorecard = new Scorecard([
+				'registration_id' => $this->id,
+				'tees_id' => $this->tees_id,
+				'golfer_id' => $this->golfer_id,
+			]);
+			$scorecard->save();
+			if($detailed) {
+				$scorecard->makeScores();
+			}
+		}
+		return $scorecard;
 	}
 
 }

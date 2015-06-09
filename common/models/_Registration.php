@@ -13,19 +13,14 @@ use Yii;
  * @property integer $tees_id
  * @property integer $team_id
  * @property integer $flight_id
- * @property string $note
+ * @property integer $thru
  * @property integer $handicap
- * @property integer $score
- * @property integer $score_net
- * @property integer $stableford
- * @property integer $stableford_net
  * @property integer $points
  * @property integer $position
- * @property string $card_status
+ * @property string $note
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
- * @property integer $thru
  *
  * @property Tees $tees
  * @property Competition $competition
@@ -51,10 +46,10 @@ class _Registration extends \yii\db\ActiveRecord
     {
         return [
             [['competition_id', 'golfer_id', 'status'], 'required'],
-            [['competition_id', 'golfer_id', 'tees_id', 'team_id', 'flight_id', 'handicap', 'score', 'score_net', 'stableford', 'stableford_net', 'points', 'position', 'thru'], 'integer'],
+            [['competition_id', 'golfer_id', 'tees_id', 'team_id', 'flight_id', 'thru', 'handicap', 'points', 'position'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
-            [['card_status', 'status'], 'string', 'max' => 20]
+            [['status'], 'string', 'max' => 20]
         ];
     }
 
@@ -70,19 +65,14 @@ class _Registration extends \yii\db\ActiveRecord
             'tees_id' => Yii::t('igolf', 'Tees ID'),
             'team_id' => Yii::t('igolf', 'Team ID'),
             'flight_id' => Yii::t('igolf', 'Flight ID'),
-            'note' => Yii::t('igolf', 'Note'),
+            'thru' => Yii::t('igolf', 'Thru'),
             'handicap' => Yii::t('igolf', 'Handicap'),
-            'score' => Yii::t('igolf', 'Score'),
-            'score_net' => Yii::t('igolf', 'Score Net'),
-            'stableford' => Yii::t('igolf', 'Stableford'),
-            'stableford_net' => Yii::t('igolf', 'Stableford Net'),
             'points' => Yii::t('igolf', 'Points'),
             'position' => Yii::t('igolf', 'Position'),
-            'card_status' => Yii::t('igolf', 'Card Status'),
+            'note' => Yii::t('igolf', 'Note'),
             'status' => Yii::t('igolf', 'Status'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
-            'thru' => Yii::t('igolf', 'Thru'),
         ];
     }
 

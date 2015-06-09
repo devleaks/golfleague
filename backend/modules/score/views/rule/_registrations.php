@@ -1,10 +1,11 @@
 <?php
 
+use common\models\Competition;
+use common\models\Registration;
+use common\models\Scorecard;
+use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use kartik\grid\GridView;
-use common\models\Registration;
-use common\models\Competition;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RegistrationSearch */
@@ -55,7 +56,7 @@ use common\models\Competition;
                 'value' => function($model, $key, $index, $widget) {
                 	return Yii::t('igolf', $model->card_status);
                 },
-				'filter' => Registration::getLocalizedConstants('CARD_'),
+				'filter' => Scorecard::getLocalizedConstants('STATUS_'),
             ],
 			'score',
 			'score_net',

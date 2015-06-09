@@ -64,14 +64,30 @@ class Rule extends _Rule
     }
 
     /**
-	 * Return valid classnames for computation
+	 * Return points for stableford calculation
      */
-    static public function getClassnames() {
-        return [
-			'RuleStandard',
-			'TournamentSimpleSum',
+	public static function stableford() {
+		return [
+			-4 => 6, //sure
+			-3 => 5,
+			-2 => 4,
+			-1 => 3,
+			 0 => 2,
+			 1 => 1,
+			 2 => 0,
+			 3 => 0,
 		];
-    }
+	}
 
+    /**
+	 * Return stableford points for supplied score relative to par. Par = 0, bogey = 1, birdy = -1, etc.
+     */
+	public static function stablefordPoint($score) {
+		if($score < 0)
+			return abs($score) + 2;
+		else if ($score > 1)
+			return 0;
+		return 2 - $score;
+	}
 
 }

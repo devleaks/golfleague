@@ -26,13 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			 	'template' => '{view} {score} {scorecards}',
 	            'buttons' => [
 	                'score' => function ($url, $model) {
-						$url = Url::to(['result/competition', 'id' => $model->id]);
+						$url = Url::to(['scorecard/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('golf', [], Icon::WHHG), $url, [
 	                        'title' => Yii::t('igolf', 'Enter scores'),
 	                    ]);
 	                },
 	                'scorecards' => function ($url, $model) {
-						$url = Url::to(['scorecard/index', 'id' => $model->id]);
+						$url = Url::to(['score/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('invoice', [], Icon::WHHG), $url, [
 	                        'title' => Yii::t('igolf', 'Scorecards'),
 	                    ]);

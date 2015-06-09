@@ -1,0 +1,227 @@
+/*  Golf Turbo
+ *
+ *    Scoreboard/Leaderboard
+ */
+
+/* general */
+@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two);
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,300,700);
+
+/*	SCOREBOARD TABLE
+ *
+ */
+/* table & global */
+table.scoreboard {
+	border-spacing: 0px;
+	margin: 0 auto;
+	border: 6px solid darkred;
+	border-collapse:collapse;
+	background: url(images/bg-chalkboard.jpg);
+}
+
+table.scoreboard th,
+table.scoreboard td {
+	font-family: 'Shadows Into Light Two', script;
+	font-size: 16px;
+	line-height: 1.5;
+	text-align: center;
+	border: 1px solid lightgrey;
+	padding: 0 2px;
+	min-width: 1.2em;
+}
+
+table.scoreboard tr.odd {
+	background-color: #fcfcfc;
+}
+
+/* table caption */
+table.scoreboard .percent {
+	font-size: xx-small;
+}
+table.scoreboard .score-type {
+	font-size: xx-small;
+	display: none;
+}
+table.scoreboard .course-name {
+	font-weight: bold;
+}
+table.scoreboard .competition-date {
+	font-style: italic;
+	font-size: smaller;
+}
+
+/* table header */
+table.scoreboard th {
+	font-weight: bold;
+}
+table.scoreboard th.round {
+	color: lightblue;
+}
+table.scoreboard th.total {
+	color: white;
+}
+
+/* table header line labels */
+table.scoreboard .par td:nth-child(1),
+table.scoreboard .si  td:nth-child(1),
+table.scoreboard .length td:nth-child(1) {
+	text-align: right;
+	padding: 0 4px;
+}
+
+table.scoreboard th.label,
+table.scoreboard td.label {
+	text-align: left;
+}
+
+table.scoreboard th.labelr,
+table.scoreboard td.labelr {
+	text-align: right;
+}
+
+/* table footer */
+table.scoreboard tr.last-updated td {
+	padding-right: 10px;
+	text-align: right;
+	color: lightgrey;
+	font-size: x-small;
+	font-style: italic;
+}
+table.scoreboard .notice {
+	text-align: center;
+}
+
+/* table data */
+
+/*position*/
+table.scoreboard > tbody > tr.player-score td:nth-child(1) {
+	font-weight: bold;
+}
+/*name*/
+table.scoreboard > tbody > tr.player-score td:nth-child(2) {
+	text-align: left;
+	padding: 0 4px;
+}
+/*totals*/
+table.scoreboard tbody tr.player-score td:last-child, 
+table.scoreboard .total {
+	font-weight: bold;
+}
+
+/*score*/
+table.scoreboard td {
+	/*border: 4px solid darkgreen;*/
+	color: #fff;
+}
+table.scoreboard td.round {
+	border: 2px solid lightblue;
+	color: lightblue;
+	font-size: 20px;
+}
+table.scoreboard td.total {
+	border: 2px solid white;
+	font-weight: bold;
+	color: white;
+	font-size: 20px;
+}
+table.scoreboard .red {
+	color: pink;
+}
+table.scoreboard th {
+	font-family: 'Oswald', sans-serif;
+	color: white;
+}
+/* SPLITFLAP */
+table.scoreboard-splitflap td.name {
+	border: 2px solid lightgreen;
+	color: white;
+	font-size: 20px;
+}
+table.scoreboard-splitflap td.round {
+	border: 2px solid lightblue;
+}
+
+table.scoreboard-splitflap tr.player-score td {
+	min-width: 1.5em;
+}
+	
+table.scoreboard-splitflap.scoreboard-nine tr.player-score td {
+	min-width: 1.7em;
+}
+
+div.digit { /* note: digit_bg is 20x30px */
+	font-family: 'Oswald';
+/*	font-weight: bold;*/
+	display: inline-block;
+	width:20px;
+	height:30px;
+	text-align:center;
+	background:url(digit_bg.png) no-repeat;
+	margin: 0px;
+	line-height:31px;
+	border-radius:2px;
+	font-size:1.2em;
+	padding: 0px;
+	max-width:20px;
+}
+
+table.scoreboard-splitflap td.round,
+table.scoreboard-splitflap td.total {
+	font-weight: normal;
+	font-size: 20px!important;
+}
+
+
+
+/*	PLAYER CARDS TABLE
+ *
+ */
+div.gt_card,
+tr.gt_cards {
+	display: none;
+}
+/* tabs */
+ul.gt_tabs li {
+	display: inline-block;
+	padding: 4px;
+}
+ul.gt_tabs li a:hover {
+	text-decoration: underline;
+}
+
+.closebox {
+	float: right;
+	padding: 4px;
+	font-size: x-small;
+}
+
+/* player cards tables */
+table.golfer_card {
+	margin: 10px auto;
+}
+
+table.stats td.label:first-child,
+table.summary td.label:first-child,
+table.round_detail td.label:first-child {
+	text-align: left;
+}
+
+table.round_detail tbody tr.player-error td {
+	text-align: center;
+}
+
+ul.gt_tabs a.current {
+	text-decoration: underline;
+}
+
+/*
+ *
+ */
+.widget table.scoreboard  .total {
+	color: #999;
+}
+.widget table.scoreboard th,
+.widget table.scoreboard td,
+.widget table.scoreboard {
+	border-color: #888;
+}

@@ -1,0 +1,12 @@
+@font-face {
+  font-family: '7LED';
+  src: url('7LED.eot'); /* IE9 Compat Modes */
+  src: url('7LED.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('7LED.woff') format('woff'), /* Modern Browsers */
+       url('7LED.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('7LED.svg#f7e76d5cb3a2ac6afd23e9cd96f32cc2') format('svg'); /* Legacy iOS */
+       
+  font-style:   normal;
+  font-weight:  400;
+}
+

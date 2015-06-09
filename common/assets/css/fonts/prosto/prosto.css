@@ -1,0 +1,7 @@
+@font-face {
+	font-family: 'Prosto Sans';
+	src: url('Prosto Sans Bold.eot');
+	src: url('Prosto Sans Bold.woff') format('woff'), url('Prosto Sans Bold.ttf') format('truetype'), url('Prosto Sans Bold.svg') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
