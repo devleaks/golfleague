@@ -32,4 +32,18 @@ class Season extends Competition
     {
         return $this->hasMany(Tournament::className(), ['parent_id' => 'id']);
     }
+
+	/**
+	 * @inheritdoc
+	 */
+	public function currentMatch() {
+		return null;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function hasScores() {
+		return false;
+	}
 }

@@ -15,7 +15,7 @@ use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-class Scorecard extends Widget {
+class Scoretable extends Widget {
 	/**
 	 * O P T I O N S
 	 *
@@ -60,38 +60,9 @@ class Scorecard extends Widget {
 	/**
 	 * V A R I A B L E S
 	 *
-	 * common\models\Scorecard Scorecard to display.
-	 *
-	 */
-	public $model;
-	
-	/** array of name,value pairs of options */
+	 ** array of name,value pairs of options */
 	public $options;
 	
-
-	/**
-	 * Main function.
-	 *
-	 * @return string HTML table
-	 */
-	public function run() {
-
-		return $this->scorecard();
-	}
-	
-	public function init() {
-		$this->registerAssets();
-		$this->setOption(self::HOLES, true); // force heading for scorecard, otherwise nothing might be displayed
-	}
-	
-    /**
-     * Register client assets
-     */
-    protected function registerAssets()
-    {
-        $view = $this->getView();
-        ScorecardAsset::register($view);
-    }
 
 	/**
 	 * Option manipulation functions
@@ -293,98 +264,4 @@ class Scorecard extends Widget {
 		return $output;
 	}
 	
-	private function print_scores() {
-		$displays = [
-			self::ALLOWED => [
-				'label' => Yii::t('igolf', 'Allowed'),
-				'data' => $this->model->allowed(),
-				'total' => true,
-				'color' => true/*note:true displays as '• •', false displays as '2'*/,
-			],
-			self::GROSS => [
-				'label' => Yii::t('igolf', 'Score'),
-				'data' => $this->model->score(),
-				'total' => true,
-				'color' => true,
-			],
-			self::NET => [
-				'label' => Yii::t('igolf', 'Net'),
-				'data' => $this->model->score_net(),
-				'total' => true,
-				'color' => true,
-			],
-			self::STABLEFORD => [
-				'label' => Yii::t('igolf', 'Stableford Net'),
-				'data' => $this->model->stableford_net(),
-				'total' => true,
-				'color' => true,
-			],
-			self::TO_PAR => [
-				'label' => Yii::t('igolf', 'To Par'),
-				'data' => $this->model->to_par(),
-				'total' => true,
-				'color' => false
-			],
-		];
-		
-		$stableford_points = $this->model->registration ? $this->model->registration->competition->rule->stableford() : Rule::stableford();
-
-		$output = '';
-		foreach($displays as $key => $display) {
-			if( $this->getOption($key) ) { 
-				$output .=  Html::beginTag('tr', ['class' => $key]);
-				$output .= Html::tag('td', $display['label'], ['class' => 'scorecard-label']);
-
-				for($i=0; $i<$this->model->tees->holes; $i++)
-					if($key == self::STABLEFORD)
-						$output .= $this->td($key, 'hole', $display['data'][$i], array_search($display['data'][$i], $stableford_points));
-					else
-						$output .= $this->td($key, 'hole', $display['data'][$i], $display['data'][$i] - $this->model->tees->pars()[$i]);
-
-				if($display['total']) {
-					if($key == self::TO_PAR) {
-						$output .= $this->td($key, 'today', $display['data'][$this->model->tees->holes - 1]);
-						if($this->getOption(self::FRONTBACK)) {
-							$output .= $this->td($key, 'today', $display['data'][8]);
-							$output .= $this->td($key, 'today', $display['data'][17]);
-						}
-					} else {
-						$output .= $this->td($key, 'total', array_sum($display['data']));
-						if($this->getOption(self::FRONTBACK)) {
-							$output .= $this->td($key, 'total', array_sum(array_slice($display['data'], 0, 9)));
-							$output .= $this->td($key, 'total', array_sum(array_slice($display['data'], 9, 9)));
-						}
-					}
-				} else {
-					$output .= Html::tag('td', '', ['colspan' => $this->getOption(self::FRONTBACK) ? 3 : 1]);
-				}
-
-				$output .= Html::endTag('tr');
-			} 
-		}//foreach
-		return $output;
-	}
-
-	protected function scorecard() {
-		$r = Html::beginTag('table', ['class' => 'table scorecard']);
-		
-		$r .= $this->caption();
-
-		$r .= Html::beginTag('thead');
-		$r .= $this->print_headers();
-		$r .= $this->print_header_split();
-		$r .= Html::endTag('thead');
-			
-		$r .= Html::beginTag('tbody');
-		$r .= $this->print_scores();
-		$r .= Html::endTag('tbody');;
-		
-		$r .= Html::endTag('table');
-
-		if(	$this->getOption(self::LEGEND) )
-			$r .= $this->print_legend();
-
-		return $r;
-	}
-
 }

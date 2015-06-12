@@ -27,6 +27,7 @@ use Yii;
  * @property integer $stableford_net
  * @property integer $handicap
  * @property integer $thru
+ * @property integer $to_par
  *
  * @property Score[] $scores
  * @property Hole[] $holes
@@ -50,7 +51,7 @@ class _Scorecard extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['registration_id', 'golfer_id', 'tees_id', 'score', 'points', 'putts', 'penalty', 'sand', 'score_net', 'stableford', 'stableford_net', 'handicap', 'thru'], 'integer'],
+            [['registration_id', 'golfer_id', 'tees_id', 'score', 'points', 'putts', 'penalty', 'sand', 'score_net', 'stableford', 'stableford_net', 'handicap', 'thru', 'to_par'], 'integer'],
             [['golfer_id', 'tees_id'], 'required'],
             [['teeshot', 'regulation'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
@@ -85,6 +86,7 @@ class _Scorecard extends \yii\db\ActiveRecord
             'stableford_net' => Yii::t('igolf', 'Stableford Net'),
             'handicap' => Yii::t('igolf', 'Handicap'),
             'thru' => Yii::t('igolf', 'Thru'),
+            'to_par' => Yii::t('igolf', 'To Par'),
         ];
     }
 

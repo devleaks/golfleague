@@ -1,8 +1,9 @@
 <?php
 
-use yii\helpers\Html;
+use common\widgets\Scoreboard;
 use kartik\detail\DetailView;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Competition */
@@ -16,76 +17,43 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.Yii::t('igolf', $model->competition_type).' '.$model->name.'</h3>',
+	        'heading' => '<h3>'.$model->getFullName().' <small>('.Yii::t('igolf', $model->competition_type).')</small></h3>',
 			'headingOptions' => [
 				'template' => '{title}'
 			],
 	    ],
         'attributes' => [
-            'id',
-            [
-                'attribute'=>'competition_type',
-                'label'=>'Competition Type',
-                'value'=> Yii::t('igolf', $model->competition_type),
-            ],
-            [
-                'attribute'=>'parent_id',
-                'label'=>'Competition',
-                'value'=> $model->parent ? $model->parent->name : '',
-            ],
-            'name',
             'description',
             [
                 'attribute'=>'course_id',
-                'label'=>'Competition',
                 'value'=> $model->course ? $model->course->name : '',
             ],
             'holes',
             [
                 'attribute'=>'rule_id',
-                'label'=>'Competition',
                 'value'=> $model->rule ? $model->rule->name : '',
             ],
             'start_date',
-            'registration_begin',
-            'registration_end',
-            'handicap_min',
-            'handicap_max',
-            'age_min',
-            'age_max',
-            [
-				'attribute' => 'gender',
-            	'value'=> Yii::t('igolf', $model->gender),
-			],
-            'max_players',
-            [
-                'attribute'=>'registration_special',
-            	'value'=> Yii::t('igolf', $model->registration_special),
-            ],
-        	'registration_time',
-            'flight_size',
-			'flight_time',
             [
                 'attribute'=>'status',
                 'label'=>'Status',
                 'value'=> Yii::t('igolf', $model->status),
             ],
-            'created_at',
-            'updated_at',
+
         ],
     ]) ?>
 
     <?= Scoreboard::widget([
-		'model' => $model,
+		'competition' => $model,
 		'options' => [
-			Scorecard::LENGTH => true,
-			Scorecard::SI => true,
-			Scorecard::PAR => true,
-			Scorecard::HOLES => true,
-			Scorecard::FRONTBACK => true,
-			Scorecard::COLOR => true,
-			Scorecard::LEGEND => true,
-			Scorecard::TO_PAR => true,
+			Scoreboard::LENGTH => true,
+			Scoreboard::SI => true,
+			Scoreboard::PAR => true,
+			Scoreboard::HOLES => true,
+			Scoreboard::FRONTBACK => true,
+			Scoreboard::COLOR => true,
+			Scoreboard::LEGEND => true,
+			Scoreboard::TO_PAR => true,
 		]
     ]) ?>
 

@@ -78,7 +78,7 @@ class ScoreController extends GolfLeagueController
 		$scorecard->makeScores();
 
         return $this->render('view', [
-			'model' => $scorecard,
+			'scorecard' => $scorecard,
         ]);
     }
 

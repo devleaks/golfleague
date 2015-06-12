@@ -1,24 +1,24 @@
 <?php
 
-use yii\helpers\Html;
+use common\widgets\Scorecard;
 use kartik\detail\DetailView;
 use yii\data\ActiveDataProvider;
-use common\widgets\Scorecard;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Competition */
+/* @var $scorecard common\models\Scorecard */
 
-$this->title = $model->registration->golfer->name;
+$this->title = $scorecard->registration->golfer->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
-$this->params['breadcrumbs'][] = ['label' => $model->registration->competition->name, 'url' => ['competition', 'id' => $model->registration->competition_id]];
+$this->params['breadcrumbs'][] = ['label' => $scorecard->registration->competition->name, 'url' => ['competition', 'id' => $scorecard->registration->competition_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="scorecard-view">
 
     <?= DetailView::widget([
-        'model' => $model->registration->competition,
+        'model' => $scorecard->registration->competition,
 		'panel'=>[
-	        'heading' => '<h3>'.$model->registration->competition->getFullName().' <small>('.Yii::t('igolf', $model->registration->competition->competition_type).')</small></h3>',
+	        'heading' => '<h3>'.$scorecard->registration->competition->getFullName().' <small>('.Yii::t('igolf', $scorecard->registration->competition->competition_type).')</small></h3>',
 			'headingOptions' => [
 				'template' => '{title}'
 			],
@@ -28,24 +28,24 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'course_id',
                 'label'=>'Course',
-                'value'=> $model->registration->competition->course ? $model->registration->competition->course->name : '',
+                'value'=> $scorecard->registration->competition->course ? $scorecard->registration->competition->course->name : '',
             ],
             'holes',
             [
                 'attribute'=>'rule_id',
                 'label'=>'Rules',
-                'value'=> $model->registration->competition->rule ? $model->registration->competition->rule->name : '',
+                'value'=> $scorecard->registration->competition->rule ? $scorecard->registration->competition->rule->name : '',
             ],
             [
                 'attribute'=>'status',
                 'label'=>'Scorecard Status',
-                'value'=> Yii::t('igolf', $model->status),
+                'value'=> Yii::t('igolf', $scorecard->status),
             ],
         ],
     ]) ?>
 
     <?= Scorecard::widget([
-		'model' => $model,
+		'scorecard' => $scorecard,
 		'options' => [
 			Scorecard::LENGTH => true,
 			Scorecard::SI => true,

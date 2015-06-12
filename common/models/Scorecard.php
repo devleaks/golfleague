@@ -48,10 +48,11 @@ class Scorecard extends _Scorecard
 			parent::rules(),
 			[
             	[['tees_id'], 'required'],
+	            [['thru'], 'in', 'range' => Hole::validNumber()],
+	            [['status'], 'in', 'range' => array_keys(self::getConstants('STATUS_'))],
         	]
 		);
     }
-
 
     /**
      * @inheritdoc
@@ -97,6 +98,10 @@ class Scorecard extends _Scorecard
 		}
 	}
 	
+	public function hasScore() { // opposed to isCompetition()
+		return $this->thru > 0;
+	}
+	
 	/**
 	 * Get array of values for different scoring data.
 	 */
@@ -124,7 +129,10 @@ class Scorecard extends _Scorecard
 	}
 
 
-	public function doAllowed() {
+	/**
+	 * Utility function used for development, do not use.
+	 */
+	private function doAllowed() {
 		$i = 0;
 		$h = new HandicapEGA();
 		$a = $h->allowed($this->tees, $this->golfer);
@@ -142,7 +150,7 @@ class Scorecard extends _Scorecard
 		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
 		$n = $this->score();
 		$p = $this->tees->pars();
-		$s = array_fill(0, count($n), null);
+		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
 		for($i = 0; $i< count($n); $i++) {
 			if($n[$i] > 0) {
 				$s[$i] = $rule->stablefordPoint($n[$i] - $p[$i]);
@@ -156,7 +164,7 @@ class Scorecard extends _Scorecard
 		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
 		$n = $this->score_net();
 		$p = $this->tees->pars();
-		$s = array_fill(0, count($n), null);
+		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
 		for($i = 0; $i< count($n); $i++) {
 			if($n[$i] > 0) {
 				$s[$i] = $rule->stablefordPoint($n[$i] - $p[$i]);
@@ -166,11 +174,11 @@ class Scorecard extends _Scorecard
 		return $s;
 	}
 
-	public function to_par() {
+	public function toPar($start = 0) {
 		$n = $this->score_net();
 		$p = $this->tees->pars();
-		$s = array_fill(0, count($n), null);
-		$topar = 0;
+		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
+		$topar = $start;
 		for($i = 0; $i< count($n); $i++) {
 			if($n[$i] > 0) {
 				$topar += ($n[$i] - $p[$i]);
@@ -180,6 +188,12 @@ class Scorecard extends _Scorecard
 		}
 		return $s;
 	}
+	
+	public function lastToPar() {
+		$to_par = $this->toPar();
+		return $to_par[($this->thru() > 0 ? $this->thru() - 1 : 0)];
+	}
+	
 
 	/**
 	 * Get array of values for different scoring data.
@@ -201,6 +215,23 @@ class Scorecard extends _Scorecard
 		if($this->upToDate()) return;
 		
 
+	}
+	
+	public function getStatistics() {
+		$stat_min = -4;
+		$stat_max = 4;
+		$stats = array_fill($stat_min, $stat_max - $stat_min + 1, 0);
+		$n = $this->score();
+		$p = $this->tees->pars();
+		for($i = 0; $i < $scorecard->holes(); $i++) {			
+			if($score[$i] > 0) {
+				$id = $n[$i] - $p[$i];
+				if($id >= $stat_min && $id <= $stat_max) {
+					$stats[$id]++;
+				}
+			}
+		}
+		return $stats;
 	}
 
 }

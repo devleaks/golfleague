@@ -4379,21 +4379,22 @@
         },
         {
             "name": "schmunk42/yii2-giiant",
-            "version": "0.3.0",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmunk42/yii2-giiant.git",
-                "reference": "77cb067ae600d53e84274b28a795afe49a8b966e"
+                "reference": "1cb1e3ab50e1bcb3b33b5f7d7f0c4a411b23dd9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmunk42/yii2-giiant/zipball/77cb067ae600d53e84274b28a795afe49a8b966e",
-                "reference": "77cb067ae600d53e84274b28a795afe49a8b966e",
+                "url": "https://api.github.com/repos/schmunk42/yii2-giiant/zipball/1cb1e3ab50e1bcb3b33b5f7d7f0c4a411b23dd9d",
+                "reference": "1cb1e3ab50e1bcb3b33b5f7d7f0c4a411b23dd9d",
                 "shasum": ""
             },
             "require": {
                 "dmstr/yii2-bootstrap": "*",
-                "yiisoft/yii2-gii": "~2.0.1"
+                "yiisoft/yii2": "~2.0.4",
+                "yiisoft/yii2-gii": "~2.0.4"
             },
             "type": "yii2-extension",
             "extra": {
@@ -4422,7 +4423,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2015-05-26 11:55:13"
+            "time": "2015-06-01 20:50:25"
         },
         {
             "name": "seld/jsonlint",
@@ -4525,16 +4526,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.0",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "7f0bec04961c61c961df0cb8c2ae88dbfd83f399"
+                "reference": "564398bc1f33faf92fc2ec86859983d30eb81806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/7f0bec04961c61c961df0cb8c2ae88dbfd83f399",
-                "reference": "7f0bec04961c61c961df0cb8c2ae88dbfd83f399",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/564398bc1f33faf92fc2ec86859983d30eb81806",
+                "reference": "564398bc1f33faf92fc2ec86859983d30eb81806",
                 "shasum": ""
             },
             "require": {
@@ -4578,20 +4579,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-29 16:22:24"
+            "time": "2015-06-10 15:30:22"
         },
         {
             "name": "symfony/finder",
-            "version": "v2.7.0",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "ccb8ed8339cf24824f2ef35dacec30d92ff44368"
+                "reference": "c13a40d638aeede1e8400f8c956c7f9246c05f75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/ccb8ed8339cf24824f2ef35dacec30d92ff44368",
-                "reference": "ccb8ed8339cf24824f2ef35dacec30d92ff44368",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/c13a40d638aeede1e8400f8c956c7f9246c05f75",
+                "reference": "c13a40d638aeede1e8400f8c956c7f9246c05f75",
                 "shasum": ""
             },
             "require": {
@@ -4627,20 +4628,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-15 14:02:48"
+            "time": "2015-06-04 20:11:48"
         },
         {
             "name": "symfony/process",
-            "version": "v2.7.0",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "e0a82b58e36afc60f8e79b8bc85a22bb064077c1"
+                "reference": "552d8efdc80980cbcca50b28d626ac8e36e3cdd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/e0a82b58e36afc60f8e79b8bc85a22bb064077c1",
-                "reference": "e0a82b58e36afc60f8e79b8bc85a22bb064077c1",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/552d8efdc80980cbcca50b28d626ac8e36e3cdd1",
+                "reference": "552d8efdc80980cbcca50b28d626ac8e36e3cdd1",
                 "shasum": ""
             },
             "require": {
@@ -4676,7 +4677,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-15 13:33:16"
+            "time": "2015-06-08 09:37:21"
         },
         {
             "name": "thomaspark/bootswatch",
@@ -4738,16 +4739,16 @@
         },
         {
             "name": "vova07/yii2-imperavi-widget",
-            "version": "1.2.5",
+            "version": "1.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vova07/yii2-imperavi-widget.git",
-                "reference": "2da775f1d1c51b5bd91fff1aa54c5e0cbf883455"
+                "reference": "a1322fce49ec6875b287704079c51cda4e4ae1c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vova07/yii2-imperavi-widget/zipball/2da775f1d1c51b5bd91fff1aa54c5e0cbf883455",
-                "reference": "2da775f1d1c51b5bd91fff1aa54c5e0cbf883455",
+                "url": "https://api.github.com/repos/vova07/yii2-imperavi-widget/zipball/a1322fce49ec6875b287704079c51cda4e4ae1c5",
+                "reference": "a1322fce49ec6875b287704079c51cda4e4ae1c5",
                 "shasum": ""
             },
             "require": {
@@ -4796,7 +4797,7 @@
                 "yii 2",
                 "yii2"
             ],
-            "time": "2015-05-29 19:44:49"
+            "time": "2015-06-11 14:29:25"
         },
         {
             "name": "warrence/yii2-kartikgii",

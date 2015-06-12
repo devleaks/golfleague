@@ -9,6 +9,7 @@ class ScoreboardAsset extends AssetBundle
     public $sourcePath = '@common/assets';
 
     public $css = [
+    	'css/scorecard.css',
         'css/scoreboard.css',
     ];
 

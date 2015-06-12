@@ -627,12 +627,6 @@
             <uid><![CDATA[4C047DE5-C6F5-475B-B8D0-BBFF2944E671]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[points]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
-            <uid><![CDATA[3331F789-89A4-4E58-9EBD-1958D387FFEB]]></uid>
-        </SQLField>
-        <SQLField>
             <name><![CDATA[putts]]></name>
             <type><![CDATA[INTEGER]]></type>
             <uid><![CDATA[3DAFCC1D-FB05-4609-8F34-CDEFBD471B49]]></uid>
@@ -663,6 +657,18 @@
             <type><![CDATA[VARCHAR(160)]]></type>
             <uid><![CDATA[8AB08A10-0469-418A-8239-3121112ED9D5]]></uid>
             <zorder><![CDATA[0]]></zorder>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[to_par]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <objectComment><![CDATA[Score relative to par]]></objectComment>
+            <uid><![CDATA[31FFD364-AE13-460F-9BC6-6A9EBF3BC6EB]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[points]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[3331F789-89A4-4E58-9EBD-1958D387FFEB]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[status]]></name>
@@ -1338,11 +1344,6 @@
             <notNull><![CDATA[0]]></notNull>
             <objectComment><![CDATA[Playing handicap]]></objectComment>
             <uid><![CDATA[C9F51167-5BD8-4673-8A67-448411449536]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[thru]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <uid><![CDATA[572D4C9B-87B0-4FAD-9340-8AFAA3D567DF]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[points]]></name>
@@ -2245,7 +2246,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[625.000000]]></windowLocationX>
         <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{0, 0}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{29, 256}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

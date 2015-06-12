@@ -14,24 +14,24 @@ use common\models\Rule;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'object_type')->dropDownList(array(
-            'TOURNAMENT' => Yii::t('igolf', 'Tournament'),
-            'MATCH' => Yii::t('igolf', 'Match'),
+    <?= $form->field($model, 'competition_type')->dropDownList(array(
+		'TOURNAMENT' => Yii::t('igolf', 'Tournament'),
+		'MATCH' => Yii::t('igolf', 'Match'),
     )) ?>
 
-    <?= $form->field($model, 'rule_type')->dropDownList(array(
-            'SEASON' => Yii::t('igolf', 'Season'),
-            'TOURNAMENT' => Yii::t('igolf', 'Tournament'),
-            'MATCH' => Yii::t('igolf', 'Match'),
+    <?= $form->field($model, 'object_type')->dropDownList(array(
+        'SEASON' => Yii::t('igolf', 'Season'),
+        'TOURNAMENT' => Yii::t('igolf', 'Tournament'),
+        'MATCH' => Yii::t('igolf', 'Match'),
     )) ?>
+
+    <?= $form->field($model, 'rule_type')->dropDownList(
+		Rule::getConstants('TYPE_')
+    ) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 80]) ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'classname')->dropDownList(
-			Rule::getClassnames()
-    ) ?>
 
     <?= $form->field($model, 'note')->textInput(['maxlength' => 255]) ?>
 

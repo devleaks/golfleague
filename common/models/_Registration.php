@@ -13,7 +13,6 @@ use Yii;
  * @property integer $tees_id
  * @property integer $team_id
  * @property integer $flight_id
- * @property integer $thru
  * @property integer $handicap
  * @property integer $points
  * @property integer $position
@@ -46,7 +45,7 @@ class _Registration extends \yii\db\ActiveRecord
     {
         return [
             [['competition_id', 'golfer_id', 'status'], 'required'],
-            [['competition_id', 'golfer_id', 'tees_id', 'team_id', 'flight_id', 'thru', 'handicap', 'points', 'position'], 'integer'],
+            [['competition_id', 'golfer_id', 'tees_id', 'team_id', 'flight_id', 'handicap', 'points', 'position'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
             [['status'], 'string', 'max' => 20]
@@ -65,7 +64,6 @@ class _Registration extends \yii\db\ActiveRecord
             'tees_id' => Yii::t('igolf', 'Tees ID'),
             'team_id' => Yii::t('igolf', 'Team ID'),
             'flight_id' => Yii::t('igolf', 'Flight ID'),
-            'thru' => Yii::t('igolf', 'Thru'),
             'handicap' => Yii::t('igolf', 'Handicap'),
             'points' => Yii::t('igolf', 'Points'),
             'position' => Yii::t('igolf', 'Position'),

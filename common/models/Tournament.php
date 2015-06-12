@@ -41,4 +41,18 @@ class Tournament extends Competition
     {
         return $this->hasMany(Match::className(), ['parent_id' => 'id']);
     }
+
+	/**
+	 * @inheritdoc
+	 */
+	public function currentMatch() {
+		return null;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function hasScores() {
+		return $this;
+	}
 }

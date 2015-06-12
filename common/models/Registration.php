@@ -86,7 +86,6 @@ class Registration extends _Registration
         return array_merge(
 			parent::rules(),
 			[
-            [['thru'], 'in', 'range' => Hole::validNumber()],
             [['status'], 'in', 'range' => array_keys(self::getConstants('STATUS_'))],
         	]
 		);
@@ -132,6 +131,19 @@ class Registration extends _Registration
 	
 	static public function getPreCompetitionStatuses() {
 		return array_keys(self::getLocalizedPreCompetitionStatuses());
+	}
+
+	static public function getParticipantStatuses() {
+		return [
+		    self::STATUS_REGISTERED,
+		    self::STATUS_CONFIRMED,
+		    self::STATUS_FORFEIT,
+		    self::STATUS_MISSEDCUT,
+		    self::STATUS_ELIMINATED,
+		    self::STATUS_DISQUALIFIED,
+		    self::STATUS_WITHDRAWN,
+		    self::STATUS_QUALIFIED,
+		];
 	}
 
 
@@ -200,5 +212,13 @@ class Registration extends _Registration
 		}
 		return $scorecard;
 	}
+
+	public function hasScore() { // opposed to isCompetition()
+		if($scorecard = $this->getScorecards()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
+			return $scorecard->hasScore();
+		}
+		return false;
+	}
+	
 
 }

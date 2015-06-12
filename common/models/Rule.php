@@ -21,6 +21,7 @@ class Rule extends _Rule
 	const TYPE_STABLEFORD_NET = 'STABLEFORD_NET';
 	const TYPE_POINTS = 'POINTS';
 	const TYPE_POSITION = 'POSITION';
+	const TYPE_MATCHPLAY = 'MATCHPLAY';
 	
 	/** */
 	const RULE_MORE = 'MORE';
@@ -66,7 +67,7 @@ class Rule extends _Rule
     /**
 	 * Return points for stableford calculation
      */
-	public static function stableford() {
+	public static function getStablefordPoints() {
 		return [
 			-4 => 6, //sure
 			-3 => 5,
@@ -88,6 +89,23 @@ class Rule extends _Rule
 		else if ($score > 1)
 			return 0;
 		return 2 - $score;
+	}
+	
+	
+	public function isStableford() {
+		return $this->rule_type == self::TYPE_STABLEFORD || $this->rule_type == self::TYPE_STABLEFORD_NET;
+	}
+
+	public function isStrokeplay() {
+		return $this->rule_type == self::TYPE_SCORE || $this->rule_type == self::TYPE_SCORE_NET;
+	}
+
+	public function isMatchplay() {
+		return $this->rule_type == self::TYPE_MATCHPLAY;
+	}
+
+	public function isTeamplay() {
+		return intval($this->team) > 1;
 	}
 
 }

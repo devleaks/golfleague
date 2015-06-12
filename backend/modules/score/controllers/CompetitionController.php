@@ -74,6 +74,18 @@ class CompetitionController extends GolfLeagueController
     }
 
     /**
+     * Displays a single Competition model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionLeaderboard($id)
+    {
+        return $this->render('leaderboard', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
      * Updates an existing Competition model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id

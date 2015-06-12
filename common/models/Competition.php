@@ -158,6 +158,169 @@ class Competition extends _Competition
         return new CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);
     }
 
+
+	/**
+	 * More relations
+	 */
+
+
+	/**
+	 * General Information
+	 */
+	
+	/**
+	 * Get hierarchical list of links for breadcrumbs, from Season to match.
+	 *
+	 * @return array breadcrumbs widget data
+	 */
+	public function breadcrumbs() {
+		$before = $this->parent_id ? $this->parent->breadcrumbs() : [];
+		$before[] = ['label' => Yii::t('igolf', $this->name), 'url' => ['view', 'id'=>$this->id]];
+		return $before;
+	}
+
+	/**
+	 * Get hierarchical name, from Season to match.
+	 *
+	 * @return string Full competition name
+	 */
+	public function getFullName() {
+		if($this->parent)
+			return $this->parent->getFullName() . ' » ' . $this->name;
+		else
+			return $this->name;
+	}
+
+	/**
+	 * Returns scorecards for this competition. Ignore registered non-participant.
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getScorecards() {
+		return $this->hasMany(Scorecard::className(), ['registration_id' => 'id'])->viaTable('registration', ['competition_id' => 'id']);
+		//return Scorecard::find()->where(['registration_id' => $this->getRegistrations()->select('id')]);
+	}
+
+	/**
+	 * Returns competition teams, if any
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getTeams() {
+		return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['competition_id' => 'id']);
+	}
+	
+	/**
+	 * Returns type of child competition, if any.
+	 */
+	public function childType() {
+		switch($this->competition_type) {
+			case $this::TYPE_SEASON: return $this::TYPE_TOURNAMENT; break;
+			case $this::TYPE_TOURNAMENT: return $this::TYPE_MATCH; break;
+		}
+		return null;
+	}
+
+	/**
+	 * Returns type of parent competition, if any.
+	 */
+	public function parentType() {
+		switch($this->competition_type) {
+			case $this::TYPE_TOURNAMENT: return $this::TYPE_SEASON; break;
+			case $this::TYPE_MATCH: return $this::TYPE_TOURNAMENT; break;
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns total number of rounds.
+	 */	
+	public function getRounds() {
+		return $this->getCompetitions()->count();
+	}
+
+	/**
+	 * Returns round number in list of rounds
+	 */
+	public function getRound() {
+		return 0;
+	}
+
+	/**
+	 * returns current match if any
+	 *
+	 * @return common\models\Match
+	 */
+	public function currentMatch() {
+		return null;
+	}
+
+	/**
+	 * Get end date of a competition. Matches are assumesd to be one day only.
+	 */
+	public function getEndDate() {
+		if($this->competition_type == self::TYPE_MATCH)
+			return $this->start_date;
+		else
+			if ($last_competition = $this->getCompetitions()->orderBy('start_date desc')->one())
+				return $last_competition->getEndDate();
+		return $this->start_date;
+	}
+
+	/**
+	 * Get end date of a competition. Matches are assumes to be one day only.
+	 */
+	public function getStartDate() {
+		if($this->competition_type == self::TYPE_MATCH)
+			return $this->start_date;
+		else
+			if ($first_competition = $this->getCompetitions()->orderBy('start_date asc')->one())
+				return $first_competition->getStartDate();
+		return $this->start_date;
+	}
+	
+	/**
+	 * Whether a competition has started and has scores registered.
+	 *
+	 * @return boolean
+	 */
+	public function hasScores() {
+		foreach($this->getRegistrations()->andWhere(['status' => Registration::getParticipantStatuses()])->each() as $registration) {
+			if(!$registration->hasScore())
+				return false;
+		}
+		return true;
+	}
+
+    /**
+	 * Returns new Competition of proper type.
+     */
+	public static function getNew($type)
+	{
+	    switch ($type) {
+	        case Competition::TYPE_SEASON:
+	            $new = new Season();
+				break;
+	        case Competition::TYPE_TOURNAMENT:
+	            $new = new Tournament();
+				break;
+	        case Competition::TYPE_MATCH:
+	            $new = new Match();
+				break;
+	        default:
+	        	$new = new self;
+				break;
+	    }
+		$new->competition_type = $type;
+		return $new;
+	}
+
+
+
+	/**
+	 * Registrations
+	 */
+	
     /**
      * Checks whether golfer registered to event
      * 
@@ -175,13 +338,6 @@ class Competition extends _Competition
 							->exists();
     }
 
-
-	public function getFullName() {
-		if($this->parent)
-			return $this->parent->getFullName() . ' » ' . $this->name;
-		else
-			return $this->name;
-	}
 
 	/**
 	 * Return whether a golfer can register to this competition or not
@@ -312,7 +468,34 @@ class Competition extends _Competition
         return false;
     }
 
+	/**
+	 *	Assigns appropriate starting tees set for supplied registration.
+	 */
+	public function setTees($registration) {
+		foreach($this->getStarts()->each() as $start) {
+			if($start->isOk($registration->golfer) && !$registration->tees_id)
+				$registration->tees_id = $start->tees_id;
+				$registration->save();
+		}
+	}
 
+	/**
+	 * Finds the "longest"most appropriate" tees from all possible starting tees sets. Returns null if none found (error).
+	 *
+	 * @return common\models\Tees Longest starting tee set.
+	 */
+	public function getTees() {
+		if($start = $this->getStarts()->one()) { // @todo: Get most appropriate tees set. Ladies only? Pro only? ... for now, returns first one found.
+			return $start->tees;
+		}
+		return null;
+	}
+
+
+
+	/**
+	 * Events
+	 */
 	public function createEvents() {
 		if(isset($this->registration_start) && $this->registration_start > $now) {
 			$event = new Event();
@@ -340,51 +523,6 @@ class Competition extends _Competition
 		}
 	}
 	
-	public function breadcrumbs() {
-		$before = $this->parent_id ? $this->parent->breadcrumbs() : [];
-		$before[] = ['label' => Yii::t('igolf', $this->name), 'url' => ['view', 'id'=>$this->id]];
-		return $before;
-	}
-
-	public function childType() {
-		switch($this->competition_type) {
-			case $this::TYPE_SEASON: return $this::TYPE_TOURNAMENT; break;
-			case $this::TYPE_TOURNAMENT: return $this::TYPE_MATCH; break;
-		}
-		return null;
-	}
-
-	public function parentType() {
-		switch($this->competition_type) {
-			case $this::TYPE_TOURNAMENT: return $this::TYPE_SEASON; break;
-			case $this::TYPE_MATCH: return $this::TYPE_TOURNAMENT; break;
-		}
-		return null;
-	}
-
-    /**
-	 * Returns new Competition of proper type.
-     */
-	public static function getNew($type)
-	{
-	    switch ($type) {
-	        case Competition::TYPE_SEASON:
-	            $new = new Season();
-				break;
-	        case Competition::TYPE_TOURNAMENT:
-	            $new = new Tournament();
-				break;
-	        case Competition::TYPE_MATCH:
-	            $new = new Match();
-				break;
-	        default:
-	        	$new = new self;
-				break;
-	    }
-		$new->competition_type = $type;
-		return $new;
-	}
-
 	/**
 	 * Generates events for this competition
 	 */
@@ -431,34 +569,12 @@ class Competition extends _Competition
 		return $events;
 	}
 	
-	/**
-	 * Get end date of a competition. Matches are assumes to be one day only.
-	 */
-	public function getEndDate() {
-		if($this->competition_type == self::TYPE_MATCH)
-			return $this->start_date;
-		else
-			if ($last_competition = $this->getCompetitions()->orderBy('start_date desc')->one())
-				return $last_competition->getEndDate();
-		return $this->start_date;
-	}
+	
 
+	
 	/**
-	 * Get end date of a competition. Matches are assumes to be one day only.
+	 * Teams
 	 */
-	public function getStartDate() {
-		if($this->competition_type == self::TYPE_MATCH)
-			return $this->start_date;
-		else
-			if ($first_competition = $this->getCompetitions()->orderBy('start_date asc')->one())
-				return $first_competition->getStartDate();
-		return $this->start_date;
-	}
-	
-	public function getTeams() {
-		return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['competition_id' => 'id']);
-	}
-	
 	public function isTeamCompetition() {
 		return $this->rule->team > 1;
 	}
@@ -490,16 +606,5 @@ class Competition extends _Competition
 		Yii::trace('final '.count($registrations));
 		return count($registrations) == 0;
 	}
-	
-	public function setTees($registration) {
-		foreach($this->getStarts()->each() as $start) {
-			if($start->isOk($registration->golfer) && !$registration->tees_id)
-				$registration->tees_id = $start->tees_id;
-				$registration->save();
-		}
-	}
-	
-	public function getScorecards() { //@todo: redo with viaTable
-		return Scorecard::find()->where(['registration_id' => $this->getRegistrations()->select('id')]);
-	}
+
 }
