@@ -15,7 +15,7 @@ use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-class Scoretable extends Widget {
+class _Scoretable extends Widget {
 	/**
 	 * O P T I O N S
 	 *
@@ -25,14 +25,18 @@ class Scoretable extends Widget {
 	const LENGTH		= 'length';
 
 	/* Scores */
-	const NINE			= 'nine';
-	const BACK			= 'back';
 	const GROSS			= 'gross';
 	const NET			= 'net';
 	const STABLEFORD	= 'stableford';
+	const STABLEFORD_NET	= 'stableford_net';
 	const ALLOWED		= 'allowed';
 	const TO_PAR		= 'to_par';
+	const POINT			= 'points';
+
+	/** Play */
 	const STROKEPLAY	= 'strokeplay';
+	const NINE			= 'nine';
+	const BACK			= 'back';
 
 	/* Columns */
 	const TOTAL			= 'total';
@@ -149,22 +153,10 @@ class Scoretable extends Widget {
 		if($this->getOption(self::LEGEND)) return self::legend(true, $p);		
 	}
 	
-	private function print_header_split() {
-		$output =  Html::beginTag('tr', ['class' => 'scorecard-split']);
-		$output .= Html::tag('th', $this->model->tees->name);
-		for($i=0; $i<$this->model->tees->holes; $i++) {
-			$output .= Html::tag('th', $i+1);
-		}
-		$output .= Html::tag('th', Yii::t('igolf', 'Total'));
-		if($this->getOption(self::FRONTBACK)) {
-		$output .= Html::tag('th', Yii::t('igolf', 'Front'));
-		$output .= Html::tag('th', Yii::t('igolf', 'Back'));
-		}
-		$output .= Html::endTag('tr');
-		return $output;
+	protected function print_header_split() {
 	}
 
-	private function print_headers() {
+	protected function print_headers() {
 		$displays = [
 			self::LENGTH => [
 				'label'=> Yii::t('igolf', 'Length'),
@@ -212,14 +204,14 @@ class Scoretable extends Widget {
 		return Html::tag('caption', $competition.' — '.$golfer);
 	}
 
-	private function td_allowed($val, $what) {
+	protected function td_allowed($val, $what) {
 		if($what == 'total')
 			return Html::tag('td', $val);
 		$i = $this->getOption(self::ALLOWED_ICON);
 		return Html::tag('td', $i ? str_repeat($i,$val) : $val);
 	}
 	
-	private function td_topar($val, $classname) {
+	protected function td_topar($val, $classname) {
 		if(in_array($classname, ['hole','today']) && ($val !== "&nbsp;")) {
 			$color = $this->getOption(self::COLOR);
 			$dsp = $color ? abs($val) : $val;
@@ -230,7 +222,7 @@ class Scoretable extends Widget {
 		return Html::tag('td', $dsp, ['class' => ( $color && ($val < 0) ) ? 'red' : null]);
 	}
 	
-	private function td_score_color($score, $topar) {
+	protected function td_score_color($score, $topar) {
 		$prefix = $this->getOption(self::COLOR) ? 'color c' : ($this->getOption(self::SHAPE) ? 'shape s' : '');
 		if($this->getOption(self::COLOR)||$this->getOption(self::SHAPE)) {
 			$class = (abs($topar) > 4) ? (($topar > 0) ? $prefix."3" : $prefix."-4") : $prefix.$topar;
@@ -240,7 +232,7 @@ class Scoretable extends Widget {
 		return $output;			
 	}
 	
-	private function td_score_highlight($score, $topar, $name) {
+	protected function td_score_highlight($score, $topar, $name) {
 		if( ($name != 'stableford') && (intval($score) != 0) ) {
 				$output = $this->td_score_color($score, $topar);
 		} else if ( ($name == "stableford") && ($score !== null) ) {

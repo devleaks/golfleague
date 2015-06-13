@@ -102,11 +102,24 @@ class Course extends _Course
     public function getTeesWithHoles() {
         $tees_with_holes = array();
 
-        foreach($this->getTees()->all() as $tees)
+        foreach($this->getTees()->each() as $tees)
             if($tees->hasHoles()/*!*/)
                 $tees_with_holes[] = $tees;
 
         return $tees_with_holes;
     }
+
+	/**
+	 * Get name with facility name
+	 *
+	 * @return string Full course name
+	 */
+	public function getFullName() {
+		if($this->facility)
+			return $this->facility->name . ' » ' . $this->name;
+		else
+			return $this->name;
+	}
+
 
 }

@@ -90,7 +90,7 @@ class ScoreController extends GolfLeagueController
     {
 		$registration = $this->findRegistration($id);
 		if($scorecard = $registration->getScorecards()->one()) { // Scorecard::findOne(['registration_id'=>$registration->id])
-			$scorecard->delete();
+			$scorecard->publish();
 		}
         return $this->redirect(['view', 'id' => $registration->competition_id]);
     }
@@ -106,8 +106,8 @@ class ScoreController extends GolfLeagueController
 		$scorecard = $this->findScorecard($id);
 		if($scorecard->registration) {
 			$id = $scorecard->registration->competition_id;
-			$scorecard->delete();
-	        return $this->redirect(['competition', 'id' => $registration->competition_id]);
+			$scorecard->deleteScores();
+	        return $this->redirect(['competition', 'id' => $id]);
 		} else {
 			$scorecard->delete();
 	        return $this->redirect(['/score']);

@@ -21,8 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="scorecard-index">
 
-	<?php $form = ActiveForm::begin(); ?>
-
      <?= GridView::widget([
 		'options' => ['id' => 'registration'],
         'dataProvider' => $dataProvider,
@@ -57,11 +55,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 			[
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {update} {delete}',
+			 	'template' => '{view} {update} {reset}',
+	            'buttons' => [
+	                'reset' => function ($url, $model) {
+						$url = Url::to(['delete', 'id' => $model->id]);
+	                    return Html::a('<i class="glyphicon glyphicon-trash"></i>', $url, [
+	                        'title' => Yii::t('igolf', 'Reset scores'),
+							'data-confirm' => Yii::t('igolf', 'Reset scores for this golfer?')
+	                    ]);
+	                },
+				],
 	        ],
 		]
     ]); ?>
-
-	<?php ActiveForm::end(); ?>
 	
 </div>

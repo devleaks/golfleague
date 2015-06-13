@@ -10,12 +10,21 @@ namespace common\widgets;
 use Yii;
 use common\assets\ScorecardAsset;
 use common\models\Rule;
+use yii\base\Model;
 use yii\bootstrap\Widget;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-class Scorecard extends Scoretable {
+class Scoredisplay extends Model {
+	public $name;
+	public $label;
+	public $data;
+	public $total;
+	public $color;
+}
+
+class Scorecard extends _Scoretable {
 	/**
 	 * common\models\Scorecard Scorecard to display.
 	 */
@@ -56,8 +65,7 @@ class Scorecard extends Scoretable {
     /**
      * Register client assets
      */
-    protected function registerAssets()
-    {
+    protected function registerAssets() {
         $view = $this->getView();
         ScorecardAsset::register($view);
     }
@@ -65,7 +73,7 @@ class Scorecard extends Scoretable {
 	/**
 	 *	Table Headers & Footers
 	 */
-	private function print_header_split() {
+	protected function print_header_split() {
 		$output =  Html::beginTag('tr', ['class' => 'scorecard-split']);
 		$output .= Html::tag('th', $this->scorecard->tees->name);
 		for($i=0; $i<$this->scorecard->tees->holes; $i++) {
@@ -80,34 +88,34 @@ class Scorecard extends Scoretable {
 		return $output;
 	}
 
-	private function print_headers() {
+	protected function print_headers() {
 		$displays = [
-			self::LENGTH => [
+			self::LENGTH => new Scoredisplay([
 				'label'=> Yii::t('igolf', 'Length'),
 				'data' => $this->scorecard->tees->lengths(),
 				'total' => true
-			],
-			self::SI => [
+			]),
+			self::SI => new Scoredisplay([
 				'label'=> Yii::t('igolf', 'S.I.'),
 				'data' => $this->scorecard->tees->sis(),
 				'total' => false
-			],
-			self::PAR => [
+			]),
+			self::PAR => new Scoredisplay([
 				'label'=> Yii::t('igolf', 'Par'),
 				'data' => $this->scorecard->tees->pars(),
 				'total' => true
-			],
+			]),
 		];
 
 		$output = '';
 		foreach($displays as $key => $display) {
 			if($this->getOption($key)) {			
 				$output .=  Html::beginTag('tr');
-				$output .= Html::tag('th', $display['label'], ['class' => 'labelr']);
+				$output .= Html::tag('th', $display->label, ['class' => 'labelr']);
 				for($i=0; $i<$this->scorecard->tees->holes; $i++) {
-					$output .= Html::tag('th', $display['data'][$i]);
+					$output .= Html::tag('th', $display->data[$i]);
 				}
-				if($display['total']) {
+				if($display->total) {
 					$output .= Html::tag('th', array_sum($display['data']));
 					if($this->getOption(self::FRONTBACK)) {
 						$output .= Html::tag('th', array_sum(array_slice($display['data'], 0, 9)));
@@ -123,20 +131,18 @@ class Scorecard extends Scoretable {
 	}
 
 	protected function caption() {
-		$competition = $this->scorecard->registration->competition->getFullName().', '.Yii::$app->formatter->asDate($this->scorecard->registration->competition->start_date);
-		$golfer = $this->scorecard->registration->golfer->name.' ('.$this->scorecard->registration->golfer->handicap.')';
-		return Html::tag('caption', $competition.' — '.$golfer);
+		return Html::tag('caption', $this->scorecard->getLabel());
 	}
 
-	private function td_allowed($val, $what) {
-		if($what == 'total')
+	protected function td_allowed($val, $what) {
+		if($what == self::TOTAL)
 			return Html::tag('td', $val);
 		$i = $this->getOption(self::ALLOWED_ICON);
 		return Html::tag('td', $i ? str_repeat($i,$val) : $val);
 	}
 	
-	private function td_topar($val, $classname) {
-		if(in_array($classname, ['hole','today']) && ($val !== "&nbsp;")) {
+	protected function td_topar($val, $classname) {
+		if(in_array($classname, [self::HOLE,self::TODAY]) && ($val !== "&nbsp;")) {
 			$color = $this->getOption(self::COLOR);
 			$dsp = $color ? abs($val) : $val;
 		} else {
@@ -146,7 +152,7 @@ class Scorecard extends Scoretable {
 		return Html::tag('td', $dsp, ['class' => ( $color && ($val < 0) ) ? 'red' : null]);
 	}
 	
-	private function td_score_color($score, $topar) {
+	protected function td_score_color($score, $topar) {
 		$prefix = $this->getOption(self::COLOR) ? 'color c' : ($this->getOption(self::SHAPE) ? 'shape s' : '');
 		if($this->getOption(self::COLOR)||$this->getOption(self::SHAPE)) {
 			$class = (abs($topar) > 4) ? (($topar > 0) ? $prefix."3" : $prefix."-4") : $prefix.$topar;
@@ -156,7 +162,7 @@ class Scorecard extends Scoretable {
 		return $output;			
 	}
 	
-	private function td_score_highlight($score, $topar, $name) {
+	protected function td_score_highlight($score, $topar, $name) {
 		if( ($name != 'stableford') && (intval($score) != 0) ) {
 				$output = $this->td_score_color($score, $topar);
 		} else if ( ($name == "stableford") && ($score !== null) ) {
@@ -180,38 +186,44 @@ class Scorecard extends Scoretable {
 		return $output;
 	}
 	
-	private function print_scores() {
+	protected function print_scores() {
 		$displays = [
-			self::ALLOWED => [
+			self::ALLOWED => new Scoredisplay([
 				'label' => Yii::t('igolf', 'Allowed'),
 				'data' => $this->scorecard->allowed(),
 				'total' => true,
 				'color' => true/*note:true displays as '• •', false displays as '2'*/,
-			],
-			self::GROSS => [
+			]),
+			self::GROSS => new Scoredisplay([
 				'label' => Yii::t('igolf', 'Score'),
 				'data' => $this->scorecard->score(),
 				'total' => true,
 				'color' => true,
-			],
-			self::NET => [
+			]),
+			self::NET => new Scoredisplay([
 				'label' => Yii::t('igolf', 'Net'),
 				'data' => $this->scorecard->score_net(),
 				'total' => true,
 				'color' => true,
-			],
-			self::STABLEFORD => [
+			]),
+			self::STABLEFORD => new Scoredisplay([
+				'label' => Yii::t('igolf', 'Stableford'),
+				'data' => $this->scorecard->stableford(),
+				'total' => true,
+				'color' => true,
+			]),
+			self::STABLEFORD_NET => new Scoredisplay([
 				'label' => Yii::t('igolf', 'Stableford Net'),
 				'data' => $this->scorecard->stableford_net(),
 				'total' => true,
 				'color' => true,
-			],
-			self::TO_PAR => [
+			]),
+			self::TO_PAR => new Scoredisplay([
 				'label' => Yii::t('igolf', 'To Par'),
 				'data' => $this->scorecard->toPar(),
 				'total' => true,
 				'color' => false
-			],
+			]),
 		];
 		
 		$stableford_points = $this->scorecard->registration ? $this->scorecard->registration->competition->rule->getStablefordPoints() : Rule::getStablefordPoints();
@@ -220,26 +232,26 @@ class Scorecard extends Scoretable {
 		foreach($displays as $key => $display) {
 			if( $this->getOption($key) ) { 
 				$output .=  Html::beginTag('tr', ['class' => $key]);
-				$output .= Html::tag('td', $display['label'], ['class' => 'scorecard-label']);
+				$output .= Html::tag('td', $display->label, ['class' => 'scorecard-label']);
 
 				for($i=0; $i<$this->scorecard->tees->holes; $i++)
-					if($key == self::STABLEFORD)
-						$output .= $this->td($key, 'hole', $display['data'][$i], array_search($display['data'][$i], $stableford_points));
+					if(in_array($key, [self::STABLEFORD, self::STABLEFORD_NET]))
+						$output .= $this->td($key, self::HOLE, $display->data[$i], array_search($display->data[$i], $stableford_points));
 					else
-						$output .= $this->td($key, 'hole', $display['data'][$i], $display['data'][$i] - $this->scorecard->tees->pars()[$i]);
+						$output .= $this->td($key, self::HOLE, $display->data[$i], $display->data[$i] - $this->scorecard->tees->pars()[$i]);
 
-				if($display['total']) {
+				if($display->total) {
 					if($key == self::TO_PAR) {
-						$output .= $this->td($key, 'today', $display['data'][$this->scorecard->tees->holes - 1]);
+						$output .= $this->td($key, self::TODAY, $display->data[$this->scorecard->tees->holes - 1]);
 						if($this->getOption(self::FRONTBACK)) {
-							$output .= $this->td($key, 'today', $display['data'][8]);
-							$output .= $this->td($key, 'today', $display['data'][17]);
+							$output .= $this->td($key, self::TODAY, $display->data[8]);
+							$output .= $this->td($key, self::TODAY, $display->data[17]);
 						}
 					} else {
-						$output .= $this->td($key, 'total', array_sum($display['data']));
+						$output .= $this->td($key, self::TOTAL, array_sum($display->data));
 						if($this->getOption(self::FRONTBACK)) {
-							$output .= $this->td($key, 'total', array_sum(array_slice($display['data'], 0, 9)));
-							$output .= $this->td($key, 'total', array_sum(array_slice($display['data'], 9, 9)));
+							$output .= $this->td($key, self::TOTAL, array_sum(array_slice($display->data, 0, 9)));
+							$output .= $this->td($key, self::TOTAL, array_sum(array_slice($display->data, 9, 9)));
 						}
 					}
 				} else {

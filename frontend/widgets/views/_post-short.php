@@ -18,4 +18,6 @@ use yii\helpers\Url;
 
     <?= $model->truncate_to_n_words(Url::to(['news/view', 'id'=>$model->id])) ?>
 
+	<div class="clearfix"></div>
+
 </div>

@@ -13,6 +13,7 @@ use yii\helpers\Url;
 		<li><a href="<?= Url::to(['/calendar']) ?>">Calendar</a></li>
 		<li><a href="<?= Url::to(['/news']) ?>">News</a></li>
 		<li><a href="<?= Url::to(['/golfer']) ?>">Your Profile</a></li>
+		<li><a href="<?= Url::to(['/golfer/practice']) ?>">Practice rounds</a></li>
 		<li><a href="<?= Url::to(['/golfer/registration']) ?>">Registrations</a></li>
 
 		<li>Enter scores</li>

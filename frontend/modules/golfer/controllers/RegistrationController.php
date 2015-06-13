@@ -15,6 +15,7 @@ use yii\data\ActiveDataProvider;
 use yii\db\Query;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class RegistrationController extends \frontend\controllers\DefaultController
 {
@@ -25,7 +26,12 @@ class RegistrationController extends \frontend\controllers\DefaultController
     public function actionIndex() {
         $registrationSearchModel = new RegistrationSearch();
         $registrationDataProvider = $registrationSearchModel->search(Yii::$app->request->queryParams);
-		$registrationDataProvider->query->andWhere(['golfer_id' => Golfer::me()->id]);
+
+        if (! $golfer = Golfer::me() ) {
+            throw new NotFoundHttpException('You are not a golfer.');
+        }
+
+		$registrationDataProvider->query->andWhere(['golfer_id' => $golfer->id]);
 
 		$now = date('Y-m-d H:i:s');
 

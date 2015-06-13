@@ -54,12 +54,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			Scorecard::FRONTBACK => true,
 			Scorecard::COLOR => true,
 			Scorecard::LEGEND => true,
-			Scorecard::GROSS => true,
 			Scorecard::ALLOWED => true,
-			Scorecard::NET => true,
-			Scorecard::TO_PAR => true,
-			Scorecard::STABLEFORD => true,
 			Scorecard::ALLOWED_ICON => '•',
+			Scorecard::GROSS => true,
+			Scorecard::NET => true,
+			Scorecard::STABLEFORD => true,
+			Scorecard::STABLEFORD_NET => true,
+			Scorecard::TO_PAR => true,
 		]
     ]) ?>
 

@@ -60,4 +60,5 @@ class Match extends Competition
 	public function hasScores() {
 		return true; //@todo
 	}
+
 }

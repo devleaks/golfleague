@@ -201,9 +201,9 @@ class Registration extends _Registration
 	public function getScorecard($detailed = false) {
 		if(! $scorecard = $this->getScorecards()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
 			$scorecard = new Scorecard([
+				'scorecard_type' => Scorecard::TYPE_COMPETITION,
 				'registration_id' => $this->id,
-				'tees_id' => $this->tees_id,
-				'golfer_id' => $this->golfer_id,
+				'status' => Scorecard::STATUS_CREATED,
 			]);
 			$scorecard->save();
 			if($detailed) {

@@ -240,10 +240,23 @@ class Competition extends _Competition
 	}
 
 	/**
-	 * Returns round number in list of rounds
+	 * Get sequence number of competition in parent competition. Competitions are sorted by start date.
+	 *
+	 * @return integer Sequence number, starting from 1. Returns 0 if not applicable.
 	 */
 	public function getRound() {
-		return 0;
+		$seq = 0;
+		if($parent = $this->getParent()->one()) { // will be null for season
+			$seq = 1;
+			foreach($parent->getCompetitions()->each() as $competition) { // are we sure comp is always in its parent's children !? ;-)
+				if($competition->id = $this->id) {
+					return $seq;
+				} else {
+					$seq++;
+				}
+			}
+		}
+		return $seq;
 	}
 
 	/**
@@ -291,6 +304,7 @@ class Competition extends _Competition
 		}
 		return true;
 	}
+
 
     /**
 	 * Returns new Competition of proper type.

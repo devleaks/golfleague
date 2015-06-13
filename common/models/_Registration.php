@@ -13,7 +13,7 @@ use Yii;
  * @property integer $tees_id
  * @property integer $team_id
  * @property integer $flight_id
- * @property integer $handicap
+ * @property string $handicap
  * @property integer $points
  * @property integer $position
  * @property string $note
@@ -45,7 +45,8 @@ class _Registration extends \yii\db\ActiveRecord
     {
         return [
             [['competition_id', 'golfer_id', 'status'], 'required'],
-            [['competition_id', 'golfer_id', 'tees_id', 'team_id', 'flight_id', 'handicap', 'points', 'position'], 'integer'],
+            [['competition_id', 'golfer_id', 'tees_id', 'team_id', 'flight_id', 'points', 'position'], 'integer'],
+            [['handicap'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
             [['status'], 'string', 'max' => 20]

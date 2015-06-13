@@ -47,15 +47,18 @@ class ScorecardController extends GolfLeagueController
 				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scores updated.'));
 			}
 		}
+		
+		$scorecards = []; //@todo do not loop on getScorecards twice...
+		foreach($competition->getRegistrations()
+							->andWhere(['registration.status' => array_merge([Registration::STATUS_CONFIRMED], Registration::getPostCompetitionStatuses())])
+							->each() as $registration) {
+			$scorecards[] = $registration->getScorecard(); // this will create a scorecard if none exists
+		}
 
         return $this->render('competition', [
 			'competition' => $competition,
             'dataProvider' => new ActiveDataProvider([
-				'query' => Scorecard::find()->where([
-					'registration_id' =>	$competition->getRegistrations()
-														->andWhere(['registration.status' => array_merge([Registration::STATUS_CONFIRMED], Registration::getPostCompetitionStatuses())])
-														->select('id')
-				]),
+				'query' => $competition->getScorecards()
 			]),
         ]);
 

@@ -44,7 +44,7 @@ class Scoreline extends Model {
 }
 
 
-class Scoreboard extends Scoretable {
+class Scoreboard extends _Scoretable {
 	/** common\models\Competition Competition to display. */
 	public $competition;
 	
@@ -69,7 +69,60 @@ class Scoreboard extends Scoretable {
 		$this->match = $this->competition->currentMatch();
 		// check options:
 		// if 9 holes, FRONTBACK is irrelevant.
-		return $this->scoreboard();
+		if($this->competition->status != Competition::STATUS_READY )
+			return Yii::t('igolf', 'Competition has not started yet.');
+		
+		if($this->competition->competition_type == Competition::TYPE_MATCH && !$this->tees = $this->competition->getTees())
+			return Yii::t('igolf', 'Competition has no starting tees set.');
+			
+		$this->prepare_scorecards();
+			
+		if($this->getOption(self::AUTO_REFRESH))
+			$refresh_data = json_encode([
+				'competition' => $this->id(),
+				'refresh' => $this->show(self::AUTO_REFRESH_RATE),
+				'options' => implode(',', $this->valid_options)
+			]);
+		else
+			$refresh_data = $this->getId();
+
+		$options = ['class' => 'scoreboard'];
+		if($this->getOption(self::AUTO_REFRESH))
+			Html::addCssClass($options, 'scoreboard-auto-refresh');
+		if($this->getOption(self::SPLITFLAP))
+			Html::addCssClass($options, 'scoreboard-splitflap');
+		if($this->getOption(self::CARDS))
+			Html::addCssClass($options, 'scoreboard-cards');
+		if($this->getOption(self::NINE))
+			Html::addCssClass($options, 'scoreboard-nine');
+		
+		$options['data-holes'] = $this->competition->holes;
+		$options['data-ajaxgolfleague'] = $refresh_data;		
+		
+		$r = Html::beginTag('table', $options);
+		
+		$r .= $this->caption();
+
+		$r .= Html::beginTag('thead');
+		$r .= $this->print_headers();
+		$r .= $this->print_header_split();
+		$r .= Html::endTag('thead');
+			
+		$r .= Html::beginTag('tbody');
+		$r .= $this->print_scores();
+		$r .= Html::endTag('tbody');;
+
+		if(	$this->getOption(self::FOOTER) ) {
+			$r .= Html::tag('tfoot', $this->print_footer());
+		}
+		
+		$r .= Html::endTag('table');
+
+		if(	$this->getOption(self::LEGEND) ) {
+			$r .= $this->print_legend();
+		}
+
+		return $r;
 	}
 	
 	public function init() {
@@ -86,7 +139,7 @@ class Scoreboard extends Scoretable {
         ScoreboardAsset::register($view);
     }
 
-	private function print_header_split() {
+	protected function print_header_split() {
 		$output =  Html::beginTag('tr', ['class' => 'scorecard-split']);
 		$output .= Html::tag('th', $this->competition->tees->name, ['colspan' => 2]);
 		for($i=0; $i<$this->competition->tees->holes; $i++) {
@@ -101,7 +154,7 @@ class Scoreboard extends Scoretable {
 		return $output;
 	}
 
-	private function print_headers() {
+	protected function print_headers() {
 		$displays = [
 			self::LENGTH => [
 				'label'=> Yii::t('igolf', 'Length'),
@@ -159,14 +212,14 @@ class Scoreboard extends Scoretable {
 		return Html::tag('caption', $competition);
 	}
 
-	private function td_allowed($val, $what) {
+	protected function td_allowed($val, $what) {
 		if($what == 'total')
 			return Html::tag('td', $val);
 		$i = $this->getOption(self::ALLOWED_ICON);
 		return Html::tag('td', $i ? str_repeat($i,$val) : $val);
 	}
 	
-	private function td_topar($val, $classname) {
+	protected function td_topar($val, $classname) {
 		if(in_array($classname, ['hole','today']) && ($val !== "&nbsp;")) {
 			$color = $this->getOption(self::COLOR);
 			$dsp = $color ? abs($val) : $val;
@@ -177,7 +230,7 @@ class Scoreboard extends Scoretable {
 		return Html::tag('td', $dsp, ['class' => ( $color && ($val < 0) ) ? 'red' : null]);
 	}
 	
-	private function td_score_color($score, $topar) {
+	protected function td_score_color($score, $topar) {
 		$prefix = $this->getOption(self::COLOR) ? 'color c' : ($this->getOption(self::SHAPE) ? 'shape s' : '');
 		if($this->getOption(self::COLOR)||$this->getOption(self::SHAPE)) {
 			$class = (abs($topar) > 4) ? (($topar > 0) ? $prefix."3" : $prefix."-4") : $prefix.$topar;
@@ -187,7 +240,7 @@ class Scoreboard extends Scoretable {
 		return $output;			
 	}
 	
-	private function td_score_highlight($score, $topar, $name) {
+	protected function td_score_highlight($score, $topar, $name) {
 		if( ($name != 'stableford') && (intval($score) != 0) ) {
 				$output = $this->td_score_color($score, $topar);
 		} else if ( ($name == "stableford") && ($score !== null) ) {
@@ -211,12 +264,12 @@ class Scoreboard extends Scoretable {
 		return $output;
 	}
 
-	protected function totals($name, $display_name, $position, $scoreline) {
+	private function totals($name, $display_name, $position, $scoreline) {
 		$output = '';
 		return $output;
 	}
 
-	protected function print_score($name, $position, $scoreline, $label = '') {
+	private function print_score($name, $position, $scoreline, $label = '') {
 		$output = '';
 		if(!$scoreline) {
 			$output .= Html::beginTag('tr', ['class' => 'player-error '.$name]);
@@ -298,7 +351,28 @@ class Scoreboard extends Scoretable {
 	}
 
 	
-	private function print_scores() {
+	private function prepare_scorecards() {
+		$this->scoreline = [];
+		foreach($this->competition->getScorecards()->each() as $scorecard) {
+			$this->scoreline[] = new Scoreline([
+				'scorecard' => $scorecard,
+				'pos' => 0, // will be computed
+				'curr' => $this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->toPar(),
+				'rounds' => $this->competition->getRounds(),
+				'round' => $this->competition->getRound(),
+				'thru' => $scorecard->thru,
+				'today'	=> ($this->competition->rule->isStableford()) ? array_sum($scorecard->stableford()) : $scorecard->lastToPar(),
+				'total'	=> array_sum($this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->score()),
+				'stats' => [],
+			]);
+		}
+		
+		// sort array depending on rule
+		uasort($this->scoreline, array(Scoreline::className(), $this->competition->rule->isStableford() ? 'compareGolfScore' : 'compareGolfScoreToPar'));
+	}
+	
+
+	protected function print_scores() {
 		$output = '';
 		$count = 0;
 		$previous = null;
@@ -343,82 +417,4 @@ class Scoreboard extends Scoretable {
 	}
 	
 	
-	protected function prepare_scorecards() {
-		$this->scoreline = [];
-		foreach($this->competition->getScorecards()->each() as $scorecard) {
-			$this->scoreline[] = new Scoreline([
-				'scorecard' => $scorecard,
-				'pos' => 0, // will be computed
-				'curr' => $this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->toPar(),
-				'rounds' => $this->competition->getRounds(),
-				'round' => $this->competition->getRound(),
-				'thru' => $scorecard->thru,
-				'today'	=> ($this->competition->rule->isStableford()) ? array_sum($scorecard->stableford()) : $scorecard->lastToPar(),
-				'total'	=> array_sum($this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->score()),
-				'stats' => [],
-			]);
-		}
-		
-		// sort array depending on rule
-		uasort($this->scoreline, array(Scoreline::className(), $this->competition->rule->isStableford() ? 'compareGolfScore' : 'compareGolfScoreToPar'));
-	}
-	
-	
-	protected function scoreboard() {
-		if($this->competition->status != Competition::STATUS_READY )
-			return Yii::t('igolf', 'Competition has not started yet.');
-		
-		if($this->competition->competition_type == Competition::TYPE_MATCH && !$this->tees = $this->competition->getTees())
-			return Yii::t('igolf', 'Competition has no starting tees set.');
-			
-		$this->prepare_scorecards();
-			
-		if($this->getOption(self::AUTO_REFRESH))
-			$refresh_data = json_encode([
-				'competition' => $this->id(),
-				'refresh' => $this->show(self::AUTO_REFRESH_RATE),
-				'options' => implode(',', $this->valid_options)
-			]);
-		else
-			$refresh_data = $this->getId();
-
-		$options = ['class' => 'scoreboard'];
-		if($this->getOption(self::AUTO_REFRESH))
-			Html::addCssClass($options, 'scoreboard-auto-refresh');
-		if($this->getOption(self::SPLITFLAP))
-			Html::addCssClass($options, 'scoreboard-splitflap');
-		if($this->getOption(self::CARDS))
-			Html::addCssClass($options, 'scoreboard-cards');
-		if($this->getOption(self::NINE))
-			Html::addCssClass($options, 'scoreboard-nine');
-		
-		$options['data-holes'] = $this->competition->holes;
-		$options['data-ajaxgolfleague'] = $refresh_data;		
-		
-		$r = Html::beginTag('table', $options);
-		
-		$r .= $this->caption();
-
-		$r .= Html::beginTag('thead');
-		$r .= $this->print_headers();
-		$r .= $this->print_header_split();
-		$r .= Html::endTag('thead');
-			
-		$r .= Html::beginTag('tbody');
-		$r .= $this->print_scores();
-		$r .= Html::endTag('tbody');;
-
-		if(	$this->getOption(self::FOOTER) ) {
-			$r .= Html::tag('tfoot', $this->print_footer());
-		}
-		
-		$r .= Html::endTag('table');
-
-		if(	$this->getOption(self::LEGEND) ) {
-			$r .= $this->print_legend();
-		}
-
-		return $r;
-	}
-
 }

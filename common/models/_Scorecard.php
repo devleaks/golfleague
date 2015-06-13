@@ -9,8 +9,6 @@ use Yii;
  *
  * @property integer $id
  * @property integer $registration_id
- * @property integer $golfer_id
- * @property integer $tees_id
  * @property string $note
  * @property integer $score
  * @property integer $points
@@ -28,12 +26,13 @@ use Yii;
  * @property integer $handicap
  * @property integer $thru
  * @property integer $to_par
+ * @property integer $practice_id
+ * @property string $scorecard_type
  *
  * @property Score[] $scores
  * @property Hole[] $holes
- * @property Tees $tees
+ * @property Practice $practice
  * @property Registration $registration
- * @property Golfer $golfer
  */
 class _Scorecard extends \yii\db\ActiveRecord
 {
@@ -51,12 +50,12 @@ class _Scorecard extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['registration_id', 'golfer_id', 'tees_id', 'score', 'points', 'putts', 'penalty', 'sand', 'score_net', 'stableford', 'stableford_net', 'handicap', 'thru', 'to_par'], 'integer'],
-            [['golfer_id', 'tees_id'], 'required'],
+            [['registration_id', 'score', 'points', 'putts', 'penalty', 'sand', 'score_net', 'stableford', 'stableford_net', 'handicap', 'thru', 'to_par', 'practice_id'], 'integer'],
             [['teeshot', 'regulation'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
+            [['scorecard_type'], 'required'],
             [['note'], 'string', 'max' => 160],
-            [['status'], 'string', 'max' => 20]
+            [['status', 'scorecard_type'], 'string', 'max' => 20]
         ];
     }
 
@@ -68,8 +67,6 @@ class _Scorecard extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('igolf', 'ID'),
             'registration_id' => Yii::t('igolf', 'Registration ID'),
-            'golfer_id' => Yii::t('igolf', 'Golfer ID'),
-            'tees_id' => Yii::t('igolf', 'Tees ID'),
             'note' => Yii::t('igolf', 'Note'),
             'score' => Yii::t('igolf', 'Score'),
             'points' => Yii::t('igolf', 'Points'),
@@ -87,6 +84,8 @@ class _Scorecard extends \yii\db\ActiveRecord
             'handicap' => Yii::t('igolf', 'Handicap'),
             'thru' => Yii::t('igolf', 'Thru'),
             'to_par' => Yii::t('igolf', 'To Par'),
+            'practice_id' => Yii::t('igolf', 'Practice ID'),
+            'scorecard_type' => Yii::t('igolf', 'Scorecard Type'),
         ];
     }
 
@@ -109,9 +108,9 @@ class _Scorecard extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTees()
+    public function getPractice()
     {
-        return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
+        return $this->hasOne(Practice::className(), ['id' => 'practice_id']);
     }
 
     /**
@@ -120,13 +119,5 @@ class _Scorecard extends \yii\db\ActiveRecord
     public function getRegistration()
     {
         return $this->hasOne(Registration::className(), ['id' => 'registration_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGolfer()
-    {
-        return $this->hasOne(Golfer::className(), ['id' => 'golfer_id']);
     }
 }
