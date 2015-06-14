@@ -20,7 +20,7 @@ use common\models\Course;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'rule_id')->dropDownList([''=>'']+ArrayHelper::map(Rule::find()->where(['rule_type' => $model->competition_type])->asArray()->all(), 'id', 'name')) ?>
+    <?= $form->field($model, 'rule_id')->dropDownList([''=>'']+ArrayHelper::map(Rule::find()->where(['competition_type' => $model->competition_type])->asArray()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'registration_begin')->widget(DateTimePicker::classname(), [
             'pluginOptions' => [

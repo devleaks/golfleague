@@ -51,7 +51,6 @@ $this->title = 'Golf League - Administration';
                 </ul>
 				<ul style="list-style: none;">
 					<li>&raquo; <a href="<?= Url::to(['/score/competition']) ?>">Competitions</a></li>
-					<li>&raquo; <a href="<?= Url::to(['/score/scorecards']) ?>">Scorecards</a></li>
 				</ul>
             </div>
         </div>

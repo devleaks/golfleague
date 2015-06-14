@@ -15,8 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_list', [
 			'title' => Yii::t('igolf', 'Registration'),
 	        'dataProvider' => $registrationProvider,

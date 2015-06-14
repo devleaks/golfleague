@@ -202,13 +202,13 @@ class Scorecard extends _Scoretable {
 				'total' => true,
 				'color' => true/*note:true displays as '• •', false displays as '2'*/,
 			]),
-			self::GROSS => new Scoredisplay([
+			self::SCORE => new Scoredisplay([
 				'label' => Yii::t('igolf', 'Score'),
 				'data' => $this->scorecard->score(),
 				'total' => true,
 				'color' => true,
 			]),
-			self::NET => new Scoredisplay([
+			self::SCORE_NET => new Scoredisplay([
 				'label' => Yii::t('igolf', 'Net'),
 				'data' => $this->scorecard->score_net(),
 				'total' => true,

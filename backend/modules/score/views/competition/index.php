@@ -15,7 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?= $this->render('_list', [
+			'title' => Yii::t('igolf', 'Ready'),
+	        'dataProvider' => $readyProvider,
+	        'filterModel' => $readySearch,
+			'actionButtons' => [
+				'class' => 'kartik\grid\ActionColumn',
+			 	'template' => '{view}',
+			],
+	]) ?>
 
     <?= $this->render('_list', [
 			'title' => Yii::t('igolf', 'On Going'),

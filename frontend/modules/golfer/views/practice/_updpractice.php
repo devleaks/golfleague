@@ -44,7 +44,7 @@ use yii\helpers\Url;
 				'type' => DetailView::INPUT_DATETIME,
 				'widgetOptions' => [
 					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
+	                	'format' => 'yyyy-mm-dd hh:ii:ss',
 	                	'todayHighlight' => true
 	            	]
 				],

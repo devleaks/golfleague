@@ -43,10 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'parent_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => 	$model->parentType() == Competition::TYPE_SEASON ?
-								ArrayHelper::map(Season::find()->asArray()->all(), 'id', 'name')
+								ArrayHelper::map([''=>''] + Season::find()->asArray()->all(), 'id', 'name')
 								:
 								(	$model->parentType() == Competition::TYPE_TOURNAMENT ?
-										ArrayHelper::map(Tournament::find()->asArray()->all(), 'id', 'name')
+										ArrayHelper::map([''=>''] +Tournament::find()->asArray()->all(), 'id', 'name')
 										:
 										[]
 								),
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
                 'label'=> Yii::t('igolf', 'Course'),
 				'items' => ArrayHelper::map(Course::find()->asArray()->all(), 'id', 'name'),
-                'value' => $model->course ? $model->course->name : '' ,
+                'value' => $model->course ? $model->course->getFullName() : '' ,
             ],
             [
                 'attribute'=>'holes',
@@ -69,19 +69,20 @@ $this->params['breadcrumbs'][] = $this->title;
             [
 				'attribute' => 'rule_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => ArrayHelper::map([''=>'']+Rule::find()->where(['rule_type' => $model->competition_type])->asArray()->all(), 'id', 'name'),
+				'items' => ArrayHelper::map([''=>'']+Rule::find()->where(['competition_type' => $model->competition_type])->asArray()->all(), 'id', 'name'),
 				'value' => $model->rule_id ? $model->rule->name : '',
 			],
             [
                 'attribute'=>'start_date',
-				'format' => 'date',
-				'type' => DetailView::INPUT_DATE,
+				'format' => 'datetime',
+				'type' => DetailView::INPUT_DATETIME,
 				'widgetOptions' => [
 					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
+	                	'format' => 'yyyy-mm-dd hh:ii:ss',
 	                	'todayHighlight' => true
 	            	]
 				],
+				'value' => $model->registration_begin ? new DateTime($model->start_date) : '',
             ],
             [
                 'attribute'=>'registration_begin',
@@ -89,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'type' => DetailView::INPUT_DATETIME,
 				'widgetOptions' => [
 					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
+	                	'format' => 'yyyy-mm-dd hh:ii:ss',
 	                	'todayHighlight' => true
 	            	]
 				],
@@ -101,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'type' => DetailView::INPUT_DATETIME,
 				'widgetOptions' => [
 					'pluginOptions' => [
-	                	'format' => 'yyyy-mm-dd H:i:s',
+	                	'format' => 'yyyy-mm-dd hh:ii:ss',
 	                	'todayHighlight' => true
 	            	]
 				],

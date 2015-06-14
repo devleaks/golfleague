@@ -52,18 +52,6 @@ use yii\helpers\Url;
                 },
 			],
             [
-                'attribute' => 'card_status',
-                'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('igolf', $model->card_status);
-                },
-				'filter' => Scorecard::getLocalizedConstants('STATUS_'),
-            ],
-			'score',
-			'score_net',
-			'stableford',
-			'stableford_net',
-			'points',
-            [
                 'attribute' => 'status',
                 'value' => function($model, $key, $index, $widget) {
                 	return Yii::t('igolf', $model->status);

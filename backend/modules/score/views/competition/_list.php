@@ -12,11 +12,11 @@ use yii\data\ActiveDataProvider;
 ?>
 <div class="competition-list">
 
-    <h2><?= Html::encode($title) ?></h2>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        // 'filterModel'  => $filterModel,
+		'panel' => [
+	        'heading' => '<h3>'.$title.'</h3>',
+		],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
 

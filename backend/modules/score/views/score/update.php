@@ -34,6 +34,12 @@ $this->params['breadcrumbs'][] = Yii::t('igolf', 'Update');
 		'actionColumn' => false,
 		'checkboxColumn' => false,
         'attributes' => [
+			'allowed' => [
+				'type' => TabularForm::INPUT_STATIC,
+	            'value' => function($model, $key, $index, $widget) {
+	                return  $model->hole->par .str_repeat(' •',$model->allowed);
+	            },
+			],
 			'score' => [
 				'type' => TabularForm::INPUT_TEXT,
 			],

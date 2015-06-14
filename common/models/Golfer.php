@@ -91,6 +91,7 @@ class Golfer extends _Golfer
 	}
 	
 	public function allowed($tees) {
+		Yii::trace('top', 'Golfer::allowed');
 		return Yii::$app->golfleague->handicap_system->allowed($tees, $this);
 	}
 

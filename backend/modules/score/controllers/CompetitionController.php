@@ -24,10 +24,15 @@ class CompetitionController extends GolfLeagueController
     {
 		$now = date('Y-m-d H:i:s');
 
-		/** Competition open for registration by starter.
-		 *  For starters, a competition is open for registration from the day it exists (ie before official registration opens),
-		 *  to the day the competition is 'published'.
-		 *  So any competition in status OPEN can accept registrations.
+		/** Competitions that are ready to be played.
+		 */
+		$readySearch = new CompetitionSearch();
+        $readyProvider = new ActiveDataProvider([
+            'query' => Match::find()->where(['status' => Competition::STATUS_READY])
+										  ->andWhere(['>','start_date', $now])
+        ]);
+
+		/** Ongoing competition.
 		 */
 		$ongoingSearch = new CompetitionSearch();
         $ongoingProvider = new ActiveDataProvider([
@@ -52,6 +57,8 @@ class CompetitionController extends GolfLeagueController
         ]);
 
     	return $this->render('index', [
+	        'readyProvider' => $readyProvider,
+	        'readySearch'   => $readySearch,
 	        'ongoingProvider' => $ongoingProvider,
 	        'ongoingSearch'   => $ongoingSearch,
 	        'completedProvider'   => $completedProvider,

@@ -142,23 +142,25 @@ class Scorecard extends _Scorecard
 	 */
 	public function makeScores() {
 		if( !$this->hasDetails() ) {
-			$a = $this->golfer->allowed($this->tees);
+			$allowed = $this->golfer->allowed($this->tees);
 			$holes = $this->tees->getHoles()->orderBy('position')->indexBy('position')->all();
 			$hole_count = count($holes);
 			
 			$holes_to_play = $this->holes();
 			$start_hole = $this->startHole();
 
-			if($holes_to_play >= $this->tees->holes) {
+			Yii::trace('toplay='.$holes_to_play.', tees='.$this->tees->holes.', start='.$start_hole, 'Scorecard::makeScores');
+
+			if($holes_to_play > $this->tees->holes) {
 				return;
 			}
 
 			for($i = 0; $i < $holes_to_play; $i++) {
-				$hole_num = ($start_hole + $i) % $hole_count;
+				$hole_num = $start_hole + $i % $hole_count;
 				$score = new Score([
 					'scorecard_id' => $this->id,
 					'hole_id' => $holes[$hole_num]->id,
-					'allowed' => $a[$hole_num],
+					'allowed' => $allowed[$hole_num - 1],
 				]);
 				$score->save();
 			}

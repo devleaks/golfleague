@@ -25,8 +25,10 @@ class _Scoretable extends Widget {
 	const LENGTH		= 'length';
 
 	/* Scores */
-	const GROSS			= 'gross';
+	const GROSS			= 'gross';	// old value, left for compatibility
 	const NET			= 'net';
+	const SCORE			= 'score';	// new values
+	const SCORE_NET		= 'score_net';
 	const STABLEFORD	= 'stableford';
 	const STABLEFORD_NET	= 'stableford_net';
 	const ALLOWED		= 'allowed';

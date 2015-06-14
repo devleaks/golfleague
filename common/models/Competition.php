@@ -299,10 +299,10 @@ class Competition extends _Competition
 	 */
 	public function hasScores() {
 		foreach($this->getRegistrations()->andWhere(['status' => Registration::getParticipantStatuses()])->each() as $registration) {
-			if(!$registration->hasScore())
-				return false;
+			if($registration->hasScore())
+				return true;
 		}
-		return true;
+		return false;
 	}
 
 

@@ -4,7 +4,7 @@ namespace common\models;
 class NameSpaceFinder {
 
     private $namespaceMap = [];
-    private $defaultNamespace = 'global';
+    private $defaultNamespace = 'common';
 
     public function __construct()
     {

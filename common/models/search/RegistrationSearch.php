@@ -23,7 +23,7 @@ class RegistrationSearch extends Registration
     public function rules()
     {
         return [
-            [['id', 'competition_id', 'golfer_id', 'flight_id', 'tees_id', 'position', 'score', 'points', 'team_id', 'score_net'], 'integer'],
+            [['id', 'competition_id', 'golfer_id', 'flight_id', 'tees_id', 'position', 'points', 'team_id'], 'integer'],
             [['status', 'created_at', 'updated_at', 'note'], 'safe'],
             [['golfer_name', 'competition_name', 'competition_type'], 'safe'],
         ];
@@ -94,10 +94,8 @@ class RegistrationSearch extends Registration
             'registration.created_at' => $this->created_at,
             'registration.updated_at' => $this->updated_at,
             'registration.position' => $this->position,
-            'registration.score' => $this->score,
             'registration.points' => $this->points,
             'registration.team_id' => $this->team_id,
-            'registration.score_net' => $this->score_net,
             'competition.competition_type' => $this->competition_type,
         ]);
 

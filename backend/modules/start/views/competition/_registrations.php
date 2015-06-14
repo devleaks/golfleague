@@ -32,9 +32,9 @@ use common\models\Competition;
                     return  $model->golfer->name;
                 },
 			],
-			'tees',
-			'flight',
-			'team',
+			'tees.name',
+			'flight.id',
+			'team.id',
             [
                 'attribute' => 'status',
                 'value' => function($model, $key, $index, $widget) {

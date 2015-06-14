@@ -58,8 +58,8 @@ $this->params['breadcrumbs'][] = $this->title;
 			Scorecard::LEGEND => true,
 			Scorecard::ALLOWED => true,
 			Scorecard::ALLOWED_ICON => '•',
-			Scorecard::GROSS => true,
-			Scorecard::NET => true,
+			Scorecard::SCORE => true,
+			Scorecard::SCORE_NET => true,
 			Scorecard::STABLEFORD => true,
 			Scorecard::STABLEFORD_NET => true,
 			Scorecard::TO_PAR => true,
@@ -68,6 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 	<?php if($scorecard->status != ScorecardModel::STATUS_PUBLISHED): ?>
+		<div class="clearfix"></div>
 		<?= Html::a(Yii::t('igolf', 'Update'), Url::to(['update', 'id' => $scorecard->id]), ['class' => 'btn btn-primary']) ?>
 	<?php endif; ?>
 

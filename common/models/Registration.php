@@ -21,6 +21,9 @@ class Registration extends _Registration
     /** Golfer has just registered to the competition */
     const STATUS_PENDING = 'PENDING';
 
+    /** Golfer has just registered to the competition */
+    const STATUS_INVITED = 'INVITED';
+
     /** Registered: Golfer is registered to the competition */
     const STATUS_REGISTERED = 'REGISTERED';
 
@@ -105,8 +108,6 @@ class Registration extends _Registration
             'points' => Yii::t('igolf', 'Points'),
             'position' => Yii::t('igolf', 'Position'),
             'note' => Yii::t('igolf', 'Note'),
-            'score' => Yii::t('igolf', 'Score'),
-            'score_net' => Yii::t('igolf', 'Score Net'),
             'status' => Yii::t('igolf', 'Status'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
@@ -120,6 +121,7 @@ class Registration extends _Registration
 		foreach([
 		    self::STATUS_UNREGISTERED,
 		    self::STATUS_PENDING,
+		    self::STATUS_INVITED,
 		    self::STATUS_REGISTERED,
 		    self::STATUS_REJECTED,
 		    self::STATUS_CONFIRMED,

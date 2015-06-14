@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveRecord;
 use common\behaviors\Constant;
-
+use common\models\rule\Strokeplay;
 /**
  * This is the model class for table "rules".
  * @property Point[] $points
@@ -114,5 +114,5 @@ class Rule extends _Rule
 	public function isTeamplay() {
 		return intval($this->team) > 1;
 	}
-
+	
 }

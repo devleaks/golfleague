@@ -1,6 +1,6 @@
 <?php
 /**
- * LatestMessages widget renders the last messages available on the website.
+ * Scoreboard widget renders a competition scoreboard.
  *
  * @author Pierre M <devleaks.be@gmail.com>
  */
@@ -69,12 +69,12 @@ class Scoreboard extends _Scoretable {
 		$this->match = $this->competition->currentMatch();
 		// check options:
 		// if 9 holes, FRONTBACK is irrelevant.
-		if($this->competition->status != Competition::STATUS_READY )
+		if(!$this->competition->hasScores())
 			return Yii::t('igolf', 'Competition has not started yet.');
 		
 		if($this->competition->competition_type == Competition::TYPE_MATCH && !$this->tees = $this->competition->getTees())
 			return Yii::t('igolf', 'Competition has no starting tees set.');
-			
+		
 		$this->prepare_scorecards();
 			
 		if($this->getOption(self::AUTO_REFRESH))
@@ -86,14 +86,14 @@ class Scoreboard extends _Scoretable {
 		else
 			$refresh_data = $this->getId();
 
-		$options = ['class' => 'scoreboard'];
+		$options = ['class' => 'scoreboard scorecard'];
 		if($this->getOption(self::AUTO_REFRESH))
 			Html::addCssClass($options, 'scoreboard-auto-refresh');
 		if($this->getOption(self::SPLITFLAP))
 			Html::addCssClass($options, 'scoreboard-splitflap');
 		if($this->getOption(self::CARDS))
 			Html::addCssClass($options, 'scoreboard-cards');
-		if($this->scorecard->holes() == 9)
+		if($this->competition->holes == 9)
 			Html::addCssClass($options, 'scoreboard-nine');
 		
 		$options['data-holes'] = $this->competition->holes;
@@ -133,8 +133,7 @@ class Scoreboard extends _Scoretable {
     /**
      * Register client assets
      */
-    protected function registerAssets()
-    {
+    protected function registerAssets() {
         $view = $this->getView();
         ScoreboardAsset::register($view);
     }
@@ -241,9 +240,9 @@ class Scoreboard extends _Scoretable {
 	}
 	
 	protected function td_score_highlight($score, $topar, $name) {
-		if( ($name != 'stableford') && (intval($score) != 0) ) {
+		if( ($name != self::STABLEFORD) && (intval($score) != 0) ) {
 				$output = $this->td_score_color($score, $topar);
-		} else if ( ($name == "stableford") && ($score !== null) ) {
+		} else if ( ($name == self::STABLEFORD) && ($score !== null) ) {
 				$output = $this->td_score_color($score, $topar);
 		} else // nothing to display
 				$output = Html::tag('td', '&nbsp;');
@@ -253,7 +252,8 @@ class Scoreboard extends _Scoretable {
     protected function td($name, $str, $val, $topar = 0) {
 		switch($name) {
 			case self::TO_PAR:
-				$output = $this->td_topar( ($val === '' ? '&nbsp;' : $val), $str);
+			case self::TO_PAR_NET:
+				$output = $this->td_topar( ($val === null ? '&nbsp;' : $val), $str);
 				break;
 			case self::ALLOWED:
 				$output =$this->td_allowed($val, $str);
@@ -285,19 +285,20 @@ class Scoreboard extends _Scoretable {
 		/* header */
 		$display_name = self::pretty_name($name);
 		switch($name) {
-			case self::STABLEFORD:	$scores = $scoreline->scorecard->stableford();	break;
-			case self::NET:			$scores = $scoreline->scorecard->score_net();	break;
-			case self::ALLOWED:		$scores = $scoreline->scorecard->allowed();	break;
-//			case self::TO_PAR:		$scores = $scoreline->to_par( $this->competition->rounds() > 1 ? $this->lite[$pid]['topar'][$scoreline->match()->id()] : 0 ); break;
-			case self::TO_PAR:		$scores = $scoreline->scorecard->toPar( 0 ); break;
-			case self::GROSS:
-			default:				$scores = $scoreline->scorecard->score();		break;
+			case self::ALLOWED:			$scores = $scoreline->scorecard->allowed();			$refs = $scores; break;
+			case self::SCORE_NET:		$scores = $scoreline->scorecard->score_net();		$refs = $scores; break;
+			case self::STABLEFORD:		$scores = $scoreline->scorecard->stableford();		$refs = $scoreline->scorecard->score(); break;
+			case self::STABLEFORD_NET:	$scores = $scoreline->scorecard->stableford_net();	$refs = $scoreline->scorecard->score_net(); break;
+//			case self::TO_PAR:			$scores = $scoreline->to_par( $this->competition->rounds() > 1 ? $this->lite[$pid]['topar'][$scoreline->match()->id()] : 0 ); break; // @todo
+			case self::TO_PAR:			$scores = $scoreline->scorecard->toPar( 0 );		$refs = $scores; break;
+			case self::TO_PAR_NET:		$scores = $scoreline->scorecard->toPar_net( 0 );	$refs = $scores; break;
+			case self::SCORE:
+			default:					$scores = $scoreline->scorecard->score();			$refs = $scores; break;
 		}
-		
-		$pid = $scoreline->scorecard->golfer->id;
 
-		$debug = print_r($scores, true);		
-		//$output .= $debug;
+		$pars = $scoreline->scorecard->tees->pars();
+		$stableford_points = $this->competition->rule->getStablefordPoints();
+		$pid = $scoreline->scorecard->golfer->id;
 
 		$old_use_splitflap = $this->getOption(self::SPLITFLAP);
 		if($position < 0) {
@@ -309,12 +310,10 @@ class Scoreboard extends _Scoretable {
 						$score_type = Html::tag('span', Yii::t('igolf', $display_name), ['class' => 'score-type']), ['class' => 'igolf-name']);
 		}
 
+		//$debug = print_r($refs, true);		
+		//$output .= $debug;
+
 		/* holes */
-		$refs   = ($name != self::STABLEFORD) ? $scores : $scoreline->scorecard->score_net(); //FROM_GROSS: $scoreline->scorecard->score()
-
-		$pars = $scoreline->scorecard->tees->pars();
-		$stableford_points = $this->competition->rule->getStablefordPoints();
-
 		$total = 0;
 		for($i=0; $i<min($this->competition->holes,count($scores)); $i++) { // @todo
 			$total += $scores[$i];
@@ -322,14 +321,15 @@ class Scoreboard extends _Scoretable {
 				if($this->competition->rule->isStableford()) {					
 					$topar = array_search($scores[$i], $stableford_points);
 					$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], $topar);
-				} else
+				} else {
 					$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], ($refs[$i] - $pars[$i]));
+				}
 			}
 		}
 
 		/* today */
 		if($this->getOption(self::TODAY) && $position > 0) {
-			if($name == self::TO_PAR)	
+			if(in_array($name, [self::TO_PAR, self::TO_PAR_NET]))	
 				$output .= $this->td(self::TO_PAR, 'today-'.$pid, $scoreline->scorecard->lastToPar());
 			else
 				$output .= $this->td(self::TO_PAR, 'today-'.$pid, $total);
@@ -357,7 +357,7 @@ class Scoreboard extends _Scoretable {
 			$this->scoreline[] = new Scoreline([
 				'scorecard' => $scorecard,
 				'pos' => 0, // will be computed
-				'curr' => $this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->toPar(),
+				'curr' => $this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->toPar_net(),
 				'rounds' => $this->competition->getRounds(),
 				'round' => $this->competition->getRound(),
 				'thru' => $scorecard->thru,
@@ -400,11 +400,14 @@ class Scoreboard extends _Scoretable {
 			
 			$scoreline->pos = $position;
 			
-			foreach([	self::GROSS,
-						self::ALLOWED,
-						self::NET,
+			foreach([	self::ALLOWED,
+						self::SCORE,
+						self::SCORE_NET,
 						self::STABLEFORD,
-						self::TO_PAR] as $what)
+						self::STABLEFORD_NET,
+						self::TO_PAR,
+						self::TO_PAR_NET
+					] as $what)
 				if($this->getOption($what)) $output .= $this->print_score($what, $position, $scoreline);
 	
 			if($this->getOption(self::CARDS))

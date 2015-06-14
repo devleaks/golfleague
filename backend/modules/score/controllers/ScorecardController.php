@@ -6,7 +6,7 @@ use Yii;
 use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\Registration;
-use common\models\Scorecard;
+use common\models\ScorecardForCompetition;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
@@ -30,10 +30,9 @@ class ScorecardController extends GolfLeagueController
 		if(!$competition)
         	throw new NotFoundHttpException('The requested page does not exist.');
 
-
-		if(isset($_POST['Scorecard'])) {
-	        $models = Scorecard::find()->andWhere(['id' => array_keys($_POST['Scorecard'])])->indexBy('id')->all();
-	        if (! Scorecard::loadMultiple($models, Yii::$app->request->post()) || ! Scorecard::validateMultiple($models)) {
+		if(isset($_POST['ScorecardForCompetition'])) {
+	        $models = ScorecardForCompetition::find()->andWhere(['id' => array_keys($_POST['ScorecardForCompetition'])])->indexBy('id')->all();
+	        if (! ScorecardForCompetition::loadMultiple($models, Yii::$app->request->post()) || ! ScorecardForCompetition::validateMultiple($models)) {
 				$errors = [];
 				foreach($models as $model) {
 					$errors += $model->errors;
@@ -46,14 +45,15 @@ class ScorecardController extends GolfLeagueController
 				}
 				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scores updated.'));
 			}
+		} else { //@todo do not loop on getScorecards twice...
+			$scorecards = [];
+			foreach($competition->getRegistrations()
+								->andWhere(['registration.status' => array_merge([Registration::STATUS_CONFIRMED], Registration::getPostCompetitionStatuses())])
+								->each() as $registration) {
+				$scorecards[] = $registration->getScorecard(); // this will create a scorecard if none exists
+			}
 		}
 		
-		$scorecards = []; //@todo do not loop on getScorecards twice...
-		foreach($competition->getRegistrations()
-							->andWhere(['registration.status' => array_merge([Registration::STATUS_CONFIRMED], Registration::getPostCompetitionStatuses())])
-							->each() as $registration) {
-			$scorecards[] = $registration->getScorecard(); // this will create a scorecard if none exists
-		}
 
         return $this->render('competition', [
 			'competition' => $competition,
