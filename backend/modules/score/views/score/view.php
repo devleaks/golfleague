@@ -1,9 +1,11 @@
 <?php
 
+use common\models\Scorecard as ScorecardModel;
 use common\widgets\Scorecard;
 use kartik\detail\DetailView;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $scorecard common\models\Scorecard */
@@ -61,7 +63,12 @@ $this->params['breadcrumbs'][] = $this->title;
 			Scorecard::STABLEFORD => true,
 			Scorecard::STABLEFORD_NET => true,
 			Scorecard::TO_PAR => true,
+			Scorecard::TO_PAR_NET => true,
 		]
     ]) ?>
+
+	<?php if($scorecard->status != ScorecardModel::STATUS_PUBLISHED): ?>
+		<?= Html::a(Yii::t('igolf', 'Update'), Url::to(['update', 'id' => $scorecard->id]), ['class' => 'btn btn-primary']) ?>
+	<?php endif; ?>
 
 </div>

@@ -36,4 +36,8 @@ class HandicapEGA implements HandicapInterface {
 		
 		return $allowed;
 	}
+	
+	function update($golfer, $scorecard) {
+		
+	}
 }

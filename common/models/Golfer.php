@@ -7,8 +7,6 @@ use common\behaviors\Constant;
 use dektrium\user\models\User;
 use yii\db\ActiveRecord;
 
-use common\models\handicap\HandicapEGA;
-
 /**
  * This is the model class for table "golfers".
  */
@@ -92,16 +90,12 @@ class Golfer extends _Golfer
 		return $this->handicap ? $this->handicap : self::DEFAULT_HANDICAP;
 	}
 	
-	public function allowed($tees, $handicap_system = null) {
-		if(! $handicap_system)
-			$handicap_system = new HandicapEGA();
-		return $handicap_system->allowed($tees, $this);
+	public function allowed($tees) {
+		return Yii::$app->golfleague->handicap_system->allowed($tees, $this);
 	}
 
-	public function playingHandicap($tees, $handicap_system = null) {
-		if(! $handicap_system)
-			$handicap_system = new HandicapEGA();
-		return array_sum($ees, $handicap_system);
+	public function playingHandicap($tees) {
+		return array_sum($this->allowed($tees));
 	}
 
 }

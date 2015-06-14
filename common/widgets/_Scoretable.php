@@ -31,12 +31,11 @@ class _Scoretable extends Widget {
 	const STABLEFORD_NET	= 'stableford_net';
 	const ALLOWED		= 'allowed';
 	const TO_PAR		= 'to_par';
+	const TO_PAR_NET	= 'to_par_net';
 	const POINT			= 'points';
 
 	/** Play */
 	const STROKEPLAY	= 'strokeplay';
-	const NINE			= 'nine';
-	const BACK			= 'back';
 
 	/* Columns */
 	const TOTAL			= 'total';

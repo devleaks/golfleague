@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
             	'label' => Yii::t('igolf', 'Registration Status'),
                 'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('igolf', $model->status);
+                	return $model->registration ? Yii::t('igolf', $model->registration->status) : '';
                 },
 				'filter' => Registration::getLocalizedPostCompetitionStatuses(),
             ],
@@ -58,11 +58,15 @@ $this->params['breadcrumbs'][] = $this->title;
 			 	'template' => '{view} {update} {reset}',
 	            'buttons' => [
 	                'reset' => function ($url, $model) {
-						$url = Url::to(['delete', 'id' => $model->id]);
-	                    return Html::a('<i class="glyphicon glyphicon-trash"></i>', $url, [
-	                        'title' => Yii::t('igolf', 'Reset scores'),
-							'data-confirm' => Yii::t('igolf', 'Reset scores for this golfer?')
-	                    ]);
+						if($model->hasDetails()) {
+							$url = Url::to(['delete', 'id' => $model->id]);
+		                    return Html::a('<i class="glyphicon glyphicon-remove"></i>', $url, [
+		                        'title' => Yii::t('igolf', 'Delete score details'),
+								'data-confirm' => Yii::t('igolf', 'Delete score details for this golfer?')
+		                    ]);
+						} else {
+							return '<i class="glyphicon glyphicon-remove disabled"></i>';
+						}
 	                },
 				],
 	        ],

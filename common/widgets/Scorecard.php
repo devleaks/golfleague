@@ -36,6 +36,9 @@ class Scorecard extends _Scoretable {
 	 * @return string HTML table
 	 */
 	public function run() {
+		if(!$this->scorecard->hasDetails())
+			return Yii::t('igolf', 'No detailed scorecard.');
+		
 		$r = Html::beginTag('table', ['class' => 'table scorecard']);
 		
 		$r .= $this->caption();
@@ -76,13 +79,14 @@ class Scorecard extends _Scoretable {
 	protected function print_header_split() {
 		$output =  Html::beginTag('tr', ['class' => 'scorecard-split']);
 		$output .= Html::tag('th', $this->scorecard->tees->name);
-		for($i=0; $i<$this->scorecard->tees->holes; $i++) {
+		for($i=0; $i<$this->scorecard->holes(); $i++) {
 			$output .= Html::tag('th', $i+1);
 		}
 		$output .= Html::tag('th', Yii::t('igolf', 'Total'));
 		if($this->getOption(self::FRONTBACK)) {
-		$output .= Html::tag('th', Yii::t('igolf', 'Front'));
-		$output .= Html::tag('th', Yii::t('igolf', 'Back'));
+			$output .= Html::tag('th', Yii::t('igolf', 'Front'));
+			if($this->scorecard->holes() > 9)
+				$output .= Html::tag('th', Yii::t('igolf', 'Back'));
 		}
 		$output .= Html::endTag('tr');
 		return $output;
@@ -112,14 +116,15 @@ class Scorecard extends _Scoretable {
 			if($this->getOption($key)) {			
 				$output .=  Html::beginTag('tr');
 				$output .= Html::tag('th', $display->label, ['class' => 'labelr']);
-				for($i=0; $i<$this->scorecard->tees->holes; $i++) {
+				for($i=0; $i<$this->scorecard->holes(); $i++) {
 					$output .= Html::tag('th', $display->data[$i]);
 				}
 				if($display->total) {
 					$output .= Html::tag('th', array_sum($display['data']));
 					if($this->getOption(self::FRONTBACK)) {
 						$output .= Html::tag('th', array_sum(array_slice($display['data'], 0, 9)));
-						$output .= Html::tag('th', array_sum(array_slice($display['data'], 9, 9)));
+						if($this->scorecard->holes() > 9)
+							$output .= Html::tag('th', array_sum(array_slice($display['data'], 9, 9)));
 					}
 				} else {
 					$output .= Html::tag('th', '', ['colspan' => $this->getOption(self::FRONTBACK) ? 3 : 1]);
@@ -173,12 +178,14 @@ class Scorecard extends _Scoretable {
 	}
 		
     protected function td($name, $str, $val, $topar = 0) {
+		$output = '';
 		switch($name) {
+			case self::TO_PAR_NET:
 			case self::TO_PAR:
-				$output = $this->td_topar( ($val === '' ? '&nbsp;' : $val), $str);
+				$output = $this->td_topar( ($val === null ? '&nbsp;' : $val), $str);
 				break;
 			case self::ALLOWED:
-				$output =$this->td_allowed($val, $str);
+				$output = $this->td_allowed($val, $str);
 				break;
 			default:
 				$output = $this->td_score_highlight($val, $topar, $name);
@@ -187,7 +194,8 @@ class Scorecard extends _Scoretable {
 	}
 	
 	protected function print_scores() {
-		$displays = [
+		
+		$displays = array(
 			self::ALLOWED => new Scoredisplay([
 				'label' => Yii::t('igolf', 'Allowed'),
 				'data' => $this->scorecard->allowed(),
@@ -224,9 +232,16 @@ class Scorecard extends _Scoretable {
 				'total' => true,
 				'color' => false
 			]),
-		];
+			self::TO_PAR_NET => new Scoredisplay([
+				'label' => Yii::t('igolf', 'To Par Net'),
+				'data' => $this->scorecard->toPar_net(),
+				'total' => true,
+				'color' => false
+			]),
+		);
 		
-		$stableford_points = $this->scorecard->registration ? $this->scorecard->registration->competition->rule->getStablefordPoints() : Rule::getStablefordPoints();
+		$rule = $this->scorecard->registration ? $this->scorecard->registration->competition->rule : new Rule();
+		$stableford_points = $rule->getStablefordPoints();
 
 		$output = '';
 		foreach($displays as $key => $display) {
@@ -234,24 +249,33 @@ class Scorecard extends _Scoretable {
 				$output .=  Html::beginTag('tr', ['class' => $key]);
 				$output .= Html::tag('td', $display->label, ['class' => 'scorecard-label']);
 
-				for($i=0; $i<$this->scorecard->tees->holes; $i++)
-					if(in_array($key, [self::STABLEFORD, self::STABLEFORD_NET]))
+				for($i=0; $i<$this->scorecard->holes(); $i++) {					
+					if(in_array($key, [self::STABLEFORD, self::STABLEFORD_NET])) {
 						$output .= $this->td($key, self::HOLE, $display->data[$i], array_search($display->data[$i], $stableford_points));
-					else
+					} else {
 						$output .= $this->td($key, self::HOLE, $display->data[$i], $display->data[$i] - $this->scorecard->tees->pars()[$i]);
+					}
+				}
 
-				if($display->total) {
-					if($key == self::TO_PAR) {
-						$output .= $this->td($key, self::TODAY, $display->data[$this->scorecard->tees->holes - 1]);
+				if($display->total) { // @TODO: Not correct: play with start_hole and holes to get proper index! Front might be the back if started on hole 10.
+					if(in_array($key, [self::TO_PAR, self::TO_PAR_NET])) {
+						$thru_idx = $this->scorecard->thru > 0 ? $this->scorecard->thru - 1 : 0;
+						$output .= $this->td($key, self::TODAY, $display->data[$thru_idx]);
 						if($this->getOption(self::FRONTBACK)) {
 							$output .= $this->td($key, self::TODAY, $display->data[8]);
-							$output .= $this->td($key, self::TODAY, $display->data[17]);
+							if($this->scorecard->holes() > 9)
+								$output .= $this->td($key, self::TODAY, $display->data[17]);
 						}
 					} else {
-						$output .= $this->td($key, self::TOTAL, array_sum($display->data));
+						$output .= $this->td($key, self::TOTAL, $rule->stablefordNine($display->data));
 						if($this->getOption(self::FRONTBACK)) {
-							$output .= $this->td($key, self::TOTAL, array_sum(array_slice($display->data, 0, 9)));
-							$output .= $this->td($key, self::TOTAL, array_sum(array_slice($display->data, 9, 9)));
+							if(in_array($key, [self::STABLEFORD, self::STABLEFORD])) {
+								$output .= $this->td($key, self::TOTAL, array_sum(array_slice($display->data, 0, 9)));
+							} else {
+								$output .= $this->td($key, self::TOTAL, array_sum(array_slice($display->data, 0, 9)));
+							}
+							if($this->scorecard->holes() > 9)
+								$output .= $this->td($key, self::TOTAL, array_sum(array_slice($display->data, 9, 9)));
 						}
 					}
 				} else {

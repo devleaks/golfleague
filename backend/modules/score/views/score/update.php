@@ -13,7 +13,8 @@ use yii\helpers\Url;
 $this->title = $scorecard->golfer->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = ['label' => $scorecard->registration->competition->name, 'url' => ['competition', 'id' => $scorecard->registration->competition_id]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $scorecard->id]];
+$this->params['breadcrumbs'][] = Yii::t('igolf', 'Update');
 ?>
 <div class="scorecard-update">
 
@@ -26,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'panel'=>[
 		        'heading' => '<h4>'.$this->title.'</h4>',
 				'footer' => Html::submitButton('Save', ['class'=>'btn btn-primary']).' '.
-							Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $scorecard->registration->competition->id]), ['class'=>'btn btn-success']),
+							Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $scorecard->id]), ['class'=>'btn btn-success']),
 		    ],
 		],
 		'serialColumn' => [],

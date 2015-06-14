@@ -69,6 +69,7 @@ table.scorecard tr.stableford td div {
 	padding: 1px 0px 0px 2px;
 }
 
+tr.to_par_net td.red,
 tr.to_par td.red {
 	color: red;
 }

@@ -15,6 +15,11 @@ use yii\helpers\Url;
 $this->title = $competition->getFullName();
 $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$static_if_has_details = function($model, $key, $index, $widget) {
+    return  $model->hasDetails() ? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+}
+
 ?>
 <div class="scorecard-index">
 
@@ -48,22 +53,22 @@ $this->params['breadcrumbs'][] = $this->title;
 				'noWrap' => true,
 			],
 			'thru' => [
-				'type' => TabularForm::INPUT_TEXT,
+				'type' => $static_if_has_details,
 			],
 			'score' => [
-				'type' => TabularForm::INPUT_TEXT,
+				'type' => $static_if_has_details,
 			],
 			'score_net' => [
-				'type' => TabularForm::INPUT_TEXT,
+				'type' => $static_if_has_details,
 			],
 			'stableford' => [
-				'type' => TabularForm::INPUT_TEXT,
+				'type' => $static_if_has_details,
 			],
 			'stableford_net' => [
-				'type' => TabularForm::INPUT_TEXT,
+				'type' => $static_if_has_details,
 			],
 			'points' => [
-				'type' => TabularForm::INPUT_TEXT,
+				'type' => $static_if_has_details,
 			],
 			'status' => [
 				'type' => TabularForm::INPUT_DROPDOWN_LIST,

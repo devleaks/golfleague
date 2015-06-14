@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					'leaderboard' => function ($url, $model) {
 						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
 	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Scorecards'),
+	                        'title' => Yii::t('igolf', 'Leaderboard'),
 	                    ]);
 	                },
 				],

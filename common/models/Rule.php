@@ -91,6 +91,13 @@ class Rule extends _Rule
 		return 2 - $score;
 	}
 	
+	/**
+	 * Returns Stableford score for less than 18 holes
+	 */
+	public static function stablefordNine($scores) {
+		return 18 + array_sum($scores);
+	}
+	
 	
 	public function isStableford() {
 		return $this->rule_type == self::TYPE_STABLEFORD || $this->rule_type == self::TYPE_STABLEFORD_NET;

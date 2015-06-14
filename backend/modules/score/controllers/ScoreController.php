@@ -42,6 +42,13 @@ class ScoreController extends GolfLeagueController
 	public function actionUpdate($id) {
 		$scorecard = $this->findScorecard($id);
 		
+		if($scorecard->status == Scorecard::STATUS_PUBLISHED) {
+			Yii::$app->session->setFlash('warning', Yii::t('igolf', 'Scorecard already published cannot be edited.'));
+	        return $this->render('view', [
+				'scorecard' => $scorecard,
+	        ]);
+		}			
+		
 		if(isset($_POST['Score'])) {
 			$count = 0;
 			foreach (Yii::$app->request->post('Score') as $k => $dataToLoad) {
@@ -54,11 +61,12 @@ class ScoreController extends GolfLeagueController
 				}
 			}
 			if($count > 0) {
+				$scorecard->updateScorecard();
 				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scorecard updated.'));
 			}
+		} else {
+			$scorecard->makeScores();
 		}
-
-		$scorecard->makeScores();
 		
         return $this->render('update', [
 			'scorecard' => $scorecard,
@@ -75,7 +83,6 @@ class ScoreController extends GolfLeagueController
     public function actionView($id)
     {
 		$scorecard = $this->findScorecard($id);
-		$scorecard->makeScores();
 
         return $this->render('view', [
 			'scorecard' => $scorecard,
@@ -88,11 +95,13 @@ class ScoreController extends GolfLeagueController
      */
     public function actionPublish($id)
     {
-		$registration = $this->findRegistration($id);
-		if($scorecard = $registration->getScorecards()->one()) { // Scorecard::findOne(['registration_id'=>$registration->id])
-			$scorecard->publish();
+		$scorecard = $this->findScorecard($id);
+		if($scorecard->publish()) {
+			Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scorecard published.'));
+		} else {
+			Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Scorecard was not published.'));
 		}
-        return $this->redirect(['view', 'id' => $registration->competition_id]);
+        return $this->redirect(['view', 'id' => $id]);
     }
 
     /**

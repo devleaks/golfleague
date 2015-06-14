@@ -65,7 +65,7 @@ class Practice extends _Practice
 	 */
 	public function getScorecard($detailed = false) {
 		if(! $scorecard = $this->getScorecards()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
-			$scorecard = new Scorecard([
+			$scorecard = new ScorecardForPractice([
 				'scorecard_type' => Scorecard::TYPE_PRACTICE,
 				'practice_id' => $this->id,
 				'status' => Scorecard::STATUS_CREATED,

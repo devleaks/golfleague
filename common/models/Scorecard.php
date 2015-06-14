@@ -27,6 +27,7 @@ class Scorecard extends _Scorecard
 	const STATUS_RETURNED = 'RETURNED';
 	const STATUS_DISQUAL = 'DISQUA';
 	const STATUS_NOSHOW = 'NOSHOW';
+	const STATUS_PUBLISHED = 'PUBLISHED';
 	
     /**
      * @inheritdoc
@@ -78,21 +79,19 @@ class Scorecard extends _Scorecard
 
     /**
      * @inheritdoc
-     *
-     * Populates a couple more local vars
      */
-	public function afterFind() {
-		parent::afterFind();
-		if($this->scorecard_type == self::TYPE_COMPETITION) {
-			$this->tees = $this->registration->tees;
-			$this->golfer = $this->registration->golfer;
-		} else {
-			$this->tees = $this->practice->tees;
-			$this->golfer = $this->practice->golfer;
-		}
-		Yii::trace('init2: '.$this->id);
+	public static function instantiate($row)
+	{
+	    switch ($row['scorecard_type']) {
+	        case self::TYPE_COMPETITION:
+	            return new ScorecardForCompetition();
+	        case self::TYPE_PRACTICE:
+	            return new ScorecardForPractice();
+	        default:
+	           return new self;
+	    }
 	}
-
+	
 	/**
 	 * Cascade delete scores attached to this scorecard
 	 */	
@@ -109,14 +108,33 @@ class Scorecard extends _Scorecard
 		$this->score_net = null;
 		$this->stableford = null;
 		$this->stableford_net = null;
-		$this->to_par = null;        
+		$this->topar = null;        
+		$this->topar_net = null;  
+		$this->status = self::STATUS_CREATED;     
 		$this->save();
 	}
 
+    /**
+     * @inheritdoc
+     */
 	public function delete() {
 		$this->deleteScores();
 
 		return parent::delete();
+	}
+
+	/**
+	 * Returns number of holes to play
+	 */
+	public function holes() {
+		return 0;
+	}
+	
+	/**
+	 * Returns first hole to play
+	 */
+	public function startHole() {
+		return 0;
 	}
 	
 	/**
@@ -125,12 +143,22 @@ class Scorecard extends _Scorecard
 	public function makeScores() {
 		if( !$this->hasDetails() ) {
 			$a = $this->golfer->allowed($this->tees);
-			$i = 0;
-			foreach($this->tees->getHoles()->orderBy('position')->each() as $hole) {
+			$holes = $this->tees->getHoles()->orderBy('position')->indexBy('position')->all();
+			$hole_count = count($holes);
+			
+			$holes_to_play = $this->holes();
+			$start_hole = $this->startHole();
+
+			if($holes_to_play >= $this->tees->holes) {
+				return;
+			}
+
+			for($i = 0; $i < $holes_to_play; $i++) {
+				$hole_num = ($start_hole + $i) % $hole_count;
 				$score = new Score([
 					'scorecard_id' => $this->id,
-					'hole_id' => $hole->id,
-					'allowed' => $a[$i++],
+					'hole_id' => $holes[$hole_num]->id,
+					'allowed' => $a[$hole_num],
 				]);
 				$score->save();
 			}
@@ -143,13 +171,7 @@ class Scorecard extends _Scorecard
 	 * @return string Scorecard title/label/caption for display
 	 */
 	public function getLabel() {
-		if($this->scorecard_type == self::TYPE_COMPETITION) {
-			$where_str = $this->registration->competition->getFullName().', '.Yii::$app->formatter->asDate($this->registration->competition->start_date);
-		} else {
-			$where_str = $this->practice->course->getFullName();
-		}
-		$golfer_str = $this->golfer->name.' ('.$this->golfer->handicap.')';
-		return $where_str.' — '.$golfer_str;
+		return Yii::t('igolf', 'Scorecard');
 	}
 	
 	public function hasScore() { // opposed to isCompetition()
@@ -161,8 +183,7 @@ class Scorecard extends _Scorecard
 	 */
 	private function doAllowed() {
 		$i = 0;
-		$h = new HandicapEGA();
-		$a = $h->allowed($this->tees, $this->golfer);
+		$a = $this->golfer->allowed($this->tees);
 		foreach($this->getScores()->joinWith('hole')->orderBy('hole.position')->each() as $score) {
 			$score->allowed = $a[$i++];
 			$score->save();
@@ -234,9 +255,9 @@ class Scorecard extends _Scorecard
 		for($i = 0; $i< count($n); $i++) {
 			if($n[$i] > 0) {
 				$topar += ($n[$i] - $p[$i]);
+				$s[$i] = $topar;
 			}
-			$s[$i] = $topar;
-			Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':topar='.$s[$i], 'Scorecard::to_par');
+			//Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':topar='.$s[$i], 'Scorecard::toPar');
 		}
 		return $s;
 	}
@@ -249,9 +270,9 @@ class Scorecard extends _Scorecard
 		for($i = 0; $i< count($n); $i++) {
 			if($n[$i] > 0) {
 				$topar += ($n[$i] - $p[$i]);
+				$s[$i] = $topar;
 			}
-			$s[$i] = $topar;
-			Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':topar='.$s[$i], 'Scorecard::to_par');
+			//Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':topar='.$s[$i], 'Scorecard::toPar_net');
 		}
 		return $s;
 	}
@@ -271,15 +292,69 @@ class Scorecard extends _Scorecard
 	
 	public function upToDate() {
 		$last_score_date = $this->getScores()->max('updated_at');
+		Yii::trace($last_score_date.' <= '.$this->updated_at, 'Scorecard::upToDate');
 		return $last_score_date <= $this->updated_at;
 	}
 
-	public function compute() {
+	/**
+	 * Compute scorecard scores from detailed scores
+	 */
+	public function updateScorecard() {
 		if($this->upToDate()) return;
 		
+		$score = $this->score();
+		$thru = 0;
+		while($thru < count($score) && intval($score[$thru]) > 0)
+			$thru++;
+			
+		$this->thru = $thru;
+		if($thru > 0) {
+			
+			$this->score = array_sum($score);
+			$this->score_net = array_sum($this->score_net());
+			$this->stableford = array_sum($this->stableford());
+			$this->stableford_net = array_sum($this->stableford_net());
+			$this->topar = array_sum($this->toPar());
+			$this->topar_net = array_sum($this->toPar_net());
+		
+			$this->putts = array_sum($this->getHoleData('putts'));
+			$this->penalty = array_sum($this->getHoleData('penalty'));
+		
+			$this->teeshot = array_sum($this->getHoleData('teeshot')) / $thru;
+			$this->regulation = array_sum($this->getHoleData('regulation')) / $thru;
+			
 
+			$sand = $this->getHoleData('sand');
+			$ok = 0; $nok = 0;
+			for($i = 0; $i < count($sand); $i++) {
+				if($sand[$i] === 0)
+					$nok++;
+				else if ($sand[$i] === 1)
+					$ok++;
+			}
+			$this->sand = ($ok + $nok) > 0 ? round($ok / ($ok + $nok), 2) : 0;
+		
+		}
+		
+		$this->validate();
+		Yii::trace('errors='.print_r($this->errors, true), 'Scorecard::updateScorecard');
+
+		return $this->save();
 	}
 	
+	/**
+	 * 
+	 */
+	public function publish() {
+		if($this->thru >= $this->holes()) {
+			$this->status = self::STATUS_PUBLISHED;
+			$this->save();
+			return true;
+		}
+		return false;
+	}
+
+
 	public function getStatistics() {
 		$stat_min = -4;
 		$stat_max = 4;

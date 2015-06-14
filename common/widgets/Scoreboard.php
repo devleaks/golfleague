@@ -93,7 +93,7 @@ class Scoreboard extends _Scoretable {
 			Html::addCssClass($options, 'scoreboard-splitflap');
 		if($this->getOption(self::CARDS))
 			Html::addCssClass($options, 'scoreboard-cards');
-		if($this->getOption(self::NINE))
+		if($this->scorecard->holes() == 9)
 			Html::addCssClass($options, 'scoreboard-nine');
 		
 		$options['data-holes'] = $this->competition->holes;

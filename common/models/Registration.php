@@ -200,7 +200,7 @@ class Registration extends _Registration
 	 */
 	public function getScorecard($detailed = false) {
 		if(! $scorecard = $this->getScorecards()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
-			$scorecard = new Scorecard([
+			$scorecard = new ScorecardForCompetition([
 				'scorecard_type' => Scorecard::TYPE_COMPETITION,
 				'registration_id' => $this->id,
 				'status' => Scorecard::STATUS_CREATED,

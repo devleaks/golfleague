@@ -8,27 +8,29 @@ use Yii;
  * This is the model class for table "scorecard".
  *
  * @property integer $id
+ * @property string $scorecard_type
  * @property integer $registration_id
- * @property string $note
+ * @property integer $practice_id
+ * @property integer $thru
+ * @property integer $handicap
  * @property integer $score
- * @property integer $points
- * @property integer $putts
- * @property string $teeshot
- * @property string $regulation
- * @property integer $penalty
- * @property integer $sand
- * @property string $status
- * @property string $created_at
- * @property string $updated_at
  * @property integer $score_net
  * @property integer $stableford
  * @property integer $stableford_net
- * @property integer $handicap
- * @property integer $thru
- * @property integer $to_par
- * @property integer $practice_id
- * @property string $scorecard_type
+ * @property integer $topar
+ * @property integer $topar_net
+ * @property integer $points
+ * @property string $teeshot
+ * @property string $regulation
+ * @property integer $putts
+ * @property integer $penalty
+ * @property string $sand
+ * @property string $note
+ * @property string $status
+ * @property string $created_at
+ * @property string $updated_at
  *
+ * @property HandicapHistory[] $handicapHistories
  * @property Score[] $scores
  * @property Hole[] $holes
  * @property Practice $practice
@@ -50,12 +52,12 @@ class _Scorecard extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['registration_id', 'score', 'points', 'putts', 'penalty', 'sand', 'score_net', 'stableford', 'stableford_net', 'handicap', 'thru', 'to_par', 'practice_id'], 'integer'],
-            [['teeshot', 'regulation'], 'number'],
-            [['created_at', 'updated_at'], 'safe'],
             [['scorecard_type'], 'required'],
-            [['note'], 'string', 'max' => 160],
-            [['status', 'scorecard_type'], 'string', 'max' => 20]
+            [['registration_id', 'practice_id', 'thru', 'handicap', 'score', 'score_net', 'stableford', 'stableford_net', 'topar', 'topar_net', 'points', 'putts', 'penalty'], 'integer'],
+            [['teeshot', 'regulation', 'sand'], 'number'],
+            [['created_at', 'updated_at'], 'safe'],
+            [['scorecard_type', 'status'], 'string', 'max' => 20],
+            [['note'], 'string', 'max' => 160]
         ];
     }
 
@@ -66,27 +68,36 @@ class _Scorecard extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('igolf', 'ID'),
+            'scorecard_type' => Yii::t('igolf', 'Scorecard Type'),
             'registration_id' => Yii::t('igolf', 'Registration ID'),
-            'note' => Yii::t('igolf', 'Note'),
+            'practice_id' => Yii::t('igolf', 'Practice ID'),
+            'thru' => Yii::t('igolf', 'Thru'),
+            'handicap' => Yii::t('igolf', 'Handicap'),
             'score' => Yii::t('igolf', 'Score'),
-            'points' => Yii::t('igolf', 'Points'),
-            'putts' => Yii::t('igolf', 'Putts'),
-            'teeshot' => Yii::t('igolf', 'Teeshot'),
-            'regulation' => Yii::t('igolf', 'Regulation'),
-            'penalty' => Yii::t('igolf', 'Penalty'),
-            'sand' => Yii::t('igolf', 'Sand'),
-            'status' => Yii::t('igolf', 'Status'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
             'score_net' => Yii::t('igolf', 'Score Net'),
             'stableford' => Yii::t('igolf', 'Stableford'),
             'stableford_net' => Yii::t('igolf', 'Stableford Net'),
-            'handicap' => Yii::t('igolf', 'Handicap'),
-            'thru' => Yii::t('igolf', 'Thru'),
-            'to_par' => Yii::t('igolf', 'To Par'),
-            'practice_id' => Yii::t('igolf', 'Practice ID'),
-            'scorecard_type' => Yii::t('igolf', 'Scorecard Type'),
+            'topar' => Yii::t('igolf', 'Topar'),
+            'topar_net' => Yii::t('igolf', 'Topar Net'),
+            'points' => Yii::t('igolf', 'Points'),
+            'teeshot' => Yii::t('igolf', 'Teeshot'),
+            'regulation' => Yii::t('igolf', 'Regulation'),
+            'putts' => Yii::t('igolf', 'Putts'),
+            'penalty' => Yii::t('igolf', 'Penalty'),
+            'sand' => Yii::t('igolf', 'Sand'),
+            'note' => Yii::t('igolf', 'Note'),
+            'status' => Yii::t('igolf', 'Status'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHandicapHistories()
+    {
+        return $this->hasMany(HandicapHistory::className(), ['scorecard_id' => 'id']);
     }
 
     /**
