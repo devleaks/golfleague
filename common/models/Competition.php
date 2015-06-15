@@ -44,7 +44,7 @@ class Competition extends _Competition
     const GENDER_BOTH = 'BOTH';
 
 
-    /** Competition is for local players only */
+    /** Competition is for local players only, i.e. golfer whose home course is the course where the competition is being played */
     const SPECIAL_LOCAL = 'HOMECOURSE';
     /** Competition is on invitation only */
     const SPECIAL_INVITE = 'INVITE';
@@ -309,8 +309,7 @@ class Competition extends _Competition
     /**
 	 * Returns new Competition of proper type.
      */
-	public static function getNew($type)
-	{
+	public static function getNew($type) {
 	    switch ($type) {
 	        case Competition::TYPE_SEASON:
 	            $new = new Season();

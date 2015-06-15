@@ -7,7 +7,7 @@ use yii\base\Component;
 use yii\base\InvalidConfigException;
 
 /**
- * GolfLeague Main Component. Contains global league behavior variables.
+ * GolfLeague Main Component. Contains global league behavior components, options, variables...
  *
  * @author PierreM
  */

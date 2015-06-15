@@ -7,9 +7,7 @@ use common\models\AuthAssignment;
 use yii\helpers\Url;
 
 /**
- * Description of MenuHelper
- *
- * @author PierreM
+ *  MenuHelper class builds menus for different roles.
  */
 class MenuHelper extends \yii\base\Object
 {

@@ -4,33 +4,81 @@ use yii\helpers\Html;
 use kartik\detail\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Registration */
+/* @var $competition common\models\Registration */
 
-$this->title = $model->id;
+$this->title = $competition->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Registrations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="registration-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?= DetailView::widget([
+        'model' => $competition,
+		'panel'=>[
+	        'heading' => '<h3>'.Yii::t('igolf', $competition->competition_type).' '.$competition->name.'</h3>',
+			'headingOptions' => [
+				'template' => '{title}'
+			],
+	    ],
+        'attributes' => [
+            'id',
+            [
+                'attribute'=>'competition_type',
+                'label'=>'Competition Type',
+                'value'=> Yii::t('igolf', $competition->competition_type),
+            ],
+            [
+                'attribute'=>'parent_id',
+                'label'=>'Competition',
+                'value'=> $competition->parent ? $competition->parent->name : '',
+            ],
+            'name',
+            'description',
+            [
+                'attribute'=>'course_id',
+                'label'=>'Competition',
+                'value'=> $competition->course ? $competition->course->name : '',
+            ],
+            'holes',
+            [
+                'attribute'=>'rule_id',
+                'label'=>'Competition',
+                'value'=> $competition->rule ? $competition->rule->name : '',
+            ],
+            'start_date',
+            'registration_begin',
+            'registration_end',
+            [
+                'attribute'=>'status',
+                'label'=>'Status',
+                'value'=> Yii::t('igolf', $competition->status),
+            ],
+        ],
+    ]) ?>
 
     <?= DetailView::widget([
         'model' => $model,
+		'panel'=>[
+	        'heading' => '<h3>'.Yii::t('igolf', 'Registration').'</h3>',
+			'headingOptions' => [
+				'template' => '{title}'
+			],
+	    ],
         'attributes' => [
-            'id',
-            'competition_id',
-            'golfer_id',
-            'status',
-            'flight_id',
-            'tees',
-            'created_at',
-            'updated_at',
-            'position',
-            'score',
-            'points',
-            'note',
-            'team_id',
-            'score_net',
+            [
+                'attribute'=>'status',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => $model::getLocalizedConstants('STATUS_'),
+                'value'=>Yii::t('igolf', $model->status),
+            ],
+            [
+				'attribute' => 'created_at',
+				'displayOnly' => true,
+			],
+            [
+				'attribute' => 'updated_at',
+				'displayOnly' => true,
+			],
         ],
     ]) ?>
 

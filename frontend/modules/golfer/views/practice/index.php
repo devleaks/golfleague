@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $searchModel common\models\search\PracticeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Practices');
+$this->title = Yii::t('igolf', 'Practice Rounds');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="practice-index">
@@ -22,15 +22,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'course_id',
+            'course.name',
             [
 				'attribute' => 'start_time',
                 'format' => 'datetime',
 				'noWrap' => true,
             ],
+            'tees.name',
             'start_hole',
             'holes',
-            'tees_id',
             'handicap',
             'status',
             // 'updated_at',

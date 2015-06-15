@@ -7,6 +7,9 @@ use yii\db\ActiveRecord;
 use yii\helpers\Html;
 use yii\web\UploadedFile;
  
+/**
+ * Media behaviors adds the ability to add media (images, videos, files...) to any Yii object that uses it.
+ */
 class MediaBehavior extends Behavior {
     public $mediasAttributes;
  

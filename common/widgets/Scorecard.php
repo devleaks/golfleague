@@ -30,6 +30,8 @@ class Scorecard extends _Scoretable {
 	 */
 	public $scorecard;
 	
+	public $colors;
+	
 	/**
 	 * Main function.
 	 *
@@ -39,25 +41,7 @@ class Scorecard extends _Scoretable {
 		if(!$this->scorecard->hasDetails())
 			return Yii::t('igolf', 'No detailed scorecard.');
 		
-		$r = Html::beginTag('table', ['class' => 'table scorecard']);
-		
-		$r .= $this->caption();
-
-		$r .= Html::beginTag('thead');
-		$r .= $this->print_headers();
-		$r .= $this->print_header_split();
-		$r .= Html::endTag('thead');
-			
-		$r .= Html::beginTag('tbody');
-		$r .= $this->print_scores();
-		$r .= Html::endTag('tbody');;
-		
-		$r .= Html::endTag('table');
-
-		if(	$this->getOption(self::LEGEND) )
-			$r .= $this->print_legend();
-
-		return $r;
+		return $this->print_table(['class' => 'table scorecard']);
 	}
 	
 	public function init() {
@@ -69,13 +53,35 @@ class Scorecard extends _Scoretable {
      * Register client assets
      */
     protected function registerAssets() {
+		$this->registerCss();
         $view = $this->getView();
         ScorecardAsset::register($view);
     }
 
+	protected function registerCss() {
+		if($this->colors) {
+			$view = $this->getView();
+			$css = <<<ENDofCSS
+table.scorecard .c3,table.scorecard-legend .c3{background-color: {$this->colors[3]};}
+table.scorecard .c2,table.scorecard-legend .c2{background-color: {$this->colors[2]};}
+table.scorecard .c1,table.scorecard-legend .c1{background-color: {$this->colors[1]};}
+table.scorecard .c0,table.scorecard-legend .c0{background-color: {$this->colors[0]};}
+table.scorecard .c-1,table.scorecard-legend .c-1{background-color: {$this->colors[-1]};}
+table.scorecard .c-2,table.scorecard-legend .c-2{background-color: {$this->colors[-2]};}
+table.scorecard .c-3,table.scorecard-legend .c-3{background-color: {$this->colors[-3]};}
+table.scorecard .c-4,table.scorecard-legend .c-4{background-color: {$this->colors[-4]};}
+ENDofCSS;
+			$view->registerCss($css);
+		}
+	}
+
 	/**
 	 *	Table Headers & Footers
 	 */
+	protected function caption() {
+		return Html::tag('caption', $this->scorecard->getLabel());
+	}
+
 	protected function print_header_split() {
 		$output =  Html::beginTag('tr', ['class' => 'scorecard-split']);
 		$output .= Html::tag('th', $this->scorecard->tees->name);
@@ -120,11 +126,11 @@ class Scorecard extends _Scoretable {
 					$output .= Html::tag('th', $display->data[$i]);
 				}
 				if($display->total) {
-					$output .= Html::tag('th', array_sum($display['data']));
+					$output .= Html::tag('th', array_sum($display->data));
 					if($this->getOption(self::FRONTBACK)) {
-						$output .= Html::tag('th', array_sum(array_slice($display['data'], 0, 9)));
+						$output .= Html::tag('th', array_sum(array_slice($display->data, 0, 9)));
 						if($this->scorecard->holes() > 9)
-							$output .= Html::tag('th', array_sum(array_slice($display['data'], 9, 9)));
+							$output .= Html::tag('th', array_sum(array_slice($display->data, 9, 9)));
 					}
 				} else {
 					$output .= Html::tag('th', '', ['colspan' => $this->getOption(self::FRONTBACK) ? 3 : 1]);
@@ -135,64 +141,12 @@ class Scorecard extends _Scoretable {
 		return $output;
 	}
 
-	protected function caption() {
-		return Html::tag('caption', $this->scorecard->getLabel());
+	protected function print_header() {
+		$r  = $this->print_headers();
+		$r .= $this->print_header_split();
+		return $r;
 	}
 
-	protected function td_allowed($val, $what) {
-		if($what == self::TOTAL)
-			return Html::tag('td', $val);
-		$i = $this->getOption(self::ALLOWED_ICON);
-		return Html::tag('td', $i ? str_repeat($i,$val) : $val);
-	}
-	
-	protected function td_topar($val, $classname) {
-		if(in_array($classname, [self::HOLE,self::TODAY]) && ($val !== "&nbsp;")) {
-			$color = $this->getOption(self::COLOR);
-			$dsp = $color ? abs($val) : $val;
-		} else {
-			$color = false;
-			$dsp = $val;
-		}
-		return Html::tag('td', $dsp, ['class' => ( $color && ($val < 0) ) ? 'red' : null]);
-	}
-	
-	protected function td_score_color($score, $topar) {
-		$prefix = $this->getOption(self::COLOR) ? 'color c' : ($this->getOption(self::SHAPE) ? 'shape s' : '');
-		if($this->getOption(self::COLOR)||$this->getOption(self::SHAPE)) {
-			$class = (abs($topar) > 4) ? (($topar > 0) ? $prefix."3" : $prefix."-4") : $prefix.$topar;
-			$output =  Html::tag('td', $score, ['class' => $class]);
-		} else
-			$output =  Html::tag('td', $score);
-		return $output;			
-	}
-	
-	protected function td_score_highlight($score, $topar, $name) {
-		if( ($name != 'stableford') && (intval($score) != 0) ) {
-				$output = $this->td_score_color($score, $topar);
-		} else if ( ($name == "stableford") && ($score !== null) ) {
-				$output = $this->td_score_color($score, $topar);
-		} else // nothing to display
-				$output = Html::tag('td', '&nbsp;');
-		return $output;
-	}
-		
-    protected function td($name, $str, $val, $topar = 0) {
-		$output = '';
-		switch($name) {
-			case self::TO_PAR_NET:
-			case self::TO_PAR:
-				$output = $this->td_topar( ($val === null ? '&nbsp;' : $val), $str);
-				break;
-			case self::ALLOWED:
-				$output = $this->td_allowed($val, $str);
-				break;
-			default:
-				$output = $this->td_score_highlight($val, $topar, $name);
-		}
-		return $output;
-	}
-	
 	protected function print_scores() {
 		
 		$displays = array(

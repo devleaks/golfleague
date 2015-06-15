@@ -45,8 +45,10 @@ use yii\data\ActiveDataProvider;
             // 'updated_at',
             // 'parent_id',
 
-            ['class' => 'common\models\action\CompetitionGolferActionColumn',
-			 'template' => '{view} {update} {pending} {registration}'],
+            [
+				'class' => 'common\models\action\CompetitionGolferActionColumn',
+				'template' => '{view} {update} {pending} {registration}'
+			],
         ],
     ]); ?>
 

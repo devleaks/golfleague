@@ -1,6 +1,9 @@
 <?php
 
+use common\models\Registration;
+
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -26,11 +29,32 @@ $this->title = Yii::t('igolf', 'Current Registrations');
                 'label' => Yii::t('igolf', 'Status'),
                 'value' => function ($model, $key, $index, $widget) {
                         return Yii::t('igolf', $model->status);
-                    }
+                }
             ],
             [
 				'class' => 'kartik\grid\ActionColumn',
-				'template' => '{view}'
+				'template' => '{view} {approve}',
+				'buttons' => [
+	                'cancel' => function ($url, $model) {
+						if($model->status == Registration::STATUS_REGISTERED) {
+							$url = Url::to(['cancel', 'id' => $model->id]);
+		                    return Html::a('<i class="glyphicon glyphicon-remove"></i>', $url, [
+		                        'title' => Yii::t('igolf', 'Cancel registration'),
+		                    ]);
+						}
+						return '';
+	                },
+					'approve' => function ($url, $model) {
+						if($model->status == Registration::STATUS_INVITED) {
+							$url = Url::to(['approve', 'id' => $model->id]);
+		                    return Html::a('<i class="glyphicon glyphicon-ok"></i>', $url, [
+		                        'title' => Yii::t('igolf', 'Approve'),
+		                    ]);
+						}
+						return '';
+	                },
+				],
+	            
 			],
         ],
     ]); ?>

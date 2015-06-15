@@ -154,66 +154,24 @@ class _Scoretable extends Widget {
 		if($this->getOption(self::LEGEND)) return self::legend(true, $p);		
 	}
 	
-	protected function print_header_split() {
+	protected function print_header() {
 	}
 
-	protected function print_headers() {
-		$displays = [
-			self::LENGTH => [
-				'label'=> Yii::t('igolf', 'Length'),
-				'data' => $this->model->tees->lengths(),
-				'total' => true
-			],
-			self::SI => [
-				'label'=> Yii::t('igolf', 'S.I.'),
-				'data' => $this->model->tees->sis(),
-				'total' => false
-			],
-			self::PAR => [
-				'label'=> Yii::t('igolf', 'Par'),
-				'data' => $this->model->tees->pars(),
-				'total' => true
-			],
-		];
-
-		$output = '';
-		foreach($displays as $key => $display) {
-			if($this->getOption($key)) {			
-				$output .=  Html::beginTag('tr');
-				$output .= Html::tag('th', $display['label'], ['class' => 'labelr']);
-				for($i=0; $i<$this->model->tees->holes; $i++) {
-					$output .= Html::tag('th', $display['data'][$i]);
-				}
-				if($display['total']) {
-					$output .= Html::tag('th', array_sum($display['data']));
-					if($this->getOption(self::FRONTBACK)) {
-						$output .= Html::tag('th', array_sum(array_slice($display['data'], 0, 9)));
-						$output .= Html::tag('th', array_sum(array_slice($display['data'], 9, 9)));
-					}
-				} else {
-					$output .= Html::tag('th', '', ['colspan' => $this->getOption(self::FRONTBACK) ? 3 : 1]);
-				}
-				$output .= Html::endTag('tr');
-			}
-		}		
-		return $output;
+	protected function print_footer() {
 	}
 
 	protected function caption() {
-		$competition = $this->model->registration->competition->getFullName().', '.Yii::$app->formatter->asDate($this->model->registration->competition->start_date);
-		$golfer = $this->model->registration->golfer->name.' ('.$this->model->registration->golfer->handicap.')';
-		return Html::tag('caption', $competition.' — '.$golfer);
 	}
 
 	protected function td_allowed($val, $what) {
-		if($what == 'total')
+		if($what == self::TOTAL)
 			return Html::tag('td', $val);
 		$i = $this->getOption(self::ALLOWED_ICON);
 		return Html::tag('td', $i ? str_repeat($i,$val) : $val);
 	}
-	
+		
 	protected function td_topar($val, $classname) {
-		if(in_array($classname, ['hole','today']) && ($val !== "&nbsp;")) {
+		if(in_array($classname, [self::HOLE,self::TODAY]) && ($val !== "&nbsp;" && $val !== null)) {
 			$color = $this->getOption(self::COLOR);
 			$dsp = $color ? abs($val) : $val;
 		} else {
@@ -222,7 +180,7 @@ class _Scoretable extends Widget {
 		}
 		return Html::tag('td', $dsp, ['class' => ( $color && ($val < 0) ) ? 'red' : null]);
 	}
-	
+		
 	protected function td_score_color($score, $topar) {
 		$prefix = $this->getOption(self::COLOR) ? 'color c' : ($this->getOption(self::SHAPE) ? 'shape s' : '');
 		if($this->getOption(self::COLOR)||$this->getOption(self::SHAPE)) {
@@ -234,22 +192,24 @@ class _Scoretable extends Widget {
 	}
 	
 	protected function td_score_highlight($score, $topar, $name) {
-		if( ($name != 'stableford') && (intval($score) != 0) ) {
+		if( ($name != self::STABLEFORD) && (intval($score) != 0) ) {
 				$output = $this->td_score_color($score, $topar);
-		} else if ( ($name == "stableford") && ($score !== null) ) {
+		} else if ( ($name == self::STABLEFORD) && ($score !== null) ) {
 				$output = $this->td_score_color($score, $topar);
 		} else // nothing to display
 				$output = Html::tag('td', '&nbsp;');
 		return $output;
 	}
-		
+			
     protected function td($name, $str, $val, $topar = 0) {
+		$output = '';
 		switch($name) {
+			case self::TO_PAR_NET:
 			case self::TO_PAR:
-				$output = $this->td_topar( ($val === '' ? '&nbsp;' : $val), $str);
+				$output = $this->td_topar( ($val === null ? '&nbsp;' : $val), $str);
 				break;
 			case self::ALLOWED:
-				$output =$this->td_allowed($val, $str);
+				$output = $this->td_allowed($val, $str);
 				break;
 			default:
 				$output = $this->td_score_highlight($val, $topar, $name);
@@ -257,4 +217,24 @@ class _Scoretable extends Widget {
 		return $output;
 	}
 	
+	protected function print_table($options) {
+		$r = Html::beginTag('table', $options);
+		
+		$r .= $this->caption();
+
+		$r .= Html::tag('thead', $this->print_header());
+		$r .= Html::tag('tbody', $this->print_scores());
+
+		if(	$this->getOption(self::FOOTER) ) {
+			$r .= Html::tag('tfoot', $this->print_footer());
+		}
+		
+		$r .= Html::endTag('table');
+
+		if(	$this->getOption(self::LEGEND) ) {
+			$r .= $this->print_legend();
+		}
+
+		return $r;
+	}
 }

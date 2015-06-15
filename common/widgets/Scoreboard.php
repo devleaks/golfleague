@@ -99,30 +99,7 @@ class Scoreboard extends _Scoretable {
 		$options['data-holes'] = $this->competition->holes;
 		$options['data-ajaxgolfleague'] = $refresh_data;		
 		
-		$r = Html::beginTag('table', $options);
-		
-		$r .= $this->caption();
-
-		$r .= Html::beginTag('thead');
-		$r .= $this->print_headers();
-		$r .= $this->print_header_split();
-		$r .= Html::endTag('thead');
-			
-		$r .= Html::beginTag('tbody');
-		$r .= $this->print_scores();
-		$r .= Html::endTag('tbody');;
-
-		if(	$this->getOption(self::FOOTER) ) {
-			$r .= Html::tag('tfoot', $this->print_footer());
-		}
-		
-		$r .= Html::endTag('table');
-
-		if(	$this->getOption(self::LEGEND) ) {
-			$r .= $this->print_legend();
-		}
-
-		return $r;
+		return $this->print_table($options);
 	}
 	
 	public function init() {
@@ -137,6 +114,14 @@ class Scoreboard extends _Scoretable {
         $view = $this->getView();
         ScoreboardAsset::register($view);
     }
+
+	/**
+	 *	Table Headers & Footers
+	 */
+	protected function caption() {
+		$competition = $this->competition->getFullName().', '.Yii::$app->formatter->asDate($this->competition->start_date);
+		return Html::tag('caption', $competition);
+	}
 
 	protected function print_header_split() {
 		$output =  Html::beginTag('tr', ['class' => 'scorecard-split']);
@@ -195,6 +180,12 @@ class Scoreboard extends _Scoretable {
 		return $output;
 	}
 
+	protected function print_header() {
+		$r  = $this->print_headers();
+		$r .= $this->print_header_split();
+		return $r;
+	}
+
 	protected function print_footer() {
 		$output  =  Html::beginTag('tr', ['class' => 'last-updated']);
 
@@ -203,64 +194,6 @@ class Scoreboard extends _Scoretable {
 
 		$output .= Html::tag('td', $str, ['colspan' => $this->colspan(-2)]);
 		$output .=  Html::endTag('tr');
-		return $output;
-	}
-
-	protected function caption() {
-		$competition = $this->competition->getFullName().', '.Yii::$app->formatter->asDate($this->competition->start_date);
-		return Html::tag('caption', $competition);
-	}
-
-	protected function td_allowed($val, $what) {
-		if($what == 'total')
-			return Html::tag('td', $val);
-		$i = $this->getOption(self::ALLOWED_ICON);
-		return Html::tag('td', $i ? str_repeat($i,$val) : $val);
-	}
-	
-	protected function td_topar($val, $classname) {
-		if(in_array($classname, ['hole','today']) && ($val !== "&nbsp;")) {
-			$color = $this->getOption(self::COLOR);
-			$dsp = $color ? abs($val) : $val;
-		} else {
-			$color = false;
-			$dsp = $val;
-		}
-		return Html::tag('td', $dsp, ['class' => ( $color && ($val < 0) ) ? 'red' : null]);
-	}
-	
-	protected function td_score_color($score, $topar) {
-		$prefix = $this->getOption(self::COLOR) ? 'color c' : ($this->getOption(self::SHAPE) ? 'shape s' : '');
-		if($this->getOption(self::COLOR)||$this->getOption(self::SHAPE)) {
-			$class = (abs($topar) > 4) ? (($topar > 0) ? $prefix."3" : $prefix."-4") : $prefix.$topar;
-			$output =  Html::tag('td', $score, ['class' => $class]);
-		} else
-			$output =  Html::tag('td', $score);
-		return $output;			
-	}
-	
-	protected function td_score_highlight($score, $topar, $name) {
-		if( ($name != self::STABLEFORD) && (intval($score) != 0) ) {
-				$output = $this->td_score_color($score, $topar);
-		} else if ( ($name == self::STABLEFORD) && ($score !== null) ) {
-				$output = $this->td_score_color($score, $topar);
-		} else // nothing to display
-				$output = Html::tag('td', '&nbsp;');
-		return $output;
-	}
-		
-    protected function td($name, $str, $val, $topar = 0) {
-		switch($name) {
-			case self::TO_PAR:
-			case self::TO_PAR_NET:
-				$output = $this->td_topar( ($val === null ? '&nbsp;' : $val), $str);
-				break;
-			case self::ALLOWED:
-				$output =$this->td_allowed($val, $str);
-				break;
-			default:
-				$output = $this->td_score_highlight($val, $topar, $name);
-		}
 		return $output;
 	}
 
@@ -318,9 +251,8 @@ class Scoreboard extends _Scoretable {
 		for($i=0; $i<min($this->competition->holes,count($scores)); $i++) { // @todo
 			$total += $scores[$i];
 			if($this->getOption(self::HOLES)) {
-				if($this->competition->rule->isStableford()) {					
-					$topar = array_search($scores[$i], $stableford_points);
-					$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], $topar);
+				if(in_array($name, [self::STABLEFORD, self::STABLEFORD_NET])) {
+					$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], array_search($scores[$i], $stableford_points));
 				} else {
 					$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], ($refs[$i] - $pars[$i]));
 				}
@@ -350,7 +282,6 @@ class Scoreboard extends _Scoretable {
 		return $output;
 	}
 
-	
 	private function prepare_scorecards() {
 		$this->scoreline = [];
 		foreach($this->competition->getScorecards()->each() as $scorecard) {
@@ -370,7 +301,6 @@ class Scoreboard extends _Scoretable {
 		// sort array depending on rule
 		uasort($this->scoreline, array(Scoreline::className(), $this->competition->rule->isStableford() ? 'compareGolfScore' : 'compareGolfScoreToPar'));
 	}
-	
 
 	protected function print_scores() {
 		$output = '';

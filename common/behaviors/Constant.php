@@ -6,11 +6,10 @@ use Yii;
 use yii\base\Behavior;
 
 /**
- *
- *
+ *	Constant behavior/trait inspects a class and extract all constants whose name match a supplied pattern.
  */
-trait Constant
-{
+trait Constant {
+
 	/**
 	 * getConstants returns constants defined in a class with name that starts with supplied prefix.
 	 *

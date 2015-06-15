@@ -7,7 +7,7 @@ use yii\data\ActiveDataProvider;
 /* @var $model common\models\Practice */
 
 $this->title = $model->course->name.' » '.Yii::$app->formatter->asDateTime($model->start_time);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Practices'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Practice Rounds'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('igolf', 'Update');
 ?>

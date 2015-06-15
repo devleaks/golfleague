@@ -64,7 +64,17 @@ $this->params['breadcrumbs'][] = $this->title;
 			Scorecard::STABLEFORD_NET => true,
 			Scorecard::TO_PAR => true,
 			Scorecard::TO_PAR_NET => true,
-		]
+		],
+/*		'colors' => [
+			3 => 'black',
+			2 => 'red',
+			1 => 'orange',
+			0 => 'white',
+			-1 => 'green',
+			-2 => 'blue',
+			-3 => 'purple',
+			-4 => 'grey'
+		]*/
     ]) ?>
 
 	<?php if($scorecard->status != ScorecardModel::STATUS_PUBLISHED): ?>
