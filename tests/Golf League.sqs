@@ -1534,11 +1534,11 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>832.00</x>
-            <y>768.00</y>
+            <y>704.00</y>
         </location>
         <size>
             <width>256.00</width>
-            <height>320.00</height>
+            <height>384.00</height>
         </size>
         <zorder>19</zorder>
         <SQLField>
@@ -1754,7 +1754,7 @@
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
             <x>64.00</x>
-            <y>1408.00</y>
+            <y>1664.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2111,7 +2111,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>64.00</x>
-            <y>1088.00</y>
+            <y>1344.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2528,9 +2528,9 @@ LWE0hoaG
         <SourceSplitViewState><![CDATA[2 495.391 1081.61]]></SourceSplitViewState>
         <uid><![CDATA[266254ED-452F-413C-A91E-9AB58B380E54]]></uid>
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
-        <windowLocationX><![CDATA[625.000000]]></windowLocationX>
-        <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{236, 349}]]></windowScrollOrigin>
+        <windowLocationX><![CDATA[282.000000]]></windowLocationX>
+        <windowLocationY><![CDATA[85.000000]]></windowLocationY>
+        <windowScrollOrigin><![CDATA[{0, 702}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

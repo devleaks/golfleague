@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Competition;
 use common\models\Rule;
 
 /* @var $this yii\web\View */
@@ -14,20 +15,14 @@ use common\models\Rule;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'competition_type')->dropDownList(array(
-		'TOURNAMENT' => Yii::t('igolf', 'Tournament'),
-		'MATCH' => Yii::t('igolf', 'Match'),
-    )) ?>
+    <?= $form->field($model, 'competition_type')->dropDownList(Competition::getLocalizedConstants('TYPE_'))
+			->hint(Yii::t('igolf', 'Rule applies to this type of competition')) ?>
 
-    <?= $form->field($model, 'object_type')->dropDownList(array(
-        'SEASON' => Yii::t('igolf', 'Season'),
-        'TOURNAMENT' => Yii::t('igolf', 'Tournament'),
-        'MATCH' => Yii::t('igolf', 'Match'),
-    )) ?>
+    <?= $form->field($model, 'object_type')		->dropDownList(Competition::getLocalizedConstants('TYPE_'))
+			->hint(Yii::t('igolf', 'Rule acts on this type of competition')) ?>
 
-    <?= $form->field($model, 'rule_type')->dropDownList(
-		Rule::getConstants('TYPE_')
-    ) ?>
+    <?= $form->field($model, 'rule_type')->dropDownList(Rule::getConstants('TYPE_'))
+			->hint(Yii::t('igolf', 'Rule acts on this type of score')) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 80]) ?>
 

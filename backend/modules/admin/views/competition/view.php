@@ -73,6 +73,12 @@ $this->params['breadcrumbs'][] = $this->title;
 				'value' => $model->rule_id ? $model->rule->name : '',
 			],
             [
+				'attribute' => 'rule_final_id',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => ArrayHelper::map([''=>'']+Rule::find()->where(['competition_type' => $model->competition_type])->asArray()->all(), 'id', 'name'),
+				'value' => $model->rule_final_id ? $model->ruleFinal->name : '',
+			],
+            [
                 'attribute'=>'start_date',
 				'format' => 'datetime',
 				'type' => DetailView::INPUT_DATETIME,
