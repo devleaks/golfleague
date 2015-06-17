@@ -42,7 +42,6 @@ class Flight extends _Flight
     {
         return [
             'id' => Yii::t('igolf', 'Flight'),
-            'competition_id' => Yii::t('igolf', 'Match'),
             'position' => Yii::t('igolf', 'Position'),
             'note' => Yii::t('igolf', 'Note'),
         ];

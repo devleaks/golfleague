@@ -6,7 +6,7 @@ namespace common\models\handicap;
  * This is the interface for computing handicap related values depending on the handicap system.
  *
  */
-interface HandicapInterface
+interface Handicap
 {
 	public function allowed($tees, $golfer);
 }

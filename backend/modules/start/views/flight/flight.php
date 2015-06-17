@@ -11,7 +11,7 @@ use kartik\grid\GridView;
 <ul id="flight-<?= $flight->id ?>" class="flight">
 
     <?php
-	if ($flight->competition->isTeamCompetition())
+	if ($flight->getRegistrations()->one()->competition->isTeamCompetition())
 		foreach($flight->getTeams()->each() as $team) {
 			$teesColor = 'black';
 			echo '<li id="registration-'.$team->id.'" class="golfer"  data-handicap="'.$team->handicap.'">'.$team->name.' ('.

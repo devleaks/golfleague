@@ -17,7 +17,7 @@ use yii\helpers\Url;
 		'options' => ['id' => 'registration'],
         'dataProvider' => $dataProvider,
 		'panel'=>[
-	        'heading' => '<h4>'.$this->title.'</h4>',
+	        'heading' => '<h4>'.Yii::t('igolf', 'Scorecards').'</h4>',
 			'footer' => false,
 	    ],
 		'pjax' => true,
@@ -26,24 +26,6 @@ use yii\helpers\Url;
         ],
 		'export' => false,
         'columns' => [
-			'position',
-            [
-            	'attribute' => 'competition_name',
-                'label' => Yii::t('igolf', 'Competition'),
-                'value' => function($model, $key, $index, $widget) {
-                    return  $model->competition->name;
-                },
-				'visible' => $competition === null,
-            ],
-            [
-            	'attribute' => 'competition_type',
-                'label' => Yii::t('igolf', 'Competition Type'),
-                'value' => function($model, $key, $index, $widget) {
-                    return  Yii::t('igolf', $model->competition->competition_type);
-                },
-				'filter' => Competition::getLocalizedConstants('TYPE_'),
-				'visible' => $competition === null,
-            ],
             [
             	'attribute' => 'golfer_name',
                 'label' => Yii::t('igolf', 'Golfer'),
@@ -51,8 +33,14 @@ use yii\helpers\Url;
                     return  $model->golfer->name;
                 },
 			],
+			'score',
+			'score_net',
+			'stableford',
+			'stableford_net',
+			'points',
             [
                 'attribute' => 'status',
+            	'label' => Yii::t('igolf', 'Scorecard Status'),
                 'value' => function($model, $key, $index, $widget) {
                 	return Yii::t('igolf', $model->status);
                 },

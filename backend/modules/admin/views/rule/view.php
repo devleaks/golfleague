@@ -3,8 +3,8 @@
 use yii\helpers\Html;
 use yii\data\ActiveDataProvider;
 use kartik\detail\DetailView;
-use common\models\search\PointSearch;
 use common\models\Competition;
+use common\models\Scorecard;
 use common\models\Rule;
 
 /* @var $this yii\web\View */
@@ -26,32 +26,38 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'id',
             'name',
             'description',
+            'note',
             [
                 'attribute'=>'competition_type',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => Competition::getConstants('TYPE_'),
             ],
             [
-                'attribute'=>'object_type',
+                'attribute'=>'source_type',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => Rule::getConstants('TYPE_'),
+				'items' => Scorecard::getConstants('SCORE_'),
             ],
             [
-                'attribute'=>'rule_type',
+                'attribute'=>'source_direction',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => Rule::getConstants('RULE_'),
+				'items' => Scorecard::getConstants('DIRECTION_'),
+            ],
+            [
+                'attribute'=>'destination_type',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => [''=>''] + Scorecard::getConstants('SCORE_'),
             ],
             [
                 'attribute'=>'team',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => [null => Yii::t('igolf', 'Individual'),
-						2 => '2 '.Yii::t('igolf', 'Players'),
-						3 => '3 '.Yii::t('igolf', 'Players'),
-						4 => '4 '.Yii::t('igolf', 'Players'),
-				],
+				'items' => Rule::getTeamList(),
             ],
-            'note',
-            'classname',
+            [
+                'attribute'=>'classname',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => Rule::getList(),
+            ],
+            'parameters',
         ],
     ]) ?>
 

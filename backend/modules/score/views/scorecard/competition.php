@@ -16,9 +16,12 @@ $this->title = $competition->getFullName();
 $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-$static_if_has_details = function($model, $key, $index, $widget) {
-    return  $model->hasDetails() ? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
-}
+$input_decimal = [
+	'type' => function($model, $key, $index, $widget) {
+	    return  $model->hasDetails() ? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+	},
+	'columnOptions' => ['width' => '75px'],
+];
 
 ?>
 <div class="scorecard-index">
@@ -32,7 +35,10 @@ $static_if_has_details = function($model, $key, $index, $widget) {
 			'panel'=>[
 		        'heading' => '<h4>'.$this->title.'</h4>',
 				'footer' => Html::submitButton('Save', ['class'=>'btn btn-primary']).' '.
-							Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $competition->id]), ['class'=>'btn btn-success']),
+							Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $competition->id]), ['class'=>'btn btn-success']).
+							' '.
+							Html::a(Yii::t('igolf', 'Gross ➝ Net'), Url::to(['compute-net', 'id' => $competition->id]), ['class'=>'btn-sm btn-success'])
+							,
 		    ],
 		],
 		'serialColumn' => false,
@@ -52,28 +58,23 @@ $static_if_has_details = function($model, $key, $index, $widget) {
 	            },
 				'noWrap' => true,
 			],
-			'thru' => [
-				'type' => $static_if_has_details,
+			'golfer_hdcp' => [
+				'type' => TabularForm::INPUT_STATIC,
+            	'label'=>Yii::t('igolf', 'Handicap'),
+	            'value' => function($model, $key, $index, $widget) {
+	                return  $model->registration->golfer->handicap;
+	            },
+				'noWrap' => true,
 			],
-			'score' => [
-				'type' => $static_if_has_details,
-			],
-			'score_net' => [
-				'type' => $static_if_has_details,
-			],
-			'stableford' => [
-				'type' => $static_if_has_details,
-			],
-			'stableford_net' => [
-				'type' => $static_if_has_details,
-			],
-			'points' => [
-				'type' => $static_if_has_details,
-			],
+			'thru' => $input_decimal,
+			'score' => $input_decimal,
+			'score_net' => $input_decimal,
+			'stableford' => $input_decimal,
+			'stableford_net' => $input_decimal,
+			'points' => $input_decimal,
 			'status' => [
 				'type' => TabularForm::INPUT_DROPDOWN_LIST,
 				'items' => Scorecard::getLocalizedConstants('STATUS_'),
-				/* value => RESULTS ? */
 			],
         ],
     ]); ?>

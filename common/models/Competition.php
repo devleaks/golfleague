@@ -163,6 +163,34 @@ class Competition extends _Competition
 	/**
 	 * More relations
 	 */
+	/**
+	 * Returns scorecards for this competition. Ignore registered non-participant.
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getScorecards() {
+		return $this->hasMany(Scorecard::className(), ['registration_id' => 'id'])->viaTable('registration', ['competition_id' => 'id']);
+		//return Scorecard::find()->where(['registration_id' => $this->getRegistrations()->select('id')]);
+	}
+
+	/**
+	 * Returns competition flights, if any
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getFlights() {
+		return $this->hasMany(Flight::className(), ['id' => 'flight_id'])->viaTable('registration', ['competition_id' => 'id']);
+	}
+
+	/**
+	 * Returns competition teams, if any
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getTeams() {
+		return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['competition_id' => 'id']);
+	}
+
 
 
 	/**
@@ -192,25 +220,6 @@ class Competition extends _Competition
 			return $this->name;
 	}
 
-	/**
-	 * Returns scorecards for this competition. Ignore registered non-participant.
-	 *
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getScorecards() {
-		return $this->hasMany(Scorecard::className(), ['registration_id' => 'id'])->viaTable('registration', ['competition_id' => 'id']);
-		//return Scorecard::find()->where(['registration_id' => $this->getRegistrations()->select('id')]);
-	}
-
-	/**
-	 * Returns competition teams, if any
-	 *
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getTeams() {
-		return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['competition_id' => 'id']);
-	}
-	
 	/**
 	 * Returns type of child competition, if any.
 	 */

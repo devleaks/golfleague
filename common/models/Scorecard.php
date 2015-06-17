@@ -19,7 +19,7 @@ class Scorecard extends _Scorecard
 
 	/** Scorecard types */
 	const TYPE_COMPETITION = 'COMPETITION';
-	const TYPE_PRACTICE = 'PRACTICE';
+	const TYPE_PRACTICE    = 'PRACTICE';
 
 	/** Scorecard statuses */
 	const STATUS_CREATED = 'CREATED';
@@ -29,6 +29,21 @@ class Scorecard extends _Scorecard
 	const STATUS_NOSHOW = 'NOSHOW';
 	const STATUS_PUBLISHED = 'PUBLISHED';
 	
+	/** Score types (i.e. column name) */
+	const SCORE_GROSS = 'score';
+	const SCORE_NET   = 'score_net';
+	const SCORE_STABLEFORD = 'stableford';
+	const SCORE_STABLEFORD_NET = 'stableford_net';
+	const SCORE_POINTS = 'points';
+
+	/** Score types (i.e. column name) */
+	const DIRECTION_ASC  = 'ASC';
+	const DIRECTION_DESC = 'DESC';
+	
+	/** Compute actions */
+	const COMPUTE_GROSS_TO_NET = 'gross2net';
+
+
     /**
      * @inheritdoc
      */
@@ -372,6 +387,16 @@ class Scorecard extends _Scorecard
 			}
 		}
 		return $stats;
+	}
+	
+	public function compute($what) {
+		switch($what) {
+			case self::COMPUTE_GROSS_TO_NET:
+				$allowed = array_sum($this->golfer->allowed($this->tees));
+				$this->score_net = $this->score - $allowed;
+				break;
+		}
+		$this->save();
 	}
 
 }

@@ -26,9 +26,7 @@ class ScorecardController extends GolfLeagueController
      */
     public function actionCompetition($id)
     {
-		$competition = Competition::findOne($id);
-		if(!$competition)
-        	throw new NotFoundHttpException('The requested page does not exist.');
+		$competition = $this->findCompetition($id);
 
 		if(isset($_POST['ScorecardForCompetition'])) {
 	        $models = ScorecardForCompetition::find()->andWhere(['id' => array_keys($_POST['ScorecardForCompetition'])])->indexBy('id')->all();
@@ -71,30 +69,14 @@ class ScorecardController extends GolfLeagueController
      */
     public function actionPublish($id)
     {
-		$competition = Competition::findOne($id);
-		if(!$competition)
-        	throw new NotFoundHttpException('The requested page does not exist.');
+		$competition = $this->findCompetition($id);
+
+		//@TODO: Validate scorecards
 				
 		$competition->status = Competition::STATUS_COMPLETED;
-		$competition->save();
+		//$competition->save();
 
-        return $this->redirect(Url::to(['result/view', 'id' => $competition->id]));
-    }
-
-    /**
-     * Displays a single Score model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionList($id)
-    {
-		$competition = Competition::findOne($id);
-		if(!$competition)
-        	throw new NotFoundHttpException('The requested page does not exist.');
-
-        return $this->render('list', [
-			'model' => $competition,
-        ]);
+        return $this->redirect(Url::to(['rule/view', 'id' => $competition->id]));
     }
 
     /**
@@ -112,4 +94,12 @@ class ScorecardController extends GolfLeagueController
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+	public function actionComputeNet($id) {
+		$competition = $this->findCompetition($id);
+		foreach($competition->getScorecards()->each() as $scorecard) {
+			$scorecard->compute(ScorecardForCompetition::COMPUTE_GROSS_TO_NET);
+		}
+        return $this->redirect(Url::to(['competition', 'id' => $competition->id]));
+	}
 }

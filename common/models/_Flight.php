@@ -8,14 +8,14 @@ use Yii;
  * This is the model class for table "flight".
  *
  * @property integer $id
- * @property integer $competition_id
+ * @property string $start_time
+ * @property integer $start_hole
+ * @property string $handicap
  * @property integer $position
  * @property string $note
  * @property string $created_at
  * @property string $updated_at
- * @property string $start_time
  *
- * @property Competition $competition
  * @property Registration[] $registrations
  */
 class _Flight extends \yii\db\ActiveRecord
@@ -34,9 +34,10 @@ class _Flight extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['competition_id', 'position'], 'integer'],
-            [['position'], 'required'],
-            [['created_at', 'updated_at', 'start_time'], 'safe'],
+            [['start_time', 'start_hole'], 'required'],
+            [['start_time', 'created_at', 'updated_at'], 'safe'],
+            [['start_hole', 'position'], 'integer'],
+            [['handicap'], 'number'],
             [['note'], 'string', 'max' => 160]
         ];
     }
@@ -48,21 +49,14 @@ class _Flight extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('igolf', 'ID'),
-            'competition_id' => Yii::t('igolf', 'Competition ID'),
+            'start_time' => Yii::t('igolf', 'Start Time'),
+            'start_hole' => Yii::t('igolf', 'Start Hole'),
+            'handicap' => Yii::t('igolf', 'Handicap'),
             'position' => Yii::t('igolf', 'Position'),
             'note' => Yii::t('igolf', 'Note'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
-            'start_time' => Yii::t('igolf', 'Start Time'),
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCompetition()
-    {
-        return $this->hasOne(Competition::className(), ['id' => 'competition_id']);
     }
 
     /**

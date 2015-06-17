@@ -135,16 +135,16 @@
         },
         {
             "name": "bower-asset/bootstrap",
-            "version": "v3.3.4",
+            "version": "v3.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "a10eb60bc0b07b747fa0c4ebd8821eb7307bd07f"
+                "reference": "16b48259a62f576e52c903c476bd42b90ab22482"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a10eb60bc0b07b747fa0c4ebd8821eb7307bd07f",
-                "reference": "a10eb60bc0b07b747fa0c4ebd8821eb7307bd07f",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16b48259a62f576e52c903c476bd42b90ab22482",
+                "reference": "16b48259a62f576e52c903c476bd42b90ab22482",
                 "shasum": ""
             },
             "require": {
@@ -154,13 +154,7 @@
             "extra": {
                 "bower-asset-main": [
                     "less/bootstrap.less",
-                    "dist/css/bootstrap.css",
-                    "dist/js/bootstrap.js",
-                    "dist/fonts/glyphicons-halflings-regular.eot",
-                    "dist/fonts/glyphicons-halflings-regular.svg",
-                    "dist/fonts/glyphicons-halflings-regular.ttf",
-                    "dist/fonts/glyphicons-halflings-regular.woff",
-                    "dist/fonts/glyphicons-halflings-regular.woff2"
+                    "dist/js/bootstrap.js"
                 ],
                 "bower-asset-ignore": [
                     "/.*",
@@ -173,6 +167,9 @@
                     "test-infra"
                 ]
             },
+            "license": [
+                "MIT"
+            ],
             "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
             "keywords": [
                 "css",
@@ -473,16 +470,16 @@
         },
         {
             "name": "bower-asset/fullcalendar",
-            "version": "v2.2.7",
+            "version": "v2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/arshaw/fullcalendar.git",
-                "reference": "aab1068caa23bac6cfa11103d8b644faf6b4a184"
+                "reference": "b48f3f2dbb71be46002833a611dc3fa7bb982a56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/arshaw/fullcalendar/zipball/aab1068caa23bac6cfa11103d8b644faf6b4a184",
-                "reference": "aab1068caa23bac6cfa11103d8b644faf6b4a184",
+                "url": "https://api.github.com/repos/arshaw/fullcalendar/zipball/b48f3f2dbb71be46002833a611dc3fa7bb982a56",
+                "reference": "b48f3f2dbb71be46002833a611dc3fa7bb982a56",
                 "shasum": ""
             },
             "require": {
@@ -508,17 +505,21 @@
                     "*",
                     "**/.*",
                     "!/dist/**",
-                    "!/bower.json",
                     "!/changelog.*",
                     "!/license.*",
                     "!/readme.*"
                 ]
             },
+            "license": {
+                "type": "MIT",
+                "url": "https://github.com/arshaw/fullcalendar/blob/master/license.txt"
+            },
             "description": "Full-sized drag & drop event calendar",
             "keywords": [
                 "calendar",
                 "event",
-                "full-sized"
+                "full-sized",
+                "jquery-plugin"
             ]
         },
         {
@@ -4114,22 +4115,26 @@
         },
         {
             "name": "philippfrenzel/yii2fullcalendar",
-            "version": "2.2.7",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/philippfrenzel/yii2fullcalendar.git",
-                "reference": "db1110667430598f8a06a1ecae14648d45de7e72"
+                "reference": "6bee6a8961827244262ea4b51d44b85aa314d0a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/philippfrenzel/yii2fullcalendar/zipball/db1110667430598f8a06a1ecae14648d45de7e72",
-                "reference": "db1110667430598f8a06a1ecae14648d45de7e72",
+                "url": "https://api.github.com/repos/philippfrenzel/yii2fullcalendar/zipball/6bee6a8961827244262ea4b51d44b85aa314d0a4",
+                "reference": "6bee6a8961827244262ea4b51d44b85aa314d0a4",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/fullcalendar": "2.2.* | 2.1.* | 2.0.*",
+                "bower-asset/fullcalendar": "2.3.* | 2.2.* | 2.1.*",
+                "php": ">=5.4.0",
                 "yiisoft/yii2": "*",
                 "yiisoft/yii2-jui": "*"
+            },
+            "require-dev": {
+                "codeception/codeception": "*"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -4139,14 +4144,14 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT License"
+                "MIT"
             ],
             "authors": [
                 {
                     "name": "Philipp Frenzel",
                     "email": "philipp@frenzel.net",
                     "homepage": "http://www.frenzel.net/",
-                    "role": "Author Version Yii2"
+                    "role": "Developer"
                 }
             ],
             "description": "Yii2 fullcalendar Widgets",
@@ -4155,7 +4160,7 @@
                 "fullcalendar",
                 "yii2"
             ],
-            "time": "2015-02-09 20:01:22"
+            "time": "2015-06-16 09:15:47"
         },
         {
             "name": "phpdocumentor/reflection",
@@ -4845,12 +4850,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yii2mod/yii2-chosen-select.git",
-                "reference": "309fd53e4a00631c27a46dd51193d9fa66051d7a"
+                "reference": "df5b6fb31ba1957721c92858de6d3fc5648062a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yii2mod/yii2-chosen-select/zipball/309fd53e4a00631c27a46dd51193d9fa66051d7a",
-                "reference": "309fd53e4a00631c27a46dd51193d9fa66051d7a",
+                "url": "https://api.github.com/repos/yii2mod/yii2-chosen-select/zipball/df5b6fb31ba1957721c92858de6d3fc5648062a9",
+                "reference": "df5b6fb31ba1957721c92858de6d3fc5648062a9",
                 "shasum": ""
             },
             "require": {
@@ -4864,7 +4869,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache-2.0"
+                "MIT"
             ],
             "authors": [
                 {
@@ -4877,7 +4882,7 @@
                 "module",
                 "yii2"
             ],
-            "time": "2015-04-30 07:58:32"
+            "time": "2015-06-17 09:40:54"
         },
         {
             "name": "yii2mod/yii2-selectize",
@@ -4885,12 +4890,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yii2mod/yii2-selectize.git",
-                "reference": "41b90a3d02b7b082ac6da3496dfd898eb5b36b0d"
+                "reference": "ba0f3d71fa7b4809a935da7bc056d2561c74a355"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yii2mod/yii2-selectize/zipball/41b90a3d02b7b082ac6da3496dfd898eb5b36b0d",
-                "reference": "41b90a3d02b7b082ac6da3496dfd898eb5b36b0d",
+                "url": "https://api.github.com/repos/yii2mod/yii2-selectize/zipball/ba0f3d71fa7b4809a935da7bc056d2561c74a355",
+                "reference": "ba0f3d71fa7b4809a935da7bc056d2561c74a355",
                 "shasum": ""
             },
             "type": "yii2-extension",
@@ -4901,7 +4906,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache-2.0"
+                "MIT"
             ],
             "authors": [
                 {
@@ -4914,7 +4919,7 @@
                 "module",
                 "yii2"
             ],
-            "time": "2015-05-08 15:24:51"
+            "time": "2015-06-17 09:40:58"
         },
         {
             "name": "yiisoft/yii2",

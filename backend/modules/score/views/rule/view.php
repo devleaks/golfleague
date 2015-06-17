@@ -21,8 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'headingOptions' => [
 				'template' => '{title}'
 			],
-			'footer' => Html::a(Yii::t('igolf', 'Apply Rule(s)'), Url::to(['apply', 'id' => $model->id]), ['class'=>'btn btn-success']).' '.
-						Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $model->id]), ['class'=>'btn btn-success']),
+			'footer' => false,
 	    ],
         'attributes' => [
             'id',
@@ -78,11 +77,16 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-	<?= $this->render('_registrations', [
+	<?= $this->render('_scorecards', [
 		'competition' => $model,
 		'dataProvider' => new ActiveDataProvider([
-			'query' => $model->getRegistrations(),
+			'query' => $model->getScorecards(),
 		]),		
 	])?>
+
+	<?= Html::a(Yii::t('igolf', 'Apply Rule(s)'), Url::to(['apply', 'id' => $model->id]), ['class'=>'btn btn-primary']).
+		' '.
+		Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $model->id]), ['class'=>'btn btn-success'])
+	?>
 
 </div>

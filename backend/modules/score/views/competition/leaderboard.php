@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'start_date',
             [
                 'attribute'=>'status',
-                'label'=>'Status',
+                'label'=>Yii::t('igolf', 'Status'),
                 'value'=> Yii::t('igolf', $model->status),
             ],
 

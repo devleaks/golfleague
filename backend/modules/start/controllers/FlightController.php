@@ -121,7 +121,6 @@ class FlightController extends GolfLeagueController
 		$flight = Flight::findOne($flight_arr[1]);
 		if(!$flight) { // need to create it
 			$flight = new Flight();
-			$flight->competition_id = $competition->id;
 		} else { // remove existings
 			$flight->cleanRegistrations();
 		}

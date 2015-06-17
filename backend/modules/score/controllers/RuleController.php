@@ -5,13 +5,8 @@ namespace backend\modules\score\controllers;
 use Yii;
 use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
-use common\models\Flight;
-use common\models\Registration;
-use common\models\Team;
-use common\models\TeesForm;
-use common\models\search\CompetitionSearch;
-use common\models\search\FlightSearch;
-use common\models\search\RegistrationSearch;
+use common\models\Scorecard;
+use common\models\rule\PointPerPosition;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
@@ -44,6 +39,9 @@ class RuleController extends GolfLeagueController
 		$competition = Competition::findOne($id);
 		if(!$competition)
         	throw new NotFoundHttpException('The requested page does not exist.');
+
+		$rule = new PointPerPosition();
+		$rule->apply($competition, Scorecard::SCORE_STABLEFORD_NET, SORT_DESC);
 
 		Yii::$app->session->setFlash('success', Yii::t('igolf', 'Rule applied.'));
 

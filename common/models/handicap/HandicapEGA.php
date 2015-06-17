@@ -8,7 +8,7 @@ use Yii;
  * This is the EGA handicap system calculation.
  *
  */
-class HandicapEGA implements HandicapInterface {
+class HandicapEGA implements Handicap {
 	public $golfer;
 	public $tees;
 	
