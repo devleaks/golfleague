@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'units',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => Facility::getLocalizedConstants('STATUS_'),
+				'items' => Facility::getLocalizedConstants('UNITS_'),
                 'value'=>Yii::t('igolf',$model->units),
             ],
         ],

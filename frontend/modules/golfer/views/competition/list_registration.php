@@ -46,7 +46,7 @@ use yii\data\ActiveDataProvider;
             // 'parent_id',
 
             [
-				'class' => 'common\models\action\CompetitionGolferActionColumn',
+				'class' => 'kartik\grid\ActionColumn',
 				'template' => '{view} {update} {pending} {registration}'
 			],
         ],

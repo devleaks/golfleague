@@ -26,12 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf', 'On Going'),
-	        'dataProvider' => $ongoingProvider,
-	        'filterModel' => $ongoingSearch,
+			'title' => Yii::t('igolf', 'Open'),
+	        'dataProvider' => $openProvider,
+	        'filterModel' => $openSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {score} {scorecards} {leaderboard}',
+			 	'template' => '{view} {score} {scorecards} {rule} {leaderboard}',
 	            'buttons' => [
 	                'score' => function ($url, $model) {
 						$url = Url::to(['scorecard/competition', 'id' => $model->id]);
@@ -42,6 +42,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'scorecards' => function ($url, $model) {
 						$url = Url::to(['score/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('invoice', [], Icon::WHHG), $url, [
+	                        'title' => Yii::t('igolf', 'Scorecards'),
+	                    ]);
+	                },
+	                'rule' => function ($url, $model) {
+						$url = Url::to(['rule/view', 'id' => $model->id]);
+	                    return Html::a(Icon::show('law', [], Icon::WHHG), $url, [
 	                        'title' => Yii::t('igolf', 'Scorecards'),
 	                    ]);
 	                },

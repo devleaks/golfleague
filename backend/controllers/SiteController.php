@@ -26,7 +26,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['help', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -53,31 +53,23 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * Default action
+     */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
-    public function actionLogin()
+    /**
+     * List markdown files or render a markdown file if supplied
+     */
+    public function actionHelp($f = null)
     {
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
+		if(Yii::$app->user->isGuest)
+        	return $this->render('index');
+		else
+        	return $this->render('help', ['file' => $f]);
     }
 
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
 }

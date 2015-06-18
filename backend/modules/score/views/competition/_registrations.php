@@ -26,7 +26,6 @@ use yii\helpers\Url;
         ],
 		'export' => false,
         'columns' => [
-			'position',
             [
             	'attribute' => 'competition_name',
                 'label' => Yii::t('igolf', 'Competition'),
@@ -51,7 +50,6 @@ use yii\helpers\Url;
                     return  $model->golfer->name;
                 },
 			],
-			'points',
             [
                 'attribute' => 'status',
                 'value' => function($model, $key, $index, $widget) {

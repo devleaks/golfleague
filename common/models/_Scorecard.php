@@ -19,7 +19,8 @@ use Yii;
  * @property integer $stableford_net
  * @property integer $topar
  * @property integer $topar_net
- * @property integer $points
+ * @property string $points
+ * @property integer $position
  * @property string $teeshot
  * @property string $regulation
  * @property integer $putts
@@ -29,7 +30,6 @@ use Yii;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
- * @property integer $position
  *
  * @property HandicapHistory[] $handicapHistories
  * @property Score[] $scores
@@ -54,8 +54,8 @@ class _Scorecard extends \yii\db\ActiveRecord
     {
         return [
             [['scorecard_type'], 'required'],
-            [['registration_id', 'practice_id', 'thru', 'handicap', 'score', 'score_net', 'stableford', 'stableford_net', 'topar', 'topar_net', 'points', 'putts', 'penalty', 'position'], 'integer'],
-            [['teeshot', 'regulation', 'sand'], 'number'],
+            [['registration_id', 'practice_id', 'thru', 'handicap', 'score', 'score_net', 'stableford', 'stableford_net', 'topar', 'topar_net', 'position', 'putts', 'penalty'], 'integer'],
+            [['points', 'teeshot', 'regulation', 'sand'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
             [['scorecard_type', 'status'], 'string', 'max' => 20],
             [['note'], 'string', 'max' => 160]
@@ -81,6 +81,7 @@ class _Scorecard extends \yii\db\ActiveRecord
             'topar' => Yii::t('igolf', 'Topar'),
             'topar_net' => Yii::t('igolf', 'Topar Net'),
             'points' => Yii::t('igolf', 'Points'),
+            'position' => Yii::t('igolf', 'Position'),
             'teeshot' => Yii::t('igolf', 'Teeshot'),
             'regulation' => Yii::t('igolf', 'Regulation'),
             'putts' => Yii::t('igolf', 'Putts'),
@@ -90,7 +91,6 @@ class _Scorecard extends \yii\db\ActiveRecord
             'status' => Yii::t('igolf', 'Status'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
-            'position' => Yii::t('igolf', 'Position'),
         ];
     }
 

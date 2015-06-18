@@ -6,7 +6,6 @@ use Yii;
 use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\Scorecard;
-use common\models\rule\PointPerPosition;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
@@ -40,10 +39,12 @@ class RuleController extends GolfLeagueController
 		if(!$competition)
         	throw new NotFoundHttpException('The requested page does not exist.');
 
-		$rule = new PointPerPosition();
-		$rule->apply($competition, Scorecard::SCORE_STABLEFORD_NET, SORT_DESC);
-
-		Yii::$app->session->setFlash('success', Yii::t('igolf', 'Rule applied.'));
+		if($competition->ruleFinal) {
+			$competition->ruleFinal->apply($competition);
+			Yii::$app->session->setFlash('success', Yii::t('igolf', 'Rule applied.'));
+		} else {
+			Yii::$app->session->setFlash('info', Yii::t('igolf', 'No final rule to apply.'));
+		}
 
         return $this->redirect(Url::to(['view', 'id' => $id]));
     }
@@ -65,10 +66,10 @@ class RuleController extends GolfLeagueController
     }
 
     /**
-     * Finds the Flight model based on its primary key value.
+     * Finds the Competition model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Flight the loaded model
+     * @return Competition the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findCompetition($id)

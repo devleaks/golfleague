@@ -21,7 +21,7 @@ use common\models\Facility;
 
     <?= $form->field($model, 'website')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'units')->dropDownList(Facility::getLocalizedConstants('STATUS_')) ?>
+    <?= $form->field($model, 'units')->dropDownList(Facility::getLocalizedConstants('UNITS_')) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('igolf', 'Create') : Yii::t('igolf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

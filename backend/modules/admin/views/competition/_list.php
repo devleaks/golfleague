@@ -17,7 +17,7 @@ $this->title = Yii::t('igolf', $parent->childType());
         'filterModel' => $searchModel,
 		'panel'=>[
 	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => Html::a(Yii::t('igolf', 'Add '.$parent->childType()), ['add', 'parent_id' => $parent->id], ['class' => 'btn btn-primary']),
+			'footer' => Html::a(Yii::t('igolf', 'Add {0}',$parent->childType()), ['add', 'parent_id' => $parent->id], ['class' => 'btn btn-primary']),
 	    ],
 		'export' => false,
         'columns' => [

@@ -91,12 +91,23 @@ class Course extends _Course
     /**
      *  @return  array id,name pairs
      */
-    public static function getCourseList2() {
+    public static function getCourseList($with_tees = false) {
         $models = Course::find()->all();
 		$list = [];
-		foreach($models as $model)
-			$list[$model->id] = $model->facility->name. ', ' . $model->name; 
+		foreach($models as $model) {
+			if($with_tees) {
+				if($model->hasTees()) {
+					$list[$model->id] = $model->facility->name. ', ' . $model->name; 
+				}
+			} else {
+				$list[$model->id] = $model->facility->name. ', ' . $model->name; 
+			}
+		}
         return $list;
+    }
+
+    public function hasTees($gender = null) {
+		return $gender ? $this->getTees()->andWhere(['gender' => $gender])->exists() : $this->getTees()->exists();
     }
 
     public function getTeesWithHoles() {

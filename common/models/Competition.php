@@ -471,7 +471,8 @@ class Competition extends _Competition
 		Yii::trace('NOT for '.$this->id.' for '.$golfer->id, 'Competition::register');
 		return false;
 	}
-	
+
+
 	/**
      * Deregister golfer from event
      * 

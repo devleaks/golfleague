@@ -10,20 +10,17 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $me = Golfer::me();
-$this->title = Yii::t('igolf', 'Seasons');
 ?>
 <div class="season-index">
-
-    <h3><?= Html::encode($this->title) ?></h3>
-
-	<?= Alert::widget([
-		'body' => 'Tournaments here under are multiple matches tournaments.',
-		'options' => ['class'=>'alert-info'],
-    ]) ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+		'panel' => [
+	        'heading' => '<h4>'.Yii::t('igolf', 'Simple Matches').'</h4>',
+			'before' => Yii::t('igolf', 'Tournaments here under are multiple matches tournaments.'),
+			'beforeOptions' => ['class' => 'alert-info'],
+		],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
             [
@@ -62,13 +59,6 @@ $this->title = Yii::t('igolf', 'Seasons');
                 'value' => function ($model, $key, $index, $widget) {
 					return $model->getTournaments()->count();
                 },
-            ],
-
-            [
-                'class' => 'kartik\grid\ActionColumn',
-				'template' => '{view}',
-				'controller' => 'competition',
-				'noWrap' => true,
             ],
 
             [

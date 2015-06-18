@@ -18,27 +18,28 @@ class Scorecard extends _Scorecard
 	public $golfer;
 
 	/** Scorecard types */
-	const TYPE_COMPETITION = 'COMPETITION';
-	const TYPE_PRACTICE    = 'PRACTICE';
+	const TYPE_COMPETITION	= 'COMPETITION';
+	const TYPE_PRACTICE		= 'PRACTICE';
 
 	/** Scorecard statuses */
-	const STATUS_CREATED = 'CREATED';
-	const STATUS_ONGOING = 'ONGOING';
-	const STATUS_RETURNED = 'RETURNED';
-	const STATUS_DISQUAL = 'DISQUA';
-	const STATUS_NOSHOW = 'NOSHOW';
-	const STATUS_PUBLISHED = 'PUBLISHED';
+	const STATUS_CREATED	= 'CREATED';
+	const STATUS_OPEN 		= 'OPEN';
+	const STATUS_RETURNED	= 'RETURNED';
+	const STATUS_DISQUAL	= 'DISQUA';
+	const STATUS_NOSHOW		= 'NOSHOW';
+	const STATUS_PUBLISHED	= 'PUBLISHED';
 	
-	/** Score types (i.e. column name) */
-	const SCORE_GROSS = 'score';
-	const SCORE_NET   = 'score_net';
-	const SCORE_STABLEFORD = 'stableford';
-	const SCORE_STABLEFORD_NET = 'stableford_net';
-	const SCORE_POINTS = 'points';
 
 	/** Score types (i.e. column name) */
-	const DIRECTION_ASC  = 'ASC';
-	const DIRECTION_DESC = 'DESC';
+	const SCORE_GROSS		= 'score';
+	const SCORE_NET			= 'score_net';
+	const SCORE_STABLEFORD	= 'stableford';
+	const SCORE_STABLEFORD_NET	= 'stableford_net';
+	const SCORE_POINTS		= 'points';
+
+	/** Score types (i.e. column name) */
+	const DIRECTION_ASC		= 'ASC';
+	const DIRECTION_DESC	= 'DESC';
 	
 	/** Compute actions */
 	const COMPUTE_GROSS_TO_NET = 'gross2net';

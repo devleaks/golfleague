@@ -18,8 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		'dataProvider' => $registrationDataProvider,
 	])?>
 
-    <h2><?= Html::encode(Yii::t('igolf', 'Competitions')) ?></h2>
-
 	<?= $this->render('_matches', [
 		'searchModel'  => $matchesSearchModel,
 		'dataProvider' => $matchesDataProvider,

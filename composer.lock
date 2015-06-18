@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b3d8404c8a7bcc021626b9e7472c8bbf",
+    "hash": "08fcfd7255e5574df5d42abb412dabb3",
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -602,6 +602,22 @@
             ]
         },
         {
+            "name": "bower-asset/gridstack",
+            "version": "v0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/troolee/gridstack.js.git",
+                "reference": "5c7340018cad0012b731af356b910cd755b4cc24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/troolee/gridstack.js/zipball/5c7340018cad0012b731af356b910cd755b4cc24",
+                "reference": "5c7340018cad0012b731af356b910cd755b4cc24",
+                "shasum": ""
+            },
+            "type": "bower-asset-library"
+        },
+        {
             "name": "bower-asset/imagesloaded",
             "version": "v3.1.8",
             "source": {
@@ -833,6 +849,40 @@
                 "mask",
                 "plugins"
             ]
+        },
+        {
+            "name": "bower-asset/lodash",
+            "version": "3.9.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lodash/lodash.git",
+                "reference": "2ecdedd5b48b20f5ae786147fff4fd16749e83c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lodash/lodash/zipball/2ecdedd5b48b20f5ae786147fff4fd16749e83c8",
+                "reference": "2ecdedd5b48b20f5ae786147fff4fd16749e83c8",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "lodash.js",
+                "bower-asset-ignore": [
+                    ".*",
+                    "*.custom.*",
+                    "*.log",
+                    "*.map",
+                    "*.md",
+                    "lodash.src.js",
+                    "component.json",
+                    "package.json",
+                    "doc",
+                    "node_modules",
+                    "perf",
+                    "test",
+                    "vendor"
+                ]
+            }
         },
         {
             "name": "bower-asset/masonry",
@@ -1897,6 +1947,63 @@
             "time": "2013-11-30 08:25:19"
         },
         {
+            "name": "fedemotta/yii2-gridstack",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fedemotta/yii2-gridstack.git",
+                "reference": "d446068d64501746e625cc80957085c073f31ef2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fedemotta/yii2-gridstack/zipball/d446068d64501746e625cc80957085c073f31ef2",
+                "reference": "d446068d64501746e625cc80957085c073f31ef2",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/gridstack": "@dev",
+                "bower-asset/jquery": ">= 1.11.0",
+                "bower-asset/jquery-ui": ">= 1.11.0",
+                "bower-asset/lodash": ">= 3.5.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "fedemotta\\gridstack\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Federico Nicolás Motta",
+                    "email": "fedemotta@gmail.com"
+                }
+            ],
+            "description": "Gridstack.js widget for Yii2",
+            "keywords": [
+                "drag-and-drop",
+                "extension",
+                "grid",
+                "gridstack",
+                "gridstack.js",
+                "jquery",
+                "multi-column",
+                "plugin",
+                "responsive",
+                "yii2"
+            ],
+            "time": "2015-05-04 14:38:56"
+        },
+        {
             "name": "fortawesome/font-awesome",
             "version": "v4.3.0",
             "source": {
@@ -2235,18 +2342,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-builder.git",
-                "reference": "648314607dac6895002c939a39383fcb96193fc2"
+                "reference": "cbeb09954b5c87ba85dbc2c6331589baa542da4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-builder/zipball/648314607dac6895002c939a39383fcb96193fc2",
-                "reference": "648314607dac6895002c939a39383fcb96193fc2",
+                "url": "https://api.github.com/repos/kartik-v/yii2-builder/zipball/cbeb09954b5c87ba85dbc2c6331589baa542da4c",
+                "reference": "cbeb09954b5c87ba85dbc2c6331589baa542da4c",
                 "shasum": ""
             },
             "require": {
-                "kartik-v/yii2-grid": "*",
-                "kartik-v/yii2-krajee-base": "*",
-                "kartik-v/yii2-widget-activeform": "*"
+                "kartik-v/yii2-grid": "~3.0",
+                "kartik-v/yii2-krajee-base": "~1.7",
+                "kartik-v/yii2-widget-activeform": "~1.4"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -2256,7 +2363,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD 3-Clause"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -2274,7 +2381,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-05-05 07:56:58"
+            "time": "2015-06-17 17:58:21"
         },
         {
             "name": "kartik-v/yii2-date-range",
@@ -2752,20 +2859,20 @@
         },
         {
             "name": "kartik-v/yii2-widget-activeform",
-            "version": "v1.4.2",
+            "version": "v1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-activeform.git",
-                "reference": "9666688fe5696bb7c43bf4de00d46caca418617c"
+                "reference": "4fec52f8549c23d8cda3e771d2bb6b082bb42e6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-activeform/zipball/9666688fe5696bb7c43bf4de00d46caca418617c",
-                "reference": "9666688fe5696bb7c43bf4de00d46caca418617c",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-activeform/zipball/4fec52f8549c23d8cda3e771d2bb6b082bb42e6b",
+                "reference": "4fec52f8549c23d8cda3e771d2bb6b082bb42e6b",
                 "shasum": ""
             },
             "require": {
-                "kartik-v/yii2-krajee-base": "*"
+                "kartik-v/yii2-krajee-base": "~1.7"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -2775,7 +2882,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD 3-Clause"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -2795,7 +2902,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-05-10 19:44:05"
+            "time": "2015-06-17 17:44:34"
         },
         {
             "name": "kartik-v/yii2-widget-affix",
@@ -3293,20 +3400,20 @@
         },
         {
             "name": "kartik-v/yii2-widget-select2",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "b2a3981d3848c35a983bfcd57022cd18df40e418"
+                "reference": "d2d65a7e3b88b965f231a5949dc693807c03fff8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/b2a3981d3848c35a983bfcd57022cd18df40e418",
-                "reference": "b2a3981d3848c35a983bfcd57022cd18df40e418",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/d2d65a7e3b88b965f231a5949dc693807c03fff8",
+                "reference": "d2d65a7e3b88b965f231a5949dc693807c03fff8",
                 "shasum": ""
             },
             "require": {
-                "kartik-v/yii2-krajee-base": "*"
+                "kartik-v/yii2-krajee-base": "~1.7"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -3316,7 +3423,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD 3-Clause"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -3337,7 +3444,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-05-09 08:06:45"
+            "time": "2015-06-17 17:16:38"
         },
         {
             "name": "kartik-v/yii2-widget-sidenav",

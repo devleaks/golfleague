@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'course_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
                 'label'=> Yii::t('igolf', 'Course'),
-				'items' => ArrayHelper::map(Course::find()->asArray()->all(), 'id', 'name'),
+				'items' => Course::getCourseList(true),
                 'value' => $model->course ? $model->course->getFullName() : '' ,
             ],
             [
@@ -154,7 +154,6 @@ $this->params['breadcrumbs'][] = $this->title;
 					$type = Competition::TYPE_MATCH;
 					break;
 			}
-				//$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 	        echo $this->render('_list', [
 	            'searchModel' => $searchModel,

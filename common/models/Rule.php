@@ -64,6 +64,23 @@ class Rule extends _Rule
 		);
     }
 
+    /**
+     * @inheritdoc
+     */
+	public static function instantiate($row)
+	{
+	    switch ($row['classname']) {
+	        case rule\Copy::className():
+	            return new rule\Copy();
+	        case rule\Rank::className():
+	            return new rule\Rank();
+	        case rule\SumChildren::className():
+	            return new rule\SumChildren();
+	        default:
+	           return new self;
+	    }
+	}
+	
 	/**
 	 * Get a list of classes in rule sub-namespace under self namespace.
 	 */
@@ -83,7 +100,7 @@ class Rule extends _Rule
 
 	public static function getTeamList() {
 		return [
-			null => Yii::t('igolf', 'Single / Individual'),
+			null => Yii::t('igolf', 'Single'),
 			2 => '2 '.Yii::t('igolf', 'Players'),
 			3 => '3 '.Yii::t('igolf', 'Players'),
 			4 => '4 '.Yii::t('igolf', 'Players'),
@@ -115,7 +132,7 @@ class Rule extends _Rule
      */
 	public static function stablefordPoint($score) {
 		$points = self::getStablefordPoints();
-		return in_array($score, array_keys($point)) ? $points[$score] : 0;
+		return in_array($score, array_keys($points)) ? $points[$score] : 0;
 	}
 	
 	/**
@@ -143,7 +160,9 @@ class Rule extends _Rule
 	}
 	
 	/**
-	 * Parameter string is name=value;name=value
+	 * Parameter string is name=value;name=value. If parameter name is repeated, values are collected in array of values.
+	 *
+	 * @return array (name, value) pairs where value is mixed scalar/array.
 	 */
 	public function getParameters() {
 		if($this->parameters) {
@@ -183,11 +202,14 @@ class Rule extends _Rule
 	
 	/**
 	 * Apply rule
+	 *
+	 * Very Important: Please make sure that rule application is idempotent (i.e. rule can be applied over and over again and produces same result.)
 	 */	
 	public function apply($competition) { }
 	
 	/**
 	 * Compute allowed array for team according to this rule.
+	 * Specific team competition have specific handicap calculation rule.
 	 */
 	public function allowed($team, $tees) { }
 

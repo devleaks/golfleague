@@ -51,7 +51,7 @@ use yii\data\ActiveDataProvider;
             // 'updated_at',
             // 'parent_id',
 
-            ['class' => 'common\models\action\CompetitionGolferActionColumn',
+            ['class' => 'kartik\grid\ActionColumn',
 			 'template' => '{view} {update} {result}'],
         ],
     ]); ?>

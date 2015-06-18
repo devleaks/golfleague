@@ -62,7 +62,8 @@
         "devleaks/yii2-weather": "dev-master",
         "composer/composer": "~1.0@dev",
         "yiisoft/yii2-jui": "~2.0@dev",
-        "schmunk42/yii2-giiant": "*"
+        "schmunk42/yii2-giiant": "*",
+        "fedemotta/yii2-gridstack": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

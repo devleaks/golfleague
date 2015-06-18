@@ -52,7 +52,7 @@ use common\models\Course;
 
 	<?php if($model->competition_type == $model::TYPE_MATCH): ?>
 
-    <?= $form->field($model, 'course_id')->dropDownList(Course::getList()/*, ['disabled' => 'true']*/) ?>
+    <?= $form->field($model, 'course_id')->dropDownList(Course::getCourseList(true)) ?>
 
 	<?= $form->field($model, 'holes')->dropDownList(array(18 => '18', 9 => '9')) ?>
 

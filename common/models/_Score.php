@@ -10,7 +10,7 @@ use Yii;
  * @property integer $scorecard_id
  * @property integer $hole_id
  * @property integer $allowed
- * @property integer $score
+ * @property string $score
  * @property integer $putts
  * @property integer $penalty
  * @property integer $sand
@@ -48,7 +48,8 @@ class _Score extends \yii\db\ActiveRecord
     {
         return [
             [['hole_id'], 'required'],
-            [['hole_id', 'allowed', 'score', 'putts', 'penalty', 'sand'], 'integer'],
+            [['hole_id', 'allowed', 'putts', 'penalty', 'sand'], 'integer'],
+            [['score'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
             [['regulation', 'approach', 'putt', 'approach_length', 'putt_length', 'putt2', 'putt2_length', 'teeshot', 'teeshot_length', 'status'], 'string', 'max' => 20]

@@ -34,8 +34,8 @@ class CompetitionController extends GolfLeagueController
 
 		/** Ongoing competition.
 		 */
-		$ongoingSearch = new CompetitionSearch();
-        $ongoingProvider = new ActiveDataProvider([
+		$openSearch = new CompetitionSearch();
+        $openProvider = new ActiveDataProvider([
             'query' => Match::find()->where(['status' => Competition::STATUS_READY])
 										  ->andWhere(['<=','start_date', $now])
         ]);
@@ -59,12 +59,12 @@ class CompetitionController extends GolfLeagueController
     	return $this->render('index', [
 	        'readyProvider' => $readyProvider,
 	        'readySearch'   => $readySearch,
-	        'ongoingProvider' => $ongoingProvider,
-	        'ongoingSearch'   => $ongoingSearch,
-	        'completedProvider'   => $completedProvider,
-	        'completedSearch'     => $completedSearch,
+	        'openProvider'	=> $openProvider,
+	        'openSearch'	=> $openSearch,
+	        'completedProvider'	=> $completedProvider,
+	        'completedSearch'	=> $completedSearch,
 	        'closedProvider' => $closedProvider,
-	        'closedSearch'   => $closedSearch,
+	        'closedSearch'	=> $closedSearch,
         ]);
     }
 

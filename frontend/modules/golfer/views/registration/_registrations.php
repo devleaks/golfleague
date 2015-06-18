@@ -9,16 +9,15 @@ use kartik\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Yii::t('igolf', 'Current Registrations');
 ?>
 <div class="season-index">
-
-    <h2><?= Html::encode($this->title) ?></h2>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+		'panel' => [
+	        'heading' => '<h4>'.Yii::t('igolf', 'Current Registrations').'</h4>',
+		],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
 

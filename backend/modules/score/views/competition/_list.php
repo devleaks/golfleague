@@ -15,7 +15,7 @@ use yii\data\ActiveDataProvider;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
 		'panel' => [
-	        'heading' => '<h3>'.$title.'</h3>',
+	        'heading' => '<h4>'.$title.'</h4>',
 		],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],

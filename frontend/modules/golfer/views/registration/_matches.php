@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Golfer;
+
 use kartik\grid\GridView;
 use yii\bootstrap\Alert;
 use yii\helpers\Html;
@@ -10,20 +11,17 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $me = Golfer::me();
-$this->title = Yii::t('igolf', 'Simple Matches');
 ?>
-<div class="season-index">
+<div class="match-index">
 
-    <h3><?= Html::encode($this->title) ?></h3>
-
-	<?= Alert::widget([
-		'body' => 'Single event matches, not part of another competition.',
-		'options' => ['class'=>'alert-info'],
-    ]) ?>
-
-    <?= GridView::widget([
+   <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+		'panel' => [
+	        'heading' => '<h4>'.Yii::t('igolf', 'Simple Matches').'</h4>',
+			'before' => Yii::t('igolf', 'Single event matches, not part of another competition.'),
+			'beforeOptions' => ['class' => 'alert-info'],
+		],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
 

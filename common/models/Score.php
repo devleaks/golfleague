@@ -13,6 +13,12 @@ class Score extends _Score
 {
 	use Constant;
 	
+	/** Scorecard statuses */
+	const STATUS_CREATED	= 'CREATED';
+	const STATUS_OPEN 		= 'OPEN';
+	const STATUS_CLOSED		= 'CLOSED';
+	const STATUS_DISQUAL	= 'DISQUAL';
+	
 	const TARGET_LL = '1';
 	const TARGET_LC = '2';
 	const TARGET_LR = '3';

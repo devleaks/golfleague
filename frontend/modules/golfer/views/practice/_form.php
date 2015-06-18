@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'course_id')->dropDownList(Course::getList()/*, ['disabled' => 'true']*/, ['id'=>'course-id']) ?>
+    <?= $form->field($model, 'course_id')->dropDownList(Course::getList()$open, ['id'=>'course-id']) ?>
 
     <?= $form->field($model, 'tees_id')->widget(DepDrop::classname(), [
 	    'options'=>['id'=>'tees-id'],

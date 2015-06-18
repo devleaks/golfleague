@@ -15,9 +15,11 @@ use common\models\Tees;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'course_id')->dropDownList(Course::getList()/*, ['disabled' => 'true']*/) ?>
+    <?= $form->field($model, 'course_id')->dropDownList(Course::getList()) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 20]) ?>
+
+    <?= $form->field($model, 'par')->textInput(['maxlength' => 20]) ?>
 
 	<?= $form->field($model, 'holes')->dropDownList(array(18 => '18', 9 => '9')) ?>
 

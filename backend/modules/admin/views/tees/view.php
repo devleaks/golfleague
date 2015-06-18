@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title . ' (' . Yii::t('igolf', ucfirst($
 				'items' => Yii::$app->params['tees_colors'],
                 'value'=>Yii::t('igolf', ucfirst($model->color)),
             ],
+            'par',
             [
                 'attribute'=>'holes',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
