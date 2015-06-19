@@ -14,13 +14,13 @@ class Golfer extends _Golfer
 {
 	use Constant;
 
-    /** Golfer is a man */
-    const GENDER_GENTLEMAN = 'GENTLEMAN';
-    /** Golfer is a woman */
-    const GENDER_LADY = 'LADY';
+    /** Golfer genders */
+    const GENDER_GENTLEMAN	= 'GENTLEMAN';
+    const GENDER_LADY		= 'LADY';
 
-    const HAND_RIGHT = 'RIGHT';
-    const HAND_LEFT = 'LEFT';
+    /** Golfer dexterity */
+    const HAND_RIGHT	= 'RIGHT';
+    const HAND_LEFT		= 'LEFT';
 
 	const DEFAULT_HANDICAP = 54;
 
@@ -49,11 +49,12 @@ class Golfer extends _Golfer
         return array_merge(
 			parent::rules(),
 			[
-	            [['hand'], 'in','range' => [Golfer::HAND_LEFT,Golfer::HAND_RIGHT]],
-	            [['gender'], 'in','range' => [Golfer::GENDER_GENTLEMAN,Golfer::GENDER_LADY]],
+	            [['hand'], 'in', 'range' => array_keys(self::getConstants('HAND_'))],
+            	[['gender'], 'in', 'range' => array_keys(self::getConstants('GENDER_'))],
         	]
 		);
     }
+
 
     /**
      * @inheritdoc

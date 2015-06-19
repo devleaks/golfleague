@@ -8,7 +8,6 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "competitions" of type Season.
  *
- * @property Tournaments[] $tournaments
  */
 class Season extends Competition
 {

@@ -5,6 +5,9 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveQuery;
 
+/**
+ *	ActiveQuery particularisation for competitions
+ */
 class CompetitionQuery extends ActiveQuery
 {
     public $type;

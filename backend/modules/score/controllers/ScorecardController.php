@@ -71,12 +71,19 @@ class ScorecardController extends GolfLeagueController
     {
 		$competition = $this->findCompetition($id);
 
-		//@TODO: Validate scorecards
-				
-		$competition->status = Competition::STATUS_COMPLETED;
-		//$competition->save();
-
-        return $this->redirect(Url::to(['rule/view', 'id' => $competition->id]));
+		if($competition->getScorecards()->andWhere(['status' => [ScorecardForCompetition::STATUS_CREATED, ScorecardForCompetition::STATUS_OPEN]])->exists() ) {
+			Yii::$app->session->setFlash('danger', Yii::t('igolf', 'There are missing scorecards.'));
+	        return $this->redirect(Url::to(['scorecard/competition', 'id' => $competition->id]));
+		} else {
+			$competition->status = Competition::STATUS_COMPLETED;
+			if($competition->save()) {
+				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scorecards published.'));
+		        return $this->redirect(Url::to(['competition/rule', 'id' => $competition->id]));
+			} else {
+				Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Could not save competition status.'));
+		        return $this->redirect(Url::to(['scorecard/competition', 'id' => $competition->id]));
+			}
+		}
     }
 
     /**

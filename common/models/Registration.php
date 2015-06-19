@@ -170,7 +170,48 @@ class Registration extends _Registration
 	
 
 	/**
-	 * Also delete parent registration if not used
+	 *  Cancel an existing registration by changing status appropriately
+	 *
+	 *  @return boolean Cancellation successful
+	 */
+	public function cancel() {
+		$newstatus = null;
+		if($this->competition->dateOk()) {
+			switch($this->status) {
+			    case Registration::STATUS_CONFIRMED:
+			    case Registration::STATUS_QUALIFIED:
+					$newstatus = Registration::STATUS_WITHDRAWN;
+					break;
+			    case Registration::STATUS_INVITED:
+			    case Registration::STATUS_PENDING:
+			    case Registration::STATUS_REGISTERED:
+					$newstatus = Registration::STATUS_CANCELLED;
+					break;
+			    case Registration::STATUS_REJECTED:
+			    case Registration::STATUS_UNREGISTERED:
+			    case Registration::STATUS_CANCELLED:
+			    case Registration::STATUS_WITHDRAWN:
+			    case Registration::STATUS_FORFEIT:
+			    case Registration::STATUS_DISQUALIFIED:
+			    case Registration::STATUS_ELIMINATED:
+			    case Registration::STATUS_MISSEDCUT:
+				default:
+					//not registered anyway, no change
+					break;
+			}
+			
+		}
+        if($newstatus) {
+			$this->status = $newstatus;
+        	return $this->save();
+		}
+		return true;
+	}
+
+
+	/**
+	 * Checks if registered to children competitions (if any)
+	 * @return boolean Has registrations to children competitons
 	 */
 	public function hasChildren() {
 		$has_children = false;
@@ -186,7 +227,7 @@ class Registration extends _Registration
 
 
 	/**
-	 * Also delete parent registration if not used
+	 * Delete this registration if it does not have a "child" registration
 	 */
 	public function delete() {
 		if(!$this->hasChildren())
@@ -222,5 +263,4 @@ class Registration extends _Registration
 		return false;
 	}
 	
-
 }

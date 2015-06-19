@@ -5,19 +5,8 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "competition_registration".
+ * This is the model class for view "competition_registration".
  *
- * @property integer $id
- * @property string $name
- * @property string $event_type
- * @property string $status
- * @property string $created_at
- * @property string $updated_at
- * @property string $description
- * @property string $event_start
- * @property string $event_end
- * @property string $object_type
- * @property integer $object_id
  */
 class CompetitionRegistration extends _CompetitionRegistration
 {

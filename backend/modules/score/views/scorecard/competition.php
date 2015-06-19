@@ -20,9 +20,13 @@ $input_decimal = [
 	'type' => function($model, $key, $index, $widget) {
 	    return  $model->hasDetails() ? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
 	},
-	'columnOptions' => ['width' => '75px'],
+	'columnOptions' => ['width' => '100px'],
 ];
 
+$apply_rule = in_array($competition->competition_type, [Competition::TYPE_TOURNAMENT, Competition::TYPE_SEASON])
+	? Html::a(Yii::t('igolf', 'Compute'), Url::to(['competition/apply', 'id' => $competition->id]), ['class'=>'btn btn-primary'])
+	: '';
+	
 ?>
 <div class="scorecard-index">
 
@@ -34,10 +38,8 @@ $input_decimal = [
 		'gridSettings'=> [
 			'panel'=>[
 		        'heading' => '<h4>'.$this->title.'</h4>',
-				'footer' => Html::submitButton('Save', ['class'=>'btn btn-primary']).' '.
-							Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $competition->id]), ['class'=>'btn btn-success']).
-							' '.
-							Html::a(Yii::t('igolf', 'Gross ➝ Net'), Url::to(['compute-net', 'id' => $competition->id]), ['class'=>'btn-sm btn-success'])
+				'footer' => Html::submitButton('Save', ['class'=>'btn btn-primary']).' '.$apply_rule.' '.
+							Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $competition->id]), ['class'=>'btn btn-success'])
 							,
 		    ],
 		],

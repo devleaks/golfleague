@@ -2,12 +2,14 @@
 
 namespace common\models;
 
+use common\behaviors\Constant;
+use common\behaviors\MediaBehavior;
+use yii\helpers\ArrayHelper;
+
 use Yii;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\db\ActiveRecord;
-use common\behaviors\Constant;
-use common\behaviors\MediaBehavior;
 
 /**
  * This is the model class for table "competitions".
@@ -109,32 +111,18 @@ class Competition extends _Competition
      */
     public function attributeLabels()
     {
-        return [
-            'id' => Yii::t('igolf', 'Competition'),
-            'competition_type' => Yii::t('igolf', 'Competition Type'),
-            'name' => Yii::t('igolf', 'Name'),
-            'description' => Yii::t('igolf', 'Description'),
-            'parent_id' => Yii::t('igolf', 'Part of'),
-            'course_id' => Yii::t('igolf', 'Course'),
-            'holes' => Yii::t('igolf', 'Holes'),
-            'rule_id' => Yii::t('igolf', 'Rule/Format'),
-            'rule_final_id' => Yii::t('igolf', 'Post-Competition Rule'),
-            'start_date' => Yii::t('igolf', 'Start Date'),
-            'registration_begin' => Yii::t('igolf', 'Registration Begin'),
-            'registration_end' => Yii::t('igolf', 'Registration End'),
-            'handicap_min' => Yii::t('igolf', 'Handicap Min'),
-            'handicap_max' => Yii::t('igolf', 'Handicap Max'),
-            'age_min' => Yii::t('igolf', 'Age Min'),
-            'age_max' => Yii::t('igolf', 'Age Max'),
-            'gender' => Yii::t('igolf', 'Gender'),
-            'max_players' => Yii::t('igolf', 'Maxplayers'),
-            'status' => Yii::t('igolf', 'Status'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
-            'flight_size' => Yii::t('igolf', 'Flight Size'),
-            'delta_time' => Yii::t('igolf', 'Delta Time'),
-            'media' => Yii::t('igolf', 'Pictures'),
-        ];
+        return array_merge(
+			parent::rules(), [
+	            'id' => Yii::t('igolf', 'Competition'),
+	            'parent_id' => Yii::t('igolf', 'Part Of'),
+	            'course_id' => Yii::t('igolf', 'Course'),
+	            'rule_id' => Yii::t('igolf', 'Rule'),
+	            'rule_final_id' => Yii::t('igolf', 'Rule Final'),
+	            'recurrence_id' => Yii::t('igolf', 'Recurrence'),
+	            'cba' => Yii::t('igolf', 'CBA'),
+	            'media' => Yii::t('igolf', 'Pictures'),
+        	]
+		);
     }
 
 
@@ -160,6 +148,37 @@ class Competition extends _Competition
     }
 
 
+	/**
+	 * find a document instance and returns it property typed.
+     *
+     * @return app\models\{Document,Bid,Order,Bill} the document
+	 */
+	public static function findCompetition($id) {
+		$model = Competition::findOne($id);
+		if($model)
+			switch($model->competition_type) {
+				case self::TYPE_MATCH:		return Match::findOne($id);			break;
+				case self::TYPE_TOURNAMENT:	return Tournament::findOne($id);	break;
+				case self::TYPE_SEASON:		return Season::findOne($id);		break;
+			}
+		return null;
+	}
+	
+	
+    /**
+     * @inheritdoc
+     */
+	public static function instantiate($row)
+	{
+	    switch ($row['competition_type']) {
+			case self::TYPE_MATCH:		return new Match();			break;
+			case self::TYPE_TOURNAMENT:	return new Tournament();	break;
+			case self::TYPE_SEASON:		return new Season();		break;
+	        default:
+	           return new self;
+	    }
+	}
+	
 	/**
 	 * More relations
 	 */
@@ -240,6 +259,14 @@ class Competition extends _Competition
 			case $this::TYPE_MATCH: return $this::TYPE_TOURNAMENT; break;
 		}
 		return null;
+	}
+	
+
+	/**
+	 * Returns possible parent competitions.
+	 */
+	public function getParentCandidates($add_empty = true) {
+		return ArrayHelper::map([''=>''], 'id', 'name');
 	}
 	
 	/**
@@ -410,7 +437,7 @@ class Competition extends _Competition
 			   : true;
 	}
 
-	protected function dateOk() {
+	public function dateOk() {
 		if($this->status == Competition::STATUS_OPEN) {	// competition is open
 			$now = date('Y-m-d H:i:s');
 
@@ -468,7 +495,7 @@ class Competition extends _Competition
 			Yii::trace('OK for '.$this->id.' for '.$golfer->id, 'Competition::register');
 			return true;
 		}
-		Yii::trace('NOT for '.$this->id.' for '.$golfer->id, 'Competition::register');
+		Yii::trace('NOT for competition '.$this->id.' for golfer '.$golfer->id, 'Competition::register');
 		return false;
 	}
 
@@ -481,30 +508,39 @@ class Competition extends _Competition
      */
     public function deregister($golfer)
     {
-        $model = Registration::findOne([
+        if($model = Registration::findOne([
                      'golfer_id' => $golfer->id,
-                     'competition_id'   => $this->id    ]);
-
-        if($model) {
-            $model->status = Registration::STATUS_CANCELLED;
-            return $model->save();
-        }
+                     'competition_id'   => $this->id    ]) ) {
+			return $model->cancel();
+		}
         return false;
     }
+
+
+	/**
+	 * Prepare scorecard for score update. Create scorecard if it does not exists
+	 */
+	public function prepareScorecards($detailded = false) {
+		foreach($this->getRegistrations()->each() as $registration) {
+			$scorecard = $registration->getScorecard($detailded);
+			$scorecard->status = Scorecard::STATUS_OPEN;
+			$scorecard->save();
+		}
+	}
 
 	/**
 	 *	Assigns appropriate starting tees set for supplied registration.
 	 */
 	public function setTees($registration) {
-		foreach($this->getStarts()->each() as $start) {
-			if($start->isOk($registration->golfer) && !$registration->tees_id)
-				$registration->tees_id = $start->tees_id;
-				$registration->save();
+		//@todo: Search most appropriate teeset for registration
+		if($tees = $this->getTees()) {
+			$registration->tees_id = $tees->tees_id;
+			$registration->save();
 		}
 	}
 
 	/**
-	 * Finds the "longest"most appropriate" tees from all possible starting tees sets. Returns null if none found (error).
+	 * Finds the "longest most appropriate" tees from all possible starting tees sets. Returns null if none found (error).
 	 *
 	 * @return common\models\Tees Longest starting tee set.
 	 */

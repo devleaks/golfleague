@@ -8,13 +8,6 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "flights".
  *
- * @property integer $id
- * @property integer $competition_id
- * @property integer $position
- * @property string $note
- *
- * @property Matches $match
- * @property Registrations[] $registrations
  */
 class Flight extends _Flight
 {
@@ -48,7 +41,7 @@ class Flight extends _Flight
     }
 
     /**
-     * Delete model after removing from registrations
+     * Unlink this flight from all registrations. Delete model after removing from registrations
      */
     public function cleanRegistrations($delete = false)
     {

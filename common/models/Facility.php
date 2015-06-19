@@ -43,6 +43,19 @@ class Facility extends _Facility
     /**
      * @inheritdoc
      */
+    public function rules()
+    {
+        return array_merge(
+			parent::rules(),
+			[
+	            [['units'], 'in', 'range' => array_keys(self::getConstants('UNITS_'))],
+        	]
+		);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [

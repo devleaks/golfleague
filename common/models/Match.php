@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "competitions" of type Match.
@@ -38,6 +39,13 @@ class Match extends Competition
 		);
     }
 
+    /**
+     * @inheritdoc
+     */
+	public function getParentCandidates($add_empty = true) {
+		return ArrayHelper::map([''=>''] + Tournament::find()->asArray()->all(), 'id', 'name');
+	}
+	
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
 		'panel'=>[
 	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => false,
+			'footer' => Html::a(Yii::t('igolf', 'Publish'), Url::to(['scorecard/publish', 'id' => $competition->id]), ['class'=>'btn btn-success'])
 	    ],
 		'export' => false,
         'columns' => [

@@ -42,7 +42,7 @@ class ScoreController extends GolfLeagueController
 	public function actionUpdate($id) {
 		$scorecard = $this->findScorecard($id);
 		
-		if($scorecard->status == Scorecard::STATUS_PUBLISHED) {
+		if(in_array($scorecard->competition->status, [Competition::STATUS_COMPLETED, Competition::STATUS_CLOSED])) {
 			Yii::$app->session->setFlash('warning', Yii::t('igolf', 'Scorecard already published cannot be edited.'));
 	        return $this->render('view', [
 				'scorecard' => $scorecard,

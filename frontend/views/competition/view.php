@@ -7,6 +7,7 @@ use common\models\Rule;
 use common\models\Season;
 use common\models\Tournament;
 use common\models\search\TournamentSearch;
+
 use kartik\detail\DetailView;
 use kartik\widgets\DatePicker;
 use kartik\widgets\DateTimePicker;
@@ -41,15 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'parent_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => 	$model->parentType() == Competition::TYPE_SEASON ?
-								ArrayHelper::map(Season::find()->asArray()->all(), 'id', 'name')
-								:
-								(	$model->parentType() == Competition::TYPE_TOURNAMENT ?
-										ArrayHelper::map(Tournament::find()->asArray()->all(), 'id', 'name')
-										:
-										[]
-								),
-                'label'=>Yii::t('igolf','Parent'),
+				'items' => 	$model->getParentCandidates(),
                 'value'=> $model->parent ? $model->parent->name : '',
 				'visible' => $model->competition_type != Competition::TYPE_SEASON,
             ],

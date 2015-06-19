@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $openSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {score} {scorecards} {rule} {leaderboard}',
+			 	'template' => '{view} {score} {scorecards} {leaderboard}',
 	            'buttons' => [
 	                'score' => function ($url, $model) {
 						$url = Url::to(['scorecard/competition', 'id' => $model->id]);
@@ -42,12 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'scorecards' => function ($url, $model) {
 						$url = Url::to(['score/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('invoice', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Scorecards'),
-	                    ]);
-	                },
-	                'rule' => function ($url, $model) {
-						$url = Url::to(['rule/view', 'id' => $model->id]);
-	                    return Html::a(Icon::show('law', [], Icon::WHHG), $url, [
 	                        'title' => Yii::t('igolf', 'Scorecards'),
 	                    ]);
 	                },
@@ -67,12 +61,18 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $completedSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-				 	'template' => '{view} {rule}',
+				 	'template' => '{view} {rule} {leaderboard}',
 	            'buttons' => [
 	                'rule' => function ($url, $model) {
-						$url = Url::to(['rule/view', 'id' => $model->id]);
-	                    return Html::a(Icon::show('trophy', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Apply Competition Rules'),
+						$url = Url::to(['competition/rule', 'id' => $model->id]);
+	                    return Html::a(Icon::show('law', [], Icon::WHHG), $url, [
+	                        'title' => Yii::t('igolf', 'Scorecards'),
+	                    ]);
+	                },
+					'leaderboard' => function ($url, $model) {
+						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
+	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
+	                        'title' => Yii::t('igolf', 'Leaderboard'),
 	                    ]);
 	                },
 				],

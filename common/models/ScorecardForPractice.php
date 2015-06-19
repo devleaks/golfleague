@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 use common\behaviors\Constant;
 
 /**
- * This is the model class for table "scorecards".
+ * This is the model class for table "scorecards" when scorecard_type = PRACTICE.
  */
 class ScorecardForPractice extends Scorecard
 {

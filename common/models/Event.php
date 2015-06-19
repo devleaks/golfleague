@@ -12,17 +12,6 @@ use yii\helpers\Url;
 /**
  * This is the model class for table "events".
  *
- * @property integer $id
- * @property string $object_type
- * @property integer $object_id
- * @property string $name
- * @property string $description
- * @property string $created_at
- * @property string $updated_at
- * @property string $event_type
- * @property string $status
- * @property string $event_start
- * @property string $event_end
  */
 class Event extends _Event
 {
@@ -72,6 +61,19 @@ class Event extends _Event
     /**
      * @inheritdoc
      */
+    public function rules()
+    {
+        return array_merge(
+			parent::rules(),
+			[
+	            [['status'], 'in', 'range' => array_keys(self::getConstants('STATUS_'))],
+        	]
+		);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [
@@ -80,13 +82,13 @@ class Event extends _Event
             'object_id' => Yii::t('igolf', 'Object'),
             'name' => Yii::t('igolf', 'Name'),
             'description' => Yii::t('igolf', 'Description'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
             'event_type' => Yii::t('igolf', 'Event Type'),
-            'status' => Yii::t('igolf', 'Status'),
             'event_start' => Yii::t('igolf', 'Event Start'),
             'event_end' => Yii::t('igolf', 'Event End'),
             'media' => Yii::t('igolf', 'Pictures'),
+            'status' => Yii::t('igolf', 'Status'),
+            'created_at' => Yii::t('igolf', 'Created At'),
+            'updated_at' => Yii::t('igolf', 'Updated At'),
         ];
     }
 

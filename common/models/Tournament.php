@@ -4,12 +4,10 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "competitions" of type Tournament.
- *
- * @property Match[] $matches
- * @property Season $season
  */
 class Tournament extends Competition
 {
@@ -42,6 +40,13 @@ class Tournament extends Competition
         return $this->hasMany(Match::className(), ['parent_id' => 'id']);
     }
 
+    /**
+     * @inheritdoc
+     */
+	public function getParentCandidates($add_empty = true) {
+		return ArrayHelper::map([''=>''] + Season::find()->asArray()->all(), 'id', 'name');
+	}
+	
 	/**
 	 * @inheritdoc
 	 */

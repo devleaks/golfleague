@@ -8,12 +8,6 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "points".
  *
- * @property integer $id
- * @property integer $rule_id
- * @property integer $position
- * @property integer $points
- *
- * @property Rules $rules
  */
 class Point extends _Point
 {

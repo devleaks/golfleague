@@ -170,7 +170,7 @@ class Rule extends _Rule
 		  $arr = array();
 
 		  # split on outer delimiter
-		  $pairs = explode(';', $str);
+		  $pairs = explode(';', $this->parameters);
 
 		  # loop through each pair
 		  foreach ($pairs as $i) {

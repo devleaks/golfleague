@@ -27,7 +27,6 @@ class Scorecard extends _Scorecard
 	const STATUS_RETURNED	= 'RETURNED';
 	const STATUS_DISQUAL	= 'DISQUA';
 	const STATUS_NOSHOW		= 'NOSHOW';
-	const STATUS_PUBLISHED	= 'PUBLISHED';
 	
 
 	/** Score types (i.e. column name) */
@@ -360,18 +359,6 @@ class Scorecard extends _Scorecard
 		return $this->save();
 	}
 	
-	/**
-	 * 
-	 */
-	public function publish() {
-		if($this->thru >= $this->holes()) {
-			$this->status = self::STATUS_PUBLISHED;
-			$this->save();
-			return true;
-		}
-		return false;
-	}
-
 
 	public function getStatistics() {
 		$stat_min = -4;
@@ -390,12 +377,26 @@ class Scorecard extends _Scorecard
 		return $stats;
 	}
 	
-	public function compute($what) {
+	/**
+	 *	Validates consistency of all golf scores on card.
+	 */
+	protected function validate() {
+		
+		return true;
+	}
+	
+
+	/**
+	 *
+	 */
+	public function compute($what = null) {
 		switch($what) {
 			case self::COMPUTE_GROSS_TO_NET:
 				$allowed = array_sum($this->golfer->allowed($this->tees));
 				$this->score_net = $this->score - $allowed;
 				break;
+			default:
+				return $this->validate();
 		}
 		$this->save();
 	}

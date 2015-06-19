@@ -27,8 +27,6 @@ if( $rule->getPoints()->count() > 0 ) {
 ?>
 <div class="point-index">
 
-    <h2><?= Html::encode($this->title) ?></h2>
-
     <?php
         $form = ActiveForm::begin(['action'=> Url::to(['/admin/point/updates'])]);
 

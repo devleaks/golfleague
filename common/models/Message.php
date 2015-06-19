@@ -10,15 +10,6 @@ use Yii;
 /**
  * This is the model class for table "messages".
  *
- * @property integer $id
- * @property string $subject
- * @property string $status
- * @property string $created_at
- * @property string $updated_at
- * @property string $body
- * @property string $message_start
- * @property string $message_end
- * @property string $message_type
  */
 class Message extends _Message
 {

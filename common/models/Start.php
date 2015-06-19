@@ -6,7 +6,7 @@ use Yii;
 use yii\db\ActiveRecord;
 
 /**
- *	Gii Extension class
+* This is the model class for table "start".
  */
 class Start extends _Start
 {

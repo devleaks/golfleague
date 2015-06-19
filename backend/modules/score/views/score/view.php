@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		]*/
     ]) ?>
 
-	<?php if($scorecard->status != ScorecardModel::STATUS_PUBLISHED): ?>
+	<?php if(! in_array($scorecard->competition->status, [Competition::STATUS_COMPLETED, Competition::STATUS_CLOSED]) ): ?>
 		<div class="clearfix"></div>
 		<?= Html::a(Yii::t('igolf', 'Update'), Url::to(['update', 'id' => $scorecard->id]), ['class' => 'btn btn-primary']) ?>
 	<?php endif; ?>

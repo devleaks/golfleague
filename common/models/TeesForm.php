@@ -7,7 +7,7 @@ use yii\base\Model;
 use common\models\Tees;
 
 /**
- * LoginForm is the model behind the login form.
+ * TeesForm is the model behind the tees selection form.
  */
 class TeesForm extends Model
 {

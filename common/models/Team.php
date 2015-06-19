@@ -8,12 +8,6 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "teams".
  *
- * @property integer $id
- * @property string $name
- * @property string $created_at
- * @property string $updated_at
- *
- * @property Registrations[] $registrations
  */
 class Team extends _Team
 {

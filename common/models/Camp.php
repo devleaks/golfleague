@@ -3,7 +3,7 @@
 namespace common\models;
 
 /**
- * This is the interface for computing handicap related values depending on the handicap system.
+ * This is the interface for competition participants, single or team.
  *
  */
 interface Camp

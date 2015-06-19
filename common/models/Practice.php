@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 use common\behaviors\Constant;
 
 /**
- * This is the model class for table "score".
+ * This is the model class for table "practice".
  */
 class Practice extends _Practice
 {
