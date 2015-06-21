@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'course_id')->dropDownList(Course::getList()$open, ['id'=>'course-id']) ?>
+    <?= $form->field($model, 'course_id')->dropDownList(Course::getCourseList(), ['id'=>'course-id']) ?>
 
     <?= $form->field($model, 'tees_id')->widget(DepDrop::classname(), [
 	    'options'=>['id'=>'tees-id'],
@@ -42,7 +42,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'status')->dropDownList(Practice::getLocalizedConstants('STATUS_')) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('igolf', 'Create') : Yii::t('igolf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('igolf', 'Add') : Yii::t('igolf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

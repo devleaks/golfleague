@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Practice */
 
-$this->title = Yii::t('igolf', 'Create Practice');
+$this->title = Yii::t('igolf', 'Add Practice Round');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Practice Rounds'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

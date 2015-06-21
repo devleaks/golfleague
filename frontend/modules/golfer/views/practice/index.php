@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
 		'panel'=>[
 	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => Html::a(Yii::t('igolf', 'Create Practice Round'), ['create'], ['class' => 'btn btn-success']),
+			'footer' => Html::a(Yii::t('igolf', 'Add Practice Round'), ['create'], ['class' => 'btn btn-success']),
 	    ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
