@@ -22,7 +22,7 @@ use common\models\Course;
 
     <?= $form->field($model, 'rule_id')->dropDownList([''=>'']+ArrayHelper::map(Rule::find()->where(['competition_type' => $model->competition_type])->asArray()->all(), 'id', 'name')) ?>
 
-    <?= $form->field($model, 'rule_final_id')->dropDownList([''=>'']+ArrayHelper::map(Rule::find()->where(['competition_type' => $model->competition_type])->asArray()->all(), 'id', 'name')) ?>
+    <?= $form->field($model, 'final_rule_id')->dropDownList([''=>'']+ArrayHelper::map(Rule::find()->where(['competition_type' => $model->competition_type])->asArray()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'registration_begin')->widget(DateTimePicker::classname(), [
             'pluginOptions' => [

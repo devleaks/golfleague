@@ -24,21 +24,30 @@ associated with all kinds of events.
  
 
 Like all applications, Yii Golf League uses its own flexible approach to golf
-leagues. The first few paragraphs will detail the entities we talk about in this
+leagues. These introduction paragraphs introduce things we talk about in this
 application.
 
  
 
 Competitions
+------------
 
-The heart of Yii Golf League is the organisation of competition, from a single
-event match to a full season comprising of multiple season-long tournaments.
+The heart of Yii Golf League is the organisation of competitions from initial
+scheduling to final scoreboard display.
+
+Competitions can be as simple as a single match to a complex, season-long,
+weekly contest.
 
  
+
+ 
+
+### Competition Rules
 
  
 
 Scoring
+-------
 
 Scoring can be done at different level, from global, match-based score, to
 detailed hole-by-hole score and statistics.
@@ -48,9 +57,23 @@ detailed hole-by-hole score and statistics.
  
 
 Golf course and more
+--------------------
 
  
 
  
 
 Golfers
+-------
+
+ 
+
+ 
+
+Golf League Website
+
+ 
+
+ 
+
+Now go. Play golf.

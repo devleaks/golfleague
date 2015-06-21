@@ -46,9 +46,12 @@ class SumChildren extends Rule {
 									->limit($this->bestOf);
 			}
 
+			$count_children = clone $children_scorecards;
+			
 			$sum_children = $children_scorecards->sum($this->source_type);
 						
 			$scorecard->{$this->destination_type} = $sum_children;
+			$scorecard->rounds = $count_children->count();
 			$scorecard->save();
 		}
 		Yii::trace('bestOf='.$this->bestOf);

@@ -42,6 +42,20 @@ class CompetitionController extends GolfLeagueController
 										  ->andWhere(['<=','start_date', $now])
         ]);
 
+		/** Competitions that are ready to be played.
+		 */
+		$openTournamentSearch = new CompetitionSearch();
+	    $openTournamentProvider = new ActiveDataProvider([
+	        'query' => Competition::find()->where(['competition_type' =>[Competition::TYPE_TOURNAMENT, Competition::TYPE_SEASON], 'status' => Competition::STATUS_OPEN])
+	    ]);
+
+		/** Competitions that are ready to be played.
+		 */
+		$readyTournamentSearch = new CompetitionSearch();
+	    $readyTournamentProvider = new ActiveDataProvider([
+	        'query' => Competition::find()->where(['competition_type' =>[Competition::TYPE_TOURNAMENT, Competition::TYPE_SEASON], 'status' => Competition::STATUS_READY])
+	    ]);
+
 		/** Awaiting scores competition.
 		 *  Registration must be OPEN and we must be before the registration 
 		 */
@@ -67,6 +81,11 @@ class CompetitionController extends GolfLeagueController
 	        'completedSearch'	=> $completedSearch,
 	        'closedProvider' => $closedProvider,
 	        'closedSearch'	=> $closedSearch,
+	
+			'openTournamentSearch' => $openTournamentSearch,
+			'openTournamentProvider' => $openTournamentProvider,
+			'readyTournamentSearch' => $readyTournamentSearch,
+			'readyTournamentProvider' => $readyTournamentProvider,
         ]);
     }
 
@@ -77,20 +96,6 @@ class CompetitionController extends GolfLeagueController
     public function actionTournaments()
     {
 		$now = date('Y-m-d H:i:s');
-
-		/** Competitions that are ready to be played.
-		 */
-		$openSearch = new CompetitionSearch();
-        $openProvider = new ActiveDataProvider([
-            'query' => Competition::find()->where(['competition_type' =>[Competition::TYPE_TOURNAMENT, Competition::TYPE_SEASON], 'status' => Competition::STATUS_OPEN])
-        ]);
-
-		/** Competitions that are ready to be played.
-		 */
-		$readySearch = new CompetitionSearch();
-	    $readyProvider = new ActiveDataProvider([
-	        'query' => Competition::find()->where(['competition_type' =>[Competition::TYPE_TOURNAMENT, Competition::TYPE_SEASON], 'status' => Competition::STATUS_READY])
-	    ]);
 
 		/** Awaiting scores competition.
 		 *  Registration must be OPEN and we must be before the registration 
@@ -137,9 +142,9 @@ class CompetitionController extends GolfLeagueController
      * @param integer $id
      * @return mixed
      */
-    public function actionView2($id)
+    public function actionResult($id)
     {
-        return $this->render('view2', [
+        return $this->render('result', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -232,8 +237,8 @@ class CompetitionController extends GolfLeagueController
     {
 		$competition = $this->findModel($id);
 
-		if($competition->ruleFinal) {
-			$competition->ruleFinal->apply($competition);
+		if($competition->finalRule) {
+			$competition->finalRule->apply($competition);
 			Yii::$app->session->setFlash('success', Yii::t('igolf', 'Rule applied.'));
 		} else {
 			Yii::$app->session->setFlash('info', Yii::t('igolf', 'No final rule to apply.'));
@@ -258,7 +263,7 @@ class CompetitionController extends GolfLeagueController
 			$parent->save();
 		}
 
-        return $this->redirect(Url::to(['view', 'id' => $id]));
+        return $this->redirect(Url::to(['result', 'id' => $id]));
     }
 
 }

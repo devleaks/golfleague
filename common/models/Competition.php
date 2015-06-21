@@ -117,7 +117,7 @@ class Competition extends _Competition
 	            'parent_id' => Yii::t('igolf', 'Part Of'),
 	            'course_id' => Yii::t('igolf', 'Course'),
 	            'rule_id' => Yii::t('igolf', 'Rule'),
-	            'rule_final_id' => Yii::t('igolf', 'Rule Final'),
+	            'final_rule_id' => Yii::t('igolf', 'Rule Final'),
 	            'recurrence_id' => Yii::t('igolf', 'Recurrence'),
 	            'cba' => Yii::t('igolf', 'CBA'),
 	            'media' => Yii::t('igolf', 'Pictures'),

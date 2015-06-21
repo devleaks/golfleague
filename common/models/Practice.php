@@ -68,7 +68,7 @@ class Practice extends _Practice
 			$scorecard = new ScorecardForPractice([
 				'scorecard_type' => Scorecard::TYPE_PRACTICE,
 				'practice_id' => $this->id,
-				'status' => Scorecard::STATUS_CREATED,
+				'status' => Scorecard::STATUS_OPEN,
 			]);
 			$scorecard->save();
 			if($detailed) {

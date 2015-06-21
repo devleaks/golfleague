@@ -4446,20 +4446,20 @@
         },
         {
             "name": "raoul2000/yii2-bootswatch-asset",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/raoul2000/yii2-bootswatch-asset.git",
-                "reference": "10b3f58db91c79d1aa599df273f8f907f84e3152"
+                "reference": "5844876a64cc8e0d919e89b76ce11e52519253d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raoul2000/yii2-bootswatch-asset/zipball/10b3f58db91c79d1aa599df273f8f907f84e3152",
-                "reference": "10b3f58db91c79d1aa599df273f8f907f84e3152",
+                "url": "https://api.github.com/repos/raoul2000/yii2-bootswatch-asset/zipball/5844876a64cc8e0d919e89b76ce11e52519253d4",
+                "reference": "5844876a64cc8e0d919e89b76ce11e52519253d4",
                 "shasum": ""
             },
             "require": {
-                "thomaspark/bootswatch": "3.3.4",
+                "thomaspark/bootswatch": "3.3.5",
                 "yiisoft/yii2": "*"
             },
             "type": "yii2-extension",
@@ -4485,9 +4485,10 @@
                 "bootswatch",
                 "extension",
                 "skin",
+                "theme",
                 "yii2"
             ],
-            "time": "2015-03-25 09:53:41"
+            "time": "2015-06-19 07:49:08"
         },
         {
             "name": "schmunk42/yii2-giiant",
@@ -4793,16 +4794,16 @@
         },
         {
             "name": "thomaspark/bootswatch",
-            "version": "v3.3.4+1",
+            "version": "v3.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thomaspark/bootswatch.git",
-                "reference": "49ccd07144a7ed8917ab8b715233ffe288a6a9f0"
+                "reference": "57a25bd6da65fcc034c2029c0390272830572b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/49ccd07144a7ed8917ab8b715233ffe288a6a9f0",
-                "reference": "49ccd07144a7ed8917ab8b715233ffe288a6a9f0",
+                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/57a25bd6da65fcc034c2029c0390272830572b93",
+                "reference": "57a25bd6da65fcc034c2029c0390272830572b93",
                 "shasum": ""
             },
             "suggest": {
@@ -4847,7 +4848,7 @@
                 }
             ],
             "description": "Themes for Bootstrap",
-            "time": "2015-03-23 20:56:57"
+            "time": "2015-06-17 01:58:15"
         },
         {
             "name": "vova07/yii2-imperavi-widget",

@@ -197,7 +197,7 @@
             <zorder><![CDATA[0]]></zorder>
         </SQLField>
         <SQLField>
-            <name><![CDATA[rule_final_id]]></name>
+            <name><![CDATA[final_rule_id]]></name>
             <type><![CDATA[INTEGER]]></type>
             <referencesField>id</referencesField>
             <referencesTable>rule</referencesTable>
@@ -674,7 +674,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>480.00</height>
+            <height>520.00</height>
         </size>
         <zorder>3</zorder>
         <SQLField>
@@ -763,6 +763,12 @@
             <uid><![CDATA[3331F789-89A4-4E58-9EBD-1958D387FFEB]]></uid>
         </SQLField>
         <SQLField>
+            <name><![CDATA[tie_break]]></name>
+            <type><![CDATA[DECIMAL(10,2)]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[5C1E5D0D-78C0-4F26-98A6-17F626A55513]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[topar]]></name>
             <type><![CDATA[INTEGER]]></type>
             <objectComment><![CDATA[Score relative to par]]></objectComment>
@@ -778,6 +784,12 @@
             <name><![CDATA[putts]]></name>
             <type><![CDATA[INTEGER]]></type>
             <uid><![CDATA[3DAFCC1D-FB05-4609-8F34-CDEFBD471B49]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[rounds]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
+            <uid><![CDATA[098214EA-9031-4196-99E3-3C4157A8D595]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[teeshot]]></name>
@@ -980,7 +992,7 @@
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
             <x>448.00</x>
-            <y>1728.00</y>
+            <y>1856.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -1931,11 +1943,11 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>448.00</x>
-            <y>1280.00</y>
+            <y>1344.00</y>
         </location>
         <size>
             <width>256.00</width>
-            <height>420.00</height>
+            <height>448.00</height>
         </size>
         <zorder>9</zorder>
         <SQLField>
@@ -2539,7 +2551,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[612.000000]]></windowLocationX>
         <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{0, 21}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{26, 2}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

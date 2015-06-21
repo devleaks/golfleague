@@ -38,6 +38,7 @@ use yii\helpers\Url;
 			'stableford',
 			'stableford_net',
 			'points',
+			'rounds',
             [
                 'attribute' => 'status',
             	'label' => Yii::t('igolf', 'Scorecard Status'),

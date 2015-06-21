@@ -18,7 +18,7 @@ class CompetitionSearch extends Competition
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'course_id', 'holes', 'rule_id', 'age_min', 'age_max', 'recurrence_id', 'max_players', 'cba', 'tour', 'flight_size', 'flight_time', 'flight_window', 'registration_time', 'rule_final_id'], 'integer'],
+            [['id', 'parent_id', 'course_id', 'holes', 'rule_id', 'age_min', 'age_max', 'recurrence_id', 'max_players', 'cba', 'tour', 'flight_size', 'flight_time', 'flight_window', 'registration_time', 'final_rule_id'], 'integer'],
             [['competition_type', 'name', 'description', 'status', 'start_date', 'registration_begin', 'registration_end', 'gender', 'player_type', 'registration_special', 'created_at', 'updated_at'], 'safe'],
             [['handicap_min', 'handicap_max'], 'number'],
         ];
@@ -77,7 +77,7 @@ class CompetitionSearch extends Competition
             'flight_time' => $this->flight_time,
             'flight_window' => $this->flight_window,
             'registration_time' => $this->registration_time,
-            'rule_final_id' => $this->rule_final_id,
+            'final_rule_id' => $this->final_rule_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

@@ -22,7 +22,6 @@ class Scorecard extends _Scorecard
 	const TYPE_PRACTICE		= 'PRACTICE';
 
 	/** Scorecard statuses */
-	const STATUS_CREATED	= 'CREATED';
 	const STATUS_OPEN 		= 'OPEN';
 	const STATUS_RETURNED	= 'RETURNED';
 	const STATUS_DISQUAL	= 'DISQUA';
@@ -125,7 +124,7 @@ class Scorecard extends _Scorecard
 		$this->stableford_net = null;
 		$this->topar = null;        
 		$this->topar_net = null;  
-		$this->status = self::STATUS_CREATED;     
+		$this->status = self::STATUS_OPEN;     
 		$this->save();
 	}
 
@@ -380,7 +379,7 @@ class Scorecard extends _Scorecard
 	/**
 	 *	Validates consistency of all golf scores on card.
 	 */
-	protected function validate() {
+	public function validate() {
 		
 		return true;
 	}

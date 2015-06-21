@@ -30,6 +30,8 @@ use Yii;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $rounds
+ * @property string $tie_break
  *
  * @property HandicapHistory[] $handicapHistories
  * @property Score[] $scores
@@ -54,8 +56,8 @@ class _Scorecard extends \yii\db\ActiveRecord
     {
         return [
             [['scorecard_type'], 'required'],
-            [['registration_id', 'practice_id', 'thru', 'handicap', 'score', 'score_net', 'stableford', 'stableford_net', 'topar', 'topar_net', 'position', 'putts', 'penalty'], 'integer'],
-            [['points', 'teeshot', 'regulation', 'sand'], 'number'],
+            [['registration_id', 'practice_id', 'thru', 'handicap', 'score', 'score_net', 'stableford', 'stableford_net', 'topar', 'topar_net', 'position', 'putts', 'penalty', 'rounds'], 'integer'],
+            [['points', 'teeshot', 'regulation', 'sand', 'tie_break'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
             [['scorecard_type', 'status'], 'string', 'max' => 20],
             [['note'], 'string', 'max' => 160]
@@ -91,6 +93,8 @@ class _Scorecard extends \yii\db\ActiveRecord
             'status' => Yii::t('igolf', 'Status'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
+            'rounds' => Yii::t('igolf', 'Rounds'),
+            'tie_break' => Yii::t('igolf', 'Tie Break'),
         ];
     }
 

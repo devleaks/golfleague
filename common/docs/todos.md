@@ -1,27 +1,15 @@
 Calendar
 --------
-
 match date
-----------
-
 start reg dates
----------------
-
 end reg dates
--------------
-
 dinner
-------
-
 ceremony
---------
-
 golfer birthdates
+
 -----------------
 
 Nicer Editor for Message
-
-Add required fields in rules()
 
 Repeatable events/competitions
 ------------------------------
@@ -36,16 +24,21 @@ nth day of month
 
 Fix bootbox when bulk delete.
 
-### Competition
-
-Copy starts from parent? (actually, copy a lot from parent!)
-
-### Rules
-
-Use checkbox to select/manipulate points
-
 ### Flights
 
 Bug: If flight setup changes flight time, it should be brought back to
 competition setup. Use other mthod to build flight manually (create + add/remove
 golfer).
+
+
+## Misc
+
+Ties and Tie breaks. Work around: Simple tie_break column in scorecard.
+
+Starter: Simultaneous starts from 2 holes. Work around: Do 2 matches, reassemble them in Tournament.
+
+Update handicap of players from scores (+ global option to do it automatically)
+
+Scoreboard for tournament, seasons
+
+Copy registration from tournament/season to (all) child events.

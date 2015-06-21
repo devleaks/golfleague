@@ -92,7 +92,7 @@ class _Rule extends \yii\db\ActiveRecord
      */
     public function getCompetitions0()
     {
-        return $this->hasMany(Competition::className(), ['rule_final_id' => 'id']);
+        return $this->hasMany(Competition::className(), ['final_rule_id' => 'id']);
     }
 
     /**

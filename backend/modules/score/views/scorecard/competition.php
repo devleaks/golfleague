@@ -74,6 +74,7 @@ $apply_rule = in_array($competition->competition_type, [Competition::TYPE_TOURNA
 			'stableford' => $input_decimal,
 			'stableford_net' => $input_decimal,
 			'points' => $input_decimal,
+			'rounds' => $input_decimal,			
 			'status' => [
 				'type' => TabularForm::INPUT_DROPDOWN_LIST,
 				'items' => Scorecard::getLocalizedConstants('STATUS_'),

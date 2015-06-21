@@ -1,5 +1,7 @@
 <?php
 
+use common\models\Scorecard;
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\icons\Icon;
@@ -16,19 +18,37 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="competition-index">
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf', 'Ready'),
-	        'dataProvider' => $readyProvider,
-	        'filterModel' => $readySearch,
+			'title' => Yii::t('igolf', 'Open Matches'),
+	        'dataProvider' => $openProvider,
+	        'filterModel' => $openSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
 			 	'template' => '{view}',
 			],
 	]) ?>
 
+    <?= $this->render('_list_tournaments', [
+			'title' => Yii::t('igolf', 'Open Tournaments'),
+	        'dataProvider' => $openTournamentProvider,
+	        'filterModel' => $openTournamentSearch,
+			'actionButtons' => [
+				'class' => 'kartik\grid\ActionColumn',
+		 		'template' => '{view} {leaderboard}',
+	            'buttons' => [
+					'leaderboard' => function ($url, $model) {
+						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
+	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
+	                        'title' => Yii::t('igolf', 'Leaderboard'),
+	                    ]);
+	                },
+				],
+			],
+	]) ?>
+
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf', 'Open'),
-	        'dataProvider' => $openProvider,
-	        'filterModel' => $openSearch,
+			'title' => Yii::t('igolf', 'Matches Ready'),
+	        'dataProvider' => $readyProvider,
+	        'filterModel' => $readySearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
 			 	'template' => '{view} {score} {scorecards} {leaderboard}',
@@ -55,8 +75,32 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 	]) ?>
 
+    <?= $this->render('_list_tournaments', [
+			'title' => Yii::t('igolf', 'Tournament Ready'),
+	        'dataProvider' => $readyTournamentProvider,
+	        'filterModel' => $readyTournamentSearch,
+			'actionButtons' => [
+				'class' => 'kartik\grid\ActionColumn',
+		 		'template' => '{view} {scorecards} {leaderboard}',
+	            'buttons' => [
+					'leaderboard' => function ($url, $model) {
+						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
+	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
+	                        'title' => Yii::t('igolf', 'Leaderboard'),
+	                    ]);
+	                },
+	                'scorecards' => function ($url, $model) {
+						$url = Url::to(['scorecard/competition', 'id' => $model->id]);
+	                    return Html::a(Icon::show('invoice', [], Icon::WHHG), $url, [
+	                        'title' => Yii::t('igolf', 'Scorecards'),
+	                    ]);
+	                },
+				],
+			],
+	]) ?>
+
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf','Completed'),
+			'title' => Yii::t('igolf','Competition Completed'),
 	        'dataProvider' => $completedProvider,
 	        'filterModel' => $completedSearch,
 			'actionButtons' => [
@@ -80,7 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf','Closed'),
+			'title' => Yii::t('igolf','Competition Closed'),
 	        'dataProvider' => $closedProvider,
 	        'filterModel' => $closedSearch,
 			'actionButtons' => [
@@ -88,7 +132,14 @@ $this->params['breadcrumbs'][] = $this->title;
 			 	'template' => '{view} {result}',
 	            'buttons' => [
 	                'result' => function ($url, $model) {
-						$url = Url::to(['result/list', 'id' => $model->id]);
+						$options = [];
+						$options['id'] = $model->id;
+						if($rule = $model->rule) {
+							if($rule->source_type && $rule->source_direction) {
+								$options['sort'] = ($rule->source_direction == Scorecard::DIRECTION_ASC ? '+' : '-').$rule->source_type;
+							}
+						}
+						$url = Url::to(['competition/result', 'id' => $model->id]);
 	                    return Html::a(Icon::show('podium-winner', [], Icon::WHHG), $url, [
 	                        'title' => Yii::t('igolf', 'View scores'),
 	                    ]);

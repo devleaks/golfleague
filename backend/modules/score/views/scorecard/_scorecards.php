@@ -1,19 +1,20 @@
 <?php
 
+use common\models\Scorecard;
+use common\models\Competition;
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\grid\GridView;
-use common\models\Registration;
-use common\models\Competition;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
-<div class="registration-index">
+<div class="scorecard-index">
 
      <?= GridView::widget([
-		'options' => ['id' => 'registration'],
+		'options' => ['id' => 'scorecard'],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 		'panel'=>[
@@ -32,7 +33,7 @@ use common\models\Competition;
             	'attribute' => 'competition_name',
                 'label' => Yii::t('igolf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
-                    return  $model->competition->name;
+                    return  $model->registration->competition->name;
                 },
 				'visible' => $competition === null,
             ],
@@ -40,7 +41,7 @@ use common\models\Competition;
             	'attribute' => 'competition_type',
                 'label' => Yii::t('igolf', 'Competition Type'),
                 'value' => function($model, $key, $index, $widget) {
-                    return  Yii::t('igolf', $model->competition->competition_type);
+                    return  Yii::t('igolf', $model->registration->competition->competition_type);
                 },
 				'filter' => Competition::getLocalizedConstants('TYPE_'),
 				'visible' => $competition === null,
@@ -49,7 +50,7 @@ use common\models\Competition;
             	'attribute' => 'golfer_name',
                 'label' => Yii::t('igolf', 'Golfer'),
                 'value' => function($model, $key, $index, $widget) {
-                    return  $model->golfer->name;
+                    return  $model->registration->golfer->name;
                 },
 			],
 			[
@@ -68,63 +69,27 @@ use common\models\Competition;
 					return new DateTime($model->updated_at);
 				}
 			],
-/*	        [
-	            'label' => Yii::t('igolf', 'Created By'),
-				'attribute' => 'created_by',
-				'filter' => ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'),
-	            'value' => function ($model, $key, $index, $widget) {
-					$user = $model->createdBy;
-	                return $user ? $user->username : '?';
-	            },
-	            'format' => 'raw',
-	        ],*/
             [
                 'attribute' => 'status',
                 'value' => function($model, $key, $index, $widget) {
                 	return Yii::t('igolf', $model->status);
                 },
-				'filter' => Registration::getLocalizedPreCompetitionStatuses(),
+				'filter' => Scorecard::getLocalizedConstants('STATUS_'),
             ],
-            // 'flight_id',
-            // 'tees_id',
-
             ['class' => 'kartik\grid\CheckboxColumn'],
         ],
     ]); ?>
 
 <?php
 $statuses = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
-				Yii::t('igolf', 'Change Status of Selected Registrations to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
-foreach(Registration::getLocalizedConstants('STATUS_') as $key => $value)
+				Yii::t('igolf', 'Change Status of Selected Scorecards to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
+foreach(Scorecard::getLocalizedConstants('STATUS_') as $key => $value)
 	$statuses .= '<li>'.Html::a(Yii::t('igolf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
 $statuses .= '</ul></div>';
 
 $buttons = '';
-if($competition) {
-	$buttons = Html::a(Yii::t('igolf', 'New Registration'), ['create', 'id' => $competition->id], ['class' => 'btn btn-success']);
-	$buttons .= ' '.Html::a(Yii::t('igolf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']);
-}
-$buttons .= ' '.Html::a(Yii::t('igolf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data' => [
-				'status' => Registration::ACTION_DELETE,
-			    'confirm-local' => Yii::t('igolf', 'Are you sure you want to delete selected registration(s)?'), // interference with bootbox
-]]);
+
 $buttons .= ' '.$statuses;
-
-if($competition) {
-	if(in_array($competition->competition_type, [Competition::TYPE_SEASON, Competition::TYPE_TOURNAMENT])) {
-		if($competition->getCompetitions()->exists()) {
-			$children = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
-							Yii::t('igolf', 'Register Selected to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
-			foreach($competition->getCompetitions()->each() as $child)
-				$children .= '<li>'.Html::a(Yii::t('igolf', 'Register to {0}', $child->name), null, ['class' => 'igolf-bulk-action', 'data-status' => $child->id]).'</li>';
-			$children .= '<li>'.Html::a(Yii::t('igolf', 'Register to all'), null, ['class' => 'igolf-bulk-action', 'data-status' => -1]).'</li>';
-			$children .= '</ul></div>';
-			$buttons .= ' ' . $children;
-		}
-	}
-}
-
-
 echo $buttons;
 ?>
 
@@ -133,7 +98,7 @@ echo $buttons;
 <?php
 $this->beginBlock('JS_PJAXREG') ?>
 $("a.igolf-bulk-action").click(function(e) {
-	collected = $('#registration').yiiGridView('getSelectedRows');
+	collected = $('#scorecard').yiiGridView('getSelectedRows');
 	if(collected != '') {
 		status = $(this).data('status');
 		console.log('status to '+status);
@@ -154,7 +119,7 @@ $("a.igolf-bulk-action").click(function(e) {
 			    },
 				success: function () {
 					console.log('reloaded');
-			        $.pjax.reload({container:'#registration-pjax'});
+			        $.pjax.reload({container:'#scorecard-pjax'});
 			    }
 			});
 			console.log('sent');

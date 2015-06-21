@@ -246,7 +246,7 @@ class Registration extends _Registration
 			$scorecard = new ScorecardForCompetition([
 				'scorecard_type' => Scorecard::TYPE_COMPETITION,
 				'registration_id' => $this->id,
-				'status' => Scorecard::STATUS_CREATED,
+				'status' => Scorecard::STATUS_OPEN,
 			]);
 			$scorecard->save();
 			if($detailed) {

@@ -165,38 +165,7 @@ class Rule extends _Rule
 	 * @return array (name, value) pairs where value is mixed scalar/array.
 	 */
 	public function getParameters() {
-		if($this->parameters) {
-		  # result array
-		  $arr = array();
-
-		  # split on outer delimiter
-		  $pairs = explode(';', $this->parameters);
-
-		  # loop through each pair
-		  foreach ($pairs as $i) {
-		    # split into name and value
-		    list($name,$value) = explode('=', $i, 2);
-
-		    # if name already exists
-		    if( isset($arr[$name]) ) {
-		      # stick multiple values into an array
-		      if( is_array($arr[$name]) ) {
-		        $arr[$name][] = $value;
-		      }
-		      else {
-		        $arr[$name] = array($arr[$name], $value);
-		      }
-		    }
-		    # otherwise, simply stick it in a scalar
-		    else {
-		      $arr[$name] = $value;
-		    }
-		  }
-
-		  # return result array
-		  return $arr;
-		}
-		return [];
+		return Yii::$app->golfleague->getParameters($this->parameters);
 	}
 	
 	

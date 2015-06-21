@@ -29,7 +29,10 @@ use yii\data\ActiveDataProvider;
             ],
             'name',
             'description',
-            'rule.name',
+            [
+                'label' => Yii::t('igolf', 'Rule'),
+            	'attribute' => 'rule.name',
+            ],
             // 'registration_begin',
             // 'registration_end',
             // 'handicap_min',

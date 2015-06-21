@@ -67,10 +67,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				'value' => $model->rule_id ? $model->rule->name : '',
 			],
             [
-				'attribute' => 'rule_final_id',
+				'attribute' => 'final_rule_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => ArrayHelper::map([''=>'']+Rule::find()->where(['competition_type' => $model->competition_type])->asArray()->all(), 'id', 'name'),
-				'value' => $model->rule_final_id ? $model->ruleFinal->name : '',
+				'value' => $model->final_rule_id ? $model->finalRule->name : '',
 			],
             [
                 'attribute'=>'start_date',
@@ -160,11 +160,13 @@ $this->params['breadcrumbs'][] = $this->title;
         $startSearchModel = new StartSearch();
         $startDataProvider = $startSearchModel->search(['StartSearch'=>['competition_id' => $model->id]]);
 
-        echo $this->render('../start/_list', [
-            'searchModel' => $startSearchModel,
-            'dataProvider' => $startDataProvider,
-			'competition' => $model,
-        ]);
+		if($model->course) {
+	        echo $this->render('../start/_list', [
+	            'searchModel' => $startSearchModel,
+	            'dataProvider' => $startDataProvider,
+				'competition' => $model,
+	        ]);
+		}
 ?>
 
 </div>

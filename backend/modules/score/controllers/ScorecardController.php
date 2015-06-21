@@ -2,11 +2,13 @@
 
 namespace backend\modules\score\controllers;
 
-use Yii;
 use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\Registration;
+use common\models\search\ScorecardSearch;
 use common\models\ScorecardForCompetition;
+
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
@@ -19,6 +21,22 @@ use yii\helpers\VarDumper;
  */
 class ScorecardController extends GolfLeagueController
 {
+
+    /**
+     * Lists all Registration models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $searchModel = new ScorecardSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->query->andWhere(['not', ['registration_id' => null]]);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays and/or update Score models for a competition.
@@ -64,6 +82,27 @@ class ScorecardController extends GolfLeagueController
 
 
     /**
+     * Lists all Registration models.
+     * @return mixed
+     */
+    public function actionStatus($id)
+    {
+        if (($competition = Competition::findOne($id)) === null) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $searchModel = new ScorecardSearch();
+        $dataProvider = new ActiveDataProvider([
+			'query' => $competition->getScorecards(),
+		]);
+
+        return $this->render('status', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+			'competition' => $competition,
+        ]);
+    }
+
+    /**
      * Displays and/or update Score models for a competition.
      * @return mixed
      */
@@ -71,7 +110,7 @@ class ScorecardController extends GolfLeagueController
     {
 		$competition = $this->findCompetition($id);
 
-		if($competition->getScorecards()->andWhere(['status' => [ScorecardForCompetition::STATUS_CREATED, ScorecardForCompetition::STATUS_OPEN]])->exists() ) {
+		if($competition->getScorecards()->andWhere(['status' => ScorecardForCompetition::STATUS_OPEN])->exists() ) {
 			Yii::$app->session->setFlash('danger', Yii::t('igolf', 'There are missing scorecards.'));
 	        return $this->redirect(Url::to(['scorecard/competition', 'id' => $competition->id]));
 		} else {
@@ -109,4 +148,22 @@ class ScorecardController extends GolfLeagueController
 		}
         return $this->redirect(Url::to(['competition', 'id' => $competition->id]));
 	}
+
+	/**
+	 * Bulk update status or delete for PJAXed gridview.
+	 */
+    public function actionBulkStatus()
+    {
+		$ids = (array)Yii::$app->request->post('ids'); // Array or selected records primary keys
+		$status = Yii::$app->request->post('status');
+
+	    if (!$ids) // Preventing extra unnecessary query
+	        return;
+
+		foreach(ScorecardForCompetition::find()->andWhere(['id' => $ids])->each() as $r) {
+			$r->status = $status;
+			$r->save();
+        }
+    }
+
 }
