@@ -70,9 +70,7 @@ class RegistrationController extends GolfLeagueController
      */
     public function actionCompetition($id)
     {
-        if (($competition = Competition::findOne($id)) === null) {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        $competition = $this->findCompetition($id);
         $searchModel = new RegistrationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		$dataProvider->query->andWhere(['competition_id' => intval($id)]);
@@ -120,6 +118,21 @@ class RegistrationController extends GolfLeagueController
     }
 
 
+    /**
+     * Finds the Competition model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Competition the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findCompetition($id)
+    {
+        if (($model = Competition::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 	/**
 	 * Bulk update status or delete for PJAXed gridview.
 	 */
@@ -148,13 +161,41 @@ class RegistrationController extends GolfLeagueController
 	        }
     }
 
+	/**
+	 * Bulk update status or delete for PJAXed gridview.
+	 */
+    public function actionBulkRegister()
+    {
+		$ids = (array)Yii::$app->request->post('ids'); // Array or selected records primary keys
+		$competition_id = Yii::$app->request->post('competition');
+
+	    if (!$ids) // Preventing extra unnecessary query
+	        return;
+
+		if($competition_id < 0) {
+			if($competition = $this->findCompetition(-$competition_id)) {
+				foreach($competition->getCompetitions()->each() as $child) {
+					foreach(Registration::find()->andWhere(['id' => $ids])->each() as $r) {
+						$child->register($r->golfer, true);
+			        }
+				}
+			}
+		} else {
+			if($competition = $this->findCompetition($competition_id)) {
+				foreach(Registration::find()->andWhere(['id' => $ids])->each() as $r) {
+					$competition->register($r->golfer, true);
+		        }
+			}
+		}
+    }
+
     /**
      * Prepare registration models for a competition for bulk registration by starter.
      * @return mixed
      */
     public function actionBulk($id)
     {
-		$model = Competition::findOne($id);
+        $model = $this->findCompetition($id);
         $golfers = Golfer::find()->all();
 		$availables = [];
 		foreach($golfers as $golfer)
@@ -189,7 +230,7 @@ class RegistrationController extends GolfLeagueController
     {
         $post = Yii::$app->request->post();
         $golfers = $post['golfers'];
-		$competition = Competition::findOne($competition_id);
+		$competition = $this->findCompetition($competition_id);
         $error = [];
 
         foreach ($golfers as $golfer_id) {
@@ -221,7 +262,7 @@ class RegistrationController extends GolfLeagueController
 
     public function actionGolferSearch($id, $target, $term = '')
     {
-		$model = Competition::findOne($id);
+		$model = $this->findCompetition($competition_id);
 
         $golfers = Golfer::find()->all();
 		$availables = [];
@@ -261,9 +302,7 @@ class RegistrationController extends GolfLeagueController
      */
     public function actionTees($id)
     {
-        if (($competition = Competition::findOne($id)) === null) {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+		$competition = $this->findCompetition($competition_id);
         $searchModel = new RegistrationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		$dataProvider->query->andWhere(['competition_id' => intval($id)]);
@@ -293,7 +332,7 @@ class RegistrationController extends GolfLeagueController
     }
 
 	public function actionAssignTees($id) {
-		$model = Competition::findOne($id);
+		$model = $this->findCompetition($competition_id);
 		
 		foreach(Registration::find()
 			->where([

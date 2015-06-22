@@ -116,8 +116,8 @@ if($competition) {
 			$children = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
 							Yii::t('igolf', 'Register Selected to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
 			foreach($competition->getCompetitions()->each() as $child)
-				$children .= '<li>'.Html::a(Yii::t('igolf', 'Register to {0}', $child->name), null, ['class' => 'igolf-bulk-action', 'data-status' => $child->id]).'</li>';
-			$children .= '<li>'.Html::a(Yii::t('igolf', 'Register to all'), null, ['class' => 'igolf-bulk-action', 'data-status' => -1]).'</li>';
+				$children .= '<li>'.Html::a(Yii::t('igolf', 'Register to {0}', $child->name), null, ['class' => 'igolf-bulk-action', 'data-status' => 'competition', 'data-competition' => $child->id]).'</li>';
+			$children .= '<li>'.Html::a(Yii::t('igolf', 'Register to all'), null, ['class' => 'igolf-bulk-action', 'data-status' => 'competition', 'data-competition' => -$competition->id]).'</li>';
 			$children .= '</ul></div>';
 			$buttons .= ' ' . $children;
 		}
@@ -145,18 +145,34 @@ $("a.igolf-bulk-action").click(function(e) {
 		
 		if(ok) {
 			console.log('sending to '+collected);
-			$.ajax({
-				type: "POST",
-				url: "bulk-status",
-				data: {
-			        ids : collected,
-					status : status
-			    },
-				success: function () {
-					console.log('reloaded');
-			        $.pjax.reload({container:'#registration-pjax'});
-			    }
-			});
+			if(status == 'competition') {
+				competition = $(this).data('competition');
+				$.ajax({
+					type: "POST",
+					url: "bulk-register",
+					data: {
+				        ids : collected,
+						competition : competition
+				    },
+					success: function () {
+						console.log('reloaded');
+				        $.pjax.reload({container:'#registration-pjax'});
+				    }
+				});
+			} else {
+				$.ajax({
+					type: "POST",
+					url: "bulk-status",
+					data: {
+				        ids : collected,
+						status : status
+				    },
+					success: function () {
+						console.log('reloaded');
+				        $.pjax.reload({container:'#registration-pjax'});
+				    }
+				});
+			}
 			console.log('sent');
 		}
 	}
