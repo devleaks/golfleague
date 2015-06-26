@@ -68,7 +68,10 @@ class Competition extends _Competition
 
     /** Size of flights (# of golfers) */
 	const FLIGHT_SIZE_DEFAULT = 4;
+	/** Default time between flights in minutes */
+	const FLIGHT_TIME_DEFAULT = 8;
 
+	public $recurrence_text;
     /**
      * @inheritdoc
      */
@@ -534,7 +537,7 @@ class Competition extends _Competition
 	public function setTees($registration) {
 		//@todo: Search most appropriate teeset for registration
 		if($tees = $this->getTees()) {
-			$registration->tees_id = $tees->tees_id;
+			$registration->tees_id = $tees->id;
 			$registration->save();
 		}
 	}
@@ -545,8 +548,8 @@ class Competition extends _Competition
 	 * @return common\models\Tees Longest starting tee set.
 	 */
 	public function getTees() {
-		if($start = $this->getStarts()->one()) { // @todo: Get most appropriate tees set. Ladies only? Pro only? ... for now, returns first one found.
-			return $start->tees;
+		if($start = $this->getStarts()->orderBy('gender')->one()) { // order by gender gets gentleman before ladies :=
+			return $start->tees; // @todo: Get most appropriate tees set. Ladies only? Pro only? ... for now, returns first one found.
 		}
 		return null;
 	}

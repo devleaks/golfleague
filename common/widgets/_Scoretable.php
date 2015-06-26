@@ -151,7 +151,7 @@ class _Scoretable extends Widget {
 
 	protected function print_legend() {
 		$p = $this->getOption(self::COLOR) ? 'c' : ($this->getOption(self::SHAPE) ? 's' : '');
-		if($this->getOption(self::LEGEND)) return self::legend(true, $p);		
+		if($this->getOption(self::HOLES) && $this->getOption(self::LEGEND)) return self::legend(true, $p);		
 	}
 	
 	protected function print_header() {
@@ -171,7 +171,12 @@ class _Scoretable extends Widget {
 	}
 		
 	protected function td_topar($val, $classname) {
-		if(in_array($classname, [self::HOLE,self::TODAY]) && ($val !== "&nbsp;" && $val !== null)) {
+		if(($i = strpos($classname, '-')) !== false) {
+			$cn = substr($classname, 0, $i);
+		} else {
+			$cn = $classname;
+		}
+		if(in_array($cn, [self::HOLE,self::TODAY]) && ($val !== "&nbsp;" && $val !== null)) {
 			$color = $this->getOption(self::COLOR);
 			$dsp = $color ? abs($val) : $val;
 		} else {

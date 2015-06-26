@@ -68,7 +68,7 @@ class StartController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionAdd($id, $m)
+    public function actionAdd($id, $m = null)
     {
 		$competition = $this->findCompetition($id);
 		
@@ -77,14 +77,14 @@ class StartController extends Controller
 
 		switch($m) {
 			case self::METHOD_FIRST:
-				if($tees = $competition->course->getTees()->one()) {
+				if($tees = $competition->course->getFirstTees()) {
 					$model->tees_id = $tees->id;
 					$model->save();
 					return $this->redirect(['competition/view', 'id' => $competition->id]);
 				}
 			case self::METHOD_GENDER:
-			if( ($tees_lady = $competition->course->getTees()->andWhere(['gender'=>Golfer::GENDER_LADY])->one()) &&
-				($tees_gentleman = $competition->course->getTees()->andWhere(['gender'=>Golfer::GENDER_GENTLEMAN])->one()) ) {
+			if( ($tees_lady = $competition->course->getFirstTees(Golfer::GENDER_LADY))  &&
+				($tees_gentleman = $competition->course->getFirstTees(Golfer::GENDER_GENTLEMAN)) ) {
 				$model->tees_id = $tees_lady->id;
 				$model->gender = Golfer::GENDER_LADY;
 				$model->save();

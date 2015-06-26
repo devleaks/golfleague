@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?= TouchSpin::widget([
 		    'name' => 'GLdeltaStart',
 		    'options' => ['id' => 'GLdeltaStart'],
-			'pluginOptions' => ['postfix' => 'min', 'initval' => ($competition->flight_time ? $competition->flight_time : 10), 'min' => 4, 'max' => 30]
+			'pluginOptions' => ['postfix' => 'min', 'initval' => ($competition->flight_time ? $competition->flight_time : Competition::FLIGHT_TIME_DEFAULT), 'min' => 4, 'max' => 30]
 		]); ?>
 	</div>
 

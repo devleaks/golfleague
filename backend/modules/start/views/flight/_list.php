@@ -21,7 +21,7 @@ use kartik\grid\GridView;
 				'attribute' => 'golfers',
 				'value' => function($model, $key, $index, $widget) {
 					$s = '<ol class="flight">';
-					if($model->competition->isTeamCompetition())
+					if($model->getRegistrations()->one()->competition->isTeamCompetition())
 						foreach($model->getTeams()->each() as $team) {
 							$s .= '<li>'.$team->name.'</li>';
 						}

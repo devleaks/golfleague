@@ -262,7 +262,7 @@ class RegistrationController extends GolfLeagueController
 
     public function actionGolferSearch($id, $target, $term = '')
     {
-		$model = $this->findCompetition($competition_id);
+		$model = $this->findCompetition($id);
 
         $golfers = Golfer::find()->all();
 		$availables = [];
@@ -302,7 +302,7 @@ class RegistrationController extends GolfLeagueController
      */
     public function actionTees($id)
     {
-		$competition = $this->findCompetition($competition_id);
+		$competition = $this->findCompetition($id);
         $searchModel = new RegistrationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		$dataProvider->query->andWhere(['competition_id' => intval($id)]);
@@ -332,7 +332,7 @@ class RegistrationController extends GolfLeagueController
     }
 
 	public function actionAssignTees($id) {
-		$model = $this->findCompetition($competition_id);
+		$model = $this->findCompetition($id);
 		
 		foreach(Registration::find()
 			->where([

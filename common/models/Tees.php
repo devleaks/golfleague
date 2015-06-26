@@ -67,8 +67,8 @@ class Tees extends _Tees
         ];
     }
 
-	public function hasHoles() {
-		return $this->getHoles()->count() > 0;
+	public function hasDetails() {
+		return $this->getHoles()->exists();
 	}
 
 	public function getLabel($mode = 'name') {
@@ -76,7 +76,7 @@ class Tees extends _Tees
 	}
 	
 	private function getHoleData($data) {
-		$r = [];
+		$r = [];	// $this->getHoles()->select($data)->asArray()->indexBy('position')->all(); ?? // In this case, index would start with 1..18, not 0..17
 		foreach($this->getHoles()->orderBy('position')->each() as $hole) {
 			$r[] = $hole->$data;
 		}

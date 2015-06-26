@@ -28,7 +28,6 @@ class BuildFlightStandard implements BuildFlight
 			if($count >= $flight_size) {
 				$count = 0;
 				$flight = new Flight();
-				$flight->competition_id = $competition->id;
 				$flight->position = $position++;
 				$flight->save();
 			}

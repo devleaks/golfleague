@@ -17,7 +17,7 @@ class ScoreboardAsset extends AssetBundle
     ];
 
     public $js = [
-        'js/scoreboard.js',
+        //'js/scoreboard.js',
     ];
 
 }

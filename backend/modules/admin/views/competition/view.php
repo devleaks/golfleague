@@ -27,6 +27,14 @@ if($bcs = $model->breadcrumbs())
 		$this->params['breadcrumbs'][] = $bc;
 array_pop($this->params['breadcrumbs']);
 $this->params['breadcrumbs'][] = $this->title;
+
+$recurrence = $model->recurrence;
+if($model->recurrence) { // strips "RRULE:" at begining of string
+	$str = strpos($model->recurrence, 'RRULE:') === 0 ? substr($model->recurrence, 6) : $model->recurrence;
+	$rrule = new Recurr\Rule($str);
+	$textTransformer = new Recurr\Transformer\TextTransformer();
+	$recurrence = ucfirst($textTransformer->transform($rrule));
+}
 ?>
 <div class="competition-view">
 
@@ -83,6 +91,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	            	]
 				],
 				'value' => $model->registration_begin ? new DateTime($model->start_date) : '',
+            ],
+            [
+                'attribute'=>'recurrence',
+				'format' => 'raw',
+				'type' => DetailView::INPUT_TEXT,
+				'value' => /*$model->recurrence.'='.*/$recurrence,
             ],
             [
                 'attribute'=>'registration_begin',

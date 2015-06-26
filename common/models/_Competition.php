@@ -14,10 +14,12 @@ use Yii;
  * @property string $status
  * @property integer $parent_id
  * @property string $start_date
+ * @property integer $recurrence_id
  * @property integer $course_id
  * @property integer $holes
  * @property integer $start_hole
  * @property integer $rule_id
+ * @property integer $final_rule_id
  * @property string $registration_begin
  * @property string $registration_end
  * @property string $handicap_min
@@ -25,7 +27,6 @@ use Yii;
  * @property integer $age_min
  * @property integer $age_max
  * @property string $gender
- * @property integer $recurrence_id
  * @property string $player_type
  * @property integer $max_players
  * @property string $registration_special
@@ -37,11 +38,12 @@ use Yii;
  * @property integer $registration_time
  * @property string $created_at
  * @property string $updated_at
- * @property integer $final_rule_id
+ * @property string $recurrence
  *
- * @property Reccurence $recurrence
- * @property _Competition $parent
+ * @property _Competition $recurrence0
  * @property _Competition[] $competitions
+ * @property _Competition $parent
+ * @property _Competition[] $competitions0
  * @property Course $course
  * @property Rule $rule
  * @property Rule $finalRule
@@ -65,12 +67,12 @@ class _Competition extends \yii\db\ActiveRecord
     {
         return [
             [['competition_type', 'name', 'registration_begin', 'registration_end'], 'required'],
-            [['parent_id', 'course_id', 'holes', 'start_hole', 'rule_id', 'age_min', 'age_max', 'recurrence_id', 'max_players', 'cba', 'tour', 'flight_size', 'flight_time', 'flight_window', 'registration_time', 'final_rule_id'], 'integer'],
+            [['parent_id', 'recurrence_id', 'course_id', 'holes', 'start_hole', 'rule_id', 'final_rule_id', 'age_min', 'age_max', 'max_players', 'cba', 'tour', 'flight_size', 'flight_time', 'flight_window', 'registration_time'], 'integer'],
             [['start_date', 'registration_begin', 'registration_end', 'created_at', 'updated_at'], 'safe'],
             [['handicap_min', 'handicap_max'], 'number'],
             [['competition_type', 'status', 'gender', 'player_type'], 'string', 'max' => 20],
             [['name'], 'string', 'max' => 80],
-            [['description'], 'string', 'max' => 255],
+            [['description', 'recurrence'], 'string', 'max' => 255],
             [['registration_special'], 'string', 'max' => 160]
         ];
     }
@@ -88,10 +90,12 @@ class _Competition extends \yii\db\ActiveRecord
             'status' => Yii::t('igolf', 'Status'),
             'parent_id' => Yii::t('igolf', 'Parent ID'),
             'start_date' => Yii::t('igolf', 'Start Date'),
+            'recurrence_id' => Yii::t('igolf', 'Recurrence ID'),
             'course_id' => Yii::t('igolf', 'Course ID'),
             'holes' => Yii::t('igolf', 'Holes'),
             'start_hole' => Yii::t('igolf', 'Start Hole'),
             'rule_id' => Yii::t('igolf', 'Rule ID'),
+            'final_rule_id' => Yii::t('igolf', 'Final Rule ID'),
             'registration_begin' => Yii::t('igolf', 'Registration Begin'),
             'registration_end' => Yii::t('igolf', 'Registration End'),
             'handicap_min' => Yii::t('igolf', 'Handicap Min'),
@@ -99,7 +103,6 @@ class _Competition extends \yii\db\ActiveRecord
             'age_min' => Yii::t('igolf', 'Age Min'),
             'age_max' => Yii::t('igolf', 'Age Max'),
             'gender' => Yii::t('igolf', 'Gender'),
-            'recurrence_id' => Yii::t('igolf', 'Recurrence ID'),
             'player_type' => Yii::t('igolf', 'Player Type'),
             'max_players' => Yii::t('igolf', 'Max Players'),
             'registration_special' => Yii::t('igolf', 'Registration Special'),
@@ -111,16 +114,24 @@ class _Competition extends \yii\db\ActiveRecord
             'registration_time' => Yii::t('igolf', 'Registration Time'),
             'created_at' => Yii::t('igolf', 'Created At'),
             'updated_at' => Yii::t('igolf', 'Updated At'),
-            'final_rule_id' => Yii::t('igolf', 'Final Rule ID'),
+            'recurrence' => Yii::t('igolf', 'Recurrence'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRecurrence()
+    public function getRecurrence0()
     {
-        return $this->hasOne(Reccurence::className(), ['id' => 'recurrence_id']);
+        return $this->hasOne(_Competition::className(), ['id' => 'recurrence_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompetitions()
+    {
+        return $this->hasMany(_Competition::className(), ['recurrence_id' => 'id']);
     }
 
     /**
@@ -134,7 +145,7 @@ class _Competition extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCompetitions()
+    public function getCompetitions0()
     {
         return $this->hasMany(_Competition::className(), ['parent_id' => 'id']);
     }

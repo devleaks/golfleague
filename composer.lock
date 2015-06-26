@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "08fcfd7255e5574df5d42abb412dabb3",
+    "hash": "d08934a3b8a6b1a4a3ded591bc73df2d",
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -603,19 +603,48 @@
         },
         {
             "name": "bower-asset/gridstack",
-            "version": "v0.2.2",
+            "version": "v0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/troolee/gridstack.js.git",
-                "reference": "5c7340018cad0012b731af356b910cd755b4cc24"
+                "reference": "b5b6ff441088704dd7a4905da06eeae3d8a885c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/troolee/gridstack.js/zipball/5c7340018cad0012b731af356b910cd755b4cc24",
-                "reference": "5c7340018cad0012b731af356b910cd755b4cc24",
+                "url": "https://api.github.com/repos/troolee/gridstack.js/zipball/b5b6ff441088704dd7a4905da06eeae3d8a885c7",
+                "reference": "b5b6ff441088704dd7a4905da06eeae3d8a885c7",
                 "shasum": ""
             },
-            "type": "bower-asset-library"
+            "require": {
+                "bower-asset/jquery": ">=1.11.0",
+                "bower-asset/jquery-ui": ">=1.11.0",
+                "bower-asset/lodash": ">=3.5.0"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "dist/gridstack.js",
+                    "dist/gridstack.css"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "gridstack.js is a jQuery plugin for widget layout",
+            "keywords": [
+                "grid",
+                "gridstack",
+                "gridster",
+                "jquery",
+                "layout"
+            ]
         },
         {
             "name": "bower-asset/imagesloaded",
@@ -1136,6 +1165,38 @@
                     "package.json"
                 ]
             }
+        },
+        {
+            "name": "bower-asset/rrule",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jakubroztocil/rrule.git",
+                "reference": "2e4c3254b48497dc3856225949e552ac9876382d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jakubroztocil/rrule/zipball/2e4c3254b48497dc3856225949e552ac9876382d",
+                "reference": "2e4c3254b48497dc3856225949e552ac9876382d",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "rrule.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "components"
+                ]
+            },
+            "description": "JavaScript library for working with recurrence rules for calendar dates.",
+            "keywords": [
+                "calendar",
+                "dates",
+                "icalendar",
+                "recurrences",
+                "rfc"
+            ]
         },
         {
             "name": "bower-asset/typeahead.js",
@@ -1903,6 +1964,69 @@
             "time": "2015-02-10 03:13:45"
         },
         {
+            "name": "doctrine/collections",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/collections.git",
+                "reference": "4c926609fe198833934600b55d99ff6f59effaf5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/4c926609fe198833934600b55d99ff6f59effaf5",
+                "reference": "4c926609fe198833934600b55d99ff6f59effaf5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Collections\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Collections Abstraction library",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "array",
+                "collections",
+                "iterator"
+            ],
+            "time": "2015-06-16 18:50:45"
+        },
+        {
             "name": "ezyang/htmlpurifier",
             "version": "v4.6.0",
             "source": {
@@ -2485,12 +2609,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "babd6b1dd1ae4a575bc7470f461bd021b6fc8a55"
+                "reference": "2a03719ab20d79b94fc251460a739e560974c2c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/babd6b1dd1ae4a575bc7470f461bd021b6fc8a55",
-                "reference": "babd6b1dd1ae4a575bc7470f461bd021b6fc8a55",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/2a03719ab20d79b94fc251460a739e560974c2c0",
+                "reference": "2a03719ab20d79b94fc251460a739e560974c2c0",
                 "shasum": ""
             },
             "require": {
@@ -2525,20 +2649,20 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-06-15 17:07:28"
+            "time": "2015-06-24 10:19:50"
         },
         {
             "name": "kartik-v/yii2-grid",
-            "version": "v3.0.3",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "5efc485e98fbc795d7d9e64639cb157427982d56"
+                "reference": "8d596b9e5458291786677618b7fe9d5b84de4aa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/5efc485e98fbc795d7d9e64639cb157427982d56",
-                "reference": "5efc485e98fbc795d7d9e64639cb157427982d56",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/8d596b9e5458291786677618b7fe9d5b84de4aa5",
+                "reference": "8d596b9e5458291786677618b7fe9d5b84de4aa5",
                 "shasum": ""
             },
             "require": {
@@ -2569,7 +2693,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-06-16 05:04:27"
+            "time": "2015-06-24 05:23:50"
         },
         {
             "name": "kartik-v/yii2-helpers",
@@ -4132,16 +4256,16 @@
         },
         {
             "name": "miloschuman/yii2-highcharts-widget",
-            "version": "v4.1.5",
+            "version": "v4.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/miloschuman/yii2-highcharts.git",
-                "reference": "c6c2e163d2cb537b09c5f46b65fc73adc604e904"
+                "reference": "695ab0ed747d7dddcd59ab495f7ca8927aeeaa97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miloschuman/yii2-highcharts/zipball/c6c2e163d2cb537b09c5f46b65fc73adc604e904",
-                "reference": "c6c2e163d2cb537b09c5f46b65fc73adc604e904",
+                "url": "https://api.github.com/repos/miloschuman/yii2-highcharts/zipball/695ab0ed747d7dddcd59ab495f7ca8927aeeaa97",
+                "reference": "695ab0ed747d7dddcd59ab495f7ca8927aeeaa97",
                 "shasum": ""
             },
             "require": {
@@ -4173,7 +4297,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-04-29 19:14:33"
+            "time": "2015-06-22 10:36:47"
         },
         {
             "name": "nikic/php-parser",
@@ -4585,6 +4709,60 @@
             "time": "2015-01-04 21:18:15"
         },
         {
+            "name": "simshaun/recurr",
+            "version": "v0.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simshaun/recurr.git",
+                "reference": "d1db5f3981616dcbff006005376fa1f3898b1328"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simshaun/recurr/zipball/d1db5f3981616dcbff006005376fa1f3898b1328",
+                "reference": "d1db5f3981616dcbff006005376fa1f3898b1328",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/collections": "1.2.*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Recurr": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shaun Simmons",
+                    "email": "shaun@envysphere.com",
+                    "homepage": "http://envysphere.com"
+                }
+            ],
+            "description": "PHP library for working with recurrence rules",
+            "homepage": "https://github.com/simshaun/recurr",
+            "keywords": [
+                "dates",
+                "events",
+                "recurrence",
+                "recurring",
+                "rrule"
+            ],
+            "time": "2015-05-05 21:55:24"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.1",
             "source": {
@@ -4849,6 +5027,52 @@
             ],
             "description": "Themes for Bootstrap",
             "time": "2015-06-17 01:58:15"
+        },
+        {
+            "name": "tplaner/when",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tplaner/When.git",
+                "reference": "cdd977d7d38ca512742fcb03f6df57441da8a4a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tplaner/When/zipball/cdd977d7d38ca512742fcb03f6df57441da8a4a1",
+                "reference": "cdd977d7d38ca512742fcb03f6df57441da8a4a1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "When\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Planer",
+                    "email": "tplaner@gmail.com"
+                }
+            ],
+            "description": "Date/Calendar recursion library.",
+            "homepage": "https://github.com/tplaner/When",
+            "keywords": [
+                "date",
+                "datetime",
+                "recurrence",
+                "time"
+            ],
+            "time": "2015-03-07 20:40:45"
         },
         {
             "name": "vova07/yii2-imperavi-widget",
@@ -5483,12 +5707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yurkinx/yii2-image.git",
-                "reference": "a99384b9f856798c731d76ce78db0674b8ad7414"
+                "reference": "0d6d261bf9c2dc35e9ad8c5cc56793580b74eefd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yurkinx/yii2-image/zipball/a99384b9f856798c731d76ce78db0674b8ad7414",
-                "reference": "a99384b9f856798c731d76ce78db0674b8ad7414",
+                "url": "https://api.github.com/repos/yurkinx/yii2-image/zipball/0d6d261bf9c2dc35e9ad8c5cc56793580b74eefd",
+                "reference": "0d6d261bf9c2dc35e9ad8c5cc56793580b74eefd",
                 "shasum": ""
             },
             "require": {
@@ -5518,10 +5742,37 @@
                 "image",
                 "yii2"
             ],
-            "time": "2015-05-19 19:10:47"
+            "time": "2015-06-24 13:41:22"
         }
     ],
     "packages-dev": [
+        {
+            "name": "bower-asset/requirejs",
+            "version": "2.1.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jrburke/requirejs-bower.git",
+                "reference": "2371079308b0ae6deaf7a9d8485de335b276830b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jrburke/requirejs-bower/zipball/2371079308b0ae6deaf7a9d8485de335b276830b",
+                "reference": "2371079308b0ae6deaf7a9d8485de335b276830b",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "require.js"
+            },
+            "license": [
+                "BSD-3-Clause",
+                "MIT"
+            ],
+            "description": "A file and module loader for JavaScript",
+            "keywords": [
+                "AMD"
+            ]
+        },
         {
             "name": "fzaninotto/faker",
             "version": "v1.5.0",

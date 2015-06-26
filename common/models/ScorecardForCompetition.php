@@ -16,8 +16,20 @@ class ScorecardForCompetition extends Scorecard
      */
 	public function afterFind() {
 		parent::afterFind();
-		$this->tees = $this->registration->tees;
-		$this->golfer = $this->registration->golfer;
+		if($this->registration) {
+			if(! ($this->tees = $this->registration->tees)) {
+				if($competition = $this->registration->competition) {
+					if($competition->course) {
+						$this->tees = $competition->course->getFirstTees();
+					}
+				}
+			}
+			if($competition = $this->registration->competition) {
+				$this->player = $this->registration->competition->isTeamCompetition() ? $this->registration->team : $this->registration->golfer;
+			} else { // @todo ?
+				$this->player = $this->registration->golfer;
+			}
+		}
 	}
 
     /**

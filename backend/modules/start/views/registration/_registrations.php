@@ -139,17 +139,17 @@ $("a.igolf-bulk-action").click(function(e) {
 		console.log('status to '+status);
 		
 		confirm_str = $(this).data('confirm-local');
-		console.log('confirm to '+confirm_str);
+//		console.log('confirm to '+confirm_str);
 		ok = confirm_str ? confirm(confirm_str) : true;
-		console.log('ok to '+ok);
+//		console.log('ok to '+ok);
 		
 		if(ok) {
-			console.log('sending to '+collected);
+//			console.log('sending to '+collected);
 			if(status == 'competition') {
 				competition = $(this).data('competition');
 				$.ajax({
 					type: "POST",
-					url: "bulk-register",
+					url: "<?= Url::to(['registration/bulk-register'])?>",
 					data: {
 				        ids : collected,
 						competition : competition
@@ -162,7 +162,7 @@ $("a.igolf-bulk-action").click(function(e) {
 			} else {
 				$.ajax({
 					type: "POST",
-					url: "bulk-status",
+					url: "<?= Url::to(['registration/bulk-status'])?>",
 					data: {
 				        ids : collected,
 						status : status
@@ -173,7 +173,7 @@ $("a.igolf-bulk-action").click(function(e) {
 				    }
 				});
 			}
-			console.log('sent');
+//			console.log('sent');
 		}
 	}
 });

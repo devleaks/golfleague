@@ -1,11 +1,14 @@
 <?php
 
-use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
-use yii\widgets\ActiveForm;
-use kartik\widgets\DateTimePicker;
 use common\models\Rule;
 use common\models\Course;
+
+use kartik\widgets\DateTimePicker;
+use kartik\form\ActiveForm;
+
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\bootstrap\Alert;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Competition */
@@ -56,14 +59,32 @@ use common\models\Course;
 
 	<?= $form->field($model, 'holes')->dropDownList(array(18 => '18', 9 => '9')) ?>
 
-    <?= $form->field($model, 'start_date')->widget(DateTimePicker::classname(), [
-            'pluginOptions' => [
-                'format' => 'yyyy-mm-dd hh:ii:ss',
-                'todayHighlight' => true
-            ]
-        ]) ?>
+	<div class='row'>
+		<div class='col-lg-4'>
+	    <?= $form->field($model, 'start_date')->widget(DateTimePicker::classname(), [
+	            'pluginOptions' => [
+	                'format' => 'yyyy-mm-dd hh:ii:ss',
+	                'todayHighlight' => true
+				]
+	    ]) ?>
+		<?= Html::activeHiddenInput($model, 'recurrence') ?>
+		<div id="recurrence-text"></div>
+		</div>
 
+		<div class='col-lg-8'>
+		<?php
+			echo Alert::widget([
+                'body' => 'Recurrence Does not Work',
+                'options' => ['class' => 'alert-danger'],
+			]);
+            echo $this->render('scheduler', [
+				'form'  => $form,
+			]);
+		?>
+		</div>
+	</div>
 
+	<div class="clearfix"></div>
 	<?php endif; ?>
 
     <?= $form->field($model, 'status')->dropDownList($model::getLocalizedConstants('STATUS_')) ?>

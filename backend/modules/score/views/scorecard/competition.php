@@ -39,6 +39,7 @@ $apply_rule = in_array($competition->competition_type, [Competition::TYPE_TOURNA
 			'panel'=>[
 		        'heading' => '<h4>'.$this->title.'</h4>',
 				'footer' => Html::submitButton('Save', ['class'=>'btn btn-primary']).' '.$apply_rule.' '.
+							Html::a(Yii::t('igolf', 'Scorecard Status'), Url::to(['status', 'id' => $competition->id]), ['class'=>'btn btn-primary']).' '.
 							Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $competition->id]), ['class'=>'btn btn-success'])
 							,
 		    ],

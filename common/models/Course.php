@@ -110,16 +110,25 @@ class Course extends _Course
 		return $gender ? $this->getTees()->andWhere(['gender' => $gender])->exists() : $this->getTees()->exists();
     }
 
-    public function getTeesWithHoles() {
-        $tees_with_holes = array();
-
-        foreach($this->getTees()->each() as $tees)
-            if($tees->hasHoles()/*!*/)
-                $tees_with_holes[] = $tees;
-
-        return $tees_with_holes;
+    public function getTeesWithHoles($gender = null) {
+		$q = $this->getTees()->andWhere(['exists', Hole::find()->andWhere('hole.tees_id = tees.id')]);
+		return $gender 	? $q->andWhere(['gender' => $gender]) : $q;
     }
 
+	/**
+	 * First tries to get a set of tees with hole description. If none exists, returns first tees set available.
+	 *
+	 * @param string $gender Golfer::GENDER_GENTLEMAN or Golfer::GENDER_LADY. Sorry Indochine, no 3rd sex.
+	 *
+	 * @return common\models\tees|null
+	 */
+	public function getFirstTees($gender = null) {
+		if($tees = $this->getTeesWithHoles($gender)->orderBy('gender')->one())
+			return $tees;
+		return $gender ? $this->getTees()->andWhere(['gender' => $gender])->one() : $this->getTees()->one();
+	}
+	
+	
 	/**
 	 * Get name with facility name
 	 *

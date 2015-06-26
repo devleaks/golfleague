@@ -19,12 +19,13 @@ use yii\helpers\Html;
 
 class Scoreline extends Model {
 	public $scorecard;
-	public $golfer;
+	public $player;
 	public $pos;
 	public $curr;
 	public $rounds;
 	public $round;
 	public $thru;
+	public $topar;
 	public $today;
 	public $total;
 	public $stats;
@@ -48,13 +49,13 @@ class Scoreboard extends _Scoretable {
 	/** common\models\Competition Competition to display. */
 	public $competition;
 	
-	/** integer Maximum number of golfer displayed on scoreboard */
-	public $maxGolfer = 10;
+	/** integer Maximum number of player displayed on scoreboard */
+	public $maxPlayers = 10;
 	
 	/** common\models\Match Current match of competition. */
 	protected $match;
 
-	/** Starting tee set */
+	/** One starting tee set */
 	protected $tees;
 	
 	/** common\widgets\Scoreline[] */
@@ -67,14 +68,23 @@ class Scoreboard extends _Scoretable {
 	 */
 	public function run() {
 		$this->match = $this->competition->currentMatch();
-		// check options:
-		// if 9 holes, FRONTBACK is irrelevant.
+
 		if(!$this->competition->hasScores())
 			return Yii::t('igolf', 'Competition has not started yet.');
 		
-		if($this->competition->competition_type == Competition::TYPE_MATCH && !$this->tees = $this->competition->getTees())
+		if(!$this->tees = $this->competition->course->getFirstTees())
 			return Yii::t('igolf', 'Competition has no starting tees set.');
-		
+			
+		Yii::trace('tees='.$this->tees->id);
+			
+		if(!$this->tees->hasDetails()) { // if does not have hole details, we do not display hole by hole data.
+			$this->setOption(self::HOLES, false);
+			$this->setOption(self::FRONTBACK, false);
+		}
+		if($this->competition->holes == 9) {
+			$this->setOption(self::FRONTBACK, false);
+		}
+
 		$this->prepare_scorecards();
 			
 		if($this->getOption(self::AUTO_REFRESH))
@@ -104,7 +114,6 @@ class Scoreboard extends _Scoretable {
 	
 	public function init() {
 		$this->registerAssets();
-		$this->setOption(self::HOLES, true); // force heading for scorecard, otherwise nothing might be displayed
 	}
 	
     /**
@@ -125,14 +134,20 @@ class Scoreboard extends _Scoretable {
 
 	protected function print_header_split() {
 		$output =  Html::beginTag('tr', ['class' => 'scorecard-split']);
-		$output .= Html::tag('th', $this->competition->tees->name, ['colspan' => 2]);
-		for($i=0; $i<$this->competition->tees->holes; $i++) {
-			$output .= Html::tag('th', $i+1);
+		$output .= Html::tag('th', $this->tees->name, ['colspan' => 2]);
+		if($this->getOption(self::HOLES)) {
+			for($i=0; $i<$this->competition->holes; $i++) {
+				$output .= Html::tag('th', $i+1);
+			}
+		}
+		if($this->getOption(self::TODAY)) {
+			$output .= Html::tag('th', Yii::t('igolf', 'Today'));
+			$output .= Html::tag('th', Yii::t('igolf', 'Thru'));
 		}
 		$output .= Html::tag('th', Yii::t('igolf', 'Total'));
 		if($this->getOption(self::FRONTBACK)) {
-		$output .= Html::tag('th', Yii::t('igolf', 'Front'));
-		$output .= Html::tag('th', Yii::t('igolf', 'Back'));
+			$output .= Html::tag('th', Yii::t('igolf', 'Front'));
+			$output .= Html::tag('th', Yii::t('igolf', 'Back'));
 		}
 		$output .= Html::endTag('tr');
 		return $output;
@@ -142,28 +157,36 @@ class Scoreboard extends _Scoretable {
 		$displays = [
 			self::LENGTH => [
 				'label'=> Yii::t('igolf', 'Length'),
-				'data' => $this->competition->tees->lengths(),
+				'data' => $this->tees->lengths(),
 				'total' => true
-			],
-			self::SI => [
-				'label'=> Yii::t('igolf', 'S.I.'),
-				'data' => $this->competition->tees->sis(),
-				'total' => false
 			],
 			self::PAR => [
 				'label'=> Yii::t('igolf', 'Par'),
-				'data' => $this->competition->tees->pars(),
+				'data' => $this->tees->pars(),
 				'total' => true
 			],
 		];
+		if($this->getOption(self::HOLES)) {
+			$displays[self::SI] = [
+				'label'=> Yii::t('igolf', 'S.I.'),
+				'data' => $this->tees->sis(),
+				'total' => false
+			];
+		}
 
 		$output = '';
 		foreach($displays as $key => $display) {
 			if($this->getOption($key)) {			
 				$output .=  Html::beginTag('tr');
 				$output .= Html::tag('th', $display['label'], ['class' => 'labelr', 'colspan' => 2]);
-				for($i=0; $i<$this->competition->tees->holes; $i++) {
-					$output .= Html::tag('th', $display['data'][$i]);
+				if($this->getOption(self::HOLES)) {
+					for($i=0; $i<$this->competition->holes; $i++) {
+						$output .= Html::tag('th', $display['data'][$i]);
+					}
+				}
+				if($this->getOption(self::TODAY)) {
+					$output .= Html::tag('th', '&nbsp;');
+					$output .= Html::tag('th', '&nbsp;');
 				}
 				if($display['total']) {
 					$output .= Html::tag('th', array_sum($display['data']));
@@ -199,6 +222,7 @@ class Scoreboard extends _Scoretable {
 
 	private function totals($name, $display_name, $position, $scoreline) {
 		$output = '';
+		$output .= $this->td(self::SCORE, 'total-'.$scoreline->scorecard->player->id, $scoreline->scorecard->score);
 		return $output;
 	}
 
@@ -217,21 +241,22 @@ class Scoreboard extends _Scoretable {
 		
 		/* header */
 		$display_name = self::pretty_name($name);
+		$local_total = 0;
 		switch($name) {
-			case self::ALLOWED:			$scores = $scoreline->scorecard->allowed();			$refs = $scores; break;
-			case self::SCORE_NET:		$scores = $scoreline->scorecard->score_net();		$refs = $scores; break;
-			case self::STABLEFORD:		$scores = $scoreline->scorecard->stableford();		$refs = $scoreline->scorecard->score(); break;
-			case self::STABLEFORD_NET:	$scores = $scoreline->scorecard->stableford_net();	$refs = $scoreline->scorecard->score_net(); break;
+			case self::ALLOWED:			$scores = $scoreline->scorecard->allowed();			$local_total = $scoreline->scorecard->allowed_total();			$refs = $scores; break;
+			case self::SCORE_NET:		$scores = $scoreline->scorecard->score_net();		$local_total = $scoreline->scorecard->score_net_total();		$refs = $scores; break;
+			case self::STABLEFORD:		$scores = $scoreline->scorecard->stableford();		$local_total = $scoreline->scorecard->stableford_total();		$refs = $scoreline->scorecard->score(); break;
+			case self::STABLEFORD_NET:	$scores = $scoreline->scorecard->stableford_net();	$local_total = $scoreline->scorecard->stableford_net_total();	$refs = $scoreline->scorecard->score_net(); break;
 //			case self::TO_PAR:			$scores = $scoreline->to_par( $this->competition->rounds() > 1 ? $this->lite[$pid]['topar'][$scoreline->match()->id()] : 0 ); break; // @todo
-			case self::TO_PAR:			$scores = $scoreline->scorecard->toPar( 0 );		$refs = $scores; break;
-			case self::TO_PAR_NET:		$scores = $scoreline->scorecard->toPar_net( 0 );	$refs = $scores; break;
+			case self::TO_PAR:			$scores = $scoreline->scorecard->toPar( 0 );		$local_total = $scoreline->scorecard->lastToPar();				$refs = $scores; break;
+			case self::TO_PAR_NET:		$scores = $scoreline->scorecard->toPar_net( 0 );	$local_total = $scoreline->scorecard->lastToPar_net();			$refs = $scores; break;
 			case self::SCORE:
-			default:					$scores = $scoreline->scorecard->score();			$refs = $scores; break;
+			default:					$scores = $scoreline->scorecard->score();			$local_total = $scoreline->scorecard->allowed_total();			$refs = $scores; break;
 		}
 
 		$pars = $scoreline->scorecard->tees->pars();
 		$stableford_points = $this->competition->rule->getStablefordPoints();
-		$pid = $scoreline->scorecard->golfer->id;
+		$pid = $scoreline->scorecard->player->id;
 
 		$old_use_splitflap = $this->getOption(self::SPLITFLAP);
 		if($position < 0) {
@@ -239,7 +264,7 @@ class Scoreboard extends _Scoretable {
 			$this->options->setOption(self::SPLITFLAP, false); // temporaily
 		} else {
 			$output .= $this->td($name, 'pos-'.$pid, $position);
-			$output .= Html::tag('td', $scoreline->scorecard->golfer->name.' '.
+			$output .= Html::tag('td', $scoreline->scorecard->player->name.' '.
 						$score_type = Html::tag('span', Yii::t('igolf', $display_name), ['class' => 'score-type']), ['class' => 'igolf-name']);
 		}
 
@@ -248,15 +273,17 @@ class Scoreboard extends _Scoretable {
 
 		/* holes */
 		$total = 0;
-		for($i=0; $i<min($this->competition->holes,count($scores)); $i++) { // @todo
-			$total += $scores[$i];
-			if($this->getOption(self::HOLES)) {
-				if(in_array($name, [self::STABLEFORD, self::STABLEFORD_NET])) {
-					$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], array_search($scores[$i], $stableford_points));
-				} else {
-					$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], ($refs[$i] - $pars[$i]));
-				}
+		if($this->getOption(self::HOLES)) {
+			for($i=0; $i<min($this->competition->holes,count($scores)); $i++) { // @todo
+				$total += $scores[$i];
+					if(in_array($name, [self::STABLEFORD, self::STABLEFORD_NET])) {
+						$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], array_search($scores[$i], $stableford_points));
+					} else {
+						$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], ($refs[$i] - $pars[$i]));
+					}
 			}
+		} else {
+			$total = $local_total;
 		}
 
 		/* today */
@@ -273,7 +300,7 @@ class Scoreboard extends _Scoretable {
 		}
 
 		/* totals */
-		$this->totals($name, $display_name, $position, $scoreline);
+		$output .= $this->totals($name, $display_name, $position, $scoreline);
 		
 		if($position < 0) // restore original setting (watch out if settings are read-only)
 			$this->options->setOption(self::SPLITFLAP, $old_use_splitflap);
@@ -310,7 +337,7 @@ class Scoreboard extends _Scoretable {
 		$position_accumulator = 0;
 
 		foreach($this->scoreline as $scoreline) {
-			if( $count++ < $this->maxGolfer ) {
+			if( $count++ < $this->maxPlayers ) {
 				
 			if($previous != null) { // first elem
 				if($this->competition->rule->isStableford()) {	

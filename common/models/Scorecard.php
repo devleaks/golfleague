@@ -15,7 +15,8 @@ class Scorecard extends _Scorecard
 	
 	/** Local commodity variables. Initialized afterFind.*/
 	public $tees;
-	public $golfer;
+	/** Player can either be a golfer or a team */
+	public $player;
 
 	/** Scorecard types */
 	const TYPE_COMPETITION	= 'COMPETITION';
@@ -156,7 +157,7 @@ class Scorecard extends _Scorecard
 	 */
 	public function makeScores() {
 		if( !$this->hasDetails() ) {
-			$allowed = $this->golfer->allowed($this->tees);
+			$allowed = $this->player->allowed($this->tees);
 			$holes = $this->tees->getHoles()->orderBy('position')->indexBy('position')->all();
 			$hole_count = count($holes);
 			
@@ -190,16 +191,16 @@ class Scorecard extends _Scorecard
 		return Yii::t('igolf', 'Scorecard');
 	}
 	
-	public function hasScore() { // opposed to isCompetition()
+	public function hasScore() {
 		return $this->thru > 0;
 	}
 	
 	/**
 	 * Utility function used for development, do not use.
 	 */
-	private function doAllowed() {
+	protected function doAllowed() {
 		$i = 0;
-		$a = $this->golfer->allowed($this->tees);
+		$a = $this->player->allowed($this->tees);
 		foreach($this->getScores()->joinWith('hole')->orderBy('hole.position')->each() as $score) {
 			$score->allowed = $a[$i++];
 			$score->save();
@@ -223,21 +224,21 @@ class Scorecard extends _Scorecard
 		return $r;
 	}
 	
-	public function score() {
-		return $this->getHoleData('score');
-	}
-
-	public function score_net() {
-		return $this->getHoleData('score', true);
-	}
-
 	public function allowed() {
 		return $this->getHoleData('allowed');
 	}
 
-	public function stableford() {
+	public function score($net = false) {
+		return $net ? $this->getHoleData('score') : $this->getHoleData('score', true);
+	}
+
+	public function score_net() {
+		return $this->score(true);
+	}
+
+	public function stableford($net = false) {
 		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
-		$n = $this->score();
+		$n = $net ? $this->score_net() : $this->score();
 		$p = $this->tees->pars();
 		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
 		for($i = 0; $i< count($n); $i++) {
@@ -250,21 +251,11 @@ class Scorecard extends _Scorecard
 	}
 
 	public function stableford_net() {
-		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
-		$n = $this->score_net();
-		$p = $this->tees->pars();
-		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
-		for($i = 0; $i< count($n); $i++) {
-			if($n[$i] > 0) {
-				$s[$i] = $rule->stablefordPoint($n[$i] - $p[$i]);
-			}
-			//Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':stb='.$s[$i], 'Scorecard::stableford');
-		}
-		return $s;
+		return $this->stableford(true);
 	}
 
-	public function toPar($start = 0) {
-		$n = $this->score();
+	public function toPar($start = 0, $net = false) {
+		$n = $net ? $this->score_net() : $this->score();
 		$p = $this->tees->pars();
 		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
 		$topar = $start;
@@ -279,23 +270,55 @@ class Scorecard extends _Scorecard
 	}
 	
 	public function toPar_net($start = 0) {
-		$n = $this->score_net();
-		$p = $this->tees->pars();
-		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
-		$topar = $start;
-		for($i = 0; $i< count($n); $i++) {
-			if($n[$i] > 0) {
-				$topar += ($n[$i] - $p[$i]);
-				$s[$i] = $topar;
-			}
-			//Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':topar='.$s[$i], 'Scorecard::toPar_net');
+		return $this->toPar($start, true);
+	}
+
+	/**
+	 * Returns array index for last played hole (thru). Returns 0 if not score yet.
+	 *
+	 * @return integer Array index of last hole played.
+	 */
+	public function thruIndex() {
+		return $this->thru > 0 ? $this->thru - 1 : 0;
+	}
+
+	/**
+	 * Total scores
+	 */
+	public function allowed_total($to = 18) {
+		return $this->hasDetails() ? array_sum(array_slice($this->allowed(), 0, $to - 1)) : $this->allowed;
+	}
+
+	public function score_total() {
+		return $this->hasDetails() ? array_sum($this->score()) : $this->score;
+	}
+
+	public function score_net_total() {
+		return $this->hasDetails() ? array_sum($this->score_net()) : $this->score_net;
+	}
+
+	public function stableford_total() {
+		return $this->hasDetails() ? array_sum($this->stableford()) : $this->stableford;
+	}
+
+	public function stableford_net_total() {
+		return $this->hasDetails() ? array_sum($this->stableford_net()) : $this->stableford_net;
+	}
+
+	public function lastToPar($net = false) {
+		if($this->hasDetails()) {
+			$to_par = $net ? $this->toPar_net() : $this->toPar();
+			return $to_par[ $this->thruIndex() ];
+		} else {
+			$par = array_sum(array_slice($this->tees->pars(), 0, $this->thru));
+			$scr = $net ?  $this->score_net_total() :  $this->score_total(); 
+			// Yii::trace('ThruIdx='.$this->thruIndex().', Par='.$par.', Score='.$scr, 'Scorecard::lastToPar');
+			return $scr - $par;
 		}
-		return $s;
 	}
 	
-	public function lastToPar() {
-		$to_par = $this->toPar();
-		return $to_par[($this->thru() > 0 ? $this->thru() - 1 : 0)];
+	public function lastToPar_net() {
+		return $this->lastToPar(true);
 	}
 	
 
@@ -316,7 +339,7 @@ class Scorecard extends _Scorecard
 	 * Compute scorecard scores from detailed scores
 	 */
 	public function updateScorecard() {
-		if($this->upToDate()) return;
+		if( $this->upToDate() || !$this->hasDetails() ) return;
 		
 		$score = $this->score();
 		$thru = 0;
@@ -324,7 +347,7 @@ class Scorecard extends _Scorecard
 			$thru++;
 			
 		$this->thru = $thru;
-		if($thru > 0) {
+		if($this->thru > 0) {
 			
 			$this->score = array_sum($score);
 			$this->score_net = array_sum($this->score_net());
@@ -348,8 +371,7 @@ class Scorecard extends _Scorecard
 				else if ($sand[$i] === 1)
 					$ok++;
 			}
-			$this->sand = ($ok + $nok) > 0 ? round($ok / ($ok + $nok), 2) : 0;
-		
+			$this->sand = ($ok + $nok) > 0 ? round($ok / ($ok + $nok), 2) : 0;	
 		}
 		
 		$this->validate();
@@ -391,7 +413,7 @@ class Scorecard extends _Scorecard
 	public function compute($what = null) {
 		switch($what) {
 			case self::COMPUTE_GROSS_TO_NET:
-				$allowed = array_sum($this->golfer->allowed($this->tees));
+				$allowed = array_sum($this->player->allowed($this->tees));
 				$this->score_net = $this->score - $allowed;
 				break;
 			default:
