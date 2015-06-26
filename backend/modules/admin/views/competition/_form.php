@@ -67,16 +67,26 @@ use yii\bootstrap\Alert;
 	                'todayHighlight' => true
 				]
 	    ]) ?>
-		<?= Html::activeHiddenInput($model, 'recurrence') ?>
-		<div id="recurrence-text"></div>
 		</div>
 
 		<div class='col-lg-8'>
 		<?php
-			echo Alert::widget([
-                'body' => 'Recurrence Does not Work',
-                'options' => ['class' => 'alert-danger'],
-			]);
+			echo $form->field($model, 'recurrence_text', [
+			    'addon' => [
+					'prepend' => [
+						'content' => Html::button('<span class="glyphicon glyphicon-repeat"></span>', [
+							'class'=>'btn btn-default',
+							'data'=> ['toggle' => 'modal', 'target' => '#recurrence-modal'],
+							'style' => 'background-color: #eee;' // !!
+						]),
+						'asButton' => true,
+					],
+				]
+			])->label(Yii::t('igolf', 'Repeat Event'));
+
+			// echo Html::activeHiddenInput($model, 'recurrence');
+			echo $form->field($model, 'recurrence')->textInput(['readonly' => true])->label(false);
+		
             echo $this->render('scheduler', [
 				'form'  => $form,
 			]);

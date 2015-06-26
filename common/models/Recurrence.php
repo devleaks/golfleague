@@ -18,7 +18,6 @@ class Recurrence extends Model
 //	const FREQUENCY_HOURLY = 'HOURLY';
 	const FREQUENCY_DAILY = 'DAILY';
 	const FREQUENCY_WEEKLY = 'WEEKLY';
-	const FREQUENCY_WEEKDAYS = 'WEEKDAYS';
 	const FREQUENCY_MONTHLY = 'MONTHLY';
 	const FREQUENCY_YEARLY = 'YEARLY';
 	

@@ -105,6 +105,7 @@ class Competition extends _Competition
 	            [['gender'], 'in','range' => array_keys(self::getConstants('GENDER_'))],
 	            [['registration_special'], 'in','range' => array_keys(self::getConstants('SPECIAL_'))],
 	            [['status'], 'in', 'range' => array_keys(self::getConstants('STATUS_'))],
+				[['recurrence_text'], 'safe'],
         	]
 		);
     }

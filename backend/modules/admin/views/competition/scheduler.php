@@ -12,7 +12,7 @@ use kartik\widgets\TimePicker;
 use kartik\widgets\TouchSpin;
 
 use yii\helpers\Html;
-
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Competition */
@@ -21,6 +21,10 @@ use yii\helpers\Html;
 RecurrenceRuleAsset::register($this);
 
 $model = new Recurrence();
+Modal::begin([
+    'header' => '<h3>'.Yii::t('igolf', 'Repeat Event').'</h3>',
+	'id' => 'recurrence-modal',
+]);
 
 ?>
 <div class="recurrence-form">
@@ -200,13 +204,13 @@ $model = new Recurrence();
 			],
 		],
 	]);
+	echo '</div>';
 	?>
 
-		<div class="form-group">
-		    <?= Html::button(Yii::t('igolf', 'Preview'), ['class' => 'btn btn-primary action-preview']) ?>
-		</div>
-
-	</div><!-- .recurrence_until -->
+	<div class="form-group">
+	    <?= Html::button(Yii::t('igolf', 'Cancel'), ['class' => 'btn btn-danger']) ?>
+	    <?= Html::button(Yii::t('igolf', 'OK'), ['class' => 'btn btn-success action-ok', 'data' => ['dismiss' => 'modal']]) ?>
+	</div>
 
 </div>
 <script type="text/javascript">
@@ -230,7 +234,7 @@ function pos2idx(d) {
 }
 
 function display_rrule() {
-	options = {wkst: RRule.MO};
+	options = {};
 	freq = $('#recurrence-frequency').val();
 	intok = false; // needs interval?
 	switch(freq) {
@@ -300,7 +304,8 @@ function display_rrule() {
 		
 	rule = new RRule(options);
 	$('#match-recurrence').val(rule.toString());
-	$('#recurrence-text').html(rule.toText()+'<br/><pre>'+rule.toString()+'</pre>');
+	$('#match-recurrence_text').val(rule.toText());
+//	$('#recurrence-debug').html('<pre>'+rule.toString()+'</pre>');
 }
 
 /** Setup schedule form based on previously entered rrule */
@@ -361,10 +366,6 @@ $('#recurrence-interval').change(function() { /* adjust plural form of count; @t
 	display_rrule();
 });
 
-$('#recurrence-count').change(function() {
-	display_rrule();
-});
-
 $('#recurrence-until').change(function() {
 	switch($(this).val()) {
 		case 'COUNT':
@@ -381,8 +382,19 @@ $('#recurrence-until').change(function() {
 	display_rrule();
 });
 
+$('#recurrence-count').change(function() {
+	display_rrule();
+});
+
+$('.action-ok').click(function() {
+	display_rrule();
+});
+
 });
 <?php $this->endBlock(); ?>
 </script>
 <?php
 $this->registerJs($this->blocks['JS_SCHEDULER'], yii\web\View::POS_READY);
+
+Modal::end();
+
