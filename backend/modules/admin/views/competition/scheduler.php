@@ -208,7 +208,7 @@ Modal::begin([
 	?>
 
 	<div class="form-group">
-	    <?= Html::button(Yii::t('igolf', 'Cancel'), ['class' => 'btn btn-danger']) ?>
+	    <?= Html::button(Yii::t('igolf', 'Cancel'), ['class' => 'btn btn-danger', 'data' => ['dismiss' => 'modal']]) ?>
 	    <?= Html::button(Yii::t('igolf', 'OK'), ['class' => 'btn btn-success action-ok', 'data' => ['dismiss' => 'modal']]) ?>
 	</div>
 
@@ -231,6 +231,47 @@ function pos2idx(d) {
 		LAST: -1
 	}
 	return pos[d];
+}
+
+function idx2pos(d) {
+	pos = {
+		FIRST: 1,
+		SECOND: 2,
+		THIRD: 3,
+		FOURTH: 4,
+		LAST: -1
+	}
+	return pos[d];
+}
+
+function freq_change(event) {
+	switch($('#recurrence-frequency').val()) {
+		case 'DAILY':
+			$('.recurrence_byweekday, .recurrence_bymonth, .recurrence_byyear').toggle(false);
+			$('.field-recurrence-interval, .field-recurrence-repeat, .recurrence_until').toggle(true);
+			$('#recurrence-interval').trigger('change');
+			break;
+		case 'WEEKLY':
+			$('.recurrence_bymonth, .recurrence_byyear').toggle(false);
+			$('.field-recurrence-interval, .field-recurrence-repeat, .recurrence_byweekday, .recurrence_until').toggle(true);
+			$('#recurrence-interval').trigger('change');
+			break;
+		case 'WEEKDAYS':
+			$('.field-recurrence-interval, .field-recurrence-repeat, .recurrence_byweekday, .recurrence_bymonth, .recurrence_byyear').toggle(false);
+			$('.recurrence_until').toggle(true);
+			break;
+		case 'MONTHLY':
+			$('.field-recurrence-repeat, .recurrence_byweekday, .recurrence_byyear').toggle(false);
+			$('.field-recurrence-interval, .recurrence_bymonth, .recurrence_until').toggle(true);
+			break;
+		case 'YEARLY':
+			$('.field-recurrence-repeat, .recurrence_byweekday, .recurrence_bymonth').toggle(false);
+			$('.field-recurrence-interval, .recurrence_byyear, .recurrence_until').toggle(true);
+			break;
+		default:
+		$('.field-recurrence-interval, .field-recurrence-repeat, .recurrence_byweekday, .recurrence_bymonth, .recurrence_byyear, .recurrence_until').toggle(false);
+	}
+	console.log('yup! '+$('#recurrence-frequency').val());
 }
 
 function display_rrule() {
@@ -305,47 +346,97 @@ function display_rrule() {
 	rule = new RRule(options);
 	$('#match-recurrence').val(rule.toString());
 	$('#match-recurrence_text').val(rule.toText());
-//	$('#recurrence-debug').html('<pre>'+rule.toString()+'</pre>');
+	console.log('yoh! '+$('#recurrence-frequency').val());
 }
 
 /** Setup schedule form based on previously entered rrule */
-function setup_rrule(rrule) {
-	
+function init_rrule(rrule) {
+	// TEST
+	$('#match-recurrence').val('FREQ=WEEKLY;INTERVAL=2;BYDAY=TU;UNTIL=20150929T000000Z');
+	//
+	rrule_str = $('#match-recurrence').val();
+	if(rrule_str != '') {
+		rule = RRule.fromString(rrule_str);
+		$('#match-recurrence_text').val(rule.toText());
+		//console.log('rule='+JSON.stringify(rule));
+
+		//setup recurrence
+		switch(rule.origOptions.freq) {
+			case RRule.DAILY: $('#recurrence-frequency').val('DAILY');
+				break;
+			case RRule.WEEKLY:	$('#recurrence-frequency').val('WEEKLY');
+				for(i=0; i<7; i++) {
+					loctest = i % 2 ? 'checked' : false;
+					sel = 'input[name="Recurrence[byweekday][]"][value="'+(i+1)+'"]';
+					$(sel).prop('checked', loctest);
+					if(loctest) {
+						$(sel).parent().addClass('active');
+					} else {
+						$(sel).parent().removeClass('active');
+					}
+					console.log(sel+'='+loctest);
+				}
+				break;
+			case RRule.MONTHLY:	$('#recurrence-frequency').val('MONTHLY');
+				if(rule.origOptions.bymonthday > 0) {
+					$('#recurrence-bymonthday').val(rule.origOptions.bymonthday - 1);
+				} else if(rule.origOptions.byweekday) {
+					day = rule.origOptions.byweekday;
+					pos = rule.origOptions.byweekday.nth();
+					$('#recurrence-bypos4month').val(pos);
+					$('#recurrence-weekday4month').val(day);
+				}
+				break;
+			case RRule.YEARLY:	$('#recurrence-frequency').val('YEARLY');
+				if(rule.origOptions.bymonthday > 0) {
+					$('#recurrence-bymonth').val(rule.origOptions.bymonth);
+					$('#recurrence-monthday4year').val(rule.origOptions.bymonthday - 1);
+				} else if(rule.origOptions.byweekday) {
+					day = rule.origOptions.byweekday;
+					pos = rule.origOptions.byweekday.nth();
+					$('#recurrence-bypos4year').val(pos);
+					$('#recurrence-weekday4year').val(day);
+					$('#recurrence-month4year').val(rule.origOptions.bymonth);
+				}
+				break;
+		}
+		//setup recurrence: reveal fields accordingly
+		freq_change();
+
+		//setup interval
+		if(rule.origOptions.interval > 0) {
+			$('#recurrence-interval').val(rule.interval);
+			console.log('interval:'+rule.interval);
+		}
+			
+		//setup daily details
+		//setup weekly details
+		//setup monthly details
+		//setup yearly details
+		
+		//setup until
+		if(rule.origOptions.count > 0) { //setup until count
+			$('#recurrence-until').val('COUNT');
+			$('#recurrence-count').val(rule.count);
+			console.log('count:'+rule.count);
+		} else if(rule.origOptions.until instanceof Date) { //setup until date
+			$('#recurrence-until').val('DATE');
+			date_end = new Date(rule.origOptions.until);
+			console.log('date:'+date_end+'='+date_end.toISOString().slice(0, 10).replace(/-/g,'/'));
+			$('#recurrence-date_end').val(date_end.toISOString().slice(0, 10).replace(/-/g,'/')); // yyyy/mm/dd
+		}
+	}
 }
 
 jQuery(function ($) {
 
+init_rrule();
+
+$('#recurrence-modal').on('shown.bs.modal', display_rrule);
+
 $('.field-recurrence-interval, .field-recurrence-repeat, .recurrence_byweekday, .recurrence_bymonth, .recurrence_byyear, .recurrence_until, .field-recurrence-count, .field-recurrence-date_end').toggle(false);
 
-$('#recurrence-frequency').change(function() {
-	switch($(this).val()) {
-		case 'DAILY':
-			$('.recurrence_byweekday, .recurrence_bymonth, .recurrence_byyear').toggle(false);
-			$('.field-recurrence-interval, .field-recurrence-repeat, .recurrence_until').toggle(true);
-			$('#recurrence-interval').trigger('change');
-			break;
-		case 'WEEKLY':
-			$('.recurrence_bymonth, .recurrence_byyear').toggle(false);
-			$('.field-recurrence-interval, .field-recurrence-repeat, .recurrence_byweekday, .recurrence_until').toggle(true);
-			$('#recurrence-interval').trigger('change');
-			break;
-		case 'WEEKDAYS':
-			$('.field-recurrence-interval, .field-recurrence-repeat, .recurrence_byweekday, .recurrence_bymonth, .recurrence_byyear').toggle(false);
-			$('.recurrence_until').toggle(true);
-			break;
-		case 'MONTHLY':
-			$('.field-recurrence-repeat, .recurrence_byweekday, .recurrence_byyear').toggle(false);
-			$('.field-recurrence-interval, .recurrence_bymonth, .recurrence_until').toggle(true);
-			break;
-		case 'YEARLY':
-			$('.field-recurrence-repeat, .recurrence_byweekday, .recurrence_bymonth').toggle(false);
-			$('.field-recurrence-interval, .recurrence_byyear, .recurrence_until').toggle(true);
-			break;
-		default:
-		$('.field-recurrence-interval, .field-recurrence-repeat, .recurrence_byweekday, .recurrence_bymonth, .recurrence_byyear, .recurrence_until').toggle(false);
-	}
-	display_rrule();
-});
+$('#recurrence-frequency').change(freq_change);
 
 $('#recurrence-interval').change(function() { /* adjust plural form of count; @todo: localized words */
 	words = {
@@ -363,7 +454,6 @@ $('#recurrence-interval').change(function() { /* adjust plural form of count; @t
 			$('.field-recurrence-repeat > div.form-control-static').html($('#recurrence-interval').val() > 1 ? words.week[1] : words.week[0]);
 			break;
 	}
-	display_rrule();
 });
 
 $('#recurrence-until').change(function() {
@@ -379,15 +469,17 @@ $('#recurrence-until').change(function() {
 		default:
 			$('.field-recurrence-count, .field-recurrence-date_end').toggle(false);
 	}
-	display_rrule();
 });
 
-$('#recurrence-count').change(function() {
-	display_rrule();
-});
+$('.action-ok').click(display_rrule);
 
-$('.action-ok').click(function() {
-	display_rrule();
+$('.remove-recurrence').click(function() {
+	$('#match-recurrence').val('');
+	$('#match-interval').val('1');
+	$('#match-recurrence_text').val('');
+	$('#recurrence-frequency').val('NONE').change();
+	$('#recurrence-until').val('NEVER').change();
+	// should also reset other fields?
 });
 
 });

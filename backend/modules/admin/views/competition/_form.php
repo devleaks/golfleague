@@ -49,7 +49,7 @@ use yii\bootstrap\Alert;
 
     <?= $form->field($model, 'age_max')->textInput() ?>
 
-    <?= $form->field($model, 'gender')->radioList($model::getLocalizedConstants('GENDER_')) ?>
+    <?= $form->field($model, 'gender')->radioList($model::getLocalizedConstants('GENDER_'), ['inline'=>true]) ?>
 
     <?= $form->field($model, 'registration_special')->dropDownList([''=>'']+$model::getLocalizedConstants('SPECIAL_')) ?>
 
@@ -66,7 +66,7 @@ use yii\bootstrap\Alert;
 	                'format' => 'yyyy-mm-dd hh:ii:ss',
 	                'todayHighlight' => true
 				]
-	    ]) ?>
+	    ])->label(Yii::t('igolf', 'Start Date &amp; Time')) ?>
 		</div>
 
 		<div class='col-lg-8'>
@@ -77,6 +77,11 @@ use yii\bootstrap\Alert;
 						'content' => Html::button('<span class="glyphicon glyphicon-repeat"></span>', [
 							'class'=>'btn btn-default',
 							'data'=> ['toggle' => 'modal', 'target' => '#recurrence-modal'],
+							'style' => 'background-color: #eee;' // !!
+						])
+						. PHP_EOL .
+						Html::button('<span class="glyphicon glyphicon-remove"></span>', [
+							'class'=>'btn btn-default remove-recurrence',
 							'style' => 'background-color: #eee;' // !!
 						]),
 						'asButton' => true,
