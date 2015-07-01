@@ -19,37 +19,36 @@ class _Scoretable extends Widget {
 	/**
 	 * O P T I O N S
 	 *
-	 * Course */
+	 * Course data in header */
 	const PAR			= 'par';
 	const SI			= 'si';
 	const LENGTH		= 'length';
 
-	/* Scores */
+	/* Scores: Note value must match scorecard column names */
 	const GROSS			= 'gross';	// old value, left for compatibility
 	const NET			= 'net';
 	const SCORE			= 'score';	// new values
-	const SCORE_NET		= 'score_net';
 	const STABLEFORD	= 'stableford';
-	const STABLEFORD_NET	= 'stableford_net';
 	const ALLOWED		= 'allowed';
 	const TO_PAR		= 'to_par';
-	const TO_PAR_NET	= 'to_par_net';
 	const POINT			= 'points';
 
-	/** Play */
-	const STROKEPLAY	= 'strokeplay';
+	const SCORE_NET		= 'score_net';
+	const STABLEFORD_NET	= 'stableford_net';
+	const TO_PAR_NET	= 'to_par_net';
 
-	/* Columns */
-	const TOTAL			= 'total';
+	/* Columns that can be displayed */
 	const TODAY			= 'today';
-	const ROUND			= 'round';
 	const ROUNDS		= 'rounds';
-	const FRONTBACK		= 'fb';
-	const HOLE			= 'hole';
+	const TOTAL			= 'total';
+
 	const HOLES			= 'holes';
-	const CARDS			= 'cards';
+	const FRONTBACK		= 'fb';
+
+	const CARDS			= 'cards'; //@todo
 
 	/* Appearance */
+	const HOLE			= 'hole';
 	const SPLITFLAP		= 'splitflap';
 	const COLOR			= 'color';
 	const SHAPE			= 'shape';

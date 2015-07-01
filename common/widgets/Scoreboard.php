@@ -38,9 +38,9 @@ class Scoreline extends Model {
 	}
 	
 	public static function compareGolfScore($a, $b) {
-		$sa = intval($a->total);
-		$sb = intval($b->total);
-		return ($sa == $sb) ? ($a->thru < $b->thru) : ($sa < $sb);
+		$sa = intval(array_sum($a->totals));
+		$sb = intval(array_sum($b->totals));
+		return ($sa == $sb) ? ($a->thru < $b->thru) : ($sa > $sb);
 	}
 	
 }
@@ -69,6 +69,10 @@ class Scoreboard extends _Scoretable {
 	 */
 	public function run() {
 		$this->match = $this->competition->currentMatch();
+
+		if(!$this->match) {
+			$this->setOption(self::TODAY, false);
+		}
 
 		if(!$this->competition->hasScores())
 			return Yii::t('igolf', 'Competition has not started yet.');
@@ -331,29 +335,53 @@ class Scoreboard extends _Scoretable {
 
 	private function prepare_scorecards() {
 		$this->scoreline = [];
-		foreach($this->competition->getScorecards()->each() as $scorecard) {
-			// previous rounds
-			$rounds = [];
-			foreach($this->competition->getCompetitions()->orderBy('start_date')->each() as $round) {
-				$rounds[] = $round->getTotal($scorecard->player);
+		if($this->match) {
+			foreach($this->match->getScorecards()->each() as $scorecard) {
+				// previous rounds
+				$rounds = [];
+				foreach($this->competition->getCompetitions()->orderBy('start_date')->each() as $round) {
+					$rounds[] = $round->getTotal($scorecard->player);
+				}
+				// current round
+				$this->scoreline[] = new Scoreline([
+					'scorecard' => $scorecard,
+					'pos' => 0, // will be computed
+					'curr' => $this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->toPar_net(),
+					'rounds' => $this->competition->getRounds(),
+					'round' => $this->competition->getRound(),
+					'thru' => $scorecard->thru,
+					'today'	=> ($this->competition->rule->isStableford()) ? array_sum($scorecard->stableford()) : $scorecard->lastToPar(),
+					'totals' => $rounds,
+					'total'	=> array_sum($this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->score()),
+					'stats' => [],
+				]);
 			}
-			// current round
-			$this->scoreline[] = new Scoreline([
-				'scorecard' => $scorecard,
-				'pos' => 0, // will be computed
-				'curr' => $this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->toPar_net(),
-				'rounds' => $this->competition->getRounds(),
-				'round' => $this->competition->getRound(),
-				'thru' => $scorecard->thru,
-				'today'	=> ($this->competition->rule->isStableford()) ? array_sum($scorecard->stableford()) : $scorecard->lastToPar(),
-				'totals' => $rounds,
-				'total'	=> array_sum($this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->score()),
-				'stats' => [],
-			]);
+		} else {
+			foreach($this->competition->getScorecards()->each() as $scorecard) {
+				// previous rounds
+				$rounds = [];
+				foreach($this->competition->getCompetitions()->orderBy('start_date')->each() as $round) {
+					$rounds[] = $round->getTotal($scorecard->player);
+				}
+				// current round
+				$this->scoreline[] = new Scoreline([
+					'scorecard' => $scorecard,
+					'pos' => 0, // will be computed
+					'curr' => null,
+					'rounds' => $this->competition->getRounds(),
+					'round' => $this->competition->getRound(),
+					'thru' => 0,
+					'today'	=> null,
+					'totals' => $rounds,
+					'total'	=> array_sum($rounds),
+					'stats' => [],
+				]);
+			}
 		}
 		
 		// sort array depending on rule
-		uasort($this->scoreline, array(Scoreline::className(), $this->competition->rule->isStableford() ? 'compareGolfScore' : 'compareGolfScoreToPar'));
+		$method = 'compareGolfScore'; // $this->competition->rule->isStableford() ? 'compareGolfScore' : 'compareGolfScoreToPar';
+		uasort($this->scoreline, array(Scoreline::className(), $method));
 	}
 
 	protected function print_scores() {
@@ -373,7 +401,7 @@ class Scoreboard extends _Scoretable {
 						$position_accumulator = 0;
 					}
 				} else { // Stableford
-					if(Scoreline::compareGolfScoreToPar($scoreline, $previous)) {
+					if(Scoreline::compareGolfScore($scoreline, $previous)) {
 						$position += $position_accumulator;
 						$position_accumulator = 0;
 					}

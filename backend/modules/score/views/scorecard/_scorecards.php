@@ -87,7 +87,7 @@ foreach(Scorecard::getLocalizedConstants('STATUS_') as $key => $value)
 	$statuses .= '<li>'.Html::a(Yii::t('igolf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
 $statuses .= '</ul></div>';
 
-$buttons = Html::a(Yii::t('igolf', 'Scores'), Url::to(['competition', 'id' => $competition->id]), ['class'=>'btn btn-primary']);
+$buttons = $competition ? Html::a(Yii::t('igolf', 'Scores'), Url::to(['competition', 'id' => $competition->id]), ['class'=>'btn btn-primary']) : '';
 
 $buttons .= ' '.$statuses;
 echo $buttons;

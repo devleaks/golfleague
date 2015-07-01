@@ -51,7 +51,7 @@ class Tournament extends Competition
 	 * @inheritdoc
 	 */
 	public function currentMatch() {
-		return null;
+		return $this->getCompetitions()->andWhere(['status' => self::STATUS_READY])->orderBy('start_date')->one();
 	}
 
 	/**
