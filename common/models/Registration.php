@@ -114,7 +114,12 @@ class Registration extends _Registration
         ];
     }
 
-
+	/**
+	 * Return registration player, either as a golfer, or as a team.
+	 */
+	public function getPlayer() {
+		return $this->competition->isTeamCompetition() ? $this->team : $this->golfer;
+	}
 
 	static public function getLocalizedPreCompetitionStatuses() {
 		$s = [];

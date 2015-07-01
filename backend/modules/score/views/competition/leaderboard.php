@@ -53,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			Scoreboard::TO_PAR => true,
 			Scoreboard::COLOR => true,
 			Scoreboard::LEGEND => true,
+			Scoreboard::ROUNDS => true,
 		]
     ]) ?>
 

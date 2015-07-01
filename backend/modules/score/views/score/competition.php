@@ -32,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
             	'attribute' => 'golfer_name',
-                'label' => Yii::t('igolf', 'Golfer'),
+                'label' => Yii::t('igolf', 'Player'),
                 'value' => function($model, $key, $index, $widget) {
-                    return  $model->golfer->name;
+                    return  $model->player->name;
                 },
 			],
             [

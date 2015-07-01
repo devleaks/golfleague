@@ -22,8 +22,9 @@ if( sizeof($tees->getHoles()->all()) == 0 ) {
 	    $buttons .= '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'. Yii::t('igolf', 'Copy tees set from') . ' <span class="caret"></span></button>';
 	    $buttons .= '<ul class="dropdown-menu" role="menu">';
 
-	    foreach($tees_with_holes as $twh)
+	    foreach($tees_with_holes->each() as $twh) {
 	        $buttons .=  '<li>'.Html::a($twh->name.' ('.Yii::$app->params['tees_colors'][$twh->color].')', ['tees/copyholes', 'id' => $tees->id, 'copy_id' => $twh->id]).'</li>';
+		}
 
 		$buttons .= '</ul>';
 		$buttons .= '</div>';

@@ -1,6 +1,6 @@
 <?php
 /**
- * LatestMessages widget renders the last messages available on the website.
+ * Scorecard widget renders a player's scorecard for a single round.
  *
  * @author Pierre M <devleaks.be@gmail.com>
  */
@@ -164,7 +164,7 @@ ENDofCSS;
 			]),
 			self::SCORE_NET => new Scoredisplay([
 				'label' => Yii::t('igolf', 'Net'),
-				'data' => $this->scorecard->score_net(),
+				'data' => $this->scorecard->score(true),
 				'total' => true,
 				'color' => true,
 			]),
@@ -176,7 +176,7 @@ ENDofCSS;
 			]),
 			self::STABLEFORD_NET => new Scoredisplay([
 				'label' => Yii::t('igolf', 'Stableford Net'),
-				'data' => $this->scorecard->stableford_net(),
+				'data' => $this->scorecard->stableford(true),
 				'total' => true,
 				'color' => true,
 			]),
@@ -197,7 +197,7 @@ ENDofCSS;
 		$rule = $this->scorecard->registration ? $this->scorecard->registration->competition->rule : new Rule();
 		$stableford_points = $rule->getStablefordPoints();
 
-		$output = '';
+		$output = print_r($this->scorecard->score(), true); // '';
 		foreach($displays as $key => $display) {
 			if( $this->getOption($key) ) { 
 				$output .=  Html::beginTag('tr', ['class' => $key]);

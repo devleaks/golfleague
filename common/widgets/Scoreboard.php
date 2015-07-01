@@ -1,6 +1,6 @@
 <?php
 /**
- * Scoreboard widget renders a competition scoreboard.
+ * Scoreboard widget renders a competition scoreboard for one or more rounds.
  *
  * @author Pierre M <devleaks.be@gmail.com>
  */
@@ -28,6 +28,7 @@ class Scoreline extends Model {
 	public $topar;
 	public $today;
 	public $total;
+	public $totals;
 	public $stats;
 
 	public static function compareGolfScoreToPar($a, $b) {
@@ -75,7 +76,7 @@ class Scoreboard extends _Scoretable {
 		if(!$this->tees = $this->competition->course->getFirstTees())
 			return Yii::t('igolf', 'Competition has no starting tees set.');
 			
-		Yii::trace('tees='.$this->tees->id);
+		//Yii::trace('tees='.$this->tees->id);
 			
 		if(!$this->tees->hasDetails()) { // if does not have hole details, we do not display hole by hole data.
 			$this->setOption(self::HOLES, false);
@@ -128,7 +129,13 @@ class Scoreboard extends _Scoretable {
 	 *	Table Headers & Footers
 	 */
 	protected function caption() {
-		$competition = $this->competition->getFullName().', '.Yii::$app->formatter->asDate($this->competition->start_date);
+		$competition = $this->competition->getFullName();
+		// $competition .= ' ('.$this->competition->getRound().'/'.$this->competition->getRounds().')';
+		if($this->competition->getRounds() > 1) {
+			$competition .= ', '.str_replace(' ', '&nbsp;', $this->competition->getDateRange());
+		} else {
+			$competition .= ', '.Yii::$app->formatter->asDate($this->competition->start_date);
+		}
 		return Html::tag('caption', $competition);
 	}
 
@@ -144,11 +151,16 @@ class Scoreboard extends _Scoretable {
 			$output .= Html::tag('th', Yii::t('igolf', 'Today'));
 			$output .= Html::tag('th', Yii::t('igolf', 'Thru'));
 		}
-		$output .= Html::tag('th', Yii::t('igolf', 'Total'));
 		if($this->getOption(self::FRONTBACK)) {
 			$output .= Html::tag('th', Yii::t('igolf', 'Front'));
 			$output .= Html::tag('th', Yii::t('igolf', 'Back'));
 		}
+		if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
+			for($r=0; $r<$rounds; $r++) {
+				$output .= Html::tag('th', ($r+1), ['class' => 'round']);
+			}
+		}
+		$output .= Html::tag('th', Yii::t('igolf', 'Total'));
 		$output .= Html::endTag('tr');
 		return $output;
 	}
@@ -185,8 +197,11 @@ class Scoreboard extends _Scoretable {
 					}
 				}
 				if($this->getOption(self::TODAY)) {
-					$output .= Html::tag('th', '&nbsp;');
-					$output .= Html::tag('th', '&nbsp;');
+					$output .= Html::tag('th', '');
+					$output .= Html::tag('th', '');
+				}
+				if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
+					$output .= Html::tag('th', /*$key == self::PAR ? Yii::t('igolf', 'Rounds') :*/ '', ['colspan' => $rounds]);
 				}
 				if($display['total']) {
 					$output .= Html::tag('th', array_sum($display['data']));
@@ -222,7 +237,12 @@ class Scoreboard extends _Scoretable {
 
 	private function totals($name, $display_name, $position, $scoreline) {
 		$output = '';
-		$output .= $this->td(self::SCORE, 'total-'.$scoreline->scorecard->player->id, $scoreline->scorecard->score);
+		if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
+			for($r=0; $r<$rounds; $r++) {
+				$output .= Html::tag('td', $scoreline->totals[$r]);
+			}
+		}
+		$output .= $this->td(self::SCORE, 'total-'.$scoreline->scorecard->player->id, array_sum($scoreline->totals));
 		return $output;
 	}
 
@@ -244,9 +264,9 @@ class Scoreboard extends _Scoretable {
 		$local_total = 0;
 		switch($name) {
 			case self::ALLOWED:			$scores = $scoreline->scorecard->allowed();			$local_total = $scoreline->scorecard->allowed_total();			$refs = $scores; break;
-			case self::SCORE_NET:		$scores = $scoreline->scorecard->score_net();		$local_total = $scoreline->scorecard->score_net_total();		$refs = $scores; break;
+			case self::SCORE_NET:		$scores = $scoreline->scorecard->score(true);		$local_total = $scoreline->scorecard->score_net_total();		$refs = $scores; break;
 			case self::STABLEFORD:		$scores = $scoreline->scorecard->stableford();		$local_total = $scoreline->scorecard->stableford_total();		$refs = $scoreline->scorecard->score(); break;
-			case self::STABLEFORD_NET:	$scores = $scoreline->scorecard->stableford_net();	$local_total = $scoreline->scorecard->stableford_net_total();	$refs = $scoreline->scorecard->score_net(); break;
+			case self::STABLEFORD_NET:	$scores = $scoreline->scorecard->stableford(true);	$local_total = $scoreline->scorecard->stableford_net_total();	$refs = $scoreline->scorecard->score(true); break;
 //			case self::TO_PAR:			$scores = $scoreline->to_par( $this->competition->rounds() > 1 ? $this->lite[$pid]['topar'][$scoreline->match()->id()] : 0 ); break; // @todo
 			case self::TO_PAR:			$scores = $scoreline->scorecard->toPar( 0 );		$local_total = $scoreline->scorecard->lastToPar();				$refs = $scores; break;
 			case self::TO_PAR_NET:		$scores = $scoreline->scorecard->toPar_net( 0 );	$local_total = $scoreline->scorecard->lastToPar_net();			$refs = $scores; break;
@@ -312,6 +332,12 @@ class Scoreboard extends _Scoretable {
 	private function prepare_scorecards() {
 		$this->scoreline = [];
 		foreach($this->competition->getScorecards()->each() as $scorecard) {
+			// previous rounds
+			$rounds = [];
+			foreach($this->competition->getCompetitions()->orderBy('start_date')->each() as $round) {
+				$rounds[] = $round->getTotal($scorecard->player);
+			}
+			// current round
 			$this->scoreline[] = new Scoreline([
 				'scorecard' => $scorecard,
 				'pos' => 0, // will be computed
@@ -320,6 +346,7 @@ class Scoreboard extends _Scoretable {
 				'round' => $this->competition->getRound(),
 				'thru' => $scorecard->thru,
 				'today'	=> ($this->competition->rule->isStableford()) ? array_sum($scorecard->stableford()) : $scorecard->lastToPar(),
+				'totals' => $rounds,
 				'total'	=> array_sum($this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->score()),
 				'stats' => [],
 			]);

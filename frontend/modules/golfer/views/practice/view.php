@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			Scorecard::STABLEFORD => true,
 			Scorecard::STABLEFORD_NET => true,
 			Scorecard::TO_PAR => true,
+			Scorecard::TO_PAR_NET => true,
 		]
     ]) ?>
 

@@ -51,7 +51,7 @@ class ScorecardForCompetition extends Scorecard
      */
 	public function getLabel() {
 		$where_str = $this->registration->competition->getFullName().', '.Yii::$app->formatter->asDate($this->registration->competition->start_date);
-		$golfer_str = $this->golfer->name.' ('.$this->golfer->handicap.')';
+		$golfer_str = $this->player->name.' ('.$this->player->handicap.')';
 		return $where_str.' — '.$golfer_str;
 	}
 

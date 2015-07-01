@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = $scorecard->golfer->name;
+$this->title = $scorecard->player->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = ['label' => $scorecard->registration->competition->name, 'url' => ['competition', 'id' => $scorecard->registration->competition_id]];
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $scorecard->id]];

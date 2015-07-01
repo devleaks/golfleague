@@ -229,16 +229,12 @@ class Scorecard extends _Scorecard
 	}
 
 	public function score($net = false) {
-		return $net ? $this->getHoleData('score') : $this->getHoleData('score', true);
-	}
-
-	public function score_net() {
-		return $this->score(true);
+		return $this->getHoleData('score', $net);
 	}
 
 	public function stableford($net = false) {
 		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
-		$n = $net ? $this->score_net() : $this->score();
+		$n = $this->score($net);
 		$p = $this->tees->pars();
 		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
 		for($i = 0; $i< count($n); $i++) {
@@ -250,12 +246,8 @@ class Scorecard extends _Scorecard
 		return $s;
 	}
 
-	public function stableford_net() {
-		return $this->stableford(true);
-	}
-
 	public function toPar($start = 0, $net = false) {
-		$n = $net ? $this->score_net() : $this->score();
+		$n = $this->score($net);
 		$p = $this->tees->pars();
 		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
 		$topar = $start;
@@ -294,7 +286,7 @@ class Scorecard extends _Scorecard
 	}
 
 	public function score_net_total() {
-		return $this->hasDetails() ? array_sum($this->score_net()) : $this->score_net;
+		return $this->hasDetails() ? array_sum($this->score(true)) : $this->score_net;
 	}
 
 	public function stableford_total() {
@@ -302,7 +294,7 @@ class Scorecard extends _Scorecard
 	}
 
 	public function stableford_net_total() {
-		return $this->hasDetails() ? array_sum($this->stableford_net()) : $this->stableford_net;
+		return $this->hasDetails() ? array_sum($this->stableford(true)) : $this->stableford_net;
 	}
 
 	public function lastToPar($net = false) {
@@ -312,8 +304,8 @@ class Scorecard extends _Scorecard
 		} else {
 			$par = array_sum(array_slice($this->tees->pars(), 0, $this->thru));
 			$scr = $net ?  $this->score_net_total() :  $this->score_total(); 
-			// Yii::trace('ThruIdx='.$this->thruIndex().', Par='.$par.', Score='.$scr, 'Scorecard::lastToPar');
-			return $scr - $par;
+			//Yii::trace('ThruIdx='.$this->thruIndex().', Par='.$par.', Score='.$scr, 'Scorecard::lastToPar');
+			return $this->thru > 0 ? $scr - $par : null;
 		}
 	}
 	
@@ -350,9 +342,9 @@ class Scorecard extends _Scorecard
 		if($this->thru > 0) {
 			
 			$this->score = array_sum($score);
-			$this->score_net = array_sum($this->score_net());
+			$this->score_net = array_sum($this->score(true));
 			$this->stableford = array_sum($this->stableford());
-			$this->stableford_net = array_sum($this->stableford_net());
+			$this->stableford_net = array_sum($this->stableford(true));
 			$this->topar = array_sum($this->toPar());
 			$this->topar_net = array_sum($this->toPar_net());
 		

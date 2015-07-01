@@ -176,7 +176,7 @@ class _Scoretable extends Widget {
 		} else {
 			$cn = $classname;
 		}
-		if(in_array($cn, [self::HOLE,self::TODAY]) && ($val !== "&nbsp;" && $val !== null)) {
+		if(in_array($cn, [self::HOLE,self::TODAY]) && ($val !== null)) {
 			$color = $this->getOption(self::COLOR);
 			$dsp = $color ? abs($val) : $val;
 		} else {
@@ -202,7 +202,7 @@ class _Scoretable extends Widget {
 		} else if ( ($name == self::STABLEFORD) && ($score !== null) ) {
 				$output = $this->td_score_color($score, $topar);
 		} else // nothing to display
-				$output = Html::tag('td', '&nbsp;');
+				$output = Html::tag('td', '');
 		return $output;
 	}
 			
@@ -211,7 +211,7 @@ class _Scoretable extends Widget {
 		switch($name) {
 			case self::TO_PAR_NET:
 			case self::TO_PAR:
-				$output = $this->td_topar( ($val === null ? '&nbsp;' : $val), $str);
+				$output = $this->td_topar($val, $str);
 				break;
 			case self::ALLOWED:
 				$output = $this->td_allowed($val, $str);

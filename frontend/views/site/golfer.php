@@ -1,9 +1,14 @@
 <?php
-use yii\helpers\Html;
-use yii\helpers\Url;
-use devleaks\metafizzy\Masonry;
+
 use frontend\widgets\LatestMessages;
 use frontend\widgets\Calendar;
+
+use kartik\grid\GridView;
+
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\bootstrap\Tabs;
+
 
 /* @var $this yii\web\View */
 $this->title = 'My Golf League';
@@ -14,12 +19,40 @@ $this->title = 'My Golf League';
 
         <div class="row">
             <div class="col-lg-8">
-                <h2>Competitions</h2>
+                <h2><?= Yii::t('igolf', 'Competitions') ?></h2>
 
-
-                <h2>Calendar</h2>
-
-				<?= Calendar::widget(); ?>
+				<?= Tabs::widget([
+						'items' => [
+							[
+					            'label' => Yii::t('igolf', 'Calendar'),
+					            'content' => Calendar::widget(),
+					            'active' => true
+					        ],
+					        [
+					            'label' => Yii::t('igolf', 'List'),
+					            'content' => GridView::widget([
+							        'dataProvider' => $competitions,
+									'panel'=>[
+								        'heading' => '<h4>'.$this->title.'</h4>',
+								    ],
+									'export' => false,
+							        'columns' => [
+							            'name',
+							            'description',
+							            'registration_begin',
+							            'registration_end',
+							            [
+							                'class' => 'kartik\grid\ActionColumn',
+											'template' => '{view}',
+											'noWrap' => true,
+							            ],
+							        ],
+							    ]),
+					        ],				
+						],
+						'options' => ['style' => 'margin-bottom: 20px;']
+					])
+				?>
 
             </div>
 

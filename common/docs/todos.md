@@ -58,4 +58,6 @@ For tournament, check if course is the same for all sub-compet.
 
 Add Undo to create competitions+recurring
 
+Negative handicap (in rules)
+
 

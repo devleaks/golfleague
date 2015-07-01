@@ -333,6 +333,46 @@ class Competition extends _Competition
 		return $this->start_date;
 	}
 	
+	protected function jb_verbose_date_range($start_date = '',$end_date = '') {
+	    $date_range = '';
+
+	    // If only one date, or dates are the same set to FULL verbose date
+	    if ( empty($start_date) || empty($end_date) || ( date('FjY',$start_date) == date('FjY',$end_date) ) ) { // FjY == accounts for same day, different time
+	        $start_date_pretty = date( 'F jS, Y', $start_date );
+	        $end_date_pretty = date( 'F jS, Y', $end_date );
+	    } else {
+	         // Setup basic dates
+	        $start_date_pretty = date( 'F j', $start_date );
+	        $end_date_pretty = date( 'jS, Y', $end_date );
+	        // If years differ add suffix and year to start_date
+	        if ( date('Y',$start_date) != date('Y',$end_date) ) {
+	            $start_date_pretty .= date( 'S, Y', $start_date );
+	        }
+
+	        // If months differ add suffix and year to end_date
+	        if ( date('F',$start_date) != date('F',$end_date) ) {
+	            $end_date_pretty = date( 'F ', $end_date) . $end_date_pretty;
+	        }
+	    }
+
+	    // build date_range return string
+	    if( ! empty( $start_date ) ) {
+	          $date_range .= $start_date_pretty;
+	    }
+
+	    // check if there is an end date and append if not identical
+	    if( ! empty( $end_date ) ) {
+	        if( $end_date_pretty != $start_date_pretty ) {
+	              $date_range .= ' - ' . $end_date_pretty;
+	          }
+	     }
+	    return $date_range;
+	}
+	
+	public function getDateRange() {
+		return $this->jb_verbose_date_range(strtotime($this->getStartDate()), strtotime($this->getEndDate()));
+	}
+	
 	/**
 	 * Whether a competition has started and has scores registered.
 	 *
@@ -671,4 +711,21 @@ class Competition extends _Competition
 		return count($registrations) == 0;
 	}
 
+
+	public function getTotal($player) {
+		if($registration = $this->getRegistrations()->andWhere(['golfer_id' => $player->id])->one()) { //@todo not correct for teams.
+			if($scorecard = $registration->getScorecard()) {
+				if($scorecard->hasScore()) {
+					if($this->rule->source_type) {
+						//Yii::trace('cid'.$this->id.', sid='.$scorecard->id.'='.$scorecard->score, 'Competition::getTotal');
+						return $scorecard->{$this->rule->source_type};						
+					} else {
+						return $scorecard->$this->rule->points;						
+					}
+				}
+				return null;
+			}
+		}
+		return null;
+	}
 }

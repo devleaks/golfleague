@@ -17,7 +17,7 @@ class ScorecardForPractice extends Scorecard
 	public function afterFind() {
 		parent::afterFind();
 		$this->tees = $this->practice->tees;
-		$this->golfer = $this->practice->golfer;
+		$this->player = $this->practice->golfer;
 	}
 
     /**
@@ -39,7 +39,7 @@ class ScorecardForPractice extends Scorecard
      */
 	public function getLabel() {
 		$where_str = $this->practice->course->getFullName();
-		$golfer_str = $this->golfer->name.' ('.$this->golfer->handicap.')';
+		$golfer_str = $this->player->name.' ('.$this->player->handicap.')';
 		return $where_str.' — '.$golfer_str;
 	}
 	

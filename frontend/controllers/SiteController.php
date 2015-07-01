@@ -1,16 +1,16 @@
 <?php
 namespace frontend\controllers;
 
-use Yii;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
+use common\models\Match;
 use frontend\models\ContactForm;
+
+use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
 
 /**
  * Site controller
@@ -35,7 +35,14 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render(Yii::$app->user->isGuest ? 'index' : 'golfer');
+		if(Yii::$app->user->isGuest) {
+	        return $this->render('index');
+		}
+		$now = date('Y-m-d H:i:s');
+		$competitions = new ActiveDataProvider([
+			'query' => Match::find()->andWhere(['>','start_date', $now])
+		]);
+        return $this->render('golfer', ['competitions' => $competitions]);
     }
 
     public function actionContact()

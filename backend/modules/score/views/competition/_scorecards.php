@@ -30,7 +30,7 @@ use yii\helpers\Url;
             	'attribute' => 'golfer_name',
                 'label' => Yii::t('igolf', 'Golfer'),
                 'value' => function($model, $key, $index, $widget) {
-                    return  $model->golfer->name;
+                    return  $model->player->name;
                 },
 			],
 			'score',

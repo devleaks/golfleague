@@ -1,5 +1,7 @@
 <?php
 
+use common\models\Golfer;
+
 use kartik\detail\DetailView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -21,7 +23,11 @@ $this->params['breadcrumbs'][] = Yii::t('igolf', 'Starts');
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
-            'gender',
+            [
+                'attribute'=>'gender',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => Golfer::getLocalizedConstants('GENDER_'),
+            ],
             'age_min',
             'age_max',
             'handicap_min',
@@ -30,7 +36,7 @@ $this->params['breadcrumbs'][] = Yii::t('igolf', 'Starts');
                 'attribute'=>'tees_id',
 				'value' => $model->tees->name,
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => ArrayHelper::map($model->competition->course->getTeesWithHoles(), 'id', 'name'),
+				'items' => ArrayHelper::map($model->competition->course->getTeesWithHoles()->all(), 'id', 'name'),
             ],
             [
                 'attribute'=>'created_at',
