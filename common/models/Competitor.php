@@ -6,7 +6,7 @@ namespace common\models;
  * This is the interface for competition participants, single or team.
  *
  */
-interface Camp
+interface Competitor
 {
 	/** returns handicap of camp */
 	public function handicap($camp);

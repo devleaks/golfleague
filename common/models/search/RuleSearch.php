@@ -19,7 +19,7 @@ class RuleSearch extends Rule
     {
         return [
             [['id'], 'integer'],
-            [['object_type', 'rule_type', 'competition_type', 'name', 'description', 'note'], 'safe'],
+            [['rule_type', 'competition_type', 'name', 'description', 'note'], 'safe'],
         ];
     }
 
@@ -55,8 +55,7 @@ class RuleSearch extends Rule
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'object_type', $this->object_type])
-            ->andFilterWhere(['like', 'rule_type', $this->rule_type])
+        $query->andFilterWhere(['like', 'rule_type', $this->rule_type])
             ->andFilterWhere(['like', 'competition_type', $this->competition_type])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])

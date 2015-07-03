@@ -421,15 +421,18 @@ class Competition extends _Competition
      * @var  Golfer $golfer Golfer to check
      * @return boolean
      */
-    public function registered($golfer) {
-        return Registration::find()
-                            ->where(['golfer_id' 		=> $golfer->id,
+    public function getRegistration($golfer) {
+        return Registration::findOne(['golfer_id' 		=> $golfer->id,
                                      'competition_id'   => $this->id,
                                      'status'           => array( Registration::STATUS_PENDING,
 																  Registration::STATUS_REGISTERED,
 																  Registration::STATUS_CONFIRMED )
-                                    ])
-							->exists();
+                                    ]);
+    }
+
+
+    public function registered($golfer) {
+        return $this->getRegistration($golfer) !== null;
     }
 
 
@@ -693,7 +696,7 @@ class Competition extends _Competition
 		$registrations = [];
 		foreach($this->getRegistrations()->andWhere(['status' => Registration::STATUS_REGISTERED])->each() as $registration) {
 			$registrations[$registration->id] = $registration;
-			Yii::trace('adding '.$registration->id);
+			//Yii::trace('adding '.$registration->id);
 		}
 			
 		foreach($this->getTeams()->each() as $team) {
@@ -711,21 +714,35 @@ class Competition extends _Competition
 		return count($registrations) == 0;
 	}
 
+	public function getScorecard($player) {
+		if($registration = $this->getRegistration($player)) { //@todo not correct for teams.
+			return $registration->getScorecard();
+		}
+		return null;
+	}
+
+	public function getToPar($player) {
+		if($scorecard = $this->getScorecard($player)) {
+			if($scorecard->hasScore()) {
+				return $this->rule->handicap ? $scorecard->lastToPar_net() : $scorecard->lastToPar();						
+			}
+			return 0;
+		}
+		return null;
+	}
 
 	public function getTotal($player) {
-		if($registration = $this->getRegistrations()->andWhere(['golfer_id' => $player->id])->one()) { //@todo not correct for teams.
-			if($scorecard = $registration->getScorecard()) {
-				if($scorecard->hasScore()) {
-					if($this->rule->source_type) {
-						//Yii::trace('cid'.$this->id.', sid='.$scorecard->id.'='.$scorecard->score, 'Competition::getTotal');
-						return $scorecard->{$this->rule->source_type};						
-					} else {
-						return $scorecard->$this->rule->points;						
-					}
-				}
-				return null;
+		if($this->finalRule) {
+			if($scorecard = $this->getScorecard($player)) {
+				return $scorecard->getScoreFromFinalRule();						
+			}
+		}
+		if($scorecard = $this->getScorecard($player)) {
+			if($scorecard->hasScore()) {
+				return $scorecard->getScoreFromRule(true);						
 			}
 		}
 		return null;
 	}
+
 }

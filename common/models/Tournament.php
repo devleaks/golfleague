@@ -54,10 +54,4 @@ class Tournament extends Competition
 		return $this->getCompetitions()->andWhere(['status' => self::STATUS_READY])->orderBy('start_date')->one();
 	}
 
-	/**
-	 * @inheritdoc
-	 */
-	public function hasScores() {
-		return $this;
-	}
 }

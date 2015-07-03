@@ -49,11 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
 			Scoreboard::LENGTH => true,
 			Scoreboard::SI => true,
 			Scoreboard::PAR => true,
+			Scoreboard::ROUNDS => true,
 			Scoreboard::TODAY => true,
 			Scoreboard::TO_PAR => true,
 			Scoreboard::COLOR => true,
 			Scoreboard::LEGEND => true,
-			Scoreboard::ROUNDS => true,
 		]
     ]) ?>
 

@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
 				'attribute' => 'rule_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => ArrayHelper::map([''=>'']+Rule::find()->where(['rule_type' => $model->competition_type])->asArray()->all(), 'id', 'name'),
+				'items' => ArrayHelper::map([''=>'']+Rule::find()->where(['competition_type' => $model->competition_type])->asArray()->all(), 'id', 'name'),
 				'value' => $model->rule_id ? $model->rule->name : '',
 			],
             [

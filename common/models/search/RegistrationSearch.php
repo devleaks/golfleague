@@ -12,6 +12,7 @@ use common\models\Registration;
  */
 class RegistrationSearch extends Registration
 {
+	public $tee_time;
 	public $golfer_name;
 	public $competition_name;
 	public $competition_type;
@@ -25,7 +26,7 @@ class RegistrationSearch extends Registration
         return [
             [['id', 'competition_id', 'golfer_id', 'flight_id', 'tees_id', 'team_id'], 'integer'],
             [['status', 'created_at', 'updated_at', 'note'], 'safe'],
-            [['golfer_name', 'competition_name', 'competition_type'], 'safe'],
+            [['golfer_name', 'competition_name', 'competition_type', 'tee_time'], 'safe'],
         ];
     }
 
@@ -60,11 +61,16 @@ class RegistrationSearch extends Registration
     public function search($params)
     {
         $query = Registration::find();
-		$query->joinWith(['golfer','competition']);
+		$query->joinWith(['golfer','competition', 'flight']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+		$dataProvider->sort->attributes['tee_time'] = [
+		    'asc'  => ['flight.start_time' => SORT_ASC],
+		    'desc' => ['flight.start_time' => SORT_DESC],
+		];
 
 		$dataProvider->sort->attributes['golfer_name'] = [
 		    'asc'  => ['golfer.name' => SORT_ASC],

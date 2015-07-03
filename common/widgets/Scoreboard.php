@@ -11,6 +11,7 @@ use Yii;
 use common\assets\ScoreboardAsset;
 use common\models\Competition;
 use common\models\Rule;
+use common\models\Scorecard;
 use yii\base\Model;
 use yii\bootstrap\Widget;
 use yii\data\ActiveDataProvider;
@@ -18,28 +19,50 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 class Scoreline extends Model {
-	public $scorecard;
-	public $player;
+	/** Player */
 	public $pos;
+	public $player;
+	public $scorecard;
+
+	/** Details for display */
 	public $curr;
-	public $rounds;
+
+	/** Current hole (may depend on round...) */
 	public $round;
 	public $thru;
+
+	/** Totals */
 	public $topar;
 	public $today;
 	public $total;
 	public $totals;
 	public $stats;
 
-	public static function compareGolfScoreToPar($a, $b) {
-		$sa = intval($a->topar);
-		$sb = intval($b->topar);
-		return ($sa == $sb) ? ($a->thru < $b->thru) : ($sa > $sb);
+	/** */
+	public $rule;
+
+	public static function compare($a, $b) {
+		if($a->rule) {
+			$sa = 0;
+			$sb = 0;
+			if($a->rule->competition_type == Competition::TYPE_MATCH) {
+				$sa = intval($a->total);
+				$sb = intval($b->total);
+			} else {
+				$sa = intval(array_sum($a->totals));
+				$sb = intval(array_sum($b->totals));
+			}
+			if($a->rule->source_direction == Scorecard::DIRECTION_ASC) {
+				return ($sa == $sb) ? ($a->thru < $b->thru) : ($sa > $sb);
+			} else {
+				return ($sa == $sb) ? ($a->thru > $b->thru) : ($sa < $sb);
+			}
+		}
 	}
 	
-	public static function compareGolfScore($a, $b) {
-		$sa = intval(array_sum($a->totals));
-		$sb = intval(array_sum($b->totals));
+	public static function compareToPar($a, $b) {
+		$sa = intval($a->topar);
+		$sb = intval($b->topar);
 		return ($sa == $sb) ? ($a->thru < $b->thru) : ($sa > $sb);
 	}
 	
@@ -47,16 +70,17 @@ class Scoreline extends Model {
 
 
 class Scoreboard extends _Scoretable {
-	/** common\models\Competition Competition to display. */
-	public $competition;
-	
 	/** integer Maximum number of player displayed on scoreboard */
 	public $maxPlayers = 10;
 	
-	/** common\models\Match Current match of competition. */
+	/** common\models\Competition Competition to display. */
+	public $competition;
+	
+
+	/** common\models\Match Current match in multi-match competition. */
 	protected $match;
 
-	/** One starting tee set */
+	/** common\models\Tees starting tee set */
 	protected $tees;
 	
 	/** common\widgets\Scoreline[] */
@@ -72,23 +96,36 @@ class Scoreboard extends _Scoretable {
 
 		if(!$this->match) {
 			$this->setOption(self::TODAY, false);
+		} else if($this->match->status == Competition::STATUS_CLOSED) {
+			$this->setOption(self::TODAY, false);
 		}
 
 		if(!$this->competition->hasScores())
 			return Yii::t('igolf', 'Competition has not started yet.');
 		
-		if(!$this->tees = $this->competition->course->getFirstTees())
-			return Yii::t('igolf', 'Competition has no starting tees set.');
-			
+		if($this->match) {
+			if(!$this->tees = $this->match->course->getFirstTees())
+				return Yii::t('igolf', 'Competition has no starting tees set.');
+
+			if(!$this->tees->hasDetails()) { // if does not have hole details, we do not display hole by hole data.
+				$this->setOption(self::HOLES, false);
+				$this->setOption(self::FRONTBACK, false);
+			}
+		}
 		//Yii::trace('tees='.$this->tees->id);
 			
-		if(!$this->tees->hasDetails()) { // if does not have hole details, we do not display hole by hole data.
-			$this->setOption(self::HOLES, false);
-			$this->setOption(self::FRONTBACK, false);
+		if(!$this->tees) {
+			$this->setOption(self::PAR, false);
+			$this->setOption(self::SI, false);
+			$this->setOption(self::LENGTH, false);
+			$this->setOption(self::TO_PAR, false);
 		}
+
 		if($this->competition->holes == 9) {
 			$this->setOption(self::FRONTBACK, false);
 		}
+
+		$this->setOption(self::TOTAL, true);
 
 		$this->prepare_scorecards();
 			
@@ -134,7 +171,7 @@ class Scoreboard extends _Scoretable {
 	 */
 	protected function caption() {
 		$competition = $this->competition->getFullName();
-		// $competition .= ' ('.$this->competition->getRound().'/'.$this->competition->getRounds().')';
+		$competition .= ' ('.$this->competition->getRound().'/'.$this->competition->getRounds().')';
 		if($this->competition->getRounds() > 1) {
 			$competition .= ', '.str_replace(' ', '&nbsp;', $this->competition->getDateRange());
 		} else {
@@ -145,7 +182,7 @@ class Scoreboard extends _Scoretable {
 
 	protected function print_header_split() {
 		$output =  Html::beginTag('tr', ['class' => 'scorecard-split']);
-		$output .= Html::tag('th', $this->tees->name, ['colspan' => 2]);
+		$output .= Html::tag('th', $this->tees ? $this->tees->name : '', ['colspan' => 2]);
 		if($this->getOption(self::HOLES)) {
 			for($i=0; $i<$this->competition->holes; $i++) {
 				$output .= Html::tag('th', $i+1);
@@ -164,25 +201,28 @@ class Scoreboard extends _Scoretable {
 				$output .= Html::tag('th', ($r+1), ['class' => 'round']);
 			}
 		}
-		$output .= Html::tag('th', Yii::t('igolf', 'Total'));
+		$output .= Html::tag('th', Yii::t('igolf', 'Total'), ['colspan' => $this->getOption(self::TO_PAR) ? 2 : 1]);
 		$output .= Html::endTag('tr');
 		return $output;
 	}
 
 	protected function print_headers() {
-		$displays = [
-			self::LENGTH => [
+		$displays = [];
+		if($this->getOption(self::LENGTH)) {
+			$displays[self::LENGTH] = [
 				'label'=> Yii::t('igolf', 'Length'),
 				'data' => $this->tees->lengths(),
 				'total' => true
-			],
-			self::PAR => [
+			];
+		}
+		if($this->getOption(self::PAR)) {
+			$displays[self::PAR] = [
 				'label'=> Yii::t('igolf', 'Par'),
 				'data' => $this->tees->pars(),
 				'total' => true
-			],
-		];
-		if($this->getOption(self::HOLES)) {
+			];
+		}
+		if($this->getOption(self::HOLES) || $this->getOption(self::SI)) {
 			$displays[self::SI] = [
 				'label'=> Yii::t('igolf', 'S.I.'),
 				'data' => $this->tees->sis(),
@@ -192,32 +232,30 @@ class Scoreboard extends _Scoretable {
 
 		$output = '';
 		foreach($displays as $key => $display) {
-			if($this->getOption($key)) {			
-				$output .=  Html::beginTag('tr');
-				$output .= Html::tag('th', $display['label'], ['class' => 'labelr', 'colspan' => 2]);
-				if($this->getOption(self::HOLES)) {
-					for($i=0; $i<$this->competition->holes; $i++) {
-						$output .= Html::tag('th', $display['data'][$i]);
-					}
+			$output .=  Html::beginTag('tr');
+			$output .= Html::tag('th', $display['label'], ['class' => 'labelr', 'colspan' => 2]);
+			if($this->getOption(self::HOLES)) {
+				for($i=0; $i<$this->competition->holes; $i++) {
+					$output .= Html::tag('th', $display['data'][$i]);
 				}
-				if($this->getOption(self::TODAY)) {
-					$output .= Html::tag('th', '');
-					$output .= Html::tag('th', '');
-				}
-				if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
-					$output .= Html::tag('th', /*$key == self::PAR ? Yii::t('igolf', 'Rounds') :*/ '', ['colspan' => $rounds]);
-				}
-				if($display['total']) {
-					$output .= Html::tag('th', array_sum($display['data']));
-					if($this->getOption(self::FRONTBACK)) {
-						$output .= Html::tag('th', array_sum(array_slice($display['data'], 0, 9)));
-						$output .= Html::tag('th', array_sum(array_slice($display['data'], 9, 9)));
-					}
-				} else {
-					$output .= Html::tag('th', '', ['colspan' => $this->getOption(self::FRONTBACK) ? 3 : 1]);
-				}
-				$output .= Html::endTag('tr');
 			}
+			if($this->getOption(self::TODAY)) {
+				$output .= Html::tag('th', '');
+				$output .= Html::tag('th', '');
+			}
+			if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
+				$output .= Html::tag('th', /*$key == self::PAR ? Yii::t('igolf', 'Rounds') :*/ '', ['colspan' => $rounds]);
+			}
+			if($this->getOption(self::TOTAL)) {
+				$output .= Html::tag('th', array_sum($display['data']), ['colspan' => $this->getOption(self::TO_PAR) ? 2 : 1]);
+				if($this->getOption(self::FRONTBACK)) {
+					$output .= Html::tag('th', array_sum(array_slice($display['data'], 0, 9)));
+					$output .= Html::tag('th', array_sum(array_slice($display['data'], 9, 9)));
+				}
+			} else {
+				$output .= Html::tag('th', '', ['colspan' => $this->getOption(self::FRONTBACK) ? 3 : 1]);
+			}
+			$output .= Html::endTag('tr');
 		}		
 		return $output;
 	}
@@ -239,22 +277,14 @@ class Scoreboard extends _Scoretable {
 		return $output;
 	}
 
-	private function totals($name, $display_name, $position, $scoreline) {
+	private function print_score($scoreline) {
+		$name = $this->competition->rule->source_type;
+		
 		$output = '';
-		if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
-			for($r=0; $r<$rounds; $r++) {
-				$output .= Html::tag('td', $scoreline->totals[$r]);
-			}
-		}
-		$output .= $this->td(self::SCORE, 'total-'.$scoreline->scorecard->player->id, array_sum($scoreline->totals));
-		return $output;
-	}
-
-	private function print_score($name, $position, $scoreline, $label = '') {
-		$output = '';
+		$debug = '';
 		if(!$scoreline) {
 			$output .= Html::beginTag('tr', ['class' => 'player-error '.$name]);
-			$output .= Html::tag('td', self::pretty_name($name), ['class' => 'igolf-label']);
+			$output .= Html::tag('td', Yii::t('igolf', $name), ['class' => 'igolf-label']);
 			$output .= Html::tag('td', Yii::t('igolf', 'No scorecard'), ['colspan' => 9]);
 			$output .= Html::tag('td', 0, ['class' => 'total']);
 			$output .= Html::endTag('tr');;
@@ -264,124 +294,65 @@ class Scoreboard extends _Scoretable {
 		
 		
 		/* header */
-		$display_name = self::pretty_name($name);
-		$local_total = 0;
-		switch($name) {
-			case self::ALLOWED:			$scores = $scoreline->scorecard->allowed();			$local_total = $scoreline->scorecard->allowed_total();			$refs = $scores; break;
-			case self::SCORE_NET:		$scores = $scoreline->scorecard->score(true);		$local_total = $scoreline->scorecard->score_net_total();		$refs = $scores; break;
-			case self::STABLEFORD:		$scores = $scoreline->scorecard->stableford();		$local_total = $scoreline->scorecard->stableford_total();		$refs = $scoreline->scorecard->score(); break;
-			case self::STABLEFORD_NET:	$scores = $scoreline->scorecard->stableford(true);	$local_total = $scoreline->scorecard->stableford_net_total();	$refs = $scoreline->scorecard->score(true); break;
-//			case self::TO_PAR:			$scores = $scoreline->to_par( $this->competition->rounds() > 1 ? $this->lite[$pid]['topar'][$scoreline->match()->id()] : 0 ); break; // @todo
-			case self::TO_PAR:			$scores = $scoreline->scorecard->toPar( 0 );		$local_total = $scoreline->scorecard->lastToPar();				$refs = $scores; break;
-			case self::TO_PAR_NET:		$scores = $scoreline->scorecard->toPar_net( 0 );	$local_total = $scoreline->scorecard->lastToPar_net();			$refs = $scores; break;
-			case self::SCORE:
-			default:					$scores = $scoreline->scorecard->score();			$local_total = $scoreline->scorecard->allowed_total();			$refs = $scores; break;
+		$scores = $scoreline->scorecard->getScoreFromRule();
+		$refs   = $scores;
+		if($name == self::STABLEFORD) {
+			$refs = $scoreline->scorecard->score();
+		} else if ($name == self::STABLEFORD_NET) {
+			$refs = $scoreline->scorecard->score(true);
 		}
 
-		$pars = $scoreline->scorecard->tees->pars();
 		$stableford_points = $this->competition->rule->getStablefordPoints();
 		$pid = $scoreline->scorecard->player->id;
 
-		$old_use_splitflap = $this->getOption(self::SPLITFLAP);
-		if($position < 0) {
-			$output .= Html::tag('td', (($position == -2) ? $display_name : $label), ['class' => 'igolf-label']);
-			$this->options->setOption(self::SPLITFLAP, false); // temporaily
-		} else {
-			$output .= $this->td($name, 'pos-'.$pid, $position);
-			$output .= Html::tag('td', $scoreline->scorecard->player->name.' '.
-						$score_type = Html::tag('span', Yii::t('igolf', $display_name), ['class' => 'score-type']), ['class' => 'igolf-name']);
-		}
+		/* position & name (& score type if necessary) */
+		$output .= $this->td($name, 'pos-'.$pid, $scoreline->pos);
+		$output .= Html::tag('td', $scoreline->scorecard->player->name.' '.
+					$score_type = Html::tag('span', Yii::t('igolf', $name), ['class' => 'score-type']), ['class' => 'igolf-name']);
 
-		//$debug = print_r($refs, true);		
-		//$output .= $debug;
+		//$debug = print_r($scores, true);		
 
-		/* holes */
-		$total = 0;
+		/* hole details */
 		if($this->getOption(self::HOLES)) {
+			$pars = $scoreline->scorecard->tees->pars();
 			for($i=0; $i<min($this->competition->holes,count($scores)); $i++) { // @todo
-				$total += $scores[$i];
 					if(in_array($name, [self::STABLEFORD, self::STABLEFORD_NET])) {
-						$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], array_search($scores[$i], $stableford_points));
+						$output .= $this->td($name, self::HOLE.'-'.$i.'-'.$pid, $scores[$i], array_search($scores[$i], $stableford_points));
 					} else {
-						$output .= $this->td($name, 'hole-'.$i.'-'.$pid, $scores[$i], ($refs[$i] - $pars[$i]));
+						$output .= $this->td($name, self::HOLE.'-'.$i.'-'.$pid, $scores[$i], ($refs[$i] - $pars[$i]));
 					}
 			}
-		} else {
-			$total = $local_total;
 		}
 
 		/* today */
-		if($this->getOption(self::TODAY) && $position > 0) {
-			if(in_array($name, [self::TO_PAR, self::TO_PAR_NET]))	
-				$output .= $this->td(self::TO_PAR, 'today-'.$pid, $scoreline->scorecard->lastToPar());
+		if($this->getOption(self::TODAY) && $scoreline->pos > 0) {
+			if($this->getOption(self::TO_PAR))	
+				$output .= $this->td(self::TO_PAR, self::TODAY.'-'.$pid, $scoreline->scorecard->lastToPar());
 			else
-				$output .= $this->td(self::TO_PAR, 'today-'.$pid, $total);
+				$output .= $this->td(self::TODAY, self::TODAY.'-'.$pid, $scoreline->today);
 		
 			/* thru */
-			if($name != self::ALLOWED) {
-				$output .= $this->td(self::TO_PAR, 'thru-'.$pid, $scoreline->scorecard->thru);
+			$output .= $this->td(self::TO_PAR, self::THRU.'-'.$pid, $scoreline->scorecard->thru);
+		}
+
+		/* totals for rounds */
+		if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
+			for($r=0; $r<$rounds; $r++) {
+				$output .= Html::tag('td', $scoreline->totals[$r]);
 			}
 		}
 
-		/* totals */
-		$output .= $this->totals($name, $display_name, $position, $scoreline);
+		/* grand total, always displayed */
+		$output .= $this->td(self::SCORE, self::TOTAL.'-'.$scoreline->scorecard->player->id, $scoreline->total);
 		
-		if($position < 0) // restore original setting (watch out if settings are read-only)
-			$this->options->setOption(self::SPLITFLAP, $old_use_splitflap);
+		if($this->getOption(self::TO_PAR))
+			$output .= $this->td(self::TO_PAR, self::TO_PAR.'-'.$scoreline->scorecard->player->id, $scoreline->topar);
 		
 		$output .= Html::endTag('tr');;
-		return $output;
-	}
 
-	private function prepare_scorecards() {
-		$this->scoreline = [];
-		if($this->match) {
-			foreach($this->match->getScorecards()->each() as $scorecard) {
-				// previous rounds
-				$rounds = [];
-				foreach($this->competition->getCompetitions()->orderBy('start_date')->each() as $round) {
-					$rounds[] = $round->getTotal($scorecard->player);
-				}
-				// current round
-				$this->scoreline[] = new Scoreline([
-					'scorecard' => $scorecard,
-					'pos' => 0, // will be computed
-					'curr' => $this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->toPar_net(),
-					'rounds' => $this->competition->getRounds(),
-					'round' => $this->competition->getRound(),
-					'thru' => $scorecard->thru,
-					'today'	=> ($this->competition->rule->isStableford()) ? array_sum($scorecard->stableford()) : $scorecard->lastToPar(),
-					'totals' => $rounds,
-					'total'	=> array_sum($this->competition->rule->isStableford() ? $scorecard->stableford() : $scorecard->score()),
-					'stats' => [],
-				]);
-			}
-		} else {
-			foreach($this->competition->getScorecards()->each() as $scorecard) {
-				// previous rounds
-				$rounds = [];
-				foreach($this->competition->getCompetitions()->orderBy('start_date')->each() as $round) {
-					$rounds[] = $round->getTotal($scorecard->player);
-				}
-				// current round
-				$this->scoreline[] = new Scoreline([
-					'scorecard' => $scorecard,
-					'pos' => 0, // will be computed
-					'curr' => null,
-					'rounds' => $this->competition->getRounds(),
-					'round' => $this->competition->getRound(),
-					'thru' => 0,
-					'today'	=> null,
-					'totals' => $rounds,
-					'total'	=> array_sum($rounds),
-					'stats' => [],
-				]);
-			}
-		}
-		
-		// sort array depending on rule
-		$method = 'compareGolfScore'; // $this->competition->rule->isStableford() ? 'compareGolfScore' : 'compareGolfScoreToPar';
-		uasort($this->scoreline, array(Scoreline::className(), $method));
+		$output .= $debug;
+
+		return $output;
 	}
 
 	protected function print_scores() {
@@ -393,18 +364,11 @@ class Scoreboard extends _Scoretable {
 
 		foreach($this->scoreline as $scoreline) {
 			if( $count++ < $this->maxPlayers ) {
-				
+			
 			if($previous != null) { // first elem
-				if($this->competition->rule->isStableford()) {	
-					if(Scoreline::compareGolfScore($scoreline, $previous)) {
-						$position += $position_accumulator;
-						$position_accumulator = 0;
-					}
-				} else { // Stableford
-					if(Scoreline::compareGolfScore($scoreline, $previous)) {
-						$position += $position_accumulator;
-						$position_accumulator = 0;
-					}
+				if(Scoreline::compare($scoreline, $previous)) {
+					$position += $position_accumulator;
+					$position_accumulator = 0;
 				}
 			}
 			$previous = $scoreline;
@@ -412,15 +376,7 @@ class Scoreboard extends _Scoretable {
 			
 			$scoreline->pos = $position;
 			
-			foreach([	self::ALLOWED,
-						self::SCORE,
-						self::SCORE_NET,
-						self::STABLEFORD,
-						self::STABLEFORD_NET,
-						self::TO_PAR,
-						self::TO_PAR_NET
-					] as $what)
-				if($this->getOption($what)) $output .= $this->print_score($what, $position, $scoreline);
+			$output .= $this->print_score($scoreline);
 	
 			if($this->getOption(self::CARDS))
 				$this->cards($scoreline, false/*vertical*/);
@@ -431,5 +387,59 @@ class Scoreboard extends _Scoretable {
 		return $output;
 	}
 	
+	/**
+	 * Scoreboard content
+	 */
+	private function prepare_scorecards() {
+		$this->scoreline = [];
+		if($this->competition->competition_type == Competition::TYPE_MATCH) {
+			foreach($this->match->getScorecards()->each() as $scorecard) {
+				// current round
+				$this->scoreline[] = new Scoreline([
+					'rule' => $this->match->rule,
+					'scorecard' => $scorecard,
+					'pos' => 0, // will be computed
+					'curr' => $scorecard->getScoreFromRule(),
+					'round' => $this->competition->getRound(),
+					'thru' => $scorecard->thru,
+					'today'	=> $this->getOption(self::TO_PAR) ? $scorecard->getScoreFromRule(true) : $scorecard->lastToPar(),
+					'total'	=> $scorecard->getScoreFromRule(true),
+					'totals' => [],
+					'topar' => $scorecard->lastToPar(),
+					'stats' => [],
+				]);
+			}
+		} else {
+			foreach($this->competition->getScorecards()->andWhere(['status' => Scorecard::STATUS_RETURNED])->each() as $scorecard) {
+				// previous rounds
+				$rounds = [];
+				$total_topar = 0;
+				foreach($this->competition->getCompetitions()->orderBy('start_date')->each() as $round) {
+					$rounds[] = $round->getTotal($scorecard->player);
+					$total_topar += $round->getToPar($scorecard->player);
+				}
+
+				$current = $this->match ? $this->match->getScorecard($scorecard->player) : null;
+				// current round
+				$this->scoreline[] = new Scoreline([
+					'rule' => $this->match ? $this->match->rule : $this->competition->rule,
+					'scorecard' => $current ? $current : $scorecard,
+					'pos' => 0, // will be computed
+					'curr' => $current ? $current->getScoreFromRule() : null,
+					'round' => $this->competition->getRound(),
+					'thru' => $current ? $current->thru : 0,
+					'today'	=> $current ? $current->getScoreFromRule(true) : $scorecard->getScoreFromFinalRule(),
+					'total'	=> array_sum($rounds),
+					'totals' => $rounds,
+					'topar' => $total_topar,
+					'stats' => [],
+				]);
+			}
+		}
+		
+		// sort array depending on rule
+		uasort($this->scoreline, array(Scoreline::className(), 'compare'));
+	}
+
 	
 }

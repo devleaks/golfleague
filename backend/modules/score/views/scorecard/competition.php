@@ -61,6 +61,13 @@ $apply_rule = in_array($competition->competition_type, [Competition::TYPE_TOURNA
 	            },
 				'noWrap' => true,
 			],
+			'tee_time' => [
+				'type' => TabularForm::INPUT_STATIC,
+	            'value' => function($model, $key, $index, $widget) {
+	                return  $model->registration->flight ? $model->registration->flight->start_time : '';
+	            },
+				'noWrap' => true,
+			],
 			'golfer_hdcp' => [
 				'type' => TabularForm::INPUT_STATIC,
             	'label'=>Yii::t('igolf', 'Handicap'),

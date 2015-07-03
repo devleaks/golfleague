@@ -194,6 +194,7 @@
             <referencesFieldUID><![CDATA[D3193503-024F-4961-956F-002659E7CD7F]]></referencesFieldUID>
             <referencesTableUID><![CDATA[A5205C90-3DF2-4C31-ABE7-E720237D3724]]></referencesTableUID>
             <connectorMidPoint><![CDATA[814.666687]]></connectorMidPoint>
+            <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[B564B6E3-818F-46F1-9FFC-DB5AECE351B0]]></uid>
             <zorder><![CDATA[0]]></zorder>
         </SQLField>
@@ -687,7 +688,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>520.00</height>
+            <height>540.00</height>
         </size>
         <zorder>3</zorder>
         <SQLField>
@@ -744,8 +745,16 @@
             <uid><![CDATA[F75B839B-6067-4939-AB05-E94100AB843C]]></uid>
         </SQLField>
         <SQLField>
+            <name><![CDATA[allowed]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <notNull><![CDATA[0]]></notNull>
+            <objectComment><![CDATA[Playing handicap]]></objectComment>
+            <uid><![CDATA[CD9C5447-D33A-49C6-9703-9D16946E7123]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[thru]]></name>
             <type><![CDATA[INTEGER]]></type>
+            <forcedUnique><![CDATA[0]]></forcedUnique>
             <uid><![CDATA[F58F4079-D46E-4C17-88E9-EA22111B648C]]></uid>
         </SQLField>
         <SQLField>
@@ -1402,7 +1411,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>320.00</height>
+            <height>340.00</height>
         </size>
         <zorder>7</zorder>
         <SQLField>
@@ -1452,6 +1461,11 @@
             <name><![CDATA[destination_type]]></name>
             <type><![CDATA[VARCHAR(40)]]></type>
             <uid><![CDATA[447C7231-4CA2-435B-A745-6FF8EFFCADAE]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[handicap]]></name>
+            <type><![CDATA[TINYINT]]></type>
+            <uid><![CDATA[37BCEDEE-32CB-4EE3-A3C1-B91C20AF5D70]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[team]]></name>
@@ -2487,7 +2501,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[625.000000]]></windowLocationX>
         <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{0, 0}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{35, 3}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

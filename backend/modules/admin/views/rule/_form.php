@@ -1,10 +1,13 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use common\models\Competition;
 use common\models\Scorecard;
 use common\models\Rule;
+
+use kartik\widgets\SwitchInput;
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Rule */
@@ -34,6 +37,13 @@ use common\models\Rule;
     <?= $form->field($model, 'destination_type')->dropDownList(Scorecard::getConstants('SCORE_'))
 			->hint(Yii::t('igolf', 'Destination column for result.')) ?>
 
+	<?=	$form->field($model, 'handicap')->widget(SwitchInput::className(), [
+		'pluginOptions' => [
+			'onText'  => Yii::t('igolf', '   Use Handicap    '),
+			'offText' => Yii::t('igolf', 'Do Not Use Handicap')
+		]
+	]) ?>
+			
     <?= $form->field($model, 'team')->dropDownList(Rule::getTeamList())
 			->hint(Yii::t('igolf', 'Camp size')) ?>
 

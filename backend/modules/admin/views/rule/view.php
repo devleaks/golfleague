@@ -1,11 +1,14 @@
 <?php
 
-use yii\helpers\Html;
-use yii\data\ActiveDataProvider;
-use kartik\detail\DetailView;
 use common\models\Competition;
 use common\models\Scorecard;
 use common\models\Rule;
+
+use kartik\detail\DetailView;
+
+use yii\helpers\Html;
+use yii\data\ActiveDataProvider;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Rule */
@@ -47,6 +50,16 @@ $this->params['breadcrumbs'][] = $this->title;
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => [''=>''] + Scorecard::getConstants('SCORE_'),
             ],
+	        [
+				'attribute'=>'handicap',
+				'type' => DetailView::INPUT_SWITCH,
+				'widgetOptions' => [
+				    'pluginOptions' => [
+						'onText'  => Yii::t('igolf', '   Use Handicap    '),
+						'offText' => Yii::t('igolf', 'Do Not Use Handicap')
+					]
+				],
+			],
             [
                 'attribute'=>'team',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,

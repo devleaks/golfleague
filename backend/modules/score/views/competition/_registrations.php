@@ -51,6 +51,15 @@ use yii\helpers\Url;
                 },
 			],
             [
+            	'attribute' => 'tee_time',
+                'label' => Yii::t('igolf', 'Tee time'),
+	            'value' => function($model, $key, $index, $widget) {
+	                return  $model->flight ? $model->flight->start_time : '';
+	            },
+				'format' => 'time',
+				'noWrap' => true,
+			],
+            [
                 'attribute' => 'status',
                 'value' => function($model, $key, $index, $widget) {
                 	return Yii::t('igolf', $model->status);

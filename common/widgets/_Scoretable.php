@@ -18,8 +18,9 @@ use yii\helpers\Html;
 class _Scoretable extends Widget {
 	/**
 	 * O P T I O N S
-	 *
-	 * Course data in header */
+	 */
+
+	/** Course data in header */
 	const PAR			= 'par';
 	const SI			= 'si';
 	const LENGTH		= 'length';
@@ -37,13 +38,15 @@ class _Scoretable extends Widget {
 	const STABLEFORD_NET	= 'stableford_net';
 	const TO_PAR_NET	= 'to_par_net';
 
-	/* Columns that can be displayed */
-	const TODAY			= 'today';
-	const ROUNDS		= 'rounds';
-	const TOTAL			= 'total';
 
+	/* Columns that can be displayed */
 	const HOLES			= 'holes';
 	const FRONTBACK		= 'fb';
+
+	const TODAY			= 'today';
+	const THRU			= 'thru';
+	const ROUNDS		= 'rounds';
+	const TOTAL			= 'total';
 
 	const CARDS			= 'cards'; //@todo
 
@@ -109,18 +112,6 @@ class _Scoretable extends Widget {
 		}
 	}
 
-	public static function pretty_name($name) {
-		switch($name) {
-			case 'stableford':	$display_name = Yii::t('igolf', 'Stableford');	break;
-			case 'net':			$display_name = Yii::t('igolf', 'Net');			break;
-			case 'allowed':		$display_name = Yii::t('igolf', 'Allowed');		break;
-			case 'to_par':		$display_name = Yii::t('igolf', 'To Par');		break;
-			case 'gross':		$display_name = Yii::t('igolf', 'Gross');		break;
-			default:			$display_name = $name;							break;
-		}
-		return $display_name;
-	}
-
 	public static function legend($numeric = false, $m = 'c') {
 		$p = ($m == 'c') ? 'color c' : 'shape s';
 		return $numeric ? '
@@ -175,7 +166,7 @@ class _Scoretable extends Widget {
 		} else {
 			$cn = $classname;
 		}
-		if(in_array($cn, [self::HOLE,self::TODAY]) && ($val !== null)) {
+		if(in_array($cn, [self::HOLE,self::TODAY,self::TO_PAR]) && ($val !== null)) {
 			$color = $this->getOption(self::COLOR);
 			$dsp = $color ? abs($val) : $val;
 		} else {

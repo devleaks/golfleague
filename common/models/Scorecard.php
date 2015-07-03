@@ -35,8 +35,13 @@ class Scorecard extends _Scorecard
 	const SCORE_STABLEFORD	= 'stableford';
 	const SCORE_STABLEFORD_NET	= 'stableford_net';
 	const SCORE_POINTS		= 'points';
+	const SCORE_TOPAR		= 'topar';
+	const SCORE_TOPAR_NET	= 'topar_net';
 
-	/** Score types (i.e. column name) */
+	/** allowed is not a score */
+	const ALLOWED			= 'allowed';
+
+	/** Score ordering, yeah, in golf sometimes the guy with the fewest points wins */
 	const DIRECTION_ASC		= 'ASC';
 	const DIRECTION_DESC	= 'DESC';
 	
@@ -313,6 +318,13 @@ class Scorecard extends _Scorecard
 		return $this->lastToPar(true);
 	}
 	
+	public function points() {
+		return $this->getHoleData('points');
+	}
+
+	public function points_total() {
+		return $this->hasDetails() ? array_sum($this->points()) : $this->points;
+	}
 
 	/**
 	 * Get array of values for different scoring data.
@@ -398,7 +410,6 @@ class Scorecard extends _Scorecard
 		return true;
 	}
 	
-
 	/**
 	 *
 	 */

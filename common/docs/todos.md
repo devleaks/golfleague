@@ -61,3 +61,6 @@ Add Undo to create competitions+recurring
 Negative handicap (in rules)
 
 
+Problem when tournament is point-based and match is stroke/stb based
+
+
