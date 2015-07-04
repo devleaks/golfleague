@@ -289,7 +289,7 @@ class Competition extends _Competition
 		$seq = 0;
 		if($parent = $this->getParent()->one()) { // will be null for season
 			$seq = 1;
-			foreach($parent->getCompetitions()->each() as $competition) { // are we sure comp is always in its parent's children !? ;-)
+			foreach($parent->getCompetitions()->orderBy('start_date')->each() as $competition) { // are we sure comp is always in its parent's children !? ;-)
 				if($competition->id = $this->id) {
 					return $seq;
 				} else {
@@ -379,13 +379,18 @@ class Competition extends _Competition
 	 * @return boolean
 	 */
 	public function hasScores() {
+		// does this competition has score?
 		foreach($this->getRegistrations()->andWhere(['status' => Registration::getParticipantStatuses()])->each() as $registration) {
 			if($registration->hasScore())
 				return true;
 		}
+		// if not, does a "child" competition have score?
+		foreach($this->getCompetitions()->each() as $competition) {
+			if($competition->hasScores())
+				return true;
+		}
 		return false;
 	}
-
 
     /**
 	 * Returns new Competition of proper type.
@@ -553,8 +558,7 @@ class Competition extends _Competition
      * @var  Golfer $golfer Golfer to register
      * @return Deregistration status
      */
-    public function deregister($golfer)
-    {
+    public function deregister($golfer) {
         if($model = Registration::findOne([
                      'golfer_id' => $golfer->id,
                      'competition_id'   => $this->id    ]) ) {

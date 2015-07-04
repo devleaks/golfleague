@@ -11,6 +11,13 @@ use common\behaviors\Constant;
 class Rule extends _Rule
 {
 	use Constant;
+	
+	/** */
+	const POINT_FORMAT		= 'INT';
+	const POINT_POSITIVE	= 'POS';
+	const POINT_HALF		= 'HALF';
+	const POINT_DECIMAL1	= 'DEC1';
+	const POINT_DECIMAL2	= 'DEC1';
 
     /**
      * @inheritdoc
@@ -138,25 +145,8 @@ class Rule extends _Rule
 	/**
 	 * Returns Stableford score for less than 18 holes
 	 */
-	public static function stablefordNine($scores) {
-		return 18 + array_sum($scores);
-	}
-	
-	
-	public function isStableford() {
-		return $this->source_type == Scorecard::SCORE_STABLEFORD || $this->source_type == Scorecard::SCORE_STABLEFORD_NET;
-	}
-
-	public function isStrokeplay() {
-		return $this->source_type == Scorecard::SCORE_SCORE || $this->source_type == Scorecard::SCORE_SCORE_NET;
-	}
-
-	public function isMatchplay() {
-		return $this->source_type == Scorecard::SCORE_POINTS;
-	}
-
-	public function isTeamplay() {
-		return intval($this->team) > 1;
+	public static function stablefordNine($score) {
+		return 18 + array_sum($score);
 	}
 	
 	/**
@@ -182,4 +172,7 @@ class Rule extends _Rule
 	 */
 	public function allowed($team, $tees) { }
 
+	public function getRounding() {
+		return 0;
+	}
 }

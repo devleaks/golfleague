@@ -688,7 +688,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>540.00</height>
+            <height>560.00</height>
         </size>
         <zorder>3</zorder>
         <SQLField>
@@ -1411,7 +1411,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>340.00</height>
+            <height>360.00</height>
         </size>
         <zorder>7</zorder>
         <SQLField>
@@ -1461,6 +1461,11 @@
             <name><![CDATA[destination_type]]></name>
             <type><![CDATA[VARCHAR(40)]]></type>
             <uid><![CDATA[447C7231-4CA2-435B-A745-6FF8EFFCADAE]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[destination_format]]></name>
+            <type><![CDATA[VARCHAR(40)]]></type>
+            <uid><![CDATA[0289B309-A19D-4963-90CF-03C198134F1E]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[handicap]]></name>
@@ -2501,7 +2506,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[625.000000]]></windowLocationX>
         <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{35, 3}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{48, 2}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

@@ -53,9 +53,9 @@ class Scoreline extends Model {
 				$sb = intval(array_sum($b->totals));
 			}
 			if($a->rule->source_direction == Scorecard::DIRECTION_ASC) {
-				return ($sa == $sb) ? ($a->thru < $b->thru) : ($sa > $sb);
-			} else {
 				return ($sa == $sb) ? ($a->thru > $b->thru) : ($sa < $sb);
+			} else {
+				return ($sa == $sb) ? ($a->thru < $b->thru) : ($sa > $sb);
 			}
 		}
 	}
@@ -171,7 +171,8 @@ class Scoreboard extends _Scoretable {
 	 */
 	protected function caption() {
 		$competition = $this->competition->getFullName();
-		$competition .= ' ('.$this->competition->getRound().'/'.$this->competition->getRounds().')';
+		if($r = $this->competition->getRound())
+			$competition .= ' ('.$r.'/'.$this->competition->getRounds().')';
 		if($this->competition->getRounds() > 1) {
 			$competition .= ', '.str_replace(' ', '&nbsp;', $this->competition->getDateRange());
 		} else {
@@ -361,6 +362,9 @@ class Scoreboard extends _Scoretable {
 		$previous = null;
 		$position = 1;
 		$position_accumulator = 0;
+		
+		// sort lines according to rule
+		uasort($this->scoreline, array(Scoreline::className(), 'compare'));
 
 		foreach($this->scoreline as $scoreline) {
 			if( $count++ < $this->maxPlayers ) {
@@ -436,9 +440,6 @@ class Scoreboard extends _Scoretable {
 				]);
 			}
 		}
-		
-		// sort array depending on rule
-		uasort($this->scoreline, array(Scoreline::className(), 'compare'));
 	}
 
 	

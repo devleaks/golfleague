@@ -161,7 +161,7 @@ class Scorecard extends _Scorecard
 	 * Creates Score entry for each hole of the scorecard if none exists.
 	 */
 	public function makeScores() {
-		if( !$this->hasDetails() ) {
+		if( !$this->hasDetails() && $this->tees) {
 			$allowed = $this->player->allowed($this->tees);
 			$holes = $this->tees->getHoles()->orderBy('position')->indexBy('position')->all();
 			$hole_count = count($holes);
@@ -204,13 +204,14 @@ class Scorecard extends _Scorecard
 	 * Utility function used for development, do not use.
 	 */
 	protected function doAllowed() {
-		$i = 0;
-		$a = $this->player->allowed($this->tees);
-		foreach($this->getScores()->joinWith('hole')->orderBy('hole.position')->each() as $score) {
-			$score->allowed = $a[$i++];
-			$score->save();
-		}
-		
+		if($this->tees) {
+			$i = 0;
+			$a = $this->player->allowed($this->tees);
+			foreach($this->getScores()->joinWith('hole')->orderBy('hole.position')->each() as $score) {
+				$score->allowed = $a[$i++];
+				$score->save();
+			}	
+		}		
 	}
 
 	/**
@@ -240,28 +241,32 @@ class Scorecard extends _Scorecard
 	public function stableford($net = false) {
 		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
 		$n = $this->score($net);
-		$p = $this->tees->pars();
 		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
-		for($i = 0; $i< count($n); $i++) {
-			if($n[$i] > 0) {
-				$s[$i] = $rule->stablefordPoint($n[$i] - $p[$i]);
-			}
-			//Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':stb='.$s[$i], 'Scorecard::stableford');
+		if($this->tees) {
+			$p = $this->tees->pars();
+			for($i = 0; $i< count($n); $i++) {
+				if($n[$i] > 0) {
+					$s[$i] = $rule->stablefordPoint($n[$i] - $p[$i]);
+				}
+				//Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':stb='.$s[$i], 'Scorecard::stableford');
+			}			
 		}
 		return $s;
 	}
 
 	public function toPar($start = 0, $net = false) {
 		$n = $this->score($net);
-		$p = $this->tees->pars();
 		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
-		$topar = $start;
-		for($i = 0; $i< count($n); $i++) {
-			if($n[$i] > 0) {
-				$topar += ($n[$i] - $p[$i]);
-				$s[$i] = $topar;
+		if($this->tees) {
+			$p = $this->tees->pars();
+			$topar = $start;
+			for($i = 0; $i< count($n); $i++) {
+				if($n[$i] > 0) {
+					$topar += ($n[$i] - $p[$i]);
+					$s[$i] = $topar;
+				}
+				//Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':topar='.$s[$i], 'Scorecard::toPar');
 			}
-			//Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':topar='.$s[$i], 'Scorecard::toPar');
 		}
 		return $s;
 	}
@@ -307,11 +312,14 @@ class Scorecard extends _Scorecard
 			$to_par = $net ? $this->toPar_net() : $this->toPar();
 			return $to_par[ $this->thruIndex() ];
 		} else {
-			$par = array_sum(array_slice($this->tees->pars(), 0, $this->thru));
-			$scr = $net ?  $this->score_net_total() :  $this->score_total(); 
-			//Yii::trace('ThruIdx='.$this->thruIndex().', Par='.$par.', Score='.$scr, 'Scorecard::lastToPar');
-			return $this->thru > 0 ? $scr - $par : null;
+			if($this->tees) {
+				$par = array_sum(array_slice($this->tees->pars(), 0, $this->thru));
+				$scr = $net ?  $this->score_net_total() :  $this->score_total(); 
+				//Yii::trace('ThruIdx='.$this->thruIndex().', Par='.$par.', Score='.$scr, 'Scorecard::lastToPar');
+				return $this->thru > 0 ? $scr - $par : null;
+			}
 		}
+		return null;
 	}
 	
 	public function lastToPar_net() {
@@ -319,11 +327,15 @@ class Scorecard extends _Scorecard
 	}
 	
 	public function points() {
-		return $this->getHoleData('points');
+		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
+		$r = $rule->getRounding();
+		return array_map(function($a) use ($r) { return round($a, $r); }, $this->getHoleData('points'));
 	}
 
 	public function points_total() {
-		return $this->hasDetails() ? array_sum($this->points()) : $this->points;
+		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
+		$round = $rule->getRounding();
+		return $this->hasDetails() ? array_sum($this->points()) : round($this->points, $round);
 	}
 
 	/**
@@ -386,6 +398,9 @@ class Scorecard extends _Scorecard
 	
 
 	public function getStatistics() {
+		if(!$this->tees)
+			return [];
+
 		$stat_min = -4;
 		$stat_max = 4;
 		$stats = array_fill($stat_min, $stat_max - $stat_min + 1, 0);

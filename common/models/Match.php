@@ -61,12 +61,4 @@ class Match extends Competition
 		return $this;
 	}
 
-
-	/**
-	 * @inheritdoc
-	 */
-	public function hasScores() {
-		return true; //@todo
-	}
-
 }

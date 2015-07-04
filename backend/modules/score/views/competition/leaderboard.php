@@ -33,7 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'rule_id',
                 'value'=> $model->rule ? $model->rule->name : '',
             ],
-            'start_date',
+            [
+                'attribute'=>'start_date',
+                'value'=> $model->start_date ? $model->start_date : $model->getStartDate(),
+				'format' => 'datetime',
+            ],
             [
                 'attribute'=>'status',
                 'label'=>Yii::t('igolf', 'Status'),

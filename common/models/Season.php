@@ -39,14 +39,4 @@ class Season extends Competition
 		return null;
 	}
 
-	/**
-	 * @inheritdoc
-	 */
-	public function hasScores() {
-		foreach($this->getCompetitions()->each() as $competition) {
-			if($competition->hasScores())
-				return true;
-		}
-		return false;
-	}
 }
