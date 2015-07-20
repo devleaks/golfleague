@@ -364,13 +364,16 @@ class Scoreboard extends _Scoretable {
 		$position_accumulator = 0;
 		
 		// sort lines according to rule
-		uasort($this->scoreline, array(Scoreline::className(), 'compare'));
+		echo $this->scoreline[0]->rule->source_type.' '.$this->scoreline[0]->rule->source_direction;
+		$method = $this->getOption(self::TO_PAR) ? 'compareToPar' : 'compare';
+
+		uasort($this->scoreline, array(Scoreline::className(), $method));
 
 		foreach($this->scoreline as $scoreline) {
 			if( $count++ < $this->maxPlayers ) {
 			
 			if($previous != null) { // first elem
-				if(Scoreline::compare($scoreline, $previous)) {
+				if(Scoreline::$method($scoreline, $previous)) {
 					$position += $position_accumulator;
 					$position_accumulator = 0;
 				}
@@ -420,13 +423,14 @@ class Scoreboard extends _Scoretable {
 				$total_topar = 0;
 				foreach($this->competition->getCompetitions()->orderBy('start_date')->each() as $round) {
 					$rounds[] = $round->getTotal($scorecard->player);
+					//echo $round->name.'='.$round->getTotal($scorecard->player);
 					$total_topar += $round->getToPar($scorecard->player);
 				}
 
 				$current = $this->match ? $this->match->getScorecard($scorecard->player) : null;
 				// current round
 				$this->scoreline[] = new Scoreline([
-					'rule' => $this->match ? $this->match->rule : $this->competition->rule,
+					'rule' => $this->competition->rule,
 					'scorecard' => $current ? $current : $scorecard,
 					'pos' => 0, // will be computed
 					'curr' => $current ? $current->getScoreFromRule() : null,
