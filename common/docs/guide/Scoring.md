@@ -1,5 +1,5 @@
-Scoreing
-========
+Scoring
+=======
 
 The Scorecard
 
