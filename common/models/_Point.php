@@ -43,12 +43,12 @@ class _Point extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'rule_id' => Yii::t('igolf', 'Rules'),
-            'position' => Yii::t('igolf', 'Position'),
-            'points' => Yii::t('igolf', 'Points'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'ID'),
+            'rule_id' => Yii::t('golf', 'Rules'),
+            'position' => Yii::t('golf', 'Position'),
+            'points' => Yii::t('golf', 'Points'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

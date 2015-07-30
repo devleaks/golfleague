@@ -52,17 +52,17 @@ class Media extends _Media
      */
     public function attributeLabels() {
         return [
-            'id' => Yii::t('igolf', 'Media'),
-            'name' => Yii::t('igolf', 'Name'),
-            'size' => Yii::t('igolf', 'Size'),
-            'type' => Yii::t('igolf', 'Type'),
-            'related_id' => Yii::t('igolf', 'Related ID'),
-            'related_class' => Yii::t('igolf', 'Related Class'),
-            'related_attribute' => Yii::t('igolf', 'Related Attribute'),
-            'name_hash' => Yii::t('igolf', 'Name Hash'),
-            'status' => Yii::t('igolf', 'Status'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'Media'),
+            'name' => Yii::t('golf', 'Name'),
+            'size' => Yii::t('golf', 'Size'),
+            'type' => Yii::t('golf', 'Type'),
+            'related_id' => Yii::t('golf', 'Related ID'),
+            'related_class' => Yii::t('golf', 'Related Class'),
+            'related_attribute' => Yii::t('golf', 'Related Attribute'),
+            'name_hash' => Yii::t('golf', 'Name Hash'),
+            'status' => Yii::t('golf', 'Status'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

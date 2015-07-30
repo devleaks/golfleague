@@ -10,9 +10,9 @@ use yii\helpers\Html;
 /* @var $model common\models\Start */
 
 $this->title = $model->competition->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->competition->name, 'url' => ['competition/view', 'id' => $model->competition_id]];
-$this->params['breadcrumbs'][] = Yii::t('igolf', 'Starts');
+$this->params['breadcrumbs'][] = Yii::t('golf', 'Starts');
 ?>
 <div class="start-view">
 

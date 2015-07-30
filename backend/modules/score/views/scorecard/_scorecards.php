@@ -31,7 +31,7 @@ use kartik\grid\GridView;
 
             [
             	'attribute' => 'competition_name',
-                'label' => Yii::t('igolf', 'Competition'),
+                'label' => Yii::t('golf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->registration->competition->name;
                 },
@@ -39,22 +39,22 @@ use kartik\grid\GridView;
             ],
             [
             	'attribute' => 'competition_type',
-                'label' => Yii::t('igolf', 'Competition Type'),
+                'label' => Yii::t('golf', 'Competition Type'),
                 'value' => function($model, $key, $index, $widget) {
-                    return  Yii::t('igolf', $model->registration->competition->competition_type);
+                    return  Yii::t('golf', $model->registration->competition->competition_type);
                 },
 				'filter' => Competition::getLocalizedConstants('TYPE_'),
 				'visible' => $competition === null,
             ],
             [
             	'attribute' => 'golfer_name',
-                'label' => Yii::t('igolf', 'Golfer'),
+                'label' => Yii::t('golf', 'Golfer'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->registration->golfer->name;
                 },
 			],
 			[
-	            'label' => Yii::t('igolf', 'Created At'),
+	            'label' => Yii::t('golf', 'Created At'),
 				'attribute' => 'created_at',
 				'format' => 'datetime',
 				'value' => function ($model, $key, $index, $widget) {
@@ -62,7 +62,7 @@ use kartik\grid\GridView;
 				}
 			],
 			[
-	            'label' => Yii::t('igolf', 'Last Update'),
+	            'label' => Yii::t('golf', 'Last Update'),
 				'attribute' => 'updated_at',
 				'format' => 'datetime',
 				'value' => function ($model, $key, $index, $widget) {
@@ -72,7 +72,7 @@ use kartik\grid\GridView;
             [
                 'attribute' => 'status',
                 'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('igolf', $model->status);
+                	return Yii::t('golf', $model->status);
                 },
 				'filter' => Scorecard::getLocalizedConstants('STATUS_'),
             ],
@@ -82,12 +82,12 @@ use kartik\grid\GridView;
 
 <?php
 $statuses = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
-				Yii::t('igolf', 'Change Status of Selected Scorecards to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
+				Yii::t('golf', 'Change Status of Selected Scorecards to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
 foreach(Scorecard::getLocalizedConstants('STATUS_') as $key => $value)
-	$statuses .= '<li>'.Html::a(Yii::t('igolf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
+	$statuses .= '<li>'.Html::a(Yii::t('golf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
 $statuses .= '</ul></div>';
 
-$buttons = $competition ? Html::a(Yii::t('igolf', 'Scores'), Url::to(['competition', 'id' => $competition->id]), ['class'=>'btn btn-primary']) : '';
+$buttons = $competition ? Html::a(Yii::t('golf', 'Scores'), Url::to(['competition', 'id' => $competition->id]), ['class'=>'btn btn-primary']) : '';
 
 $buttons .= ' '.$statuses;
 echo $buttons;

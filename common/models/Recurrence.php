@@ -93,30 +93,30 @@ class Recurrence extends Model
     public function attributeLabels()
     {
         return [
-			'date_start' => Yii::t('igolf', 'Start Date'),
-			'time_start' => Yii::t('igolf', 'Start Time'),
-			'date_end' => Yii::t('igolf', 'End Date'),
-			'frequency' => Yii::t('igolf', 'Frequency'),
-			'interval' => Yii::t('igolf', 'Interval'),
-			'count' => Yii::t('igolf', 'Count'),
-			'until' => Yii::t('igolf', 'Until'),
+			'date_start' => Yii::t('golf', 'Start Date'),
+			'time_start' => Yii::t('golf', 'Start Time'),
+			'date_end' => Yii::t('golf', 'End Date'),
+			'frequency' => Yii::t('golf', 'Frequency'),
+			'interval' => Yii::t('golf', 'Interval'),
+			'count' => Yii::t('golf', 'Count'),
+			'until' => Yii::t('golf', 'Until'),
 
-			'weekstartday' => Yii::t('igolf', 'Week Day'),
+			'weekstartday' => Yii::t('golf', 'Week Day'),
 
-			'bypos' => Yii::t('igolf', 'Position'),
-			'byday' => Yii::t('igolf', 'By Day'),
-			'byweekno' => Yii::t('igolf', 'By Week Number'),
-			'byweekday' => Yii::t('igolf', 'By Week Day'),
-			'bymonth' => Yii::t('igolf', 'bymonth'),
-			'bymonthday' => Yii::t('igolf', 'By Month Day'),
-			'byyearday' => Yii::t('igolf', 'By Year Day'),
-			'byhour' => Yii::t('igolf', 'By Hour'),
-			'byminute' => Yii::t('igolf', 'By Minute'),
-			'bysecond' => Yii::t('igolf', 'By Second'),
-			'byeaster' => Yii::t('igolf', 'By Easter Egg'),
+			'bypos' => Yii::t('golf', 'Position'),
+			'byday' => Yii::t('golf', 'By Day'),
+			'byweekno' => Yii::t('golf', 'By Week Number'),
+			'byweekday' => Yii::t('golf', 'By Week Day'),
+			'bymonth' => Yii::t('golf', 'bymonth'),
+			'bymonthday' => Yii::t('golf', 'By Month Day'),
+			'byyearday' => Yii::t('golf', 'By Year Day'),
+			'byhour' => Yii::t('golf', 'By Hour'),
+			'byminute' => Yii::t('golf', 'By Minute'),
+			'bysecond' => Yii::t('golf', 'By Second'),
+			'byeaster' => Yii::t('golf', 'By Easter Egg'),
 
-			'option' => Yii::t('igolf', 'Option'),
-			'repeat' => Yii::t('igolf', 'Repeat'),
+			'option' => Yii::t('golf', 'Option'),
+			'repeat' => Yii::t('golf', 'Repeat'),
         ];
     }
 }

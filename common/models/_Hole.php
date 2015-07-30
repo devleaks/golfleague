@@ -49,15 +49,15 @@ class _Hole extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'tees_id' => Yii::t('igolf', 'Tees ID'),
-            'position' => Yii::t('igolf', 'Position'),
-            'par' => Yii::t('igolf', 'Par'),
-            'si' => Yii::t('igolf', 'Si'),
-            'length' => Yii::t('igolf', 'Length'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
-            'duration' => Yii::t('igolf', 'Duration'),
+            'id' => Yii::t('golf', 'ID'),
+            'tees_id' => Yii::t('golf', 'Tees ID'),
+            'position' => Yii::t('golf', 'Position'),
+            'par' => Yii::t('golf', 'Par'),
+            'si' => Yii::t('golf', 'Si'),
+            'length' => Yii::t('golf', 'Length'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
+            'duration' => Yii::t('golf', 'Duration'),
         ];
     }
 

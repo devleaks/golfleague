@@ -41,9 +41,9 @@ class TeamController extends \backend\controllers\DefaultController
 			}
 
 			if($teams) // need a better test...
-				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Teams saved sucessfully.'));
+				Yii::$app->session->setFlash('success', Yii::t('golf', 'Teams saved sucessfully.'));
 			else
-				Yii::$app->session->setFlash('error', Yii::t('igolf', 'There was a problem saving teams.'));
+				Yii::$app->session->setFlash('error', Yii::t('golf', 'There was a problem saving teams.'));
 				
 			return $this->redirect(Url::to(['list', 'id' => $competition->id]));
 		}

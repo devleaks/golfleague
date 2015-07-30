@@ -12,13 +12,13 @@ use kartik\icons\Icon;
 
 Icon::map($this, Icon::WHHG); 
 
-$this->title = Yii::t('igolf', 'Competitions');
+$this->title = Yii::t('golf', 'Competitions');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-index">
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf', 'Open Matches'),
+			'title' => Yii::t('golf', 'Open Matches'),
 	        'dataProvider' => $openProvider,
 	        'filterModel' => $openSearch,
 			'actionButtons' => [
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list_tournaments', [
-			'title' => Yii::t('igolf', 'Open Tournaments'),
+			'title' => Yii::t('golf', 'Open Tournaments'),
 	        'dataProvider' => $openTournamentProvider,
 	        'filterModel' => $openTournamentSearch,
 			'actionButtons' => [
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					'leaderboard' => function ($url, $model) {
 						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
 	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Leaderboard'),
+	                        'title' => Yii::t('golf', 'Leaderboard'),
 	                    ]);
 	                },
 				],
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf', 'Matches Ready'),
+			'title' => Yii::t('golf', 'Matches Ready'),
 	        'dataProvider' => $readyProvider,
 	        'filterModel' => $readySearch,
 			'actionButtons' => [
@@ -56,19 +56,19 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'score' => function ($url, $model) {
 						$url = Url::to(['scorecard/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('golf', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Enter scores'),
+	                        'title' => Yii::t('golf', 'Enter scores'),
 	                    ]);
 	                },
 	                'scorecards' => function ($url, $model) {
 						$url = Url::to(['score/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('invoice', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Scorecards'),
+	                        'title' => Yii::t('golf', 'Scorecards'),
 	                    ]);
 	                },
 					'leaderboard' => function ($url, $model) {
 						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
 	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Leaderboard'),
+	                        'title' => Yii::t('golf', 'Leaderboard'),
 	                    ]);
 	                },
 				],
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list_tournaments', [
-			'title' => Yii::t('igolf', 'Tournament Ready'),
+			'title' => Yii::t('golf', 'Tournament Ready'),
 	        'dataProvider' => $readyTournamentProvider,
 	        'filterModel' => $readyTournamentSearch,
 			'actionButtons' => [
@@ -86,13 +86,13 @@ $this->params['breadcrumbs'][] = $this->title;
 					'leaderboard' => function ($url, $model) {
 						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
 	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Leaderboard'),
+	                        'title' => Yii::t('golf', 'Leaderboard'),
 	                    ]);
 	                },
 	                'scorecards' => function ($url, $model) {
 						$url = Url::to(['scorecard/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('invoice', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Scorecards'),
+	                        'title' => Yii::t('golf', 'Scorecards'),
 	                    ]);
 	                },
 				],
@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf','Competition Completed'),
+			'title' => Yii::t('golf','Competition Completed'),
 	        'dataProvider' => $completedProvider,
 	        'filterModel' => $completedSearch,
 			'actionButtons' => [
@@ -110,13 +110,13 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'rule' => function ($url, $model) {
 						$url = Url::to(['competition/rule', 'id' => $model->id]);
 	                    return Html::a(Icon::show('law', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Scorecards'),
+	                        'title' => Yii::t('golf', 'Scorecards'),
 	                    ]);
 	                },
 					'leaderboard' => function ($url, $model) {
 						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
 	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Leaderboard'),
+	                        'title' => Yii::t('golf', 'Leaderboard'),
 	                    ]);
 	                },
 				],
@@ -124,7 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf','Competition Closed'),
+			'title' => Yii::t('golf','Competition Closed'),
 	        'dataProvider' => $closedProvider,
 	        'filterModel' => $closedSearch,
 			'actionButtons' => [
@@ -141,13 +141,13 @@ $this->params['breadcrumbs'][] = $this->title;
 						}
 						$url = Url::to(['competition/result', 'id' => $model->id]);
 	                    return Html::a(Icon::show('podium-winner', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'View scores'),
+	                        'title' => Yii::t('golf', 'View scores'),
 	                    ]);
 	                },
 					'leaderboard' => function ($url, $model) {
 						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
 	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Leaderboard'),
+	                        'title' => Yii::t('golf', 'Leaderboard'),
 	                    ]);
 	                },
 				],

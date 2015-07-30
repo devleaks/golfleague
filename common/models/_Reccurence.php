@@ -53,17 +53,17 @@ class _Reccurence extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'name' => Yii::t('igolf', 'Name'),
-            'description' => Yii::t('igolf', 'Description'),
-            'recurrence_start' => Yii::t('igolf', 'Recurrence Start'),
-            'recurrence_end' => Yii::t('igolf', 'Recurrence End'),
-            'offset' => Yii::t('igolf', 'Offset'),
-            'recurrence' => Yii::t('igolf', 'Recurrence'),
-            'recurrence_type' => Yii::t('igolf', 'Recurrence Type'),
-            'status' => Yii::t('igolf', 'Status'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'ID'),
+            'name' => Yii::t('golf', 'Name'),
+            'description' => Yii::t('golf', 'Description'),
+            'recurrence_start' => Yii::t('golf', 'Recurrence Start'),
+            'recurrence_end' => Yii::t('golf', 'Recurrence End'),
+            'offset' => Yii::t('golf', 'Offset'),
+            'recurrence' => Yii::t('golf', 'Recurrence'),
+            'recurrence_type' => Yii::t('golf', 'Recurrence Type'),
+            'status' => Yii::t('golf', 'Status'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

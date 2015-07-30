@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $scorecard common\models\Scorecard */
 
 $this->title = $scorecard->registration->golfer->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = ['label' => $scorecard->registration->competition->name, 'url' => ['competition', 'id' => $scorecard->registration->competition_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $scorecard->registration->competition,
 		'panel'=>[
-	        'heading' => '<h3>'.$scorecard->registration->competition->getFullName().' <small>('.Yii::t('igolf', $scorecard->registration->competition->competition_type).')</small></h3>',
+	        'heading' => '<h3>'.$scorecard->registration->competition->getFullName().' <small>('.Yii::t('golf', $scorecard->registration->competition->competition_type).')</small></h3>',
 			'headingOptions' => [
 				'template' => '{title}'
 			],
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'status',
                 'label'=>'Scorecard Status',
-                'value'=> Yii::t('igolf', $scorecard->status),
+                'value'=> Yii::t('golf', $scorecard->status),
             ],
         ],
     ]) ?>
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?php if(! in_array($scorecard->competition->status, [Competition::STATUS_COMPLETED, Competition::STATUS_CLOSED]) ): ?>
 		<div class="clearfix"></div>
-		<?= Html::a(Yii::t('igolf', 'Update'), Url::to(['update', 'id' => $scorecard->id]), ['class' => 'btn btn-primary']) ?>
+		<?= Html::a(Yii::t('golf', 'Update'), Url::to(['update', 'id' => $scorecard->id]), ['class' => 'btn btn-primary']) ?>
 	<?php endif; ?>
 
 </div>

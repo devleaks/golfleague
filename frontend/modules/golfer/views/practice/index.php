@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $searchModel common\models\search\PracticeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Practice Rounds');
+$this->title = Yii::t('golf', 'Practice Rounds');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="practice-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
 		'panel'=>[
 	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => Html::a(Yii::t('igolf', 'Add Practice Round'), ['create'], ['class' => 'btn btn-success']),
+			'footer' => Html::a(Yii::t('golf', 'Add Practice Round'), ['create'], ['class' => 'btn btn-success']),
 	    ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],

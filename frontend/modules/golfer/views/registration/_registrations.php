@@ -16,7 +16,7 @@ use kartik\grid\GridView;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 		'panel' => [
-	        'heading' => '<h4>'.Yii::t('igolf', 'Current Registrations').'</h4>',
+	        'heading' => '<h4>'.Yii::t('golf', 'Current Registrations').'</h4>',
 		],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
@@ -25,9 +25,9 @@ use kartik\grid\GridView;
             'competition.name',
             'competition.start_date',
             [
-                'label' => Yii::t('igolf', 'Status'),
+                'label' => Yii::t('golf', 'Status'),
                 'value' => function ($model, $key, $index, $widget) {
-                        return Yii::t('igolf', $model->status);
+                        return Yii::t('golf', $model->status);
                 }
             ],
             [
@@ -38,7 +38,7 @@ use kartik\grid\GridView;
 						if($model->status == Registration::STATUS_REGISTERED) {
 							$url = Url::to(['cancel', 'id' => $model->id]);
 		                    return Html::a('<i class="glyphicon glyphicon-remove"></i>', $url, [
-		                        'title' => Yii::t('igolf', 'Cancel registration'),
+		                        'title' => Yii::t('golf', 'Cancel registration'),
 		                    ]);
 						}
 						return '';
@@ -47,7 +47,7 @@ use kartik\grid\GridView;
 						if($model->status == Registration::STATUS_INVITED) {
 							$url = Url::to(['approve', 'id' => $model->id]);
 		                    return Html::a('<i class="glyphicon glyphicon-ok"></i>', $url, [
-		                        'title' => Yii::t('igolf', 'Approve'),
+		                        'title' => Yii::t('golf', 'Approve'),
 		                    ]);
 						}
 						return '';

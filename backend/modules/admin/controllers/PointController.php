@@ -116,7 +116,7 @@ class PointController extends GolfLeagueController
         $model = $this->findModel($id);
 		$rule_id = $model->rule_id;		
 		$model->delete();
-        Yii::$app->session->setFlash('success', Yii::t('igolf', "Point deleted."));
+        Yii::$app->session->setFlash('success', Yii::t('golf', "Point deleted."));
 
         return $this->redirect(['rule/view', 'id' => $rule_id]);
     }
@@ -153,10 +153,10 @@ class PointController extends GolfLeagueController
                     $count++;
                 }
             }
-            Yii::$app->session->setFlash('success', Yii::t('igolf', "Processed {0} records successfully.", $count));
+            Yii::$app->session->setFlash('success', Yii::t('golf', "Processed {0} records successfully.", $count));
             return $this->redirect(['rule/view', 'id' => $rule_id]); // redirect to your next desired page
         } else {
-            Yii::$app->session->setFlash('error', Yii::t('igolf', "Could not processed your request. Errors: ", $errors));
+            Yii::$app->session->setFlash('error', Yii::t('golf', "Could not processed your request. Errors: ", $errors));
             return $this->redirect(['rule/view', 'id' => $rule_id]); // redirect to your next desired page
        }        
     }

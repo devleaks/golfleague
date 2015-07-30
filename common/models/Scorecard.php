@@ -89,9 +89,9 @@ class Scorecard extends _Scorecard
         return array_merge(
 			parent::attributeLabels(),
 			[
-	            'id' => Yii::t('igolf', 'Scorecard'),
-	        	'registration_id' => Yii::t('igolf', 'Registration'),
-	            'practice_id' => Yii::t('igolf', 'Practice'),
+	            'id' => Yii::t('golf', 'Scorecard'),
+	        	'registration_id' => Yii::t('golf', 'Registration'),
+	            'practice_id' => Yii::t('golf', 'Practice'),
         	]
 		);
     }
@@ -193,7 +193,7 @@ class Scorecard extends _Scorecard
 	 * @return string Scorecard title/label/caption for display
 	 */
 	public function getLabel() {
-		return Yii::t('igolf', 'Scorecard');
+		return Yii::t('golf', 'Scorecard');
 	}
 	
 	public function hasScore() {

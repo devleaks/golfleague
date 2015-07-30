@@ -12,7 +12,7 @@ $calendar_name = 'calendar';
 ?>
 <div class="calendar-index">
 
-	<div id="date_picker"></div>
+	<div id="date_picker_off"></div>
 
     <?= Calendar::widget([
 		'id' => $calendar_name,

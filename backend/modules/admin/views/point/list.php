@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\PointSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Points');
+$this->title = Yii::t('golf', 'Points');
 ?>
 <div class="point-index">
 

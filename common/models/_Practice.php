@@ -57,18 +57,18 @@ class _Practice extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'golfer_id' => Yii::t('igolf', 'Golfer ID'),
-            'course_id' => Yii::t('igolf', 'Course ID'),
-            'start_time' => Yii::t('igolf', 'Start Time'),
-            'start_hole' => Yii::t('igolf', 'Start Hole'),
-            'holes' => Yii::t('igolf', 'Holes'),
-            'tees_id' => Yii::t('igolf', 'Tees ID'),
-            'handicap' => Yii::t('igolf', 'Handicap'),
-            'status' => Yii::t('igolf', 'Status'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'note' => Yii::t('igolf', 'Note'),
+            'id' => Yii::t('golf', 'ID'),
+            'golfer_id' => Yii::t('golf', 'Golfer ID'),
+            'course_id' => Yii::t('golf', 'Course ID'),
+            'start_time' => Yii::t('golf', 'Start Time'),
+            'start_hole' => Yii::t('golf', 'Start Hole'),
+            'holes' => Yii::t('golf', 'Holes'),
+            'tees_id' => Yii::t('golf', 'Tees ID'),
+            'handicap' => Yii::t('golf', 'Handicap'),
+            'status' => Yii::t('golf', 'Status'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'note' => Yii::t('golf', 'Note'),
         ];
     }
 

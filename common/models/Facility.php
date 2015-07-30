@@ -59,15 +59,15 @@ class Facility extends _Facility
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'Facility'),
-            'name' => Yii::t('igolf', 'Facility Name'),
-            'phone' => Yii::t('igolf', 'Phone'),
-            'email' => Yii::t('igolf', 'Email'),
-            'website' => Yii::t('igolf', 'Website'),
-            'units' => Yii::t('igolf', 'Units'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
-            'media' => Yii::t('igolf', 'Pictures'),
+            'id' => Yii::t('golf', 'Facility'),
+            'name' => Yii::t('golf', 'Facility Name'),
+            'phone' => Yii::t('golf', 'Phone'),
+            'email' => Yii::t('golf', 'Email'),
+            'website' => Yii::t('golf', 'Website'),
+            'units' => Yii::t('golf', 'Units'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
+            'media' => Yii::t('golf', 'Pictures'),
         ];
     }
 }

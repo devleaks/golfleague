@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Your Profile');
+$this->title = Yii::t('golf', 'Your Profile');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -41,15 +41,15 @@ $this->params['breadcrumbs'][] = $this->title;
             [
 				'attribute' => 'gender',
 				'type' => DetailView::INPUT_RADIO_LIST,
-				'items' => [''=>Yii::t('igolf', 'Unspecified')]+Golfer::getLocalizedConstants('GENDER_')
+				'items' => [''=>Yii::t('golf', 'Unspecified')]+Golfer::getLocalizedConstants('GENDER_')
 			],
             [
 				'attribute' => 'hand',
 				'type' => DetailView::INPUT_RADIO_LIST,
-				'items' => [''=>Yii::t('igolf', 'Unspecified')]+Golfer::getLocalizedConstants('HAND_')
+				'items' => [''=>Yii::t('golf', 'Unspecified')]+Golfer::getLocalizedConstants('HAND_')
 			],
 			[
-				'label' => Yii::t('igolf', 'Home Course'),
+				'label' => Yii::t('golf', 'Home Course'),
 				'attribute' => 'facility_id',
                 'value'=>isset($model->facility) ? $model->facility->name : '',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,

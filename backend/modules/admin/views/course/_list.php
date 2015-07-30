@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\CourseSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Courses');
+$this->title = Yii::t('golf', 'Courses');
 ?>
 <div class="course-index">
 
@@ -15,7 +15,7 @@ $this->title = Yii::t('igolf', 'Courses');
         'dataProvider' => $dataProvider,
 		'panel'=>[
 	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => Html::a(Yii::t('igolf', 'Add Course'), ['course/add', 'facility_id' => $facility->id], ['class' => 'btn btn-primary']),
+			'footer' => Html::a(Yii::t('golf', 'Add Course'), ['course/add', 'facility_id' => $facility->id], ['class' => 'btn btn-primary']),
 	    ],
 		'export' => false,
         'columns' => [

@@ -22,7 +22,7 @@ RecurrenceRuleAsset::register($this);
 
 $model = new Recurrence();
 Modal::begin([
-    'header' => '<h3>'.Yii::t('igolf', 'Repeat Event').'</h3>',
+    'header' => '<h3>'.Yii::t('golf', 'Repeat Event').'</h3>',
 	'id' => 'recurrence-modal',
 ]);
 
@@ -36,7 +36,7 @@ Modal::begin([
 	    'columns' => 12,
 	    'attributes' => [	
 			'frequency' => [
-				'label' => Yii::t('igolf', 'Recurrence'),
+				'label' => Yii::t('golf', 'Recurrence'),
 				'type' => Form::INPUT_DROPDOWN_LIST,
 				'items' => Recurrence::getLocalizedConstants('FREQUENCY_'),
 	            'columnOptions' => ['colspan' => 4],
@@ -52,7 +52,7 @@ Modal::begin([
 	            'columnOptions' => ['colspan' => 4],
 			],
 			'repeat' => [
-				'label' => Yii::t('igolf', 'every'),
+				'label' => Yii::t('golf', 'every'),
 				'type' => Form::INPUT_STATIC,
 	            'columnOptions' => ['colspan' => 4],
 			],
@@ -71,7 +71,7 @@ Modal::begin([
 	    'attributes' => [				
 			'option' => [
 				'type' => Form::INPUT_RADIO_LIST,
-				'items' => ['bymonthday'=>Yii::t('igolf', 'on day')],
+				'items' => ['bymonthday'=>Yii::t('golf', 'on day')],
 	            'columnOptions' => ['colspan' => 2],
 				'label' => false,
 			],
@@ -91,7 +91,7 @@ Modal::begin([
 	    'attributes' => [	
 			'option' => [
 				'type' => Form::INPUT_RADIO_LIST,
-				'items' => ['byposday'=>Yii::t('igolf', 'on the')],
+				'items' => ['byposday'=>Yii::t('golf', 'on the')],
 	            'columnOptions' => ['colspan' => 2],
 				'label' => false,
 			],
@@ -119,7 +119,7 @@ Modal::begin([
 	    'attributes' => [	
 			'option' => [
 				'type' => Form::INPUT_RADIO_LIST,
-				'items' => ['bymonth'=>Yii::t('igolf', 'on')],
+				'items' => ['bymonth'=>Yii::t('golf', 'on')],
 	            'columnOptions' => ['colspan' => 2],
 				'label' => false,
 			],
@@ -145,7 +145,7 @@ Modal::begin([
 	    'attributes' => [	
 			'option' => [
 				'type' => Form::INPUT_RADIO_LIST,
-				'items' => ['byposmonth'=>Yii::t('igolf', 'on the')],
+				'items' => ['byposmonth'=>Yii::t('golf', 'on the')],
 	            'columnOptions' => ['colspan' => 2],
 				'label' => false,
 			],
@@ -200,7 +200,7 @@ Modal::begin([
 	                'todayHighlight' => true
 	            ]],
 	            'columnOptions' => ['colspan' => 4],
-				'label' => Yii::t('igolf', 'End Date'),
+				'label' => Yii::t('golf', 'End Date'),
 			],
 		],
 	]);
@@ -208,8 +208,8 @@ Modal::begin([
 	?>
 
 	<div class="form-group">
-	    <?= Html::button(Yii::t('igolf', 'Cancel'), ['class' => 'btn btn-danger', 'data' => ['dismiss' => 'modal']]) ?>
-	    <?= Html::button(Yii::t('igolf', 'OK'), ['class' => 'btn btn-success action-ok', 'data' => ['dismiss' => 'modal']]) ?>
+	    <?= Html::button(Yii::t('golf', 'Cancel'), ['class' => 'btn btn-danger', 'data' => ['dismiss' => 'modal']]) ?>
+	    <?= Html::button(Yii::t('golf', 'OK'), ['class' => 'btn btn-success action-ok', 'data' => ['dismiss' => 'modal']]) ?>
 	</div>
 
 </div>

@@ -10,13 +10,13 @@ use kartik\icons\Icon;
 Icon::map($this, Icon::FA); 
 Icon::map($this, Icon::WHHG); 
 
-$this->title = Yii::t('igolf', 'Competitions');
+$this->title = Yii::t('golf', 'Competitions');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-index">
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf', 'Registration'),
+			'title' => Yii::t('golf', 'Registration'),
 	        'dataProvider' => $registrationProvider,
 	        'filterModel' => $registrationSearch,
 			'actionButtons' => [
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'register' => function ($url, $model) {
 						$url = Url::to(['registration/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('group', [], Icon::FA), $url, [
-	                        'title' => Yii::t('igolf', 'Registrations'),
+	                        'title' => Yii::t('golf', 'Registrations'),
 	                    ]);
 	                },
 				],
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf','Start'),
+			'title' => Yii::t('golf','Start'),
 	        'dataProvider' => $startProvider,
 	        'filterModel' => $startSearch,
 			'actionButtons' => [
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						if($model->rule->team) {
 							$url = Url::to(['team/competition', 'id' => $model->id]);
 		                    return Html::a(Icon::show('groups-friends', [], Icon::WHHG), $url, [
-		                        'title' => Yii::t('igolf', 'Make Teams'),
+		                        'title' => Yii::t('golf', 'Make Teams'),
 		                    ]);
 						}
 						return null;
@@ -53,13 +53,13 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'flight' => function ($url, $model) {
 						$url = Url::to(['flight/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('flag', [], Icon::FA), $url, [
-	                        'title' => Yii::t('igolf', 'Make Flights'),
+	                        'title' => Yii::t('golf', 'Make Flights'),
 	                    ]);
 	                },
 	                'tees' => function ($url, $model) {
 						$url = Url::to(['registration/assign-tees', 'id' => $model->id]);
 	                    return Html::a(Icon::show('filter', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Assign Tees'),
+	                        'title' => Yii::t('golf', 'Assign Tees'),
 	                    ]);
 	                },
 				],
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf','Ready'),
+			'title' => Yii::t('golf','Ready'),
 	        'dataProvider' => $readyProvider,
 	        'filterModel' => $readySearch,
 			'actionButtons' => [
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'flight' => function ($url, $model) {
 						$url = Url::to(['flight/list', 'id' => $model->id]);
 	                    return Html::a('<i class="glyphicon glyphicon-list"></i>', $url, [
-	                        'title' => Yii::t('igolf', 'Make Flights'),
+	                        'title' => Yii::t('golf', 'Make Flights'),
 	                    ]);
 	                },
 				],
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list', [
-			'title' => Yii::t('igolf','Planned'),
+			'title' => Yii::t('golf','Planned'),
 	        'dataProvider' => $planProvider,
 	        'filterModel' => $planSearch,
 			'actionButtons' => [

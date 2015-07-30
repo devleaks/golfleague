@@ -8,12 +8,12 @@ use common\models\Competition;
 /* @var $searchModel app\models\RuleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Competition Rules');
+$this->title = Yii::t('golf', 'Competition Rules');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rule-index">
 
-    <h1><?= Html::encode($this->title) ?> <?= Html::a(Yii::t('igolf', 'Create Rule'), ['create'], ['class' => 'btn btn-success']) ?></h1>
+    <h1><?= Html::encode($this->title) ?> <?= Html::a(Yii::t('golf', 'Create Rule'), ['create'], ['class' => 'btn btn-success']) ?></h1>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => 'competition_type',
 				'filter' => Competition::getLocalizedConstants('TYPE_'),
                 'value' => function($model, $key, $index, $widget) {
-                    return Yii::t('igolf', $model->competition_type);
+                    return Yii::t('golf', $model->competition_type);
                 },
             ],
             // 'note',

@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel common\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', ucfirst(strtolower(isset($type) ? $type : 'All')));
+$this->title = Yii::t('golf', ucfirst(strtolower(isset($type) ? $type : 'All')));
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="season-index">
@@ -17,11 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?= Html::encode($this->title) ?>
     	
 		<div class="btn-group">
-			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><?= Yii::t('igolf', 'New')?> <span class="caret"></span></button>
+			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><?= Yii::t('golf', 'New')?> <span class="caret"></span></button>
 			<ul class="dropdown-menu" role="menu">
-				<li><?= Html::a(Yii::t('igolf', Competition::TYPE_SEASON), ['create', 'type' => Competition::TYPE_SEASON]) ?></li>
-				<li><?= Html::a(Yii::t('igolf', Competition::TYPE_TOURNAMENT), ['create', 'type' => Competition::TYPE_TOURNAMENT]) ?></li>
-				<li><?= Html::a(Yii::t('igolf', Competition::TYPE_MATCH), ['create', 'type' => Competition::TYPE_MATCH]) ?></li>
+				<li><?= Html::a(Yii::t('golf', Competition::TYPE_SEASON), ['create', 'type' => Competition::TYPE_SEASON]) ?></li>
+				<li><?= Html::a(Yii::t('golf', Competition::TYPE_TOURNAMENT), ['create', 'type' => Competition::TYPE_TOURNAMENT]) ?></li>
+				<li><?= Html::a(Yii::t('golf', Competition::TYPE_MATCH), ['create', 'type' => Competition::TYPE_MATCH]) ?></li>
 			</ul>
 		</div>
 	</h1>
@@ -72,9 +72,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'age_max',
             // 'gender',
             [
-                'label' => Yii::t('igolf', 'Status'),
+                'label' => Yii::t('golf', 'Status'),
                 'value' => function ($model, $key, $index, $widget) {
-                    return Yii::t('igolf', $model->status);
+                    return Yii::t('golf', $model->status);
                 },
             ],
             // 'created_at',

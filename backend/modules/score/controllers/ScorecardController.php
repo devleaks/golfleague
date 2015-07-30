@@ -54,12 +54,12 @@ class ScorecardController extends GolfLeagueController
 					$errors += $model->errors;
 				}
 				if(count($errors)>0)
-					Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($errors, 4, true)]));
+					Yii::$app->session->setFlash('danger', Yii::t('golf', 'Error(s): {0}', [VarDumper::dumpAsString($errors, 4, true)]));
 			} else {
 				foreach ($models as $model) {
 					$model->save();
 				}
-				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scores updated.'));
+				Yii::$app->session->setFlash('success', Yii::t('golf', 'Scores updated.'));
 			}
 		} else { //@todo do not loop on getScorecards twice...
 			$scorecards = [];
@@ -111,15 +111,15 @@ class ScorecardController extends GolfLeagueController
 		$competition = $this->findCompetition($id);
 
 		if($competition->getScorecards()->andWhere(['status' => ScorecardForCompetition::STATUS_OPEN])->exists() ) {
-			Yii::$app->session->setFlash('danger', Yii::t('igolf', 'There are missing scorecards.'));
+			Yii::$app->session->setFlash('danger', Yii::t('golf', 'There are missing scorecards.'));
 	        return $this->redirect(Url::to(['scorecard/competition', 'id' => $competition->id]));
 		} else {
 			$competition->status = Competition::STATUS_COMPLETED;
 			if($competition->save()) {
-				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scorecards published.'));
+				Yii::$app->session->setFlash('success', Yii::t('golf', 'Scorecards published.'));
 		        return $this->redirect(Url::to(['competition/rule', 'id' => $competition->id]));
 			} else {
-				Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Could not save competition status.'));
+				Yii::$app->session->setFlash('danger', Yii::t('golf', 'Could not save competition status.'));
 		        return $this->redirect(Url::to(['scorecard/competition', 'id' => $competition->id]));
 			}
 		}

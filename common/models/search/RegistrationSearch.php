@@ -36,9 +36,9 @@ class RegistrationSearch extends Registration
     public function attributeLabels()
     {
         return [
-            'competition_name' => Yii::t('igolf', 'Competition'),
-            'competition_type' => Yii::t('igolf', 'Competition Type'),
-            'golfer_name' => Yii::t('igolf', 'Golfer'),
+            'competition_name' => Yii::t('golf', 'Competition'),
+            'competition_type' => Yii::t('golf', 'Competition Type'),
+            'golfer_name' => Yii::t('golf', 'Golfer'),
         ] + parent::attributeLabels();
     }
 

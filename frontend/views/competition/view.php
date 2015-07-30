@@ -20,7 +20,7 @@ use yii\helpers\Url;
 
 $this->title = $model->name;
 
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['index']];
 if($bcs = $model->breadcrumbs())
 	foreach($bcs as $bc)
 		$this->params['breadcrumbs'][] = $bc;
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.Yii::t('igolf', $model->competition_type).' '.$model->name.'</h3>',
+	        'heading' => '<h3>'.Yii::t('golf', $model->competition_type).' '.$model->name.'</h3>',
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'course_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-                'label'=> Yii::t('igolf', 'Course'),
+                'label'=> Yii::t('golf', 'Course'),
 				'items' => ArrayHelper::map(Course::find()->asArray()->all(), 'id', 'name'),
                 'value' => $model->course ? $model->course->name : '' ,
             ],

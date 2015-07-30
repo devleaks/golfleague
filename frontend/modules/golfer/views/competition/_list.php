@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\TournamentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', $parent->childType());
+$this->title = Yii::t('golf', $parent->childType());
 ?>
 <div class="tournament-index">
 
@@ -40,10 +40,10 @@ $this->title = Yii::t('igolf', $parent->childType());
             // 'gender',
             [
 				'attribute' => 'status',
-                'label' => Yii::t('igolf', 'Status'),
+                'label' => Yii::t('golf', 'Status'),
 				'filter' => Competition::getLocalizedConstants('STATUS_'),
                 'value'=> function($model, $key, $index, $widget) {
-                    return Yii::t('igolf', $model->status);
+                    return Yii::t('golf', $model->status);
 				},
             ],
             // 'created_at',

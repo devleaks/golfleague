@@ -60,19 +60,19 @@ class _Golfer extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'user_id' => Yii::t('igolf', 'User ID'),
-            'name' => Yii::t('igolf', 'Name'),
-            'email' => Yii::t('igolf', 'Email'),
-            'phone' => Yii::t('igolf', 'Phone'),
-            'handicap' => Yii::t('igolf', 'Handicap'),
-            'gender' => Yii::t('igolf', 'Gender'),
-            'birthdate' => Yii::t('igolf', 'Birthdate'),
-            'hand' => Yii::t('igolf', 'Hand'),
-            'homecourse' => Yii::t('igolf', 'Homecourse'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
-            'facility_id' => Yii::t('igolf', 'Facility ID'),
+            'id' => Yii::t('golf', 'ID'),
+            'user_id' => Yii::t('golf', 'User ID'),
+            'name' => Yii::t('golf', 'Name'),
+            'email' => Yii::t('golf', 'Email'),
+            'phone' => Yii::t('golf', 'Phone'),
+            'handicap' => Yii::t('golf', 'Handicap'),
+            'gender' => Yii::t('golf', 'Gender'),
+            'birthdate' => Yii::t('golf', 'Birthdate'),
+            'hand' => Yii::t('golf', 'Hand'),
+            'homecourse' => Yii::t('golf', 'Homecourse'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
+            'facility_id' => Yii::t('golf', 'Facility ID'),
         ];
     }
 

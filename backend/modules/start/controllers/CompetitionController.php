@@ -32,6 +32,7 @@ class CompetitionController extends GolfLeagueController
 		$registrationSearch = new CompetitionSearch();
         $registrationProvider = new ActiveDataProvider([
             'query' => Competition::find()->where(['status' => Competition::STATUS_OPEN])
+//										  ->andWhere(['>','registration_end', $now])
         ]);
 
 		/** Competition ready to be prepared. It must be a Match.
@@ -41,8 +42,8 @@ class CompetitionController extends GolfLeagueController
 		$startSearch = new CompetitionSearch();
 		$startProvider = new ActiveDataProvider([
             'query' => Match::find()->where(['status' => Competition::STATUS_OPEN])
-										  ->andWhere(['<','registration_end', $now])
-//										  ->andWhere(['>','start_date', $now]),
+									->andWhere(['<','registration_end', $now])
+//									->andWhere(['>','start_date', $now]),
         ]);
 
 		/** Competition ready to be played.

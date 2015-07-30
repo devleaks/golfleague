@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\TournamentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', $parent->childType());
+$this->title = Yii::t('golf', $parent->childType());
 ?>
 <div class="tournament-index">
 
@@ -17,7 +17,7 @@ $this->title = Yii::t('igolf', $parent->childType());
         'filterModel' => $searchModel,
 		'panel'=>[
 	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => Html::a(Yii::t('igolf', 'Add {0}',$parent->childType()), ['add', 'parent_id' => $parent->id], ['class' => 'btn btn-primary']),
+			'footer' => Html::a(Yii::t('golf', 'Add {0}',$parent->childType()), ['add', 'parent_id' => $parent->id], ['class' => 'btn btn-primary']),
 	    ],
 		'export' => false,
         'columns' => [
@@ -41,10 +41,10 @@ $this->title = Yii::t('igolf', $parent->childType());
             // 'gender',
             [
 				'attribute' => 'status',
-                'label' => Yii::t('igolf', 'Status'),
+                'label' => Yii::t('golf', 'Status'),
 				'filter' => Competition::getLocalizedConstants('STATUS_'),
                 'value'=> function($model, $key, $index, $widget) {
-                    return Yii::t('igolf', $model->status);
+                    return Yii::t('golf', $model->status);
 				},
             ],
             // 'created_at',

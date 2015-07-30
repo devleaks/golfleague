@@ -7,7 +7,7 @@ use kartik\detail\DetailView;
 /* @var $competition common\models\Registration */
 
 $this->title = $competition->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Registrations'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Registrations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="registration-view">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $competition,
 		'panel'=>[
-	        'heading' => '<h3>'.Yii::t('igolf', $competition->competition_type).' '.$competition->name.'</h3>',
+	        'heading' => '<h3>'.Yii::t('golf', $competition->competition_type).' '.$competition->name.'</h3>',
 			'headingOptions' => [
 				'template' => '{title}'
 			],
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'competition_type',
                 'label'=>'Competition Type',
-                'value'=> Yii::t('igolf', $competition->competition_type),
+                'value'=> Yii::t('golf', $competition->competition_type),
             ],
             [
                 'attribute'=>'parent_id',
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'status',
                 'label'=>'Status',
-                'value'=> Yii::t('igolf', $competition->status),
+                'value'=> Yii::t('golf', $competition->status),
             ],
         ],
     ]) ?>
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.Yii::t('igolf', 'Registration').'</h3>',
+	        'heading' => '<h3>'.Yii::t('golf', 'Registration').'</h3>',
 			'headingOptions' => [
 				'template' => '{title}'
 			],
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'status',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => $model::getLocalizedConstants('STATUS_'),
-                'value'=>Yii::t('igolf', $model->status),
+                'value'=>Yii::t('golf', $model->status),
             ],
             [
 				'attribute' => 'created_at',

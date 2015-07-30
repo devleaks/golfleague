@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 /* @var $model common\models\Competition */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-view">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.Yii::t('igolf', $model->competition_type).' '.$model->name.'</h3>',
+	        'heading' => '<h3>'.Yii::t('golf', $model->competition_type).' '.$model->name.'</h3>',
 			'headingOptions' => [
 				'template' => '{title}'
 			],
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'status',
                 'label'=>'Status',
-                'value'=> Yii::t('igolf', $model->status),
+                'value'=> Yii::t('golf', $model->status),
             ],
             'updated_at',
         ],

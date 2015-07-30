@@ -8,7 +8,7 @@ use common\models\Event;
 /* @var $model common\models\Event */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Events'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Events'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-view">

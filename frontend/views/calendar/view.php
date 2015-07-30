@@ -8,7 +8,7 @@ use kartik\detail\DetailView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Calendar'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Calendar'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="news-post-short">

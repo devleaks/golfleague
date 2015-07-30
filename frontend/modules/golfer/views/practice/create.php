@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Practice */
 
-$this->title = Yii::t('igolf', 'Add Practice Round');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Practice Rounds'), 'url' => ['index']];
+$this->title = Yii::t('golf', 'Add Practice Round');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Practice Rounds'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="practice-create">

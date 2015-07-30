@@ -219,12 +219,12 @@ class CompetitionController extends GolfLeagueController
 		if($competition->status == Competition::STATUS_READY) {
 			if($competition->rule) {
 				$competition->rule->apply($competition);
-				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Rule «{0}» applied.', $competition->rule->name));
+				Yii::$app->session->setFlash('success', Yii::t('golf', 'Rule «{0}» applied.', $competition->rule->name));
 			} else {
-				Yii::$app->session->setFlash('info', Yii::t('igolf', 'No final rule to apply.'));
+				Yii::$app->session->setFlash('info', Yii::t('golf', 'No final rule to apply.'));
 			}
 		} else {
-			Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Completition is not completed.'));
+			Yii::$app->session->setFlash('danger', Yii::t('golf', 'Completition is not completed.'));
 		}
 
         return $this->redirect(Url::to(['scorecard/competition', 'id' => $id]));
@@ -239,9 +239,9 @@ class CompetitionController extends GolfLeagueController
 
 		if($competition->finalRule) {
 			$competition->finalRule->apply($competition);
-			Yii::$app->session->setFlash('success', Yii::t('igolf', 'Rule applied.'));
+			Yii::$app->session->setFlash('success', Yii::t('golf', 'Rule applied.'));
 		} else {
-			Yii::$app->session->setFlash('info', Yii::t('igolf', 'No final rule to apply.'));
+			Yii::$app->session->setFlash('info', Yii::t('golf', 'No final rule to apply.'));
 		}
 
         return $this->redirect(Url::to(['rule', 'id' => $id]));

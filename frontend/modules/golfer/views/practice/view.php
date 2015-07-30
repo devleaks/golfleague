@@ -9,7 +9,7 @@ use yii\helpers\Html;
 /* @var $scorecard common\models\Practice */
 
 $this->title = $model->course->name.' » '.Yii::$app->formatter->asDateTime($model->start_time);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Practice Rounds'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Practice Rounds'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="scorecard-view">

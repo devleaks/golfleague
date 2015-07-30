@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $searchModel common\models\FlightSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Flights');
+$this->title = Yii::t('golf', 'Flights');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="flight-index">

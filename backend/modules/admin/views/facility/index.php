@@ -7,12 +7,12 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\FacilitySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Golf Courses');
+$this->title = Yii::t('golf', 'Golf Courses');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="facility-index">
 
-    <h1><?= Html::encode($this->title) ?> <?= Html::a(Yii::t('igolf', 'Add {modelClass}', [
+    <h1><?= Html::encode($this->title) ?> <?= Html::a(Yii::t('golf', 'Add {modelClass}', [
                 'modelClass' => 'Facility',
             ]), ['create'], ['class' => 'btn btn-success']) ?></h1>
 

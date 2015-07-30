@@ -34,10 +34,10 @@ class Team extends _Team
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'Team'),
-            'name' => Yii::t('igolf', 'Name'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'Team'),
+            'name' => Yii::t('golf', 'Name'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

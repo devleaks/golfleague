@@ -13,8 +13,8 @@ use yii\widgets\ActiveForm;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 FlightsAsset::register($this);
 
-$this->title = Yii::t('igolf', 'Flights for ').$competition->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
+$this->title = Yii::t('golf', 'Flights for ').$competition->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -98,23 +98,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin(['id' => 'flights-form']); ?>
 <?= Html::hiddenInput( 'flights', null, ['id' => 'savedflights'] )?>
-<?= Html::submitButton(Yii::t('igolf', 'Save flights'), ['class' => 'btn btn-success']) ?>
+<?= Html::submitButton(Yii::t('golf', 'Save flights'), ['class' => 'btn btn-success']) ?>
 
 <div class="btn-group">
     <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-    <?= Yii::t('igolf', 'Restart flights') ?> <span class="caret"></span>
+    <?= Yii::t('golf', 'Restart flights') ?> <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
         <?php
-            echo '<li>'.Html::a(Yii::t('igolf', 'Reset Chronological Order'), ['flight/reset', 'competition_id' => $competition->id]).'</a></li>';
+            echo '<li>'.Html::a(Yii::t('golf', 'Reset Chronological Order'), ['flight/reset', 'id' => $competition->id]).'</a></li>';
         ?>
     </ul>
 </div>
 
-<?= Html::a(Yii::t('igolf', 'Publish Flights'), ['flight/publish', 'id' => $competition->id], [
+<?= Html::a(Yii::t('golf', 'Publish Flights'), ['flight/publish', 'id' => $competition->id], [
 		'class' => 'btn btn-primary',
 		'data' => [
-    		'confirm' => Yii::t('igolf', 'Are you sure you want to publish flights for this competition?'),
+    		'confirm' => Yii::t('golf', 'Are you sure you want to publish flights for this competition?'),
 		],
 ]) ?>
 

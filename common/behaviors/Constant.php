@@ -23,7 +23,7 @@ trait Constant {
         $result = [];
 		foreach($oClass->getConstants() as $k => $v)
 			if(strpos($k, $constant_prefix) === 0)
-				$result[$v] = Yii::t('igolf', ucfirst(strtolower($v)));
+				$result[$v] = Yii::t('golf', ucfirst(strtolower($v)));
 		//Yii::trace(print_r($result, true), 'trait');
         return $result;
     }

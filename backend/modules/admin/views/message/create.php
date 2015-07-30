@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Message */
 
-$this->title = Yii::t('igolf', 'Create {modelClass}', [
+$this->title = Yii::t('golf', 'Create {modelClass}', [
     'modelClass' => 'Message',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Messages'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Messages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="message-create">

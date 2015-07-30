@@ -66,7 +66,7 @@ use yii\bootstrap\Alert;
 	                'format' => 'yyyy-mm-dd hh:ii:ss',
 	                'todayHighlight' => true
 				]
-	    ])->label(Yii::t('igolf', 'Start Date &amp; Time')) ?>
+	    ])->label(Yii::t('golf', 'Start Date &amp; Time')) ?>
 		</div>
 
 		<div class='col-lg-8'>
@@ -87,7 +87,7 @@ use yii\bootstrap\Alert;
 						'asButton' => true,
 					],
 				]
-			])->label(Yii::t('igolf', 'Repeat Event'));
+			])->label(Yii::t('golf', 'Repeat Event'));
 
 			// echo Html::activeHiddenInput($model, 'recurrence');
 			echo $form->field($model, 'recurrence')->textInput(['readonly' => true])->label(false);
@@ -105,7 +105,7 @@ use yii\bootstrap\Alert;
     <?= $form->field($model, 'status')->dropDownList($model::getLocalizedConstants('STATUS_')) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('igolf', 'Create') : Yii::t('igolf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('golf', 'Create') : Yii::t('golf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

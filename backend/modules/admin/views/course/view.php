@@ -11,7 +11,7 @@ use yii\helpers\ArrayHelper;
 /* @var $model app\models\Course */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Facilities'), 'url' => ['facility/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Facilities'), 'url' => ['facility/index']];
 $this->params['breadcrumbs'][] = ['label' => $model->facility->name, 'url' => ['facility/view', 'id' => $model->facility_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

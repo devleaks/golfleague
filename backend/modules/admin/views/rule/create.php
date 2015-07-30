@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Rule */
 
-$this->title = Yii::t('igolf', 'Create {modelClass}', [
+$this->title = Yii::t('golf', 'Create {modelClass}', [
     'modelClass' => 'Rule',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Rules'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Rules'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rule-create">

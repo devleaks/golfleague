@@ -99,18 +99,18 @@ class Registration extends _Registration
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'Registration'),
-            'competition_id' => Yii::t('igolf', 'Competition'),
-            'golfer_id' => Yii::t('igolf', 'Golfer'),
-            'flight_id' => Yii::t('igolf', 'Flight'),
-            'team_id' => Yii::t('igolf', 'Team'),
-            'tees_id' => Yii::t('igolf', 'Tees'),
-            'points' => Yii::t('igolf', 'Points'),
-            'position' => Yii::t('igolf', 'Position'),
-            'note' => Yii::t('igolf', 'Note'),
-            'status' => Yii::t('igolf', 'Status'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'Registration'),
+            'competition_id' => Yii::t('golf', 'Competition'),
+            'golfer_id' => Yii::t('golf', 'Golfer'),
+            'flight_id' => Yii::t('golf', 'Flight'),
+            'team_id' => Yii::t('golf', 'Team'),
+            'tees_id' => Yii::t('golf', 'Tees'),
+            'points' => Yii::t('golf', 'Points'),
+            'position' => Yii::t('golf', 'Position'),
+            'note' => Yii::t('golf', 'Note'),
+            'status' => Yii::t('golf', 'Status'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 
@@ -132,7 +132,7 @@ class Registration extends _Registration
 		    self::STATUS_CONFIRMED,
 		    self::STATUS_CANCELLED,
 		] as $r)
-			$s[$r] = Yii::t('igolf', $r);
+			$s[$r] = Yii::t('golf', $r);
 		return $s;
 	}
 	
@@ -164,7 +164,7 @@ class Registration extends _Registration
 		    self::STATUS_WITHDRAWN,
 		    self::STATUS_QUALIFIED,
 		] as $r)
-			$s[$r] = Yii::t('igolf', $r);
+			$s[$r] = Yii::t('golf', $r);
 		return $s;
 	}
 

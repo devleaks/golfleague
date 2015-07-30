@@ -15,8 +15,8 @@ Icon::map($this, Icon::WHHG);
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = Yii::t('igolf', 'Scorecards for competition «{0}»', $competition->name);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
+$this->title = Yii::t('golf', 'Scorecards for competition «{0}»', $competition->name);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="scorecard-index">
@@ -26,30 +26,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
 		'panel'=>[
 	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => Html::a(Yii::t('igolf', 'Publish'), Url::to(['scorecard/publish', 'id' => $competition->id]), ['class'=>'btn btn-success'])
+			'footer' => Html::a(Yii::t('golf', 'Publish'), Url::to(['scorecard/publish', 'id' => $competition->id]), ['class'=>'btn btn-success'])
 	    ],
 		'export' => false,
         'columns' => [
             [
             	'attribute' => 'golfer_name',
-                'label' => Yii::t('igolf', 'Player'),
+                'label' => Yii::t('golf', 'Player'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->player->name;
                 },
 			],
             [
                 'attribute' => 'status',
-        		'label' => Yii::t('igolf', 'Scorecard Status'),
+        		'label' => Yii::t('golf', 'Scorecard Status'),
                 'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('igolf', $model->status);
+                	return Yii::t('golf', $model->status);
                 },
 				'filter' => Scorecard::getLocalizedConstants('STATUS_'),
             ],
             [
                 'attribute' => 'status',
-            	'label' => Yii::t('igolf', 'Registration Status'),
+            	'label' => Yii::t('golf', 'Registration Status'),
                 'value' => function($model, $key, $index, $widget) {
-                	return $model->registration ? Yii::t('igolf', $model->registration->status) : '';
+                	return $model->registration ? Yii::t('golf', $model->registration->status) : '';
                 },
 				'filter' => Registration::getLocalizedPostCompetitionStatuses(),
             ],
@@ -61,8 +61,8 @@ $this->params['breadcrumbs'][] = $this->title;
 						if($model->hasDetails()) {
 							$url = Url::to(['delete', 'id' => $model->id]);
 		                    return Html::a('<i class="glyphicon glyphicon-remove"></i>', $url, [
-		                        'title' => Yii::t('igolf', 'Delete score details'),
-								'data-confirm' => Yii::t('igolf', 'Delete score details for this golfer?')
+		                        'title' => Yii::t('golf', 'Delete score details'),
+								'data-confirm' => Yii::t('golf', 'Delete score details for this golfer?')
 		                    ]);
 						} else {
 							return '<i class="glyphicon glyphicon-remove disabled"></i>';

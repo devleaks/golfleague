@@ -8,7 +8,7 @@ use frontend\widgets\Calendar;
 /* @var $searchModel app\models\FlightSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Calendar');
+$this->title = Yii::t('golf', 'Calendar');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="calendar-index">

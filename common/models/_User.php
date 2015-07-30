@@ -59,19 +59,19 @@ class _User extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'username' => Yii::t('igolf', 'Username'),
-            'auth_key' => Yii::t('igolf', 'Auth Key'),
-            'password_hash' => Yii::t('igolf', 'Password Hash'),
-            'email' => Yii::t('igolf', 'Email'),
-            'confirmed_at' => Yii::t('igolf', 'Confirmed At'),
-            'unconfirmed_email' => Yii::t('igolf', 'Unconfirmed Email'),
-            'blocked_at' => Yii::t('igolf', 'Blocked At'),
-            'registration_ip' => Yii::t('igolf', 'Registration Ip'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
-            'flags' => Yii::t('igolf', 'Flags'),
-            'role' => Yii::t('igolf', 'Role'),
+            'id' => Yii::t('golf', 'ID'),
+            'username' => Yii::t('golf', 'Username'),
+            'auth_key' => Yii::t('golf', 'Auth Key'),
+            'password_hash' => Yii::t('golf', 'Password Hash'),
+            'email' => Yii::t('golf', 'Email'),
+            'confirmed_at' => Yii::t('golf', 'Confirmed At'),
+            'unconfirmed_email' => Yii::t('golf', 'Unconfirmed Email'),
+            'blocked_at' => Yii::t('golf', 'Blocked At'),
+            'registration_ip' => Yii::t('golf', 'Registration Ip'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
+            'flags' => Yii::t('golf', 'Flags'),
+            'role' => Yii::t('golf', 'Role'),
         ];
     }
 

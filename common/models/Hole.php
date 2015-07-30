@@ -53,12 +53,12 @@ class Hole extends _Hole
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'Hole'),
-            'tees_id' => Yii::t('igolf', 'Tees'),
-            'position' => Yii::t('igolf', 'Hole'),
-            'par' => Yii::t('igolf', 'Par'),
-            'si' => Yii::t('igolf', 'Stroke Index'),
-            'length' => Yii::t('igolf', 'Length'),
+            'id' => Yii::t('golf', 'Hole'),
+            'tees_id' => Yii::t('golf', 'Tees'),
+            'position' => Yii::t('golf', 'Hole'),
+            'par' => Yii::t('golf', 'Par'),
+            'si' => Yii::t('golf', 'Stroke Index'),
+            'length' => Yii::t('golf', 'Length'),
         ];
     }
 

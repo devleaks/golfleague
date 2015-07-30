@@ -42,17 +42,17 @@ class Rule extends _Rule
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'Rule'),
-	        'name' => Yii::t('igolf', 'Name'),
-	        'description' => Yii::t('igolf', 'Description'),
-	        'competition_type' => Yii::t('igolf', 'Competition Type'),
-	        'object_type' => Yii::t('igolf', 'Object Type'),
-	        'rule_type' => Yii::t('igolf', 'Rule Type'),
-	        'team' => Yii::t('igolf', 'Team'),
-	        'note' => Yii::t('igolf', 'Note'),
-	        'classname' => Yii::t('igolf', 'Classname'),
-	        'created_at' => Yii::t('igolf', 'Created At'),
-	        'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'Rule'),
+	        'name' => Yii::t('golf', 'Name'),
+	        'description' => Yii::t('golf', 'Description'),
+	        'competition_type' => Yii::t('golf', 'Competition Type'),
+	        'object_type' => Yii::t('golf', 'Object Type'),
+	        'rule_type' => Yii::t('golf', 'Rule Type'),
+	        'team' => Yii::t('golf', 'Team'),
+	        'note' => Yii::t('golf', 'Note'),
+	        'classname' => Yii::t('golf', 'Classname'),
+	        'created_at' => Yii::t('golf', 'Created At'),
+	        'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 
@@ -97,20 +97,20 @@ class Rule extends _Rule
 		$subns = $currns.'\\rule';
 		Yii::trace('rulens='.$subns.'.', 'Rule::getList');
 		return [
-			self::className() => Yii::t('igolf', 'Standard'),
-			rule\Copy::className() => Yii::t('igolf', 'Copy'),
-			rule\Rank::className() => Yii::t('igolf', 'Rank'),
-			rule\SumChildren::className() => Yii::t('igolf', 'Sum Children Scores'),
+			self::className() => Yii::t('golf', 'Standard'),
+			rule\Copy::className() => Yii::t('golf', 'Copy'),
+			rule\Rank::className() => Yii::t('golf', 'Rank'),
+			rule\SumChildren::className() => Yii::t('golf', 'Sum Children Scores'),
 		];
 	}
 
 
 	public static function getTeamList() {
 		return [
-			null => Yii::t('igolf', 'Single'),
-			2 => '2 '.Yii::t('igolf', 'Players'),
-			3 => '3 '.Yii::t('igolf', 'Players'),
-			4 => '4 '.Yii::t('igolf', 'Players'),
+			null => Yii::t('golf', 'Single'),
+			2 => '2 '.Yii::t('golf', 'Players'),
+			3 => '3 '.Yii::t('golf', 'Players'),
+			4 => '4 '.Yii::t('golf', 'Players'),
 		];
 	}
 

@@ -13,7 +13,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $this->title = $competition->getFullName();
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $input_decimal = [
@@ -24,7 +24,7 @@ $input_decimal = [
 ];
 
 $apply_rule = in_array($competition->competition_type, [Competition::TYPE_TOURNAMENT, Competition::TYPE_SEASON])
-	? Html::a(Yii::t('igolf', 'Compute'), Url::to(['competition/apply', 'id' => $competition->id]), ['class'=>'btn btn-primary'])
+	? Html::a(Yii::t('golf', 'Compute'), Url::to(['competition/apply', 'id' => $competition->id]), ['class'=>'btn btn-primary'])
 	: '';
 	
 ?>
@@ -39,8 +39,8 @@ $apply_rule = in_array($competition->competition_type, [Competition::TYPE_TOURNA
 			'panel'=>[
 		        'heading' => '<h4>'.$this->title.'</h4>',
 				'footer' => Html::submitButton('Save', ['class'=>'btn btn-primary']).' '.$apply_rule.' '.
-							Html::a(Yii::t('igolf', 'Scorecard Status'), Url::to(['status', 'id' => $competition->id]), ['class'=>'btn btn-primary']).' '.
-							Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $competition->id]), ['class'=>'btn btn-success'])
+							Html::a(Yii::t('golf', 'Scorecard Status'), Url::to(['status', 'id' => $competition->id]), ['class'=>'btn btn-primary']).' '.
+							Html::a(Yii::t('golf', 'Publish'), Url::to(['publish', 'id' => $competition->id]), ['class'=>'btn btn-success'])
 							,
 		    ],
 		],
@@ -70,7 +70,7 @@ $apply_rule = in_array($competition->competition_type, [Competition::TYPE_TOURNA
 			],
 			'golfer_hdcp' => [
 				'type' => TabularForm::INPUT_STATIC,
-            	'label'=>Yii::t('igolf', 'Handicap'),
+            	'label'=>Yii::t('golf', 'Handicap'),
 	            'value' => function($model, $key, $index, $widget) {
 	                return  $model->registration->golfer->handicap;
 	            },

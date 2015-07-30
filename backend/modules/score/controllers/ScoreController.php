@@ -43,7 +43,7 @@ class ScoreController extends GolfLeagueController
 		$scorecard = $this->findScorecard($id);
 		
 		if(in_array($scorecard->registration->competition->status, [Competition::STATUS_COMPLETED, Competition::STATUS_CLOSED])) {
-			Yii::$app->session->setFlash('warning', Yii::t('igolf', 'Scorecard already published cannot be edited.'));
+			Yii::$app->session->setFlash('warning', Yii::t('golf', 'Scorecard already published cannot be edited.'));
 	        return $this->render('view', [
 				'scorecard' => $scorecard,
 	        ]);
@@ -62,7 +62,7 @@ class ScoreController extends GolfLeagueController
 			}
 			if($count > 0) {
 				$scorecard->updateScorecard();
-				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scorecard updated.'));
+				Yii::$app->session->setFlash('success', Yii::t('golf', 'Scorecard updated.'));
 			}
 		} else {
 			$scorecard->makeScores();
@@ -97,9 +97,9 @@ class ScoreController extends GolfLeagueController
     {
 		$scorecard = $this->findScorecard($id);
 		if($scorecard->publish()) {
-			Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scorecard published.'));
+			Yii::$app->session->setFlash('success', Yii::t('golf', 'Scorecard published.'));
 		} else {
-			Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Scorecard was not published.'));
+			Yii::$app->session->setFlash('danger', Yii::t('golf', 'Scorecard was not published.'));
 		}
         return $this->redirect(['view', 'id' => $id]);
     }

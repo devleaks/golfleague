@@ -39,7 +39,7 @@ class Scorecard extends _Scoretable {
 	 */
 	public function run() {
 		if(!$this->scorecard->hasDetails())
-			return Yii::t('igolf', 'No detailed scorecard.');
+			return Yii::t('golf', 'No detailed scorecard.');
 		
 		return $this->print_table(['class' => 'table scorecard']);
 	}
@@ -88,11 +88,11 @@ ENDofCSS;
 		for($i=0; $i<$this->scorecard->holes(); $i++) {
 			$output .= Html::tag('th', $i+1);
 		}
-		$output .= Html::tag('th', Yii::t('igolf', 'Total'));
+		$output .= Html::tag('th', Yii::t('golf', 'Total'));
 		if($this->getOption(self::FRONTBACK)) {
-			$output .= Html::tag('th', Yii::t('igolf', 'Front'));
+			$output .= Html::tag('th', Yii::t('golf', 'Front'));
 			if($this->scorecard->holes() > 9)
-				$output .= Html::tag('th', Yii::t('igolf', 'Back'));
+				$output .= Html::tag('th', Yii::t('golf', 'Back'));
 		}
 		$output .= Html::endTag('tr');
 		return $output;
@@ -101,17 +101,17 @@ ENDofCSS;
 	protected function print_headers() {
 		$displays = [
 			self::LENGTH => new Scoredisplay([
-				'label'=> Yii::t('igolf', 'Length'),
+				'label'=> Yii::t('golf', 'Length'),
 				'data' => $this->scorecard->tees->lengths(),
 				'total' => true
 			]),
 			self::SI => new Scoredisplay([
-				'label'=> Yii::t('igolf', 'S.I.'),
+				'label'=> Yii::t('golf', 'S.I.'),
 				'data' => $this->scorecard->tees->sis(),
 				'total' => false
 			]),
 			self::PAR => new Scoredisplay([
-				'label'=> Yii::t('igolf', 'Par'),
+				'label'=> Yii::t('golf', 'Par'),
 				'data' => $this->scorecard->tees->pars(),
 				'total' => true
 			]),
@@ -151,43 +151,43 @@ ENDofCSS;
 		
 		$displays = array(
 			self::ALLOWED => new Scoredisplay([
-				'label' => Yii::t('igolf', 'Allowed'),
+				'label' => Yii::t('golf', 'Allowed'),
 				'data' => $this->scorecard->allowed(),
 				'total' => true,
 				'color' => true/*note:true displays as '• •', false displays as '2'*/,
 			]),
 			self::SCORE => new Scoredisplay([
-				'label' => Yii::t('igolf', 'Score'),
+				'label' => Yii::t('golf', 'Score'),
 				'data' => $this->scorecard->score(),
 				'total' => true,
 				'color' => true,
 			]),
 			self::SCORE_NET => new Scoredisplay([
-				'label' => Yii::t('igolf', 'Net'),
+				'label' => Yii::t('golf', 'Net'),
 				'data' => $this->scorecard->score(true),
 				'total' => true,
 				'color' => true,
 			]),
 			self::STABLEFORD => new Scoredisplay([
-				'label' => Yii::t('igolf', 'Stableford'),
+				'label' => Yii::t('golf', 'Stableford'),
 				'data' => $this->scorecard->stableford(),
 				'total' => true,
 				'color' => true,
 			]),
 			self::STABLEFORD_NET => new Scoredisplay([
-				'label' => Yii::t('igolf', 'Stableford Net'),
+				'label' => Yii::t('golf', 'Stableford Net'),
 				'data' => $this->scorecard->stableford(true),
 				'total' => true,
 				'color' => true,
 			]),
 			self::TO_PAR => new Scoredisplay([
-				'label' => Yii::t('igolf', 'To Par'),
+				'label' => Yii::t('golf', 'To Par'),
 				'data' => $this->scorecard->toPar(),
 				'total' => true,
 				'color' => false
 			]),
 			self::TO_PAR_NET => new Scoredisplay([
-				'label' => Yii::t('igolf', 'To Par Net'),
+				'label' => Yii::t('golf', 'To Par Net'),
 				'data' => $this->scorecard->toPar_net(),
 				'total' => true,
 				'color' => false

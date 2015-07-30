@@ -10,12 +10,12 @@ use common\models\Message;
 /* @var $searchModel backend\MessageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Messages');
+$this->title = Yii::t('golf', 'Messages');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="message-index">
 
-    <h1>    <h1><?= Html::encode($this->title) ?> <?= Html::a(Yii::t('igolf', 'Create {modelClass}', [
+    <h1>    <h1><?= Html::encode($this->title) ?> <?= Html::a(Yii::t('golf', 'Create {modelClass}', [
 
     'modelClass' => 'Message',
 ]), ['create'], ['class' => 'btn btn-success']) ?></h1>

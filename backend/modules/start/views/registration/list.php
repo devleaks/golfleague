@@ -11,7 +11,7 @@ use devleaks\golfleague\components\Competition;
 ?>
 <div class="registration-index">
 
-    <h1><?= Yii::t('igolf', 'Flight Members') ?></h1>
+    <h1><?= Yii::t('golf', 'Flight Members') ?></h1>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -23,9 +23,9 @@ use devleaks\golfleague\components\Competition;
             'created_at',
             'updated_at',
             [
-                'label' => Yii::t('igolf', 'Status'),
+                'label' => Yii::t('golf', 'Status'),
                 'value' => function($model, $key, $index, $widget) {
-                        return Yii::t('igolf', $model->status);
+                        return Yii::t('golf', $model->status);
                     }
             ],
         ],
@@ -33,7 +33,7 @@ use devleaks\golfleague\components\Competition;
 
 <?php
         if($searchModel == null) {
-            echo Html::a(Yii::t('igolf', 'View all registrations'), ['registration/index'], ['class' => 'btn btn-primary']);
+            echo Html::a(Yii::t('golf', 'View all registrations'), ['registration/index'], ['class' => 'btn btn-primary']);
         }
 ?>
 

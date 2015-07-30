@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Registration');
+$this->title = Yii::t('golf', 'Registration');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

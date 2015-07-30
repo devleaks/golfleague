@@ -43,10 +43,10 @@ class _PracticeGolfer extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'golfer_id' => Yii::t('igolf', 'Golfer ID'),
-            'practice_id' => Yii::t('igolf', 'Practice ID'),
-            'status' => Yii::t('igolf', 'Status'),
+            'id' => Yii::t('golf', 'ID'),
+            'golfer_id' => Yii::t('golf', 'Golfer ID'),
+            'practice_id' => Yii::t('golf', 'Practice ID'),
+            'status' => Yii::t('golf', 'Status'),
         ];
     }
 

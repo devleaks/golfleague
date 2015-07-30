@@ -14,7 +14,7 @@ use yii\data\ActiveDataProvider;
 /* @var $model app\models\Rule */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competition Rules'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competition Rules'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rule-view">
@@ -55,8 +55,8 @@ $this->params['breadcrumbs'][] = $this->title;
 				'type' => DetailView::INPUT_SWITCH,
 				'widgetOptions' => [
 				    'pluginOptions' => [
-						'onText'  => Yii::t('igolf', '   Use Handicap    '),
-						'offText' => Yii::t('igolf', 'Do Not Use Handicap')
+						'onText'  => Yii::t('golf', '   Use Handicap    '),
+						'offText' => Yii::t('golf', 'Do Not Use Handicap')
 					]
 				],
 			],

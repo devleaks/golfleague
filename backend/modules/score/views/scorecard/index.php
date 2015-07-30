@@ -10,7 +10,7 @@ use common\models\Competition;
 /* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Scorecards');
+$this->title = Yii::t('golf', 'Scorecards');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

@@ -36,27 +36,27 @@ class MenuHelper extends \yii\base\Object
         $menus = array();
 
         if(in_array($league_role, array('scorer', 'starter', 'manager', 'admin'))) {
-            $menus[] = '<li class="dropdown-header">'.Yii::t('igolf', 'Scoring').'</li>';
-            $menus[] = ['label' => Yii::t('igolf', 'Scorecards'), 'url' => '#'];
-            $menus[] = ['label' => Yii::t('igolf', 'Scores'), 'url' => '#'];
-            $menus[] = ['label' => Yii::t('igolf', 'Events'), 'url' => Url::to(['/admin/event'])];
+            $menus[] = '<li class="dropdown-header">'.Yii::t('golf', 'Scoring').'</li>';
+            $menus[] = ['label' => Yii::t('golf', 'Scorecards'), 'url' => '#'];
+            $menus[] = ['label' => Yii::t('golf', 'Scores'), 'url' => '#'];
+            $menus[] = ['label' => Yii::t('golf', 'Events'), 'url' => Url::to(['/admin/event'])];
         }
 
         if(in_array($league_role, array('starter', 'manager', 'admin'))) {
             $menus[] = '<li class="divider"></li>';
-            $menus[] = '<li class="dropdown-header">'.Yii::t('igolf', 'Planning').'</li>';
-            $menus[] = ['label' => Yii::t('igolf', 'Registrations'), 'url' => Url::to(['/start/registration'])];
-            $menus[] = ['label' => Yii::t('igolf', 'Flights'), 'url' => '#'];
+            $menus[] = '<li class="dropdown-header">'.Yii::t('golf', 'Planning').'</li>';
+            $menus[] = ['label' => Yii::t('golf', 'Registrations'), 'url' => Url::to(['/start/registration'])];
+            $menus[] = ['label' => Yii::t('golf', 'Flights'), 'url' => '#'];
         }
         
         if(in_array($league_role, array('manager', 'admin'))) {
             $menus[] = '<li class="divider"></li>';
-            $menus[] = '<li class="dropdown-header">'.Yii::t('igolf', 'Managing').'</li>';
-            $menus[] = ['label' => Yii::t('igolf', 'Courses'), 'url' => Url::to(['/admin/course'])];
-            $menus[] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => Url::to(['/admin/competition'])];
-            $menus[] = ['label' => Yii::t('igolf', 'Rules'), 'url' => Url::to(['/admin/rule'])];
-            $menus[] = ['label' => Yii::t('igolf', 'Golfers'), 'url' => Url::to(['/admin/golfer'])];
-            $menus[] = ['label' => Yii::t('igolf', 'Messages'), 'url' => Url::to(['/admin/message'])];
+            $menus[] = '<li class="dropdown-header">'.Yii::t('golf', 'Managing').'</li>';
+            $menus[] = ['label' => Yii::t('golf', 'Courses'), 'url' => Url::to(['/admin/course'])];
+            $menus[] = ['label' => Yii::t('golf', 'Competitions'), 'url' => Url::to(['/admin/competition'])];
+            $menus[] = ['label' => Yii::t('golf', 'Rules'), 'url' => Url::to(['/admin/rule'])];
+            $menus[] = ['label' => Yii::t('golf', 'Golfers'), 'url' => Url::to(['/admin/golfer'])];
+            $menus[] = ['label' => Yii::t('golf', 'Messages'), 'url' => Url::to(['/admin/message'])];
         }
 
         return $menus;
@@ -64,7 +64,7 @@ class MenuHelper extends \yii\base\Object
 
     static public function getDeveloperMenu($role = null) {
 		$dev_menu = [];
-    	$dev_menu[] = ['label' => Yii::t('igolf', 'Gii'), 'url' => ['/gii']];
+    	$dev_menu[] = ['label' => Yii::t('golf', 'Gii'), 'url' => ['/gii']];
 		$dev_menu[] = ['label' => 'Back End', 'url' => ['/../igolf']];
 		$dev_menu[] = ['label' => 'Front End', 'url' => ['/../golfleague']];
         return $dev_menu;
@@ -80,7 +80,7 @@ class MenuHelper extends \yii\base\Object
 
         foreach ($menus as $menu) {
             $submenu = $this->getSubMenu($menu->id);
-            $ret[] = ['label' => Yii::t('igolf', $menu->name), $url => (count($submenu) == 0) ? Yii::$app->homeUrl.ltrim($menu->route,'/') : $submenu ];
+            $ret[] = ['label' => Yii::t('golf', $menu->name), $url => (count($submenu) == 0) ? Yii::$app->homeUrl.ltrim($menu->route,'/') : $submenu ];
         }
 
         return $ret;

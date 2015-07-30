@@ -51,16 +51,16 @@ class _Start extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'gender' => Yii::t('igolf', 'Gender'),
-            'age_min' => Yii::t('igolf', 'Age Min'),
-            'age_max' => Yii::t('igolf', 'Age Max'),
-            'handicap_min' => Yii::t('igolf', 'Handicap Min'),
-            'handicap_max' => Yii::t('igolf', 'Handicap Max'),
-            'tees_id' => Yii::t('igolf', 'Tees ID'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
-            'competition_id' => Yii::t('igolf', 'Competition ID'),
+            'id' => Yii::t('golf', 'ID'),
+            'gender' => Yii::t('golf', 'Gender'),
+            'age_min' => Yii::t('golf', 'Age Min'),
+            'age_max' => Yii::t('golf', 'Age Max'),
+            'handicap_min' => Yii::t('golf', 'Handicap Min'),
+            'handicap_max' => Yii::t('golf', 'Handicap Max'),
+            'tees_id' => Yii::t('golf', 'Tees ID'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
+            'competition_id' => Yii::t('golf', 'Competition ID'),
         ];
     }
 

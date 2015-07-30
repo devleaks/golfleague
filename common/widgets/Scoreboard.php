@@ -101,11 +101,11 @@ class Scoreboard extends _Scoretable {
 		}
 
 		if(!$this->competition->hasScores())
-			return Yii::t('igolf', 'Competition has not started yet.');
+			return Yii::t('golf', 'Competition has not started yet.');
 		
 		if($this->match) {
 			if(!$this->tees = $this->match->course->getFirstTees())
-				return Yii::t('igolf', 'Competition has no starting tees set.');
+				return Yii::t('golf', 'Competition has no starting tees set.');
 
 			if(!$this->tees->hasDetails()) { // if does not have hole details, we do not display hole by hole data.
 				$this->setOption(self::HOLES, false);
@@ -115,6 +115,11 @@ class Scoreboard extends _Scoretable {
 		//Yii::trace('tees='.$this->tees->id);
 			
 		if(!$this->tees) {
+			$this->setOption(self::PAR, false);
+			$this->setOption(self::SI, false);
+			$this->setOption(self::LENGTH, false);
+			$this->setOption(self::TO_PAR, false);
+		} else if (!$this->tees->hasDetails()) {
 			$this->setOption(self::PAR, false);
 			$this->setOption(self::SI, false);
 			$this->setOption(self::LENGTH, false);
@@ -151,7 +156,8 @@ class Scoreboard extends _Scoretable {
 		$options['data-holes'] = $this->competition->holes;
 		$options['data-ajaxgolfleague'] = $refresh_data;		
 		
-		return $this->print_table($options);
+		return count($this->scoreline) ? $this->print_table($options)
+				: Yii::t('golf', 'There is no scorecard for this competition.');
 	}
 	
 	public function init() {
@@ -171,9 +177,11 @@ class Scoreboard extends _Scoretable {
 	 */
 	protected function caption() {
 		$competition = $this->competition->getFullName();
-		if($r = $this->competition->getRound())
-			$competition .= ' ('.$r.'/'.$this->competition->getRounds().')';
 		if($this->competition->getRounds() > 1) {
+			if($this->match) {
+				$r = $this->match->getRound();
+				$competition .= ' ('.$r.'/'.$this->competition->getRounds().')';
+			}
 			$competition .= ', '.str_replace(' ', '&nbsp;', $this->competition->getDateRange());
 		} else {
 			$competition .= ', '.Yii::$app->formatter->asDate($this->competition->start_date);
@@ -190,19 +198,19 @@ class Scoreboard extends _Scoretable {
 			}
 		}
 		if($this->getOption(self::TODAY)) {
-			$output .= Html::tag('th', Yii::t('igolf', 'Today'));
-			$output .= Html::tag('th', Yii::t('igolf', 'Thru'));
+			$output .= Html::tag('th', Yii::t('golf', 'Today'));
+			$output .= Html::tag('th', Yii::t('golf', 'Thru'));
 		}
 		if($this->getOption(self::FRONTBACK)) {
-			$output .= Html::tag('th', Yii::t('igolf', 'Front'));
-			$output .= Html::tag('th', Yii::t('igolf', 'Back'));
+			$output .= Html::tag('th', Yii::t('golf', 'Front'));
+			$output .= Html::tag('th', Yii::t('golf', 'Back'));
 		}
 		if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
 			for($r=0; $r<$rounds; $r++) {
 				$output .= Html::tag('th', ($r+1), ['class' => 'round']);
 			}
 		}
-		$output .= Html::tag('th', Yii::t('igolf', 'Total'), ['colspan' => $this->getOption(self::TO_PAR) ? 2 : 1]);
+		$output .= Html::tag('th', Yii::t('golf', 'Total'), ['colspan' => $this->getOption(self::TO_PAR) ? 2 : 1]);
 		$output .= Html::endTag('tr');
 		return $output;
 	}
@@ -211,21 +219,21 @@ class Scoreboard extends _Scoretable {
 		$displays = [];
 		if($this->getOption(self::LENGTH)) {
 			$displays[self::LENGTH] = [
-				'label'=> Yii::t('igolf', 'Length'),
+				'label'=> Yii::t('golf', 'Length'),
 				'data' => $this->tees->lengths(),
 				'total' => true
 			];
 		}
 		if($this->getOption(self::PAR)) {
 			$displays[self::PAR] = [
-				'label'=> Yii::t('igolf', 'Par'),
+				'label'=> Yii::t('golf', 'Par'),
 				'data' => $this->tees->pars(),
 				'total' => true
 			];
 		}
 		if($this->getOption(self::HOLES) || $this->getOption(self::SI)) {
 			$displays[self::SI] = [
-				'label'=> Yii::t('igolf', 'S.I.'),
+				'label'=> Yii::t('golf', 'S.I.'),
 				'data' => $this->tees->sis(),
 				'total' => false
 			];
@@ -245,7 +253,7 @@ class Scoreboard extends _Scoretable {
 				$output .= Html::tag('th', '');
 			}
 			if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
-				$output .= Html::tag('th', /*$key == self::PAR ? Yii::t('igolf', 'Rounds') :*/ '', ['colspan' => $rounds]);
+				$output .= Html::tag('th', /*$key == self::PAR ? Yii::t('golf', 'Rounds') :*/ '', ['colspan' => $rounds]);
 			}
 			if($this->getOption(self::TOTAL)) {
 				$output .= Html::tag('th', array_sum($display['data']), ['colspan' => $this->getOption(self::TO_PAR) ? 2 : 1]);
@@ -270,8 +278,8 @@ class Scoreboard extends _Scoretable {
 	protected function print_footer() {
 		$output  =  Html::beginTag('tr', ['class' => 'last-updated']);
 
-		$str = Yii::t('igolf', 'Last updated at {0}.', date('G:i:s'));
-		$str .= $this->getOption(self::AUTO_REFRESH) ? '' : ' '.Yii::t('igolf', '(Automatic refresh disabled.)');
+		$str = Yii::t('golf', 'Last updated at {0}.', date('G:i:s'));
+		$str .= $this->getOption(self::AUTO_REFRESH) ? '' : ' '.Yii::t('golf', '(Automatic refresh disabled.)');
 
 		$output .= Html::tag('td', $str, ['colspan' => $this->colspan(-2)]);
 		$output .=  Html::endTag('tr');
@@ -285,8 +293,8 @@ class Scoreboard extends _Scoretable {
 		$debug = '';
 		if(!$scoreline) {
 			$output .= Html::beginTag('tr', ['class' => 'player-error '.$name]);
-			$output .= Html::tag('td', Yii::t('igolf', $name), ['class' => 'igolf-label']);
-			$output .= Html::tag('td', Yii::t('igolf', 'No scorecard'), ['colspan' => 9]);
+			$output .= Html::tag('td', Yii::t('golf', $name), ['class' => 'igolf-label']);
+			$output .= Html::tag('td', Yii::t('golf', 'No scorecard'), ['colspan' => 9]);
 			$output .= Html::tag('td', 0, ['class' => 'total']);
 			$output .= Html::endTag('tr');;
 			return $output;
@@ -309,7 +317,7 @@ class Scoreboard extends _Scoretable {
 		/* position & name (& score type if necessary) */
 		$output .= $this->td($name, 'pos-'.$pid, $scoreline->pos);
 		$output .= Html::tag('td', $scoreline->scorecard->player->name.' '.
-					$score_type = Html::tag('span', Yii::t('igolf', $name), ['class' => 'score-type']), ['class' => 'igolf-name']);
+					$score_type = Html::tag('span', Yii::t('golf', $name), ['class' => 'score-type']), ['class' => 'igolf-name']);
 
 		//$debug = print_r($scores, true);		
 
@@ -364,7 +372,6 @@ class Scoreboard extends _Scoretable {
 		$position_accumulator = 0;
 		
 		// sort lines according to rule
-		echo $this->scoreline[0]->rule->source_type.' '.$this->scoreline[0]->rule->source_direction;
 		$method = $this->getOption(self::TO_PAR) ? 'compareToPar' : 'compare';
 
 		uasort($this->scoreline, array(Scoreline::className(), $method));

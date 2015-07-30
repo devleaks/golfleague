@@ -9,15 +9,16 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\detail\DetailView;
+use kartik\widgets\ColorInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Tees */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Facilities'), 'url' => ['facility/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Facilities'), 'url' => ['facility/index']];
 $this->params['breadcrumbs'][] = ['label' => $model->course->facility->name, 'url' => ['facility/view', 'id' => $model->course->facility_id]];
 $this->params['breadcrumbs'][] = ['label' => $model->course->name, 'url' => ['course/view', 'id' => $model->course->id]];
-$this->params['breadcrumbs'][] = $this->title . ' (' . Yii::t('igolf', ucfirst($model->color)) . ')';
+$this->params['breadcrumbs'][] = $this->title . ' (' . Yii::t('golf', ucfirst($model->color)) . ')';
 ?>
 <div class="tees-view">
 
@@ -32,16 +33,25 @@ $this->params['breadcrumbs'][] = $this->title . ' (' . Yii::t('igolf', ucfirst($
             [
                 'attribute'=>'course_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-                'label'=> Yii::t('igolf', 'Course'),
+                'label'=> Yii::t('golf', 'Course'),
 				'items' => ArrayHelper::map(Course::find()->asArray()->all(), 'id', 'name'),
                 'value' => $model->course->name,
             ],
             'name',
             [
                 'attribute'=>'color',
-				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => Yii::$app->params['tees_colors'],
-                'value'=>Yii::t('igolf', ucfirst($model->color)),
+				'type' => DetailView::INPUT_COLOR,
+				'widgetOptions' => ['pluginOptions' => [
+				    'color' => $model->color,
+					'showPaletteOnly' => true,
+				    'showPalette' => true,
+				    'palette' => [
+				        array_keys(Yii::$app->params['tees_colors'])
+				    ]
+				]],
+            	'value' => '<span class="glyphicon glyphicon-filter" style="color: '.$model->color.';"></span>',
+// alt			'value' => "<span class='badge' style='background-color: {$model->color}'> </span>  <code>" . $model->color . '</code>'
+				'format' => 'raw',
             ],
             'par',
             [

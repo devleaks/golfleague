@@ -30,7 +30,7 @@ use common\models\Competition;
 
             [
             	'attribute' => 'competition_name',
-                'label' => Yii::t('igolf', 'Competition'),
+                'label' => Yii::t('golf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->competition->name;
                 },
@@ -38,22 +38,22 @@ use common\models\Competition;
             ],
             [
             	'attribute' => 'competition_type',
-                'label' => Yii::t('igolf', 'Competition Type'),
+                'label' => Yii::t('golf', 'Competition Type'),
                 'value' => function($model, $key, $index, $widget) {
-                    return  Yii::t('igolf', $model->competition->competition_type);
+                    return  Yii::t('golf', $model->competition->competition_type);
                 },
 				'filter' => Competition::getLocalizedConstants('TYPE_'),
 				'visible' => $competition === null,
             ],
             [
             	'attribute' => 'golfer_name',
-                'label' => Yii::t('igolf', 'Golfer'),
+                'label' => Yii::t('golf', 'Golfer'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->golfer->name;
                 },
 			],
 			[
-	            'label' => Yii::t('igolf', 'Created At'),
+	            'label' => Yii::t('golf', 'Created At'),
 				'attribute' => 'created_at',
 				'format' => 'datetime',
 				'value' => function ($model, $key, $index, $widget) {
@@ -61,7 +61,7 @@ use common\models\Competition;
 				}
 			],
 			[
-	            'label' => Yii::t('igolf', 'Last Update'),
+	            'label' => Yii::t('golf', 'Last Update'),
 				'attribute' => 'updated_at',
 				'format' => 'datetime',
 				'value' => function ($model, $key, $index, $widget) {
@@ -69,7 +69,7 @@ use common\models\Competition;
 				}
 			],
 /*	        [
-	            'label' => Yii::t('igolf', 'Created By'),
+	            'label' => Yii::t('golf', 'Created By'),
 				'attribute' => 'created_by',
 				'filter' => ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'),
 	            'value' => function ($model, $key, $index, $widget) {
@@ -81,7 +81,7 @@ use common\models\Competition;
             [
                 'attribute' => 'status',
                 'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('igolf', $model->status);
+                	return Yii::t('golf', $model->status);
                 },
 				'filter' => Registration::getLocalizedPreCompetitionStatuses(),
             ],
@@ -94,19 +94,19 @@ use common\models\Competition;
 
 <?php
 $statuses = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
-				Yii::t('igolf', 'Change Status of Selected Registrations to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
+				Yii::t('golf', 'Change Status of Selected Registrations to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
 foreach(Registration::getLocalizedConstants('STATUS_') as $key => $value)
-	$statuses .= '<li>'.Html::a(Yii::t('igolf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
+	$statuses .= '<li>'.Html::a(Yii::t('golf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
 $statuses .= '</ul></div>';
 
 $buttons = '';
 if($competition) {
-	$buttons = Html::a(Yii::t('igolf', 'New Registration'), ['create', 'id' => $competition->id], ['class' => 'btn btn-success']);
-	$buttons .= ' '.Html::a(Yii::t('igolf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']);
+	$buttons = Html::a(Yii::t('golf', 'New Registration'), ['create', 'id' => $competition->id], ['class' => 'btn btn-success']);
+	$buttons .= ' '.Html::a(Yii::t('golf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']);
 }
-$buttons .= ' '.Html::a(Yii::t('igolf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data' => [
+$buttons .= ' '.Html::a(Yii::t('golf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data' => [
 				'status' => Registration::ACTION_DELETE,
-			    'confirm-local' => Yii::t('igolf', 'Are you sure you want to delete selected registration(s)?'), // interference with bootbox
+			    'confirm-local' => Yii::t('golf', 'Are you sure you want to delete selected registration(s)?'), // interference with bootbox
 ]]);
 $buttons .= ' '.$statuses;
 
@@ -114,10 +114,10 @@ if($competition) {
 	if(in_array($competition->competition_type, [Competition::TYPE_SEASON, Competition::TYPE_TOURNAMENT])) {
 		if($competition->getCompetitions()->exists()) {
 			$children = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
-							Yii::t('igolf', 'Register Selected to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
+							Yii::t('golf', 'Register Selected to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
 			foreach($competition->getCompetitions()->each() as $child)
-				$children .= '<li>'.Html::a(Yii::t('igolf', 'Register to {0}', $child->name), null, ['class' => 'igolf-bulk-action', 'data-status' => 'competition', 'data-competition' => $child->id]).'</li>';
-			$children .= '<li>'.Html::a(Yii::t('igolf', 'Register to all'), null, ['class' => 'igolf-bulk-action', 'data-status' => 'competition', 'data-competition' => -$competition->id]).'</li>';
+				$children .= '<li>'.Html::a(Yii::t('golf', 'Register to {0}', $child->name), null, ['class' => 'igolf-bulk-action', 'data-status' => 'competition', 'data-competition' => $child->id]).'</li>';
+			$children .= '<li>'.Html::a(Yii::t('golf', 'Register to all'), null, ['class' => 'igolf-bulk-action', 'data-status' => 'competition', 'data-competition' => -$competition->id]).'</li>';
 			$children .= '</ul></div>';
 			$buttons .= ' ' . $children;
 		}

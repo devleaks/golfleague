@@ -48,14 +48,14 @@ class _Flight extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'start_time' => Yii::t('igolf', 'Start Time'),
-            'start_hole' => Yii::t('igolf', 'Start Hole'),
-            'handicap' => Yii::t('igolf', 'Handicap'),
-            'position' => Yii::t('igolf', 'Position'),
-            'note' => Yii::t('igolf', 'Note'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'ID'),
+            'start_time' => Yii::t('golf', 'Start Time'),
+            'start_hole' => Yii::t('golf', 'Start Hole'),
+            'handicap' => Yii::t('golf', 'Handicap'),
+            'position' => Yii::t('golf', 'Position'),
+            'note' => Yii::t('golf', 'Note'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

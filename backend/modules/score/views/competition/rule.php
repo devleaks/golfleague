@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
 /* @var $model common\models\Competition */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-view">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.Yii::t('igolf', $model->competition_type).' '.$model->name.'</h3>',
+	        'heading' => '<h3>'.Yii::t('golf', $model->competition_type).' '.$model->name.'</h3>',
 			'headingOptions' => [
 				'template' => '{title}'
 			],
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'status',
                 'label'=>'Status',
-                'value'=> Yii::t('igolf', $model->status),
+                'value'=> Yii::t('golf', $model->status),
             ],
         ],
     ]) ?>
@@ -55,9 +55,9 @@ $this->params['breadcrumbs'][] = $this->title;
 		]),		
 	])?>
 
-	<?= Html::a(Yii::t('igolf', 'Apply Rule'), Url::to(['apply-final', 'id' => $model->id]), ['class'=>'btn btn-primary']).
+	<?= Html::a(Yii::t('golf', 'Apply Rule'), Url::to(['apply-final', 'id' => $model->id]), ['class'=>'btn btn-primary']).
 		' '.
-		Html::a(Yii::t('igolf', 'Publish'), Url::to(['publish', 'id' => $model->id]), ['class'=>'btn btn-success'])
+		Html::a(Yii::t('golf', 'Publish'), Url::to(['publish', 'id' => $model->id]), ['class'=>'btn btn-success'])
 	?>
 
 </div>

@@ -8,7 +8,7 @@ use frontend\widgets\LatestMessages;
 /* @var $searchModel app\models\FlightSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'News');
+$this->title = Yii::t('golf', 'News');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="news-index">

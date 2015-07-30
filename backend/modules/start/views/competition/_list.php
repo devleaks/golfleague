@@ -25,9 +25,9 @@ Icon::map($this);
 
             //'id',
             [
-                'label' => Yii::t('igolf', 'Competition'),
+                'label' => Yii::t('golf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
-                    return Yii::t('igolf', $model->competition_type);
+                    return Yii::t('golf', $model->competition_type);
                 },
             ],
             'name',
@@ -49,10 +49,10 @@ Icon::map($this);
 			],
 			[
 				'attribute' => 'registration_end',
-				'format' => 'datetime',
+				'format' => 'raw',
 				'value' => function ($model, $key, $index, $widget) {
-					return new DateTime($model->registration_end);
-				}
+					return '<span class="'.($model->registration_end < date('Y-m-d H:i:s') ? 'text-danger' : '').'">'. Yii::$app->formatter->asDateTime(new DateTime($model->registration_end)) . '</span';
+				},
 			],
             // 'registration_begin',
             // 'handicap_min',

@@ -10,13 +10,13 @@ use kartik\icons\Icon;
 
 Icon::map($this, Icon::WHHG); 
 
-$this->title = Yii::t('igolf', 'Tournaments');
+$this->title = Yii::t('golf', 'Tournaments');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="competition-index">
 
     <?= $this->render('_list_tournaments', [
-			'title' => Yii::t('igolf', 'Open'),
+			'title' => Yii::t('golf', 'Open'),
 	        'dataProvider' => $openProvider,
 	        'filterModel' => $openSearch,
 			'actionButtons' => [
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					'leaderboard' => function ($url, $model) {
 						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
 	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Leaderboard'),
+	                        'title' => Yii::t('golf', 'Leaderboard'),
 	                    ]);
 	                },
 				],
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list_tournaments', [
-			'title' => Yii::t('igolf', 'Ready'),
+			'title' => Yii::t('golf', 'Ready'),
 	        'dataProvider' => $readyProvider,
 	        'filterModel' => $readySearch,
 			'actionButtons' => [
@@ -44,13 +44,13 @@ $this->params['breadcrumbs'][] = $this->title;
 					'leaderboard' => function ($url, $model) {
 						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
 	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Leaderboard'),
+	                        'title' => Yii::t('golf', 'Leaderboard'),
 	                    ]);
 	                },
 	                'scorecards' => function ($url, $model) {
 						$url = Url::to(['scorecard/competition', 'id' => $model->id]);
 	                    return Html::a(Icon::show('invoice', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Scorecards'),
+	                        'title' => Yii::t('golf', 'Scorecards'),
 	                    ]);
 	                },
 				],
@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list_tournaments', [
-			'title' => Yii::t('igolf','Completed'),
+			'title' => Yii::t('golf','Completed'),
 	        'dataProvider' => $completedProvider,
 	        'filterModel' => $completedSearch,
 			'actionButtons' => [
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	                'rule' => function ($url, $model) {
 						$url = Url::to(['rule/view', 'id' => $model->id]);
 	                    return Html::a(Icon::show('trophy', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Apply Competition Rules'),
+	                        'title' => Yii::t('golf', 'Apply Competition Rules'),
 	                    ]);
 	                },
 				],
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list_tournaments', [
-			'title' => Yii::t('igolf','Closed'),
+			'title' => Yii::t('golf','Closed'),
 	        'dataProvider' => $closedProvider,
 	        'filterModel' => $closedSearch,
 			'actionButtons' => [
@@ -86,13 +86,13 @@ $this->params['breadcrumbs'][] = $this->title;
 					'leaderboard' => function ($url, $model) {
 						$url = Url::to(['competition/leaderboard', 'id' => $model->id]);
 	                    return Html::a(Icon::show('numberlist', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'Leaderboard'),
+	                        'title' => Yii::t('golf', 'Leaderboard'),
 	                    ]);
 	                },
 	                'result' => function ($url, $model) {
 						$url = Url::to(['result/list', 'id' => $model->id]);
 	                    return Html::a(Icon::show('podium-winner', [], Icon::WHHG), $url, [
-	                        'title' => Yii::t('igolf', 'View scores'),
+	                        'title' => Yii::t('golf', 'View scores'),
 	                    ]);
 	                },
 				],

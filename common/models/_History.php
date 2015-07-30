@@ -49,15 +49,15 @@ class _History extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'object_type' => Yii::t('igolf', 'Object Type'),
-            'object_id' => Yii::t('igolf', 'Object ID'),
-            'action' => Yii::t('igolf', 'Action'),
-            'note' => Yii::t('igolf', 'Note'),
-            'performer_id' => Yii::t('igolf', 'Performer ID'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'payload' => Yii::t('igolf', 'Payload'),
-            'summary' => Yii::t('igolf', 'Summary'),
+            'id' => Yii::t('golf', 'ID'),
+            'object_type' => Yii::t('golf', 'Object Type'),
+            'object_id' => Yii::t('golf', 'Object ID'),
+            'action' => Yii::t('golf', 'Action'),
+            'note' => Yii::t('golf', 'Note'),
+            'performer_id' => Yii::t('golf', 'Performer ID'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'payload' => Yii::t('golf', 'Payload'),
+            'summary' => Yii::t('golf', 'Summary'),
         ];
     }
 }

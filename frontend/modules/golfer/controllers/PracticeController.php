@@ -124,7 +124,7 @@ class PracticeController extends Controller
 				}
 			}
 			if($count > 0) {
-				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Scorecard updated.'));
+				Yii::$app->session->setFlash('success', Yii::t('golf', 'Scorecard updated.'));
 			}
 		}
 

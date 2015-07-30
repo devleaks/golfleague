@@ -5,13 +5,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Flight */
 
-$this->title = Yii::t('igolf', 'Update {modelClass}: ', [
+$this->title = Yii::t('golf', 'Update {modelClass}: ', [
     'modelClass' => 'Flight',
 ]) . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Flights'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Flights'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('igolf', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('golf', 'Update');
 ?>
 <div class="flight-update">
 

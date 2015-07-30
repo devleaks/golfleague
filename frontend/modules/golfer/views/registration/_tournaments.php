@@ -18,59 +18,59 @@ $me = Golfer::me();
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 		'panel' => [
-	        'heading' => '<h4>'.Yii::t('igolf', 'Simple Matches').'</h4>',
-			'before' => Yii::t('igolf', 'Single match or multiple matches tournaments, not part of a larger competition.'),
+	        'heading' => '<h4>'.Yii::t('golf', 'Simple Matches').'</h4>',
+			'before' => Yii::t('golf', 'Single match or multiple matches tournaments, not part of a larger competition.'),
 			'beforeOptions' => ['class' => 'alert-info'],
 		],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
             [
-                'label' => Yii::t('igolf', 'Competition'),
+                'label' => Yii::t('golf', 'Competition'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->name;
                 },
             ],
             [
-                'label' => Yii::t('igolf', 'From'),
+                'label' => Yii::t('golf', 'From'),
 				'format' => 'date',
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->getStartDate();
                 },
             ],
             [
-                'label' => Yii::t('igolf', 'To'),
+                'label' => Yii::t('golf', 'To'),
 				'format' => 'date',
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->getEndDate();
                 },
             ],
             [
-                'label' => Yii::t('igolf', 'Registration start date'),
+                'label' => Yii::t('golf', 'Registration start date'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->registration_begin;
                 },
             ],
             [
-                'label' => Yii::t('igolf', 'Registration end date'),
+                'label' => Yii::t('golf', 'Registration end date'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->registration_end;
                 },
             ],
             [
-                'label' => Yii::t('igolf', 'Handicap'),
+                'label' => Yii::t('golf', 'Handicap'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->handicap_min . '-' . $model->handicap_max;
                 },
             ],
             [
-                'label' => Yii::t('igolf', 'Age'),
+                'label' => Yii::t('golf', 'Age'),
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->age_min . '-' . $model->age_max;
                 },
             ],
             'name',
             [
-                'label' => Yii::t('igolf', 'Number of Matches'),
+                'label' => Yii::t('golf', 'Number of Matches'),
                 'value' => function ($model, $key, $index, $widget) {
 					return $model->getMatches()->count();
                 },
@@ -87,12 +87,12 @@ $me = Golfer::me();
 						if ($model->registered($me)) {
 							$url = Url::to(['registration/deregister', 'id' => $model->id]);
 		                    $a = Html::a('<i class="glyphicon glyphicon-minus"></i>', $url, [
-		                        'title' => Yii::t('igolf', 'Deregister'),
+		                        'title' => Yii::t('golf', 'Deregister'),
 		                    ]);
 						} else {
 							$url = Url::to(['registration/register', 'id' => $model->id]);
 		                    $a = Html::a('<i class="glyphicon glyphicon-plus"></i>', $url, [
-		                        'title' => Yii::t('igolf', 'Register'),
+		                        'title' => Yii::t('golf', 'Register'),
 		                    ]);
 						}
 						return $a;

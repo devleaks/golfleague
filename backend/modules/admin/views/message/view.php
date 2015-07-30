@@ -8,7 +8,7 @@ use common\models\Message;
 /* @var $model common\models\Message */
 
 $this->title = $model->subject;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Messages'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Messages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="message-view">

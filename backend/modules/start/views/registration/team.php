@@ -14,8 +14,8 @@ use yii\widgets\ActiveForm;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 TeamsAsset::register($this);
 
-$this->title = Yii::t('igolf', 'Teams for ').$competition->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
+$this->title = Yii::t('golf', 'Teams for ').$competition->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="registration-index">
@@ -70,11 +70,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin(['id' => 'teams-form']); ?>
 <?= Html::hiddenInput( 'teams', null, ['id' => 'savedteams'] )?>
-<?= Html::submitButton(Yii::t('igolf', 'Save Teams'), ['class' => 'btn btn-success']) ?>
+<?= Html::submitButton(Yii::t('golf', 'Save Teams'), ['class' => 'btn btn-success']) ?>
 
-<?= Html::a(Yii::t('igolf', 'Delete All Teams and Start Over'), ['team/reset', 'competition_id' => $competition->id], ['class' => 'btn btn-warning']) ?>
+<?= Html::a(Yii::t('golf', 'Delete All Teams and Start Over'), ['team/reset', 'competition_id' => $competition->id], ['class' => 'btn btn-warning']) ?>
 
-<?= Html::a(Yii::t('igolf', 'Publish Teams'), ['team/publish', 'id' => $competition->id], ['class' => 'btn btn-primary']) ?>
+<?= Html::a(Yii::t('golf', 'Publish Teams'), ['team/publish', 'id' => $competition->id], ['class' => 'btn btn-primary']) ?>
 
 <?php ActiveForm::end(); ?>
 

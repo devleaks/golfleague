@@ -61,21 +61,21 @@ class _Rule extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'name' => Yii::t('igolf', 'Name'),
-            'competition_type' => Yii::t('igolf', 'Competition Type'),
-            'source_type' => Yii::t('igolf', 'Source Type'),
-            'source_direction' => Yii::t('igolf', 'Source Direction'),
-            'destination_type' => Yii::t('igolf', 'Destination Type'),
-            'rule_type' => Yii::t('igolf', 'Rule Type'),
-            'team' => Yii::t('igolf', 'Team'),
-            'description' => Yii::t('igolf', 'Description'),
-            'classname' => Yii::t('igolf', 'Classname'),
-            'parameters' => Yii::t('igolf', 'Parameters'),
-            'note' => Yii::t('igolf', 'Note'),
-            'status' => Yii::t('igolf', 'Status'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'ID'),
+            'name' => Yii::t('golf', 'Name'),
+            'competition_type' => Yii::t('golf', 'Competition Type'),
+            'source_type' => Yii::t('golf', 'Source Type'),
+            'source_direction' => Yii::t('golf', 'Source Direction'),
+            'destination_type' => Yii::t('golf', 'Destination Type'),
+            'rule_type' => Yii::t('golf', 'Rule Type'),
+            'team' => Yii::t('golf', 'Team'),
+            'description' => Yii::t('golf', 'Description'),
+            'classname' => Yii::t('golf', 'Classname'),
+            'parameters' => Yii::t('golf', 'Parameters'),
+            'note' => Yii::t('golf', 'Note'),
+            'status' => Yii::t('golf', 'Status'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

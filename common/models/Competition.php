@@ -117,14 +117,14 @@ class Competition extends _Competition
     {
         return array_merge(
 			parent::rules(), [
-	            'id' => Yii::t('igolf', 'Competition'),
-	            'parent_id' => Yii::t('igolf', 'Part Of'),
-	            'course_id' => Yii::t('igolf', 'Course'),
-	            'rule_id' => Yii::t('igolf', 'Rule'),
-	            'final_rule_id' => Yii::t('igolf', 'Rule Final'),
-	            'recurrence_id' => Yii::t('igolf', 'Recurrence'),
-	            'cba' => Yii::t('igolf', 'CBA'),
-	            'media' => Yii::t('igolf', 'Pictures'),
+	            'id' => Yii::t('golf', 'Competition'),
+	            'parent_id' => Yii::t('golf', 'Part Of'),
+	            'course_id' => Yii::t('golf', 'Course'),
+	            'rule_id' => Yii::t('golf', 'Rule'),
+	            'final_rule_id' => Yii::t('golf', 'Rule Final'),
+	            'recurrence_id' => Yii::t('golf', 'Recurrence'),
+	            'cba' => Yii::t('golf', 'CBA'),
+	            'media' => Yii::t('golf', 'Pictures'),
         	]
 		);
     }
@@ -227,7 +227,7 @@ class Competition extends _Competition
 	 */
 	public function breadcrumbs() {
 		$before = $this->parent_id ? $this->parent->breadcrumbs() : [];
-		$before[] = ['label' => Yii::t('igolf', $this->name), 'url' => ['view', 'id'=>$this->id]];
+		$before[] = ['label' => Yii::t('golf', $this->name), 'url' => ['view', 'id'=>$this->id]];
 		return $before;
 	}
 
@@ -290,7 +290,7 @@ class Competition extends _Competition
 		if($parent = $this->getParent()->one()) { // will be null for season
 			$seq = 1;
 			foreach($parent->getCompetitions()->orderBy('start_date')->each() as $competition) { // are we sure comp is always in its parent's children !? ;-)
-				if($competition->id = $this->id) {
+				if($competition->id == $this->id) {
 					return $seq;
 				} else {
 					$seq++;
@@ -644,7 +644,7 @@ class Competition extends _Competition
 			'object_type' => $this->competition_type,
 			'object_id' => $this->id,
 			'name'	=> $this->name,
-			'description' => Yii::t('igolf', 'Competition registration'),
+			'description' => Yii::t('golf', 'Competition registration'),
 			'event_type' => 'REGISTRATION',
 			'status' => Event::STATUS_ACTIVE,
 			'event_start' => $this->registration_begin,
@@ -655,7 +655,7 @@ class Competition extends _Competition
 				'object_type' => $this->competition_type,
 				'object_id' => $this->id,
 				'name'	=> $this->name,
-				'description' => Yii::t('igolf', $this->competition_type),
+				'description' => Yii::t('golf', $this->competition_type),
 				'event_type' => 'COMPETITION',
 				'status' => Event::STATUS_ACTIVE,
 				'event_start' => $this->start_date,

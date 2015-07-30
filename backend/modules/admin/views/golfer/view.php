@@ -12,7 +12,7 @@ use yii2mod\selectize\Selectize;
 /* @var $model common\models\Golfer */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Golfers'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Golfers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="golfer-view">
@@ -32,12 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
 				'attribute' => 'gender',
 				'type' => DetailView::INPUT_RADIO_LIST,
-				'items' => [''=>Yii::t('igolf', 'Unspecified')]+Golfer::getLocalizedConstants('GENDER_')
+				'items' => [''=>Yii::t('golf', 'Unspecified')]+Golfer::getLocalizedConstants('GENDER_')
 			],
             [
 				'attribute' => 'hand',
 				'type' => DetailView::INPUT_RADIO_LIST,
-				'items' => [''=>Yii::t('igolf', 'Unspecified')]+Golfer::getLocalizedConstants('HAND_')
+				'items' => [''=>Yii::t('golf', 'Unspecified')]+Golfer::getLocalizedConstants('HAND_')
 			],
             'homecourse',
 			[

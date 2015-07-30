@@ -17,7 +17,7 @@ use yii\helpers\Url;
 		'options' => ['id' => 'registration'],
         'dataProvider' => $dataProvider,
 		'panel'=>[
-	        'heading' => '<h4>'.Yii::t('igolf', 'Scorecards').'</h4>',
+	        'heading' => '<h4>'.Yii::t('golf', 'Scorecards').'</h4>',
 			'footer' => false,
 	    ],
 		'pjax' => true,
@@ -28,7 +28,7 @@ use yii\helpers\Url;
         'columns' => [
             [
             	'attribute' => 'golfer_name',
-                'label' => Yii::t('igolf', 'Golfer'),
+                'label' => Yii::t('golf', 'Golfer'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->player->name;
                 },
@@ -41,9 +41,9 @@ use yii\helpers\Url;
 			'rounds',
             [
                 'attribute' => 'status',
-            	'label' => Yii::t('igolf', 'Scorecard Status'),
+            	'label' => Yii::t('golf', 'Scorecard Status'),
                 'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('igolf', $model->status);
+                	return Yii::t('golf', $model->status);
                 },
 				'filter' => Registration::getLocalizedPostCompetitionStatuses(),
             ],

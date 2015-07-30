@@ -117,7 +117,7 @@ having tot_count = 1
 		$model->status = Registration::STATUS_REGISTERED;
 		$model->save();
 		
-        Yii::$app->session->setFlash('success', Yii::t('igolf', 'You registered to competition "{0}".', $model->competition->name));
+        Yii::$app->session->setFlash('success', Yii::t('golf', 'You registered to competition "{0}".', $model->competition->name));
         return $this->render('view', [
             'model' => $model,
 			'competition' => $model->competition,
@@ -136,7 +136,7 @@ having tot_count = 1
         } else {
             $model = Competition::findOne($id);
             if ($model->register($me))
-                Yii::$app->session->setFlash('success', Yii::t('igolf', 'You registered to competition "{0}".', $model->name));
+                Yii::$app->session->setFlash('success', Yii::t('golf', 'You registered to competition "{0}".', $model->name));
 			// else flash set in register()
         }
         return $this->redirect(Yii::$app->request->getReferrer());
@@ -154,9 +154,9 @@ having tot_count = 1
         } else { 
             $model = Competition::findOne($id);
             if ($model->deregister($me))
-                Yii::$app->session->setFlash('success', Yii::t('igolf', 'You deregistered from competition "{0}".', $model->name));
+                Yii::$app->session->setFlash('success', Yii::t('golf', 'You deregistered from competition "{0}".', $model->name));
             else
-                Yii::$app->session->setFlash('error', Yii::t('igolf', 'You cannot deregister from competition "{0}".', $model->name));
+                Yii::$app->session->setFlash('error', Yii::t('golf', 'You cannot deregister from competition "{0}".', $model->name));
         }
         return $this->redirect(Yii::$app->request->getReferrer());
     }

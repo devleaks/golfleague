@@ -17,7 +17,7 @@ foreach($competition->getStarts()->each() as $start)
 
 
 $this->title = $competition->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="registration-index">
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
             	'attribute' => 'competition_name',
-                'label' => Yii::t('igolf', 'Competition'),
+                'label' => Yii::t('golf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->competition->name;
                 },
@@ -48,16 +48,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
             	'attribute' => 'competition_type',
-                'label' => Yii::t('igolf', 'Competition Type'),
+                'label' => Yii::t('golf', 'Competition Type'),
                 'value' => function($model, $key, $index, $widget) {
-                    return  Yii::t('igolf', $model->competition->competition_type);
+                    return  Yii::t('golf', $model->competition->competition_type);
                 },
 				'filter' => Competition::getLocalizedConstants('TYPE_'),
 				'visible' => $competition === null,
             ],
             [
             	'attribute' => 'golfer_name',
-                'label' => Yii::t('igolf', 'Golfer'),
+                'label' => Yii::t('golf', 'Golfer'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->golfer->name;
                 },
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				}
 			],
 /*	        [
-	            'label' => Yii::t('igolf', 'Created By'),
+	            'label' => Yii::t('golf', 'Created By'),
 				'attribute' => 'created_by',
 				'filter' => ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'),
 	            'value' => function ($model, $key, $index, $widget) {
@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('igolf', $model->status);
+                	return Yii::t('golf', $model->status);
                 },
 				'filter' => Registration::getLocalizedConstants('STATUS_'),
             ],
@@ -96,12 +96,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
 $statuses = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
-				Yii::t('igolf', 'Set Tees of Selected Golfer to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
+				Yii::t('golf', 'Set Tees of Selected Golfer to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
 foreach($starts as $key => $value)
-	$statuses .= '<li>'.Html::a(Yii::t('igolf', $value), null, ['class' => 'igolf-bulk-action', 'data-tees_id' => $key]).'</li>';
+	$statuses .= '<li>'.Html::a(Yii::t('golf', $value), null, ['class' => 'igolf-bulk-action', 'data-tees_id' => $key]).'</li>';
 $statuses .= '</ul></div>';
 
-$buttons = Html::a(Yii::t('igolf', 'Assign Tees'), ['assign-tees', 'id' => $competition->id], ['class' => 'btn btn-success']);
+$buttons = Html::a(Yii::t('golf', 'Assign Tees'), ['assign-tees', 'id' => $competition->id], ['class' => 'btn btn-success']);
 $buttons .= ' '.$statuses;
 echo $buttons;
 ?>

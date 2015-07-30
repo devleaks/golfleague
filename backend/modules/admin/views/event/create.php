@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Event */
 
-$this->title = Yii::t('igolf', 'Create {modelClass}', [
+$this->title = Yii::t('golf', 'Create {modelClass}', [
     'modelClass' => 'Event',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Events'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Events'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-create">

@@ -19,17 +19,17 @@ $this->title = 'My Golf League';
 
         <div class="row">
             <div class="col-lg-8">
-                <h2><?= Yii::t('igolf', 'Competitions') ?></h2>
+                <h2><?= Yii::t('golf', 'Competitions') ?></h2>
 
 				<?= Tabs::widget([
 						'items' => [
 							[
-					            'label' => Yii::t('igolf', 'Calendar'),
+					            'label' => Yii::t('golf', 'Calendar'),
 					            'content' => Calendar::widget(),
 					            'active' => true
 					        ],
 					        [
-					            'label' => Yii::t('igolf', 'List'),
+					            'label' => Yii::t('golf', 'List'),
 					            'content' => GridView::widget([
 							        'dataProvider' => $competitions,
 									'panel'=>[

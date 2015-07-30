@@ -51,17 +51,17 @@ class _CompetitionRegistration extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'name' => Yii::t('igolf', 'Name'),
-            'event_type' => Yii::t('igolf', 'Event Type'),
-            'status' => Yii::t('igolf', 'Status'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
-            'description' => Yii::t('igolf', 'Description'),
-            'event_start' => Yii::t('igolf', 'Event Start'),
-            'event_end' => Yii::t('igolf', 'Event End'),
-            'object_type' => Yii::t('igolf', 'Object Type'),
-            'object_id' => Yii::t('igolf', 'Object ID'),
+            'id' => Yii::t('golf', 'ID'),
+            'name' => Yii::t('golf', 'Name'),
+            'event_type' => Yii::t('golf', 'Event Type'),
+            'status' => Yii::t('golf', 'Status'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
+            'description' => Yii::t('golf', 'Description'),
+            'event_start' => Yii::t('golf', 'Event Start'),
+            'event_end' => Yii::t('golf', 'Event End'),
+            'object_type' => Yii::t('golf', 'Object Type'),
+            'object_id' => Yii::t('golf', 'Object ID'),
         ];
     }
 }

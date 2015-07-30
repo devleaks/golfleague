@@ -1342,7 +1342,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>140.00</height>
+            <height>160.00</height>
         </size>
         <zorder>6</zorder>
         <SQLField>
@@ -1383,6 +1383,13 @@
             <notNull><![CDATA[1]]></notNull>
             <temporaryOriginalName><![CDATA[holes]]></temporaryOriginalName>
             <uid><![CDATA[758C6970-9EE0-4303-9A0F-8AB41C316DC5]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[location]]></name>
+            <type><![CDATA[VARCHAR(80)]]></type>
+            <forcedUnique><![CDATA[0]]></forcedUnique>
+            <uid><![CDATA[F66C60D1-626A-4A93-AB86-7A46C35B133B]]></uid>
+            <unique><![CDATA[0]]></unique>
         </SQLField>
         <SQLField>
             <name><![CDATA[created_at]]></name>
@@ -2506,7 +2513,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[625.000000]]></windowLocationX>
         <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{48, 2}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{4, 0}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

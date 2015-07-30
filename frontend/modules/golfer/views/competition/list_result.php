@@ -22,14 +22,14 @@ use yii\data\ActiveDataProvider;
 
             //'id',
             [
-                'label' => Yii::t('igolf', 'Competition'),
+                'label' => Yii::t('golf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
-                    return Yii::t('igolf', $model->competition_type);
+                    return Yii::t('golf', $model->competition_type);
                 },
             ],
             'name',
             [
-                'label' => Yii::t('igolf', 'Competition'),
+                'label' => Yii::t('golf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
                     return $model->parent ? $model->parent->name : '';
                 },

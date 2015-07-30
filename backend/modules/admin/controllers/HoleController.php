@@ -57,10 +57,10 @@ class HoleController extends GolfLeagueController
                     $count++;
                 }
             }
-            Yii::$app->session->setFlash('success', Yii::t('igolf', "Processed {0} records successfully.", $count));
+            Yii::$app->session->setFlash('success', Yii::t('golf', "Processed {0} records successfully.", $count));
             return $this->redirect(['tees/view', 'id' => $tees_id]); // redirect to your next desired page
         } else {
-            Yii::$app->session->setFlash('error', Yii::t('igolf', "There are errors processing your request: ".$errors."."));
+            Yii::$app->session->setFlash('error', Yii::t('golf', "There are errors processing your request: ".$errors."."));
             return $this->redirect(['tees/view', 'id' => $tees_id]); // redirect to your next desired page
         }        
     }

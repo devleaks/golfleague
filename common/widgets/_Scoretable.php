@@ -101,14 +101,14 @@ class _Scoretable extends Widget {
 
 	public static function stat_name($id) {
 		switch ($id) {
-			case -4: return Yii::t('igolf', 'Condor'); break;
-			case -3: return Yii::t('igolf', 'Albatross'); break;
-			case -2: return Yii::t('igolf', 'Eagle'); break;
-			case -1: return Yii::t('igolf', 'Birdy'); break;
-			case  0: return Yii::t('igolf', 'Par'); break;
-			case  1: return Yii::t('igolf', 'Bogey'); break;
-			case  2: return Yii::t('igolf', 'Double bogey'); break;
-			case  3: return Yii::t('igolf', 'Tripple bogey or worse'); break;
+			case -4: return Yii::t('golf', 'Condor'); break;
+			case -3: return Yii::t('golf', 'Albatross'); break;
+			case -2: return Yii::t('golf', 'Eagle'); break;
+			case -1: return Yii::t('golf', 'Birdy'); break;
+			case  0: return Yii::t('golf', 'Par'); break;
+			case  1: return Yii::t('golf', 'Bogey'); break;
+			case  2: return Yii::t('golf', 'Double bogey'); break;
+			case  3: return Yii::t('golf', 'Tripple bogey or worse'); break;
 		}
 	}
 
@@ -117,24 +117,24 @@ class _Scoretable extends Widget {
 		return $numeric ? '
 			<table class="scorecard-legend">
 			  <tr>
-				<td><div class="'.$p.'-3">-3</div> '.Yii::t('igolf', 'or less').'</td>
+				<td><div class="'.$p.'-3">-3</div> '.Yii::t('golf', 'or less').'</td>
 				<td><div class="'.$p.'-2">-2</div></td>
 				<td><div class="'.$p.'-1">-1</div></td>
 				<td><div class="'.$p.'0">Par</div></td>
 				<td><div class="'.$p.'1">+1</div></td>
 				<td><div class="'.$p.'2">+2</div></td>
-				<td><div class="'.$p.'3">+3</div> '.Yii::t('igolf', 'or more').'</td>
+				<td><div class="'.$p.'3">+3</div> '.Yii::t('golf', 'or more').'</td>
 			  </tr>
 			</table>' : '
 			<table class="scorecard-legend">
 			  <tr>
-				<td class="'.$p.'-3">'.self::stat_name(-3).' '.Yii::t('igolf', 'or less').'</td>
+				<td class="'.$p.'-3">'.self::stat_name(-3).' '.Yii::t('golf', 'or less').'</td>
 				<td class="'.$p.'-2">'.self::stat_name(-2).'</td>
 				<td class="'.$p.'-1">'.self::stat_name(-1).'</td>
 				<td class="'.$p.'0">'. self::stat_name(0) .'</td>
 				<td class="'.$p.'1">'. self::stat_name(1) .'</td>
 				<td class="'.$p.'2">'. self::stat_name(2) .'</td>
-				<td class="'.$p.'3">'. self::stat_name(3) .' '.Yii::t('igolf', 'or more').'</td>
+				<td class="'.$p.'3">'. self::stat_name(3) .' '.Yii::t('golf', 'or more').'</td>
 			  </tr>
 			</table>' ;
 	}

@@ -8,14 +8,14 @@ use kartik\grid\GridView;
 /* @var $searchModel common\models\CompetitionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Competitions');
+$this->title = Yii::t('golf', 'Competitions');
 $this->params['breadcrumbs'][] = $this->title;
 
 $actionCol = ['class' => 'kartik\grid\ActionColumn',
     'template' => '{flight}',
     'buttons' => [
         'flight' => function ($url, $model) {
-            return Html::a('<span class="glyphicon glyphicon-calendar"></span>', $url, ['title' => Yii::t('igolf', 'Make Flights')]);;
+            return Html::a('<span class="glyphicon glyphicon-calendar"></span>', $url, ['title' => Yii::t('golf', 'Make Flights')]);;
         },
     ],
     'urlCreator' => function ($action, $model, $key, $index) {
@@ -30,7 +30,7 @@ $actionCol = ['class' => 'kartik\grid\ActionColumn',
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('igolf', 'Create {modelClass}', [
+        <?= Html::a(Yii::t('golf', 'Create {modelClass}', [
     'modelClass' => 'Competition',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -42,16 +42,16 @@ $actionCol = ['class' => 'kartik\grid\ActionColumn',
             ['class' => 'kartik\grid\SerialColumn'],
 
             [
-                'label' => Yii::t('igolf', 'Part of'),
+                'label' => Yii::t('golf', 'Part of'),
                 'value' => function($model, $key, $index, $widget) {
-                    return $model->name . ' ('.Yii::t('igolf', $model->competition_type).')';
+                    return $model->name . ' ('.Yii::t('golf', $model->competition_type).')';
                 },
             ],
             'description',
             [
-                'label' => Yii::t('igolf', 'Part of'),
+                'label' => Yii::t('golf', 'Part of'),
                 'value' => function($model, $key, $index, $widget) {
-                    return $model->parent ? $model->parent->name . ' ('.Yii::t('igolf', $model->parent->competition_type).')' : '-';
+                    return $model->parent ? $model->parent->name . ' ('.Yii::t('golf', $model->parent->competition_type).')' : '-';
                 },
             ],
             // 'course_id',

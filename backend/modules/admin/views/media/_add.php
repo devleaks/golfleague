@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $model app\models\Model-with-picture */
-$delete_picture = Yii::t('igolf', 'Remove picture');
+$delete_picture = Yii::t('golf', 'Remove picture');
 $items = array();
 if(method_exists($model, 'shareMedia'))
 	foreach($model->shareMedia()->each() as $sharer)
@@ -28,12 +28,12 @@ else
 	]); ?>
 
 	<?= Html::panel([
-		'heading' => Html::tag('h4', Yii::t('igolf', 'Pictures')),
+		'heading' => Html::tag('h4', Yii::t('golf', 'Pictures')),
 		'body' => $form->field($model, 'media[]')->widget(FileInput::classname(), [
 			'options' => ['accept' => 'image/jpeg, image/png, image/gif', 'multiple' => true],
 			'pluginOptions' => [
 				'initialPreview'    => $items,
-				'initialCaption'    => Yii::t('igolf', 'Select pictures with Browse... then press Upload.'),
+				'initialCaption'    => Yii::t('golf', 'Select pictures with Browse... then press Upload.'),
 				'overwriteInitial'  => false
 			]
 		])->label(''),

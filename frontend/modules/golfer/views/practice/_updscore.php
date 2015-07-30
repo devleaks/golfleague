@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Scorecard');
+$this->title = Yii::t('golf', 'Scorecard');
 
 ?>
 <div class="scorecard-update">

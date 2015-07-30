@@ -149,7 +149,7 @@ class RegistrationController extends GolfLeagueController
 			// Registration::deleteAll(['id' => $ids]);
 			foreach(Registration::find()->andWhere(['id' => $ids])->each() as $registration) {
 				if($registration->hasChildren()) {
-					Yii::$app->session->setFlash('error', Yii::t('igolf', 'Cannot delete registration that has children.'));
+					Yii::$app->session->setFlash('error', Yii::t('golf', 'Cannot delete registration that has children.'));
 				} else {
 					$registration->delete();		
 				}

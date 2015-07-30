@@ -23,8 +23,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'status')->dropDownList($model::getLocalizedConstants('STATUS_')) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('igolf', 'Create') :
-													 Yii::t('igolf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('golf', 'Create') :
+													 Yii::t('golf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

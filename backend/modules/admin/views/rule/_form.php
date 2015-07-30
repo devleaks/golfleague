@@ -26,34 +26,34 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'note')->textInput(['maxlength' => 255]) ?>
 
     <?= $form->field($model, 'competition_type')->dropDownList(Competition::getLocalizedConstants('TYPE_'))
-			->hint(Yii::t('igolf', 'Rule applies to this type of competition')) ?>
+			->hint(Yii::t('golf', 'Rule applies to this type of competition')) ?>
 
     <?= $form->field($model, 'source_type')->dropDownList(Scorecard::getConstants('SCORE_'))
-			->hint(Yii::t('igolf', 'Source column for score')) ?>
+			->hint(Yii::t('golf', 'Source column for score')) ?>
 
     <?= $form->field($model, 'source_direction')->dropDownList(Scorecard::getConstants('DIRECTION_'))
-			->hint(Yii::t('igolf', 'Source column for score ordering. ASC is smallest wins to largest looses. DESC is opposite.')) ?>
+			->hint(Yii::t('golf', 'Source column for score ordering. ASC is smallest wins to largest looses. DESC is opposite.')) ?>
 
     <?= $form->field($model, 'destination_type')->dropDownList(Scorecard::getConstants('SCORE_'))
-			->hint(Yii::t('igolf', 'Destination column for result.')) ?>
+			->hint(Yii::t('golf', 'Destination column for result.')) ?>
 
 	<?=	$form->field($model, 'handicap')->widget(SwitchInput::className(), [
 		'pluginOptions' => [
-			'onText'  => Yii::t('igolf', '   Use Handicap    '),
-			'offText' => Yii::t('igolf', 'Do Not Use Handicap')
+			'onText'  => Yii::t('golf', '   Use Handicap    '),
+			'offText' => Yii::t('golf', 'Do Not Use Handicap')
 		]
 	]) ?>
 			
     <?= $form->field($model, 'team')->dropDownList(Rule::getTeamList())
-			->hint(Yii::t('igolf', 'Camp size')) ?>
+			->hint(Yii::t('golf', 'Camp size')) ?>
 
     <?= $form->field($model, 'classname')->dropDownList(Rule::getList())
-			->hint(Yii::t('igolf', 'Rule to apply')) ?>
+			->hint(Yii::t('golf', 'Rule to apply')) ?>
 
 	<?= $form->field($model, 'parameters')->textInput(['maxlength' => 255]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('igolf', 'Create') : Yii::t('igolf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('golf', 'Create') : Yii::t('golf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

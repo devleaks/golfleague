@@ -47,12 +47,12 @@ class _Course extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'facility_id' => Yii::t('igolf', 'Facility'),
-            'name' => Yii::t('igolf', 'Name'),
-            'holes' => Yii::t('igolf', 'Holes'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'ID'),
+            'facility_id' => Yii::t('golf', 'Facility'),
+            'name' => Yii::t('golf', 'Name'),
+            'holes' => Yii::t('golf', 'Holes'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

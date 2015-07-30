@@ -55,16 +55,16 @@ class _Registration extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'competition_id' => Yii::t('igolf', 'Competition ID'),
-            'golfer_id' => Yii::t('igolf', 'Golfer ID'),
-            'tees_id' => Yii::t('igolf', 'Tees ID'),
-            'team_id' => Yii::t('igolf', 'Team ID'),
-            'flight_id' => Yii::t('igolf', 'Flight ID'),
-            'note' => Yii::t('igolf', 'Note'),
-            'status' => Yii::t('igolf', 'Status'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'ID'),
+            'competition_id' => Yii::t('golf', 'Competition ID'),
+            'golfer_id' => Yii::t('golf', 'Golfer ID'),
+            'tees_id' => Yii::t('golf', 'Tees ID'),
+            'team_id' => Yii::t('golf', 'Team ID'),
+            'flight_id' => Yii::t('golf', 'Flight ID'),
+            'note' => Yii::t('golf', 'Note'),
+            'status' => Yii::t('golf', 'Status'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

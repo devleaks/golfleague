@@ -9,17 +9,17 @@ use kartik\builder\TabularForm;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Holes');
+$this->title = Yii::t('golf', 'Holes');
 
 $buttons = '';
 
 if( sizeof($tees->getHoles()->all()) == 0 ) {
-    $buttons .= Html::a(Yii::t('igolf', 'Create holes'), ['tees/addholes', 'id' => $tees->id], ['class' => 'btn btn-primary']);
+    $buttons .= Html::a(Yii::t('golf', 'Create holes'), ['tees/addholes', 'id' => $tees->id], ['class' => 'btn btn-primary']);
 
     $tees_with_holes = $tees->course->getTeesWithHoles();
     if(sizeof($tees_with_holes) > 0 ) {
 	    $buttons .= ' <div class="btn-group">';
-	    $buttons .= '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'. Yii::t('igolf', 'Copy tees set from') . ' <span class="caret"></span></button>';
+	    $buttons .= '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'. Yii::t('golf', 'Copy tees set from') . ' <span class="caret"></span></button>';
 	    $buttons .= '<ul class="dropdown-menu" role="menu">';
 
 	    foreach($tees_with_holes->each() as $twh) {
@@ -30,7 +30,7 @@ if( sizeof($tees->getHoles()->all()) == 0 ) {
 		$buttons .= '</div>';
     }
 } else // add button to update hole data
-	$buttons .= Html::submitButton(Yii::t('igolf', 'Update Holes'), ['class'=>'btn btn-primary']);
+	$buttons .= Html::submitButton(Yii::t('golf', 'Update Holes'), ['class'=>'btn btn-primary']);
 
 ?>
 <div class="hole-index">

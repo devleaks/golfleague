@@ -9,8 +9,8 @@ use kartik\widgets\TouchSpin;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\FlightSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = Yii::t('igolf', 'Teams for ').$model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
+$this->title = Yii::t('golf', 'Teams for ').$model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

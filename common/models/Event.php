@@ -77,18 +77,18 @@ class Event extends _Event
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'Event'),
-            'object_type' => Yii::t('igolf', 'Object Type'),
-            'object_id' => Yii::t('igolf', 'Object'),
-            'name' => Yii::t('igolf', 'Name'),
-            'description' => Yii::t('igolf', 'Description'),
-            'event_type' => Yii::t('igolf', 'Event Type'),
-            'event_start' => Yii::t('igolf', 'Event Start'),
-            'event_end' => Yii::t('igolf', 'Event End'),
-            'media' => Yii::t('igolf', 'Pictures'),
-            'status' => Yii::t('igolf', 'Status'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'Event'),
+            'object_type' => Yii::t('golf', 'Object Type'),
+            'object_id' => Yii::t('golf', 'Object'),
+            'name' => Yii::t('golf', 'Name'),
+            'description' => Yii::t('golf', 'Description'),
+            'event_type' => Yii::t('golf', 'Event Type'),
+            'event_start' => Yii::t('golf', 'Event Start'),
+            'event_end' => Yii::t('golf', 'Event End'),
+            'media' => Yii::t('golf', 'Pictures'),
+            'status' => Yii::t('golf', 'Status'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

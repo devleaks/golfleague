@@ -51,14 +51,14 @@ class _Facility extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'name' => Yii::t('igolf', 'Name'),
-            'phone' => Yii::t('igolf', 'Phone'),
-            'email' => Yii::t('igolf', 'Email'),
-            'website' => Yii::t('igolf', 'Website'),
-            'units' => Yii::t('igolf', 'Units'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'ID'),
+            'name' => Yii::t('golf', 'Name'),
+            'phone' => Yii::t('golf', 'Phone'),
+            'email' => Yii::t('golf', 'Email'),
+            'website' => Yii::t('golf', 'Website'),
+            'units' => Yii::t('golf', 'Units'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

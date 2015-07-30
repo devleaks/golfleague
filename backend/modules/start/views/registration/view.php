@@ -7,7 +7,7 @@ use kartik\detail\DetailView;
 /* @var $model app\models\Registration */
 
 $this->title = $model->golfer->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Registrations'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Registrations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->competition->name, 'url' => ['competition', 'id' => $model->competition->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'status',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => $model::getLocalizedConstants('STATUS_'),
-                'value'=>Yii::t('igolf', $model->status),
+                'value'=>Yii::t('golf', $model->status),
             ],
             [
 				'attribute' => 'created_at',

@@ -53,17 +53,17 @@ class _Message extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'subject' => Yii::t('igolf', 'Subject'),
-            'body' => Yii::t('igolf', 'Body'),
-            'message_start' => Yii::t('igolf', 'Message Start'),
-            'message_end' => Yii::t('igolf', 'Message End'),
-            'message_type' => Yii::t('igolf', 'Message Type'),
-            'facility_id' => Yii::t('igolf', 'Facility ID'),
-            'status' => Yii::t('igolf', 'Status'),
-            'created_by' => Yii::t('igolf', 'Created By'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
+            'id' => Yii::t('golf', 'ID'),
+            'subject' => Yii::t('golf', 'Subject'),
+            'body' => Yii::t('golf', 'Body'),
+            'message_start' => Yii::t('golf', 'Message Start'),
+            'message_end' => Yii::t('golf', 'Message End'),
+            'message_type' => Yii::t('golf', 'Message Type'),
+            'facility_id' => Yii::t('golf', 'Facility ID'),
+            'status' => Yii::t('golf', 'Status'),
+            'created_by' => Yii::t('golf', 'Created By'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
 

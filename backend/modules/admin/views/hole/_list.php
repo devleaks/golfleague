@@ -9,7 +9,7 @@ use kartik\builder\TabularForm;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Holes');
+$this->title = Yii::t('golf', 'Holes');
 ?>
 <div class="hole-index">
 

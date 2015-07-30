@@ -22,15 +22,15 @@ use yii\data\ActiveDataProvider;
 
             //'id',
             [
-                'label' => Yii::t('igolf', 'Competition'),
+                'label' => Yii::t('golf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
-                    return Yii::t('igolf', $model->competition_type);
+                    return Yii::t('golf', $model->competition_type);
                 },
             ],
             'name',
             'description',
             [
-                'label' => Yii::t('igolf', 'Rule'),
+                'label' => Yii::t('golf', 'Rule'),
             	'attribute' => 'rule.name',
             ],
             // 'registration_begin',

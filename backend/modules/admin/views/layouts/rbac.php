@@ -20,7 +20,7 @@ $activeMenu = Yii::$app->controller->id;
         <div class="list-group">
              <?php
            foreach ($menus as $id => $menu) {
-                $label1 = Yii::t('igolf', $menu->name);
+                $label1 = Yii::t('golf', $menu->name);
                 $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . Html::encode($label1);
                 echo Html::a($label1, Yii::$app->homeUrl.ltrim ($menu->route,'/'), [
                     'class' => strpos($menu->route, $activeMenu) > 0 ? 'list-group-item active' : 'list-group-item',

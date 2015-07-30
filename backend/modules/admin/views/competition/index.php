@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel common\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', ucfirst(strtolower(isset($type) ? $type : 'Competitions')));
+$this->title = Yii::t('golf', ucfirst(strtolower(isset($type) ? $type : 'Competitions')));
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="season-index">
@@ -17,10 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?= Html::encode($this->title) ?>
     	
 		<div class="btn-group">
-			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><?= Yii::t('igolf', 'New')?> <span class="caret"></span></button>
+			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><?= Yii::t('golf', 'New')?> <span class="caret"></span></button>
 			<ul class="dropdown-menu" role="menu">
 				<?php foreach(Competition::getConstants('TYPE_') as $competition): ?>
-				<li><?= Html::a(Yii::t('igolf', $competition), ['create', 'type' => $competition]) ?></li>
+				<li><?= Html::a(Yii::t('golf', $competition), ['create', 'type' => $competition]) ?></li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
 			[
                 'attribute'=>'parent_id',
-                'label' => Yii::t('igolf', 'Part Of'),
+                'label' => Yii::t('golf', 'Part Of'),
 				'hAlign' => GridView::ALIGN_CENTER,
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->parent ? $model->parent->name : '';
@@ -81,9 +81,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'age_max',
             // 'gender',
             [
-                'label' => Yii::t('igolf', 'Status'),
+                'label' => Yii::t('golf', 'Status'),
                 'value' => function ($model, $key, $index, $widget) {
-                    return Yii::t('igolf', $model->status);
+                    return Yii::t('golf', $model->status);
                 },
             ],
             // 'created_at',

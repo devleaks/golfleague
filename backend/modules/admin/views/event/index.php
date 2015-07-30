@@ -7,12 +7,12 @@ use kartik\grid\GridView;
 /* @var $searchModel backend\EventSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Events');
+$this->title = Yii::t('golf', 'Events');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-index">
 
-    <h1>    <h1><?= Html::encode($this->title) ?> <?= Html::a(Yii::t('igolf', 'Create {modelClass}', [
+    <h1>    <h1><?= Html::encode($this->title) ?> <?= Html::a(Yii::t('golf', 'Create {modelClass}', [
 
     'modelClass' => 'Event',
 ]), ['create'], ['class' => 'btn btn-success']) ?></h1>

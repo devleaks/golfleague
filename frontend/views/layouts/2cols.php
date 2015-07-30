@@ -51,12 +51,12 @@ $role = MenuHelper::getRole();
                 $who = Yii::$app->user->identity->username;
                 if (YII_DEBUG) {	
                     $who .= ($role ? '/'.$role : '/?');
-            		$menuItems[] = ['label' => Yii::t('igolf', 'Golf League'), 'items' => [['label' => 'Back End', 'url' => ['/../igolf']]]];
+            		$menuItems[] = ['label' => Yii::t('golf', 'Golf League'), 'items' => [['label' => 'Back End', 'url' => ['/../igolf']]]];
 				}
 
 				$user_menu = [];
-				$user_menu[] = ['label' => Yii::t('igolf', 'Profile'), 'url' => ['/user/settings']];
-				$user_menu[] = ['label' => Yii::t('igolf', 'Logout'), 'url' => ['/user/security/logout'], 'linkOptions' => ['data-method' => 'post']];
+				$user_menu[] = ['label' => Yii::t('golf', 'Profile'), 'url' => ['/user/settings']];
+				$user_menu[] = ['label' => Yii::t('golf', 'Logout'), 'url' => ['/user/security/logout'], 'linkOptions' => ['data-method' => 'post']];
 
             	$menuItems[] = ['label' => $who, 'items' => $user_menu];
             } else {

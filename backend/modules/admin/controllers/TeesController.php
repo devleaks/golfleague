@@ -111,7 +111,7 @@ class TeesController extends GolfLeagueController
                 $hole->position = intval($i);
                 $hole->tees_id = intval($model->id);
                 if(!$hole->save())
-					Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($hole->errors, 4, true)]));
+					Yii::$app->session->setFlash('danger', Yii::t('golf', 'Error(s): {0}', [VarDumper::dumpAsString($hole->errors, 4, true)]));
            }
         } else
             Yii::$app->session->setFlash('error', 'There are already holes defined for this tees set.');
@@ -142,7 +142,7 @@ class TeesController extends GolfLeagueController
                 $hole->si = $srchole->si;
                 $hole->length = $srchole->length;
                 if(!$hole->save())
-					Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($hole->errors, 4, true)]));
+					Yii::$app->session->setFlash('danger', Yii::t('golf', 'Error(s): {0}', [VarDumper::dumpAsString($hole->errors, 4, true)]));
 			}
 		} else
             Yii::$app->session->setFlash('error', 'Could not find source holes.');

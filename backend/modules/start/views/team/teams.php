@@ -13,8 +13,8 @@ use yii\widgets\ActiveForm;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 TeamsAsset::register($this);
 
-$this->title = Yii::t('igolf', 'Teams for ').$competition->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['competition/index']];
+$this->title = Yii::t('golf', 'Teams for ').$competition->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin(['id' => 'teams-form']); ?>
 <?= Html::hiddenInput( 'teams', null, ['id' => 'savedteams'] )?>
-<?= Html::submitButton(Yii::t('igolf', 'Save teams'), ['class' => 'btn btn-success']) ?>
+<?= Html::submitButton(Yii::t('golf', 'Save teams'), ['class' => 'btn btn-success']) ?>
 <?php ActiveForm::end(); ?>
 
 </div>

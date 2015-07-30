@@ -165,7 +165,7 @@ class FlightController extends GolfLeagueController
         	throw new NotFoundHttpException('The requested page does not exist.');
 
 		if($competition->isTeamCompetition() && !$competition->isTeamOk()) {
-			Yii::$app->session->setFlash('error', Yii::t('igolf', 'Teams for competition not completed.'));
+			Yii::$app->session->setFlash('error', Yii::t('golf', 'Teams for competition not completed.'));
 			return $this->redirect(Url::to(['competition/index']));
 		}
 
@@ -189,9 +189,9 @@ class FlightController extends GolfLeagueController
 			}
 
 			if($flights) // need a better test...
-				Yii::$app->session->setFlash('success', Yii::t('igolf', 'Flight saved sucessfully.'));
+				Yii::$app->session->setFlash('success', Yii::t('golf', 'Flight saved sucessfully.'));
 			else
-				Yii::$app->session->setFlash('error', Yii::t('igolf', 'There was a problem saving flights.'));
+				Yii::$app->session->setFlash('error', Yii::t('golf', 'There was a problem saving flights.'));
 		}
 
 		$flights = $this->getFlights($competition);
@@ -204,6 +204,28 @@ class FlightController extends GolfLeagueController
         ]);
 
     }
+
+    /**
+     * Resets flights for a competition.
+     * @return mixed
+     */
+    public function actionReset($id) {
+		$competition = Competition::findOne($id);
+		if(!$competition)
+        	throw new NotFoundHttpException('The requested page does not exist.');
+
+		$flights = $competition->getFlights();
+		
+		foreach($flights->each() as $flight) {
+			$flight->cleanRegistrations(true);
+		}
+
+		$flights = $this->getFlights($competition);
+		if(!$flights) // no registration
+        	throw new NotFoundHttpException('There is no registration for this competition.');
+
+        return $this->redirect(['competition', 'id' => $competition->id]);
+	}
 
     /**
      * Displays and/or update Flight models for a competition.
@@ -228,7 +250,7 @@ class FlightController extends GolfLeagueController
 		$competition->status = Competition::STATUS_READY;
 		$competition->save();
 		if(count($competition->errors)>0)
-			Yii::$app->session->setFlash('danger', Yii::t('igolf', 'Error(s): {0}', [VarDumper::dumpAsString($competition->errors, 4, true)]));
+			Yii::$app->session->setFlash('danger', Yii::t('golf', 'Error(s): {0}', [VarDumper::dumpAsString($competition->errors, 4, true)]));
 
         return $this->render('list', [
 			'model' => $competition,

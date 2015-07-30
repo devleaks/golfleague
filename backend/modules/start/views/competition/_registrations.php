@@ -27,7 +27,7 @@ use common\models\Competition;
         'columns' => [
             [
             	'attribute' => 'golfer_name',
-                'label' => Yii::t('igolf', 'Golfer'),
+                'label' => Yii::t('golf', 'Golfer'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->golfer->name;
                 },
@@ -38,7 +38,7 @@ use common\models\Competition;
             [
                 'attribute' => 'status',
                 'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('igolf', $model->status);
+                	return Yii::t('golf', $model->status);
                 },
 				'filter' => Registration::getLocalizedPreCompetitionStatuses(),
             ],

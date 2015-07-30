@@ -21,7 +21,7 @@ use yii\helpers\Url;
 
 $this->title = $model->name;
 
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Competitions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['index']];
 if($bcs = $model->breadcrumbs())
 	foreach($bcs as $bc)
 		$this->params['breadcrumbs'][] = $bc;
@@ -41,7 +41,7 @@ if($model->recurrence) { // strips "RRULE:" at begining of string
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.Yii::t('igolf', $model->competition_type).' '.$model->name.'</h3>',
+	        'heading' => '<h3>'.Yii::t('golf', $model->competition_type).' '.$model->name.'</h3>',
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
@@ -52,7 +52,7 @@ if($model->recurrence) { // strips "RRULE:" at begining of string
                 'attribute'=>'parent_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => $model->getParentCandidates(),
-                'label'=>Yii::t('igolf','Parent'),
+                'label'=>Yii::t('golf','Parent'),
                 'value'=> $model->parent ? $model->parent->name.Html::a(' <span class="glyphicon glyphicon-share"></span>', ['view', 'id' => $model->parent_id]) : '',
 				'visible' => $model->competition_type != Competition::TYPE_SEASON,
 				'format' => 'raw',
@@ -60,7 +60,7 @@ if($model->recurrence) { // strips "RRULE:" at begining of string
             [
                 'attribute'=>'course_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-                'label'=> Yii::t('igolf', 'Course'),
+                'label'=> Yii::t('golf', 'Course'),
 				'items' => Course::getCourseList(true),
                 'value' => $model->course ? $model->course->getFullName().Html::a(' <span class="glyphicon glyphicon-share"></span>', ['course/view', 'id' => $model->course_id]) : '' ,
 				'format' => 'raw',

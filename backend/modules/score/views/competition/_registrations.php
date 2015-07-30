@@ -17,7 +17,7 @@ use yii\helpers\Url;
 		'options' => ['id' => 'registration'],
         'dataProvider' => $dataProvider,
 		'panel'=>[
-	        'heading' => '<h4>'.Yii::t('igolf', 'Registrations').'</h4>',
+	        'heading' => '<h4>'.Yii::t('golf', 'Registrations').'</h4>',
 			'footer' => false,
 	    ],
 		'pjax' => true,
@@ -28,7 +28,7 @@ use yii\helpers\Url;
         'columns' => [
             [
             	'attribute' => 'competition_name',
-                'label' => Yii::t('igolf', 'Competition'),
+                'label' => Yii::t('golf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->competition->name;
                 },
@@ -36,23 +36,23 @@ use yii\helpers\Url;
             ],
             [
             	'attribute' => 'competition_type',
-                'label' => Yii::t('igolf', 'Competition Type'),
+                'label' => Yii::t('golf', 'Competition Type'),
                 'value' => function($model, $key, $index, $widget) {
-                    return  Yii::t('igolf', $model->competition->competition_type);
+                    return  Yii::t('golf', $model->competition->competition_type);
                 },
 				'filter' => Competition::getLocalizedConstants('TYPE_'),
 				'visible' => $competition === null,
             ],
             [
             	'attribute' => 'golfer_name',
-                'label' => Yii::t('igolf', 'Golfer'),
+                'label' => Yii::t('golf', 'Golfer'),
                 'value' => function($model, $key, $index, $widget) {
                     return  $model->golfer->name;
                 },
 			],
             [
             	'attribute' => 'tee_time',
-                'label' => Yii::t('igolf', 'Tee time'),
+                'label' => Yii::t('golf', 'Tee time'),
 	            'value' => function($model, $key, $index, $widget) {
 	                return  $model->flight ? $model->flight->start_time : '';
 	            },
@@ -62,7 +62,7 @@ use yii\helpers\Url;
             [
                 'attribute' => 'status',
                 'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('igolf', $model->status);
+                	return Yii::t('golf', $model->status);
                 },
 				'filter' => Registration::getLocalizedPostCompetitionStatuses(),
             ],

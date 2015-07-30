@@ -8,8 +8,8 @@ use common\models\Registration;
 /* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('igolf', 'Registrations for {0}', $competition->name);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Registrations'), 'url' => ['index']];
+$this->title = Yii::t('golf', 'Registrations for {0}', $competition->name);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Registrations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

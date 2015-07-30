@@ -58,19 +58,19 @@ class _Tees extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('igolf', 'ID'),
-            'course_id' => Yii::t('igolf', 'Course ID'),
-            'name' => Yii::t('igolf', 'Name'),
-            'color' => Yii::t('igolf', 'Color'),
-            'holes' => Yii::t('igolf', 'Holes'),
-            'front_back' => Yii::t('igolf', 'Front Back'),
-            'course_rating' => Yii::t('igolf', 'Course Rating'),
-            'slope_rating' => Yii::t('igolf', 'Slope Rating'),
-            'gender' => Yii::t('igolf', 'Gender'),
-            'category' => Yii::t('igolf', 'Category'),
-            'created_at' => Yii::t('igolf', 'Created At'),
-            'updated_at' => Yii::t('igolf', 'Updated At'),
-            'par' => Yii::t('igolf', 'Par'),
+            'id' => Yii::t('golf', 'ID'),
+            'course_id' => Yii::t('golf', 'Course ID'),
+            'name' => Yii::t('golf', 'Name'),
+            'color' => Yii::t('golf', 'Color'),
+            'holes' => Yii::t('golf', 'Holes'),
+            'front_back' => Yii::t('golf', 'Front Back'),
+            'course_rating' => Yii::t('golf', 'Course Rating'),
+            'slope_rating' => Yii::t('golf', 'Slope Rating'),
+            'gender' => Yii::t('golf', 'Gender'),
+            'category' => Yii::t('golf', 'Category'),
+            'created_at' => Yii::t('golf', 'Created At'),
+            'updated_at' => Yii::t('golf', 'Updated At'),
+            'par' => Yii::t('golf', 'Par'),
         ];
     }
 

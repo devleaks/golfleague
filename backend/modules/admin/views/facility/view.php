@@ -9,7 +9,7 @@ use common\models\Course;
 /* @var $model app\models\Facility */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('igolf', 'Facilities'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Facilities'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="facility-view">
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'units',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => Facility::getLocalizedConstants('UNITS_'),
-                'value'=>Yii::t('igolf',$model->units),
+                'value'=>Yii::t('golf',$model->units),
             ],
         ],
     ]) ?>
