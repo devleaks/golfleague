@@ -33,7 +33,7 @@ $this->title = 'Golf League - Scorer';
 	<hr/>
 
 	<ul style="list-style: none;">
-		<li>&raquo; <a href="<?= Url::to(['/score/competition']) ?>">Matches</a></li>
+		<li>&raquo; <a href="<?= Url::to(['/score/competition']) ?>">Rounds</a></li>
 		<li>&raquo; <a href="<?= Url::to(['/score/competition/tournaments']) ?>">Tournaments</a></li>
 	</ul>
 

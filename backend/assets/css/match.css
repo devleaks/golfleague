@@ -1,0 +1,20 @@
+.competition { list-style-type: none; }
+.competition li { height: 36px; }
+.match-party {
+	display: inline-block;
+	width: 30%;
+	height: 24px;
+}
+.highlight {
+	display: inline-block;
+	width: 30%;
+	border: 1px solid green;
+	height: 24px;
+}
+.match-ok {
+	border: 1px solid #0d0;
+}
+
+.match-error {
+	border: 2px solid #f00;
+}

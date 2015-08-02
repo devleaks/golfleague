@@ -1,7 +1,10 @@
 <?php
+use backend\assets\MatchAsset;
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
+
+MatchAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RegistrationSearch */
@@ -12,4 +15,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-To do.
+<ul class="competition" data-competition="<?= $competition->id ?>">
+<?php
+foreach($matches as $match) {
+	echo $this->render('_match', [
+		'match' => $match,
+	]);
+}
+?>
+</ul>

@@ -53,7 +53,7 @@ use yii\bootstrap\Alert;
 
     <?= $form->field($model, 'registration_special')->dropDownList([''=>'']+$model::getLocalizedConstants('SPECIAL_')) ?>
 
-	<?php if($model->competition_type == $model::TYPE_MATCH): ?>
+	<?php if($model->competition_type == $model::TYPE_ROUND): ?>
 
     <?= $form->field($model, 'course_id')->dropDownList(Course::getCourseList(true)) ?>
 

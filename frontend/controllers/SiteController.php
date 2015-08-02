@@ -1,7 +1,7 @@
 <?php
 namespace frontend\controllers;
 
-use common\models\Match;
+use common\models\Round;
 use frontend\models\ContactForm;
 
 use Yii;
@@ -40,7 +40,7 @@ class SiteController extends Controller
 		}
 		$now = date('Y-m-d H:i:s');
 		$competitions = new ActiveDataProvider([
-			'query' => Match::find()->andWhere(['>','start_date', $now])
+			'query' => Round::find()->andWhere(['>','start_date', $now])
 		]);
         return $this->render('golfer', ['competitions' => $competitions]);
     }

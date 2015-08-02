@@ -45,7 +45,7 @@ class Scoreline extends Model {
 		if($a->rule) {
 			$sa = 0;
 			$sb = 0;
-			if($a->rule->competition_type == Competition::TYPE_MATCH) {
+			if($a->rule->competition_type == Competition::TYPE_ROUND) {
 				$sa = intval($a->total);
 				$sb = intval($b->total);
 			} else {
@@ -92,7 +92,7 @@ class Scoreboard extends _Scoretable {
 	 * @return string HTML table
 	 */
 	public function run() {
-		$this->match = $this->competition->currentMatch();
+		$this->match = $this->competition->currentRound();
 
 		if(!$this->match) {
 			$this->setOption(self::TODAY, false);
@@ -179,7 +179,7 @@ class Scoreboard extends _Scoretable {
 		$competition = $this->competition->getFullName();
 		if($this->competition->getRounds() > 1) {
 			if($this->match) {
-				$r = $this->match->getRound();
+				$r = $this->match->getRoundNumber();
 				$competition .= ' ('.$r.'/'.$this->competition->getRounds().')';
 			}
 			$competition .= ', '.str_replace(' ', '&nbsp;', $this->competition->getDateRange());
@@ -406,7 +406,7 @@ class Scoreboard extends _Scoretable {
 	 */
 	private function prepare_scorecards() {
 		$this->scoreline = [];
-		if($this->competition->competition_type == Competition::TYPE_MATCH) {
+		if($this->competition->competition_type == Competition::TYPE_ROUND) {
 			foreach($this->match->getScorecards()->each() as $scorecard) {
 				// current round
 				$this->scoreline[] = new Scoreline([
@@ -414,7 +414,7 @@ class Scoreboard extends _Scoretable {
 					'scorecard' => $scorecard,
 					'pos' => 0, // will be computed
 					'curr' => $scorecard->getScoreFromRule(),
-					'round' => $this->competition->getRound(),
+					'round' => $this->competition->getRoundNumber(),
 					'thru' => $scorecard->thru,
 					'today'	=> $this->getOption(self::TO_PAR) ? $scorecard->getScoreFromRule(true) : $scorecard->lastToPar(),
 					'total'	=> $scorecard->getScoreFromRule(true),
@@ -441,7 +441,7 @@ class Scoreboard extends _Scoretable {
 					'scorecard' => $current ? $current : $scorecard,
 					'pos' => 0, // will be computed
 					'curr' => $current ? $current->getScoreFromRule() : null,
-					'round' => $this->competition->getRound(),
+					'round' => $this->competition->getRoundNumber(),
 					'thru' => $current ? $current->thru : 0,
 					'today'	=> $current ? $current->getScoreFromRule(true) : $scorecard->getScoreFromFinalRule(),
 					'total'	=> array_sum($rounds),

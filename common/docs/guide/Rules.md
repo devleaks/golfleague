@@ -26,9 +26,9 @@ Competition Rules
 
 Rules allow you to organise competition in about any format.
 
-A Rule depends on the competition type (Match, Tournament, or Season).
+A Rule depends on the competition type (Round, Tournament, or Season).
 
-Rules for Matches specify the format of the match:
+Rules for Rounds specify the format of the match:
 
 -   Strokeplay,
 
@@ -40,7 +40,7 @@ Rules for Matches specify the format of the match:
 
 or any other common golf game format.
 
-Rules for Tournament (resp. Season), regulates how two or more Matches (resp.
+Rules for Tournament (resp. Season), regulates how two or more Rounds (resp.
 Tournaments) get combined to elect a winner.
 
 Post Competition Rules
@@ -84,7 +84,7 @@ class must be in \common\models\Rule domain name.
 The Compute function of a Rule class is applied to the scorecards of the
 competition. It only affects the scorecards of the competition. It is used, for
 example for a Tournament, to compute the sum of points or strokes from all
-Matches of that Tournament.
+Rounds of that Tournament.
 
 Rule Parameters are semi-colon-separated (name, value) pairs. Parameters are
 parsed from the parameter string and passed to the rule class instance before if

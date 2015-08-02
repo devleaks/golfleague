@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="competition-index">
 
     <?= $this->render('_list', [
-			'title' => Yii::t('golf', 'Open Matches'),
+			'title' => Yii::t('golf', 'Open Rounds'),
 	        'dataProvider' => $openProvider,
 	        'filterModel' => $openSearch,
 			'actionButtons' => [
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]) ?>
 
     <?= $this->render('_list', [
-			'title' => Yii::t('golf', 'Matches Ready'),
+			'title' => Yii::t('golf', 'Rounds Ready'),
 	        'dataProvider' => $readyProvider,
 	        'filterModel' => $readySearch,
 			'actionButtons' => [

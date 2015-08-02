@@ -36,7 +36,7 @@ class ScorecardForCompetition extends Scorecard
      * @inheritdoc
      */
 	public function hasScore() {
-		return $this->registration->competition->competition_type == Competition::TYPE_MATCH ? (($this->thru > 0) || ($this->status != self::STATUS_OPEN)) : true;
+		return $this->registration->competition->competition_type == Competition::TYPE_ROUND ? (($this->thru > 0) || ($this->status != self::STATUS_OPEN)) : true;
 	}
 	
     /**

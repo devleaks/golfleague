@@ -47,7 +47,6 @@ use Yii;
  * @property Course $course
  * @property Rule $rule
  * @property Rule $finalRule
- * @property Match[] $matches
  * @property Registration[] $registrations
  * @property Start[] $starts
  */
@@ -173,14 +172,6 @@ class _Competition extends \yii\db\ActiveRecord
     public function getFinalRule()
     {
         return $this->hasOne(Rule::className(), ['id' => 'final_rule_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMatches()
-    {
-        return $this->hasMany(Match::className(), ['competition_id' => 'id']);
     }
 
     /**

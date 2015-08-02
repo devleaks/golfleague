@@ -35,9 +35,9 @@ class Tournament extends Competition
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMatches()
+    public function getRounds()
     {
-        return $this->hasMany(Match::className(), ['parent_id' => 'id']);
+        return $this->hasMany(Round::className(), ['parent_id' => 'id']);
     }
 
     /**
@@ -50,7 +50,7 @@ class Tournament extends Competition
 	/**
 	 * @inheritdoc
 	 */
-	public function currentMatch() {
+	public function currentRound() {
 		return $this->getCompetitions()->andWhere(['status' => self::STATUS_READY])->orderBy('start_date')->one();
 	}
 

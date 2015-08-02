@@ -25,8 +25,8 @@ class Competition extends _Competition
     const TYPE_SEASON = 'SEASON';
     /** Competition type TOURNAMENT */
     const TYPE_TOURNAMENT = 'TOURNAMENT';
-    /** Competition type MATCH */
-    const TYPE_MATCH = 'MATCH';
+    /** Competition type ROUND */
+    const TYPE_ROUND = 'ROUND';
 
     /** Competition is open, for registration if within time frame */
     const STATUS_OPEN = 'OPEN';
@@ -161,7 +161,7 @@ class Competition extends _Competition
 		$model = Competition::findOne($id);
 		if($model)
 			switch($model->competition_type) {
-				case self::TYPE_MATCH:		return Match::findOne($id);			break;
+				case self::TYPE_ROUND:		return Round::findOne($id);			break;
 				case self::TYPE_TOURNAMENT:	return Tournament::findOne($id);	break;
 				case self::TYPE_SEASON:		return Season::findOne($id);		break;
 			}
@@ -175,7 +175,7 @@ class Competition extends _Competition
 	public static function instantiate($row)
 	{
 	    switch ($row['competition_type']) {
-			case self::TYPE_MATCH:		return new Match();			break;
+			case self::TYPE_ROUND:		return new Round();			break;
 			case self::TYPE_TOURNAMENT:	return new Tournament();	break;
 			case self::TYPE_SEASON:		return new Season();		break;
 	        default:
@@ -214,6 +214,15 @@ class Competition extends _Competition
 		return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['competition_id' => 'id']);
 	}
 
+	/**
+	 * Returns competition matches, if any
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getMatches() {
+		return $this->hasMany(Match::className(), ['id' => 'match_id'])->viaTable('registration', ['competition_id' => 'id']);
+	}
+
 
 
 	/**
@@ -249,7 +258,7 @@ class Competition extends _Competition
 	public function childType() {
 		switch($this->competition_type) {
 			case $this::TYPE_SEASON: return $this::TYPE_TOURNAMENT; break;
-			case $this::TYPE_TOURNAMENT: return $this::TYPE_MATCH; break;
+			case $this::TYPE_TOURNAMENT: return $this::TYPE_ROUND; break;
 		}
 		return null;
 	}
@@ -260,7 +269,7 @@ class Competition extends _Competition
 	public function parentType() {
 		switch($this->competition_type) {
 			case $this::TYPE_TOURNAMENT: return $this::TYPE_SEASON; break;
-			case $this::TYPE_MATCH: return $this::TYPE_TOURNAMENT; break;
+			case $this::TYPE_ROUND: return $this::TYPE_TOURNAMENT; break;
 		}
 		return null;
 	}
@@ -285,7 +294,7 @@ class Competition extends _Competition
 	 *
 	 * @return integer Sequence number, starting from 1. Returns 0 if not applicable.
 	 */
-	public function getRound() {
+	public function getRoundNumber() {
 		$seq = 0;
 		if($parent = $this->getParent()->one()) { // will be null for season
 			$seq = 1;
@@ -305,15 +314,15 @@ class Competition extends _Competition
 	 *
 	 * @return common\models\Match
 	 */
-	public function currentMatch() {
+	public function currentRound() {
 		return null;
 	}
 
 	/**
-	 * Get end date of a competition. Matches are assumesd to be one day only.
+	 * Get end date of a competition. Rounds are assumesd to be one day only.
 	 */
 	public function getEndDate() {
-		if($this->competition_type == self::TYPE_MATCH)
+		if($this->competition_type == self::TYPE_ROUND)
 			return $this->start_date;
 		else
 			if ($last_competition = $this->getCompetitions()->orderBy('start_date desc')->one())
@@ -322,10 +331,10 @@ class Competition extends _Competition
 	}
 
 	/**
-	 * Get end date of a competition. Matches are assumes to be one day only.
+	 * Get end date of a competition. Rounds are assumes to be one day only.
 	 */
 	public function getStartDate() {
-		if($this->competition_type == self::TYPE_MATCH)
+		if($this->competition_type == self::TYPE_ROUND)
 			return $this->start_date;
 		else
 			if ($first_competition = $this->getCompetitions()->orderBy('start_date asc')->one())
@@ -403,8 +412,8 @@ class Competition extends _Competition
 	        case Competition::TYPE_TOURNAMENT:
 	            $new = new Tournament();
 				break;
-	        case Competition::TYPE_MATCH:
-	            $new = new Match();
+	        case Competition::TYPE_ROUND:
+	            $new = new Round();
 				break;
 	        default:
 	        	$new = new self;
@@ -650,7 +659,7 @@ class Competition extends _Competition
 			'event_start' => $this->registration_begin,
 			'event_end' => $this->registration_end,
 		]);*/
-		if($this->competition_type == self::TYPE_MATCH) {
+		if($this->competition_type == self::TYPE_ROUND) {
 			$events[] = new Event([
 				'object_type' => $this->competition_type,
 				'object_id' => $this->id,

@@ -18,7 +18,7 @@ $me = Golfer::me();
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 		'panel' => [
-	        'heading' => '<h4>'.Yii::t('golf', 'Simple Matches').'</h4>',
+	        'heading' => '<h4>'.Yii::t('golf', 'Simple Rounds').'</h4>',
 			'before' => Yii::t('golf', 'Single match or multiple matches tournaments, not part of a larger competition.'),
 			'beforeOptions' => ['class' => 'alert-info'],
 		],
@@ -70,9 +70,9 @@ $me = Golfer::me();
             ],
             'name',
             [
-                'label' => Yii::t('golf', 'Number of Matches'),
+                'label' => Yii::t('golf', 'Number of Rounds'),
                 'value' => function ($model, $key, $index, $widget) {
-					return $model->getMatches()->count();
+					return $model->getRounds()->count();
                 },
             ],
 

@@ -17,11 +17,13 @@ use Yii;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $match_id
  *
  * @property Tees $tees
  * @property Competition $competition
  * @property Golfer $golfer
  * @property Team $team
+ * @property Match $match
  * @property Flight $flight
  * @property Scorecard[] $scorecards
  */
@@ -42,7 +44,7 @@ class _Registration extends \yii\db\ActiveRecord
     {
         return [
             [['competition_id', 'golfer_id', 'status'], 'required'],
-            [['competition_id', 'golfer_id', 'tees_id', 'team_id', 'flight_id'], 'integer'],
+            [['competition_id', 'golfer_id', 'tees_id', 'team_id', 'flight_id', 'match_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
             [['status'], 'string', 'max' => 20]
@@ -65,6 +67,7 @@ class _Registration extends \yii\db\ActiveRecord
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
+            'match_id' => Yii::t('golf', 'Match ID'),
         ];
     }
 
@@ -98,6 +101,14 @@ class _Registration extends \yii\db\ActiveRecord
     public function getTeam()
     {
         return $this->hasOne(Team::className(), ['id' => 'team_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMatch()
+    {
+        return $this->hasOne(Match::className(), ['id' => 'match_id']);
     }
 
     /**

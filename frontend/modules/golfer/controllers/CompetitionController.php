@@ -6,12 +6,11 @@ use Yii;
 use frontend\controllers\DefaultController;
 use common\models\Competition;
 use common\models\search\CompetitionSearch;
-use common\models\Match;
-use common\models\search\MatchSearch;
+use common\models\Round;
+use common\models\search\RoundSearch;
 use common\models\Registration;
 use common\models\Season;
 use common\models\Tournament;
-use common\models\rule\RuleMatchStandard;
 use common\models\rule\RuleCompetitionStandard;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
@@ -43,16 +42,16 @@ class CompetitionController extends DefaultController
 	 	 */
 		$startSearch = new CompetitionSearch();
 		$startProvider = new ActiveDataProvider([
-            'query' => Match::find()->where(['status' => Competition::STATUS_READY])
+            'query' => Round::find()->where(['status' => Competition::STATUS_READY])
 										  ->andWhere(['<','registration_end', $now])
 										  ->andWhere(['>','start_date', $now]),
         ]);
 
 		/** Competition for results.
 		 */
-		$resultSearch = new MatchSearch();
+		$resultSearch = new RoundSearch();
 		$resultProvider = new ActiveDataProvider([
-            'query' => Match::find()->where(['status' => Competition::STATUS_READY])
+            'query' => Round::find()->where(['status' => Competition::STATUS_READY])
 //										  ->andWhere(['<=','start_date', $now]),
         ]);
 
@@ -62,7 +61,7 @@ class CompetitionController extends DefaultController
 		$result2Search = new CompetitionSearch();
 		$result2Provider = new ActiveDataProvider([
             'query' => Competition::find()->andWhere(['status' => Competition::STATUS_OPEN])
-										  ->andWhere(['!=','competition_type', Competition::TYPE_MATCH]),
+										  ->andWhere(['!=','competition_type', Competition::TYPE_ROUND]),
         ]);
 
 		/** Planned competition.

@@ -1535,8 +1535,8 @@
         <name><![CDATA[handicap_history]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>1216.00</x>
-            <y>1728.00</y>
+            <x>64.00</x>
+            <y>1792.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -1631,7 +1631,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>832.00</x>
-            <y>768.00</y>
+            <y>896.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -1692,6 +1692,19 @@
             <forcedUnique><![CDATA[0]]></forcedUnique>
             <temporaryOriginalName><![CDATA[team°id]]></temporaryOriginalName>
             <uid><![CDATA[3EBA06E9-114A-4C6D-9173-43F464CBE70E]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[match_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>match</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[match]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[3C5FC240-B777-4931-B43D-C664C77F0133]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[C22368E9-FEC2-4404-9639-DB20B9FE53E8]]></referencesTableUID>
+            <uid><![CDATA[9F723CDB-9AD9-4500-B070-AA019CFD9C45]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[flight_id]]></name>
@@ -1755,11 +1768,11 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1216.00</x>
-            <y>1152.00</y>
+            <y>1344.00</y>
         </location>
         <size>
             <width>256.00</width>
-            <height>192.00</height>
+            <height>128.00</height>
         </size>
         <zorder>22</zorder>
         <SQLField>
@@ -1772,46 +1785,18 @@
             <uid><![CDATA[3C5FC240-B777-4931-B43D-C664C77F0133]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[competition_id]]></name>
+            <name><![CDATA[position]]></name>
             <type><![CDATA[INTEGER]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>competition</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[competition]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[DCD103C0-978D-466B-BEEC-F87F85DCB432]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[11D091DE-5489-4688-A3D1-FFD16DC16DC6]]></referencesTableUID>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <forcedUnique><![CDATA[0]]></forcedUnique>
-            <notNull><![CDATA[1]]></notNull>
-            <temporaryOriginalName><![CDATA[competition_id]]></temporaryOriginalName>
-            <uid><![CDATA[B65D5671-545F-4F6C-9028-75AC54E2242F]]></uid>
+            <indexed><![CDATA[0]]></indexed>
+            <notNull><![CDATA[0]]></notNull>
+            <uid><![CDATA[ACE28380-C2D4-4B88-B07C-5FAE63B9CCD5]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[flight_id]]></name>
+            <name><![CDATA[level]]></name>
             <type><![CDATA[INTEGER]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>flight</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[flight]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[9452FF60-E014-41BE-AB48-C89B905ECA5C]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[FDF8CF76-0F4E-427F-A08A-B71753028289]]></referencesTableUID>
-            <uid><![CDATA[22A28B7D-C267-4149-B305-5307A42D06B9]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[comp1]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <forcedUnique><![CDATA[0]]></forcedUnique>
-            <uid><![CDATA[2AE13884-3943-4F32-A803-007A6F70E0A0]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[comp2]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <forcedUnique><![CDATA[0]]></forcedUnique>
-            <uid><![CDATA[A25DFA24-9A21-427A-81B1-4A34E1DDA428]]></uid>
+            <indexed><![CDATA[0]]></indexed>
+            <notNull><![CDATA[0]]></notNull>
+            <uid><![CDATA[B328276D-1DE2-42D6-AA60-20E607A7CE18]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[created_at]]></name>
@@ -2212,8 +2197,8 @@
         <name><![CDATA[team]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>832.00</x>
-            <y>1088.00</y>
+            <x>1216.00</x>
+            <y>1152.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2265,7 +2250,7 @@
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
             <x>1216.00</x>
-            <y>1408.00</y>
+            <y>1792.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2585,7 +2570,7 @@ LWE0hoaG
         <hideFieldTypes><![CDATA[0]]></hideFieldTypes>
         <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
         <PageGridVisible><![CDATA[0]]></PageGridVisible>
-        <sidebarIndex><![CDATA[1]]></sidebarIndex>
+        <sidebarIndex><![CDATA[2]]></sidebarIndex>
         <snapToGrid><![CDATA[1]]></snapToGrid>
         <SourceSidebarWidth><![CDATA[335.000000]]></SourceSidebarWidth>
         <SourceSplitViewState><![CDATA[2 495.391 1081.61]]></SourceSplitViewState>
@@ -2593,7 +2578,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1330.000000]]></windowHeight>
         <windowLocationX><![CDATA[625.000000]]></windowLocationX>
         <windowLocationY><![CDATA[87.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{0, 348}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{18, 462}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1810.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

@@ -8,7 +8,7 @@
 namespace frontend\widgets;
 
 use common\models\Event;
-use common\models\Match;
+use common\models\Round;
 use common\models\Message;
 use yii\bootstrap\Widget;
 use yii\data\ActiveDataProvider;
@@ -26,8 +26,8 @@ class Calendar extends Widget {
 			$calendarEvents[] = $event->getFullCalendarEvent();
 
 		
-		// 2. Matches
-		foreach(Match::find()->each() as $match)
+		// 2. Rounds
+		foreach(Round::find()->each() as $match)
 			foreach($match->getEvents() as $event)
 				$calendarEvents[] = $event->getFullCalendarEvent();
 

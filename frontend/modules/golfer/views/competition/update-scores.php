@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'query' => $query,
     ]);
 
-	if($model->competition_type == Competition::TYPE_MATCH) {
+	if($model->competition_type == Competition::TYPE_ROUND) {
 		echo $this->render('../registration/scores-matches', [
 	        'dataProvider' => $dataProvider,
 			'model' => $model,
@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <p></p>
 <div>
 	<?php
-	 	if($model->competition_type != Competition::TYPE_MATCH) {
+	 	if($model->competition_type != Competition::TYPE_ROUND) {
 			echo ' '.Html::a(Yii::t('golf', 'Update Points'), ['points', 'id' => $model->id], ['class' => 'btn btn-success']);
 			echo ' '.Html::a(Yii::t('golf', 'Close Competition'), ['close', 'id' => $model->id], ['class' => 'btn btn-warning']);
 		} else {

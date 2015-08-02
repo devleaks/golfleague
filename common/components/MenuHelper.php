@@ -64,7 +64,7 @@ class MenuHelper extends \yii\base\Object
 
     static public function getDeveloperMenu($role = null) {
 		$dev_menu = [];
-    	$dev_menu[] = ['label' => Yii::t('golf', 'Gii'), 'url' => ['/gii']];
+    	$dev_menu[] = ['label' => Yii::t('golf', 'Gii'), 'url' => ['/gii'], 'linkOptions' => ['target'=>'_blank']];
 		$dev_menu[] = ['label' => 'Back End', 'url' => ['/../igolf']];
 		$dev_menu[] = ['label' => 'Front End', 'url' => ['/../golfleague']];
         return $dev_menu;

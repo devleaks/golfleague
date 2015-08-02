@@ -5,7 +5,7 @@ namespace backend\modules\score\controllers;
 use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\search\CompetitionSearch;
-use common\models\Match;
+use common\models\Round;
 
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -30,7 +30,7 @@ class CompetitionController extends GolfLeagueController
 		 */
 		$readySearch = new CompetitionSearch();
         $readyProvider = new ActiveDataProvider([
-            'query' => Match::find()->where(['status' => Competition::STATUS_READY])
+            'query' => Round::find()->where(['status' => Competition::STATUS_READY])
 										  ->andWhere(['<=','start_date', $now])
         ]);
 
@@ -38,7 +38,7 @@ class CompetitionController extends GolfLeagueController
 		 */
 		$openSearch = new CompetitionSearch();
         $openProvider = new ActiveDataProvider([
-            'query' => Match::find()->where(['status' => Competition::STATUS_READY])
+            'query' => Round::find()->where(['status' => Competition::STATUS_READY])
 										  ->andWhere(['>','start_date', $now])
         ]);
 

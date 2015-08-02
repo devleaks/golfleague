@@ -3,7 +3,7 @@
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use common\models\Match;
+use common\models\Round;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Flight */
@@ -14,7 +14,7 @@ use common\models\Match;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'competition_id')->dropDownList(ArrayHelper::map(Match::find()/*->where(['status' => Match::STATUS_OPEN])*/->asArray()->all(), 'id', 'name')) ?>
+    <?= $form->field($model, 'competition_id')->dropDownList(ArrayHelper::map(Round::find()/*->where(['status' => Round::STATUS_OPEN])*/->asArray()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'position')->textInput() ?>
 

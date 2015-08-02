@@ -6,7 +6,7 @@ use common\models\Competition;
 use common\models\Golfer;
 use common\models\Registration;
 use common\models\search\RegistrationSearch;
-use common\models\search\MatchSearch;
+use common\models\search\RoundSearch;
 use common\models\search\TournamentSearch;
 use common\models\search\SeasonSearch;
 
@@ -36,7 +36,7 @@ class RegistrationController extends \frontend\controllers\DefaultController
 		$now = date('Y-m-d H:i:s');
 
 		// single matches (not part of a tournament)
-		$matchesSearchModel = new MatchSearch();
+		$matchesSearchModel = new RoundSearch();
         $matchesDataProvider = $matchesSearchModel->search(Yii::$app->request->queryParams);
 		$matchesDataProvider->query->andWhere(['parent_id' => null])
 								   ->andWhere(['>', 'start_date', $now]);
@@ -45,7 +45,7 @@ class RegistrationController extends \frontend\controllers\DefaultController
 		/*
 select c.id as tournament_id, count(c.id) as tot_count from competition c, competition m
 where c.competition_type = 'TOURNAMENT'
-and m.competition_type = 'MATCH'
+and m.competition_type = 'ROUND'
 and m.parent_id = c.id
 and c.status = 'OPEN'
 group by c.id
@@ -56,7 +56,7 @@ having tot_count = 1
 			->from('competition c, competition m')
 			->andWhere(['c.parent_id' => null])										// tournament is not part of a 'season'
 			->andWhere(['c.competition_type' => Competition::TYPE_TOURNAMENT])
-			->andWhere(['m.competition_type' => Competition::TYPE_MATCH])
+			->andWhere(['m.competition_type' => Competition::TYPE_ROUND])
 			->andWhere('m.parent_id = c.id')
 			->andWhere(['c.status' => Competition::STATUS_OPEN])
 			->andWhere(['m.status' => Competition::STATUS_OPEN])

@@ -5,12 +5,12 @@ namespace common\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Match;
+use common\models\Round;
 
 /**
- * MatchSearch represents the model behind the search form about `common\models\Match`.
+ * RoundSearch represents the model behind the search form about `common\models\Match`.
  */
-class MatchSearch extends Match
+class RoundSearch extends Round
 {
     /**
      * @inheritdoc
@@ -42,7 +42,7 @@ class MatchSearch extends Match
      */
     public function search($params)
     {
-        $query = Match::find();
+        $query = Round::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

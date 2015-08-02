@@ -6,7 +6,7 @@ use Yii;
 use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\search\CompetitionSearch;
-use common\models\Match;
+use common\models\Round;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
@@ -41,7 +41,7 @@ class CompetitionController extends GolfLeagueController
 		 */
 		$startSearch = new CompetitionSearch();
 		$startProvider = new ActiveDataProvider([
-            'query' => Match::find()->where(['status' => Competition::STATUS_OPEN])
+            'query' => Round::find()->where(['status' => Competition::STATUS_OPEN])
 									->andWhere(['<','registration_end', $now])
 //									->andWhere(['>','start_date', $now]),
         ]);

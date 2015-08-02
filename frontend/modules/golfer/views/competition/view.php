@@ -1,7 +1,7 @@
 <?php
 
 use common\models\Competition;
-use common\models\search\MatchSearch;
+use common\models\search\RoundSearch;
 use common\models\search\TournamentSearch;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -48,9 +48,9 @@ $this->params['breadcrumbs'][] = $this->title;
 				$type = Competition::TYPE_TOURNAMENT;
 				break;
 			case Competition::TYPE_TOURNAMENT:
-		        $searchModel = new MatchSearch();
-		        $dataProvider = $searchModel->search(['MatchSearch'=>['parent_id' => $model->id]]);
-				$type = Competition::TYPE_MATCH;
+		        $searchModel = new RoundSearch();
+		        $dataProvider = $searchModel->search(['RoundSearch'=>['parent_id' => $model->id]]);
+				$type = Competition::TYPE_ROUND;
 				break;
 			}
 				//$dataProvider = $searchModel->search(Yii::$app->request->queryParams);

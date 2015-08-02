@@ -13,8 +13,8 @@ class Rule extends _Rule
 	use Constant;
 	
 	/** Rule type for competiton behavior */
-	const TYPE_STROKE = 'STROKE';
-	const TYPE_MATCH  = 'MATCH';
+	const TYPE_STROKEPLAY = 'STROKE';
+	const TYPE_MATCHPLAY  = 'MATCH';
 	
 
 	/** Type/semantic of points in points column. Used for rounding, comparison, etc. */

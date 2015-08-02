@@ -58,7 +58,6 @@ class _Scoretable extends Widget {
 	const ALLOWED_ICON	= 'allowed_icon';
 	const LEGEND		= 'legend';
 	const FOOTER		= 'footer';
-	const MATCH_NAME	= 'match_name';
 	
 	/* Other */
 	const AUTO_REFRESH	= 'auto_refresh';

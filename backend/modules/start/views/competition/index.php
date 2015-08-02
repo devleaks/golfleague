@@ -54,10 +54,10 @@ $this->params['breadcrumbs'][] = $this->title;
 						return null;
 	                },
 	                'match' => function ($url, $model) {
-						if($model->rule->rule_type == Rule::TYPE_MATCH) {
+						if($model->rule->rule_type == Rule::TYPE_MATCHPLAY) {
 							$url = Url::to(['match/competition', 'id' => $model->id]);
 		                    return Html::a(Icon::show('exchange', [], Icon::FA), $url, [
-		                        'title' => Yii::t('golf', 'Matches'),
+		                        'title' => Yii::t('golf', 'Rounds'),
 		                    ]);
 						}
 						return null;

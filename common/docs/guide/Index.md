@@ -10,7 +10,7 @@ Welcome to Yii Golf League, a golf league management application.
 Yii Golf League is a web application designed to organize golf leagues and
 includes
 
--   Match, tournament, and seasons scheduling,
+-   Round, tournament, and seasons scheduling,
 
 -   Registrations to competitions,
 
@@ -40,13 +40,13 @@ weekly contest.
 
 There are three types of «  competitions » to organise your league:
 
-1.  Matches
+1.  Rounds
 
 2.  Tournaments
 
 3.  Seasons
 
-Matches are the only competition that can be played by golfers. The two other
+Rounds are the only competitions that can be played by golfers. The two other
 types of competitions are
 
  
@@ -102,9 +102,9 @@ golfers and golf courses in your competitions.
  
 
 Second, you add your competition. If it is a simple, single match event, add a
-Match. If your competition is more complex and involves weekly matches over the
+Round. If your competition is more complex and involves weekly rounds over the
 course of the year, you will need to add a Season and a Tournament before you
-can create your Match.
+can create your Round.
 
 This complete the creation of the competition. Golfer can now register to the
 competion.

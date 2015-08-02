@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<ul class="dropdown-menu" role="menu">
 				<li><?= Html::a(Yii::t('golf', Competition::TYPE_SEASON), ['create', 'type' => Competition::TYPE_SEASON]) ?></li>
 				<li><?= Html::a(Yii::t('golf', Competition::TYPE_TOURNAMENT), ['create', 'type' => Competition::TYPE_TOURNAMENT]) ?></li>
-				<li><?= Html::a(Yii::t('golf', Competition::TYPE_MATCH), ['create', 'type' => Competition::TYPE_MATCH]) ?></li>
+				<li><?= Html::a(Yii::t('golf', Competition::TYPE_ROUND), ['create', 'type' => Competition::TYPE_ROUND]) ?></li>
 			</ul>
 		</div>
 	</h1>

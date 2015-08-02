@@ -52,8 +52,8 @@ class RuleController extends GolfLeagueController
         $model=$this->findModel($id);
  
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			if(!in_array($model->rule_type, [Rule::TYPE_STROKE, Rule::TYPE_MATCH])) {
-				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCH : Rule::TYPE_STROKE;
+			if(!in_array($model->rule_type, [Rule::TYPE_STROKEPLAY, Rule::TYPE_MATCHPLAY])) {
+				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCHPLAY : Rule::TYPE_STROKEPLAY;
 				$model->save();
 			}
             return $this->redirect(['view', 'id'=>$model->id]);
@@ -74,8 +74,8 @@ class RuleController extends GolfLeagueController
         $model = new Rule();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			if(!in_array($model->rule_type, [Rule::TYPE_STROKE, Rule::TYPE_MATCH])) {
-				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCH : Rule::TYPE_STROKE;
+			if(!in_array($model->rule_type, [Rule::TYPE_STROKEPLAY, Rule::TYPE_MATCHPLAY])) {
+				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCHPLAY : Rule::TYPE_STROKEPLAY;
 				$model->save();
 			}
             return $this->redirect(['view', 'id' => $model->id]);
@@ -116,8 +116,8 @@ class RuleController extends GolfLeagueController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			if(!in_array($model->rule_type, [Rule::TYPE_STROKE, Rule::TYPE_MATCH])) {
-				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCH : Rule::TYPE_STROKE;
+			if(!in_array($model->rule_type, [Rule::TYPE_STROKEPLAY, Rule::TYPE_MATCHPLAY])) {
+				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCHPLAY : Rule::TYPE_STROKEPLAY;
 				$model->save();
 			}
             return $this->redirect(['view', 'id' => $model->id]);

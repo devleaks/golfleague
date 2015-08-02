@@ -31,8 +31,8 @@ if(! $model->rule_type) $model->rule_type = 0;
 
 	<?=	$form->field($model, 'rule_type')->widget(SwitchInput::className(), [
 		'pluginOptions' => [
-			'onText'  => Yii::t('golf', Rule::TYPE_MATCH),
-			'offText' => Yii::t('golf', Rule::TYPE_STROKE)
+			'onText'  => Yii::t('golf', Rule::TYPE_MATCHPLAY),
+			'offText' => Yii::t('golf', Rule::TYPE_STROKEPLAY)
 		]
 	])->hint(Yii::t('golf', 'Type of competition: Strokeplay or Matchplay')) ?>
 				

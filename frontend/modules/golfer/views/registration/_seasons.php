@@ -17,7 +17,7 @@ $me = Golfer::me();
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 		'panel' => [
-	        'heading' => '<h4>'.Yii::t('golf', 'Simple Matches').'</h4>',
+	        'heading' => '<h4>'.Yii::t('golf', 'Simple Rounds').'</h4>',
 			'before' => Yii::t('golf', 'Tournaments here under are multiple matches tournaments.'),
 			'beforeOptions' => ['class' => 'alert-info'],
 		],

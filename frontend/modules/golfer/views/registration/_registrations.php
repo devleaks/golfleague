@@ -21,11 +21,14 @@ use kartik\grid\GridView;
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
 
-            'competition.competition_type',
+	        [
+	            'label' => Yii::t('golf', 'Competition Type'),
+            	'attribute' => 'competition.competition_type',
+			],
             'competition.name',
             'competition.start_date',
             [
-                'label' => Yii::t('golf', 'Status'),
+                'label' => Yii::t('golf', 'Status of Registration'),
                 'value' => function ($model, $key, $index, $widget) {
                         return Yii::t('golf', $model->status);
                 }

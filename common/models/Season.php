@@ -35,7 +35,7 @@ class Season extends Competition
 	/**
 	 * @inheritdoc
 	 */
-	public function currentMatch() {
+	public function currentRound() {
 		return null;
 	}
 

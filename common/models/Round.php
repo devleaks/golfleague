@@ -11,14 +11,14 @@ use yii\helpers\ArrayHelper;
  *
  * @property Tournament $tournament
  */
-class Match extends Competition
+class Round extends Competition
 {
-	const COMPETITION_TYPE = self::TYPE_MATCH;
+	const COMPETITION_TYPE = self::TYPE_ROUND;
 
     public static function defaultScope($query)
     {
-		Yii::trace('Match::defaultScope');
-        $query->andWhere(['competition_type' => self::TYPE_MATCH]);
+		Yii::trace('Round::defaultScope');
+        $query->andWhere(['competition_type' => self::TYPE_ROUND]);
     }
 
 	public static function find()
@@ -55,9 +55,29 @@ class Match extends Competition
     }
 
 	/**
+	 * Return number of matches in Matchplay competition
+	 */
+	public function getNumberOfMatches() {
+		return intval(pow(2, $this->getLevel()));
+	}
+
+	/**
+	 * Return Level of a matchplay competition: 1 = final, 2 = semi-final, 3 = quarter final, etc.
+	 */
+	public function getLevel() {
+		if($this->rule->rule_type == Rule::TYPE_MATCHPLAY) {
+			if(($numRegs = $this->getRegistrations()->andWhere(['status' => Registration::STATUS_REGISTERED])->count()) > 0) {
+				Yii::trace('count='.$numRegs.', log='.log($numRegs, 2), 'getLevel');
+				return $numRegs > 0 ? intval(log($numRegs, 2)) - 1 : 0;				
+			}
+		}
+		return 0;
+	}
+
+	/**
 	 * @inheritdoc
 	 */
-	public function currentMatch() {
+	public function currentRound() {
 		return $this;
 	}
 

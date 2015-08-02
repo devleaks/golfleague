@@ -112,7 +112,7 @@ class Event extends _Event
 		if($this->event_end  ) $end   = \DateTime::createFromFormat('Y-m-d H:i:s', $this->event_end);
 
 		switch($this->object_type) {
-			case Competition::TYPE_MATCH:
+			case Competition::TYPE_ROUND:
 			case Competition::TYPE_TOURNAMENT:
 			case Competition::TYPE_SEASON:
 			case 'COMPETITION':
