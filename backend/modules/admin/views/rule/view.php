@@ -12,6 +12,7 @@ use yii\data\ActiveDataProvider;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Rule */
+$model->rule_type = ($model->rule_type == Rule::TYPE_MATCH) ? 1 : 0;
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competition Rules'), 'url' => ['index']];
@@ -34,6 +35,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'competition_type',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => Competition::getConstants('TYPE_'),
+            ],
+            [
+                'attribute'=>'rule_type',
+				'type' => DetailView::INPUT_SWITCH,
+				'widgetOptions' => [
+				    'pluginOptions' => [
+						'onText'  => Yii::t('golf', Rule::TYPE_MATCH),
+						'offText' => Yii::t('golf', Rule::TYPE_STROKE)
+					]
+				],
+				'value' => $model->rule_type ? Yii::t('golf', Rule::TYPE_MATCH) : Yii::t('golf', Rule::TYPE_STROKE),
             ],
             [
                 'attribute'=>'source_type',

@@ -1,8 +1,11 @@
 <?php
 
+use common\models\Rule;
+
+use kartik\icons\Icon;
+
 use yii\helpers\Html;
 use yii\helpers\Url;
-use kartik\icons\Icon;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\CompetitionSearch */
@@ -39,13 +42,22 @@ $this->params['breadcrumbs'][] = $this->title;
 	        'filterModel' => $startSearch,
 			'actionButtons' => [
 				'class' => 'kartik\grid\ActionColumn',
-			 	'template' => '{view} {tees} {flight} {team}',
+			 	'template' => '{view} {tees} {flight} {team} {match}',
 	            'buttons' => [
 	                'team' => function ($url, $model) {
 						if($model->rule->team) {
 							$url = Url::to(['team/competition', 'id' => $model->id]);
 		                    return Html::a(Icon::show('groups-friends', [], Icon::WHHG), $url, [
 		                        'title' => Yii::t('golf', 'Make Teams'),
+		                    ]);
+						}
+						return null;
+	                },
+	                'match' => function ($url, $model) {
+						if($model->rule->rule_type == Rule::TYPE_MATCH) {
+							$url = Url::to(['match/competition', 'id' => $model->id]);
+		                    return Html::a(Icon::show('exchange', [], Icon::FA), $url, [
+		                        'title' => Yii::t('golf', 'Matches'),
 		                    ]);
 						}
 						return null;

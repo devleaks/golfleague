@@ -9,19 +9,21 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
+ * @property string $description
  * @property string $competition_type
  * @property string $source_type
  * @property string $source_direction
  * @property string $destination_type
  * @property string $rule_type
+ * @property integer $handicap
  * @property integer $team
- * @property string $description
  * @property string $classname
  * @property string $parameters
  * @property string $note
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property string $destination_format
  *
  * @property Competition[] $competitions
  * @property Competition[] $competitions0
@@ -44,12 +46,12 @@ class _Rule extends \yii\db\ActiveRecord
     {
         return [
             [['competition_type'], 'required'],
-            [['team'], 'integer'],
+            [['handicap', 'team'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'classname'], 'string', 'max' => 80],
-            [['competition_type', 'source_direction', 'status'], 'string', 'max' => 20],
-            [['source_type', 'destination_type', 'rule_type'], 'string', 'max' => 40],
             [['description', 'parameters'], 'string', 'max' => 255],
+            [['competition_type', 'source_direction', 'status'], 'string', 'max' => 20],
+            [['source_type', 'destination_type', 'rule_type', 'destination_format'], 'string', 'max' => 40],
             [['note'], 'string', 'max' => 160],
             [['name'], 'unique']
         ];
@@ -63,19 +65,21 @@ class _Rule extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('golf', 'ID'),
             'name' => Yii::t('golf', 'Name'),
+            'description' => Yii::t('golf', 'Description'),
             'competition_type' => Yii::t('golf', 'Competition Type'),
             'source_type' => Yii::t('golf', 'Source Type'),
             'source_direction' => Yii::t('golf', 'Source Direction'),
             'destination_type' => Yii::t('golf', 'Destination Type'),
             'rule_type' => Yii::t('golf', 'Rule Type'),
+            'handicap' => Yii::t('golf', 'Handicap'),
             'team' => Yii::t('golf', 'Team'),
-            'description' => Yii::t('golf', 'Description'),
             'classname' => Yii::t('golf', 'Classname'),
             'parameters' => Yii::t('golf', 'Parameters'),
             'note' => Yii::t('golf', 'Note'),
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
+            'destination_format' => Yii::t('golf', 'Destination Format'),
         ];
     }
 

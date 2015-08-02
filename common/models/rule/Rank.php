@@ -36,7 +36,7 @@ class Rank extends Rule {
 						$scorecard->save();
 					}
 				}
-				Yii::trace('doing '.$scorecard->golfer->name);
+				Yii::trace('doing '.$scorecard->player->name);
 				$latest = $scorecard;
 			}			
 		}

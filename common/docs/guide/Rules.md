@@ -46,11 +46,26 @@ Tournaments) get combined to elect a winner.
 Post Competition Rules
 ----------------------
 
+The Post Competition Rule is a rule that is applied after all scorecards have been published.
+
+An typical example of post-competition rule is the attribution of points depending on the ranking in the match.
+For example, the winner of the match gets 10 points, second and ties get 8 points, and so on.
+This attribution of points is performed throught the post-competition rule.
+
+Another post-competition rule is the typical "cut" after a round.
+For example, if a cut is applied after the 32nd player and ties, all contestants after the 32nd place and ties
+would get their status switched to eliminated or cut.
+
+
+More Rules
+----------
+
 The Golf League Application bundles a few common rules that cover numerous types
 of competitions.
 
 If your competition type cannot be regulated by a rule bundled with the
 application, you can develop your own competition or post-competition rule.
+
 
 Rule Attributes
 ---------------
@@ -76,5 +91,5 @@ parsed from the parameter string and passed to the rule class instance before if
 it is executed.
 
 Example of parameters for a Rule would be, for example, the number or players
-and ties kept after a cut after 2 matches in a 4 matches competition. (A typical
+and ties kept after a cut after 2 matches in a 4 matches tournament. (A typical
 PGA Tour tournament rule.)

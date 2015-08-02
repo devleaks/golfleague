@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Rule */
 /* @var $form yii\widgets\ActiveForm */
 
+if(! $model->rule_type) $model->rule_type = 0;
 ?>
 
 <div class="rule-form">
@@ -28,6 +29,13 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'competition_type')->dropDownList(Competition::getLocalizedConstants('TYPE_'))
 			->hint(Yii::t('golf', 'Rule applies to this type of competition')) ?>
 
+	<?=	$form->field($model, 'rule_type')->widget(SwitchInput::className(), [
+		'pluginOptions' => [
+			'onText'  => Yii::t('golf', Rule::TYPE_MATCH),
+			'offText' => Yii::t('golf', Rule::TYPE_STROKE)
+		]
+	])->hint(Yii::t('golf', 'Type of competition: Strokeplay or Matchplay')) ?>
+				
     <?= $form->field($model, 'source_type')->dropDownList(Scorecard::getConstants('SCORE_'))
 			->hint(Yii::t('golf', 'Source column for score')) ?>
 

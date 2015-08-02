@@ -71,7 +71,7 @@ class Scoreline extends Model {
 
 class Scoreboard extends _Scoretable {
 	/** integer Maximum number of player displayed on scoreboard */
-	public $maxPlayers = 10;
+	public $maxPlayers = 20;
 	
 	/** common\models\Competition Competition to display. */
 	public $competition;
@@ -288,7 +288,7 @@ class Scoreboard extends _Scoretable {
 
 	private function print_score($scoreline) {
 		$name = $this->competition->rule->source_type;
-		
+		// echo $this->scoreline[0]->rule->source_type.' '.$this->scoreline[0]->rule->source_direction;
 		$output = '';
 		$debug = '';
 		if(!$scoreline) {
@@ -424,7 +424,7 @@ class Scoreboard extends _Scoretable {
 				]);
 			}
 		} else {
-			foreach($this->competition->getScorecards()->andWhere(['status' => Scorecard::STATUS_RETURNED])->each() as $scorecard) {
+			foreach($this->competition->getScorecards()->andWhere(['status' => [Scorecard::STATUS_RETURNED, Scorecard::STATUS_OPEN]])->each() as $scorecard) {
 				// previous rounds
 				$rounds = [];
 				$total_topar = 0;

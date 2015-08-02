@@ -12,12 +12,18 @@ class Rule extends _Rule
 {
 	use Constant;
 	
-	/** */
+	/** Rule type for competiton behavior */
+	const TYPE_STROKE = 'STROKE';
+	const TYPE_MATCH  = 'MATCH';
+	
+
+	/** Type/semantic of points in points column. Used for rounding, comparison, etc. */
 	const POINT_FORMAT		= 'INT';
 	const POINT_POSITIVE	= 'POS';
 	const POINT_HALF		= 'HALF';
 	const POINT_DECIMAL1	= 'DEC1';
 	const POINT_DECIMAL2	= 'DEC1';
+	
 
     /**
      * @inheritdoc

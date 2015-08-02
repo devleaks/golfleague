@@ -52,6 +52,10 @@ class RuleController extends GolfLeagueController
         $model=$this->findModel($id);
  
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if(!in_array($model->rule_type, [Rule::TYPE_STROKE, Rule::TYPE_MATCH])) {
+				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCH : Rule::TYPE_STROKE;
+				$model->save();
+			}
             return $this->redirect(['view', 'id'=>$model->id]);
         } else {
 			if(count($model->errors)>0)
@@ -70,6 +74,10 @@ class RuleController extends GolfLeagueController
         $model = new Rule();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if(!in_array($model->rule_type, [Rule::TYPE_STROKE, Rule::TYPE_MATCH])) {
+				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCH : Rule::TYPE_STROKE;
+				$model->save();
+			}
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -108,6 +116,10 @@ class RuleController extends GolfLeagueController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if(!in_array($model->rule_type, [Rule::TYPE_STROKE, Rule::TYPE_MATCH])) {
+				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCH : Rule::TYPE_STROKE;
+				$model->save();
+			}
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
