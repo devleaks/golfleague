@@ -55,9 +55,17 @@ class MatchController extends Controller
 		$savedmatches = Yii::$app->request->post('matches');
 		if($savedmatches) {
 			$matches = json_decode($savedmatches);
+			
+			foreach($matches as $match) {
+				foreach($match->registrations as $reg_id) {
+					if($registration = Registration::findOne($reg_id)) {
+						$registration->match_id = $match->id;
+						$registration->save();
+					}
+				}
+			}
 
-
-			if($flights) // need a better test...
+			if($matches) // need a better test...
 				Yii::$app->session->setFlash('success', Yii::t('golf', 'Flight saved sucessfully.'));
 			else
 				Yii::$app->session->setFlash('error', Yii::t('golf', 'There was a problem saving flights.'));
@@ -73,6 +81,32 @@ class MatchController extends Controller
         ]);
 
     }
+
+
+    /**
+     * Resets flights for a competition.
+     * @return mixed
+     */
+    public function actionReset($id) {
+		$competition = Competition::findOne($id);
+		if(!$competition)
+        	throw new NotFoundHttpException('The requested page does not exist.');
+
+		$matches = $competition->getMatches();
+		
+		foreach($matches->each() as $match) {
+			$match->cleanRegistrations(true);
+		}
+
+		$matches = $this->getMatches($competition);
+		if(!$matches) // no registration
+        	throw new NotFoundHttpException('There is no registration for this competition.');
+		else
+			Yii::$app->session->setFlash('success', Yii::t('golf', 'Matches reset sucessfully.'));
+
+        return $this->redirect(['competition', 'id' => $competition->id]);
+	}
+
 
 
     /**
