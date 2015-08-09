@@ -56,4 +56,13 @@ class Flight extends _Flight
 	public function getTeams() {
 		return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['flight_id' => 'id']);
 	}
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+	public function getMatches() {
+		return $this->hasMany(Match::className(), ['id' => 'match_id'])->viaTable('registration', ['flight_id' => 'id']);
+	}
+
+
 }

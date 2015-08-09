@@ -52,4 +52,18 @@ class Match extends _Match
 		if($delete)
 			$this->delete();
     }
+
+    /**
+     * Get a label for match made from competitor's name separated by separator
+     */
+	public function getLabel($separator = '/') {
+		$names = '';
+		foreach($this->getRegistrations()->each() as $registration) {
+			if($registration->competition->isTeamCompetition())
+				$names .= $registration->team->getLabel('-').$separator;
+			else
+				$names .= $registration->golfer->name.$separator;
+		}
+		return substr($names, 0, - strlen($separator));;
+	}
 }

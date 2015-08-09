@@ -56,7 +56,7 @@ foreach($matches as $match) {
     </ul>
 </div>
 
-<?= Html::a(Yii::t('golf', 'Publish Flights'), ['match/publish', 'id' => $competition->id], [
+<?= Html::a(Yii::t('golf', 'Publish Matches'), ['match/publish', 'id' => $competition->id], [
 		'class' => 'btn btn-primary',
 		'data' => [
     		'confirm' => Yii::t('golf', 'Are you sure you want to publish matches for this competition?'),

@@ -63,4 +63,7 @@ Negative handicap (in rules)
 
 Problem when tournament is point-based and match is stroke/stb based
 
+---------
+4 types of competitions: STROKE or MATCH and SINGLE or TEAM
+
 

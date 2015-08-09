@@ -65,7 +65,7 @@ class Round extends Competition
 	 * Return Level of a matchplay competition: 1 = final, 2 = semi-final, 3 = quarter final, etc.
 	 */
 	public function getLevel() {
-		if($this->rule->rule_type == Rule::TYPE_MATCHPLAY) {
+		if($this->isMatchCompetition()) {
 			if(($numRegs = $this->getRegistrations()->andWhere(['status' => Registration::STATUS_REGISTERED])->count()) > 0) {
 				Yii::trace('count='.$numRegs.', log='.log($numRegs, 2), 'getLevel');
 				return $numRegs > 0 ? intval(log($numRegs, 2)) - 1 : 0;				

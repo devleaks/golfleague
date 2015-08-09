@@ -700,6 +700,13 @@ class Competition extends _Competition
 	}
 
 	/**
+	 * Matchplay
+	 */
+	public function isMatchCompetition() {
+		return $this->rule->rule_type == Rule::TYPE_MATCHPLAY;
+	}
+
+	/**
 	 * Checks whether some registrations are not in team yet
 	 */
 	public function isTeamOk() {

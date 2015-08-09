@@ -3,17 +3,22 @@
 namespace backend\modules\start\controllers;
 
 use Yii;
+
 use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\Flight;
+use common\models\Match;
 use common\models\Registration;
+use common\models\Rule;
 use common\models\Team;
 use common\models\TeesForm;
 use common\models\flight\BuildFlightChrono;
 use common\models\flight\BuildFlightForTeam;
+use common\models\flight\BuildFlightForMatch;
 use common\models\flight\BuildFlightStandard;
 use common\models\search\CompetitionSearch;
 use common\models\search\FlightSearch;
+
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
@@ -91,8 +96,18 @@ class FlightController extends GolfLeagueController
 	private function getFlights($competition) {
 		$flights = $competition->getFlights()->orderBy('position')->all();		
 		if(!$flights) {// need to make them
-			$method = $competition->isTeamCompetition() ? new BuildFlightForTeam() : new BuildFlightChrono(); // later, method will be chosen from list of value
+
+			$method = null;
+
+			if($competition->isMatchCompetition())
+				$method = new BuildFlightForMatch();
+			else if($competition->isTeamCompetition())
+				$method = new BuildFlightForTeam();
+			else
+				$method = new BuildFlightChrono(); // later, method will be chosen from list of value
+				
 			$method->execute($competition);
+			
 			$flights = $competition->getFlights()->orderBy('position')->all();		
 		} else { // we got flights, but may be some players registered after the last time we arranged flights
 			$newRegs = $competition->getRegistrations()
@@ -101,10 +116,13 @@ class FlightController extends GolfLeagueController
 						;
 			// build additional flights with new registrations
 			if($newRegs->exists()) {
-				if($competition->isTeamCompetition())
+				if($competition->isMatchCompetition())
+					BuildFlightForMatch::addFlights($competition, $newRegs);
+				else if($competition->isTeamCompetition())
 					BuildFlightForTeam::addFlights($competition, $newRegs);
 				else
 					BuildFlightStandard::addFlights($competition, $newRegs);
+
 				$flights = $competition->getFlights()->orderBy('position')->all();		
 			}
 		}
@@ -127,7 +145,10 @@ class FlightController extends GolfLeagueController
 		$flight->position = $flight_str->position;
 		Yii::trace($competition_date . ' ' . $flight_str->start_time . ':00'  , 'FlightController::makeFlight');
 		$flight->start_time = $competition_date . ' ' . $flight_str->start_time . ':00';
+		$flight->start_hole = $competition->start_hole;
 		$flight->save();
+		//Yii::trace(print_r($flight->errors, true) , 'FlightController::makeFlight');
+
 		// add currents
 		if($competition->isTeamCompetition()) {
 			foreach($flight_str->registrations as $registration_str) {
@@ -135,6 +156,16 @@ class FlightController extends GolfLeagueController
 				$team = Team::findOne($registration_arr[1]);
 				if($team) {
 					foreach($team->getRegistrations()->each() as $registration) {
+						$registration->flight_id = $flight->id;
+						$registration->save();
+					}
+				}
+			}
+		} else if($competition->isMatchCompetition()) { // matchplay
+			foreach($flight_str->registrations as $match_str) {
+				$match_arr = explode('-', $match_str); // match-456
+				if($match = Match::findOne($match_arr[1])) {
+					foreach($match->getRegistrations()->each() as $registration) {
 						$registration->flight_id = $flight->id;
 						$registration->save();
 					}
@@ -150,6 +181,7 @@ class FlightController extends GolfLeagueController
 				}
 			}
 		}
+		
 		return $flight->id;
 	}
 
@@ -188,7 +220,7 @@ class FlightController extends GolfLeagueController
 				$flight->cleanRegistrations(true);
 			}
 
-			if($flights) // need a better test...
+			if($flights) // @todo need a better test...
 				Yii::$app->session->setFlash('success', Yii::t('golf', 'Flight saved sucessfully.'));
 			else
 				Yii::$app->session->setFlash('error', Yii::t('golf', 'There was a problem saving flights.'));

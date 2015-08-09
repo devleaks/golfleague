@@ -884,16 +884,16 @@
         },
         {
             "name": "bower-asset/lodash",
-            "version": "3.10.0",
+            "version": "3.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lodash/lodash.git",
-                "reference": "f2d87df120c6a675d358f66b37b01adc637cbe55"
+                "reference": "dfbd78f71de0550068fc82ce6e013d443e5037d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lodash/lodash/zipball/f2d87df120c6a675d358f66b37b01adc637cbe55",
-                "reference": "f2d87df120c6a675d358f66b37b01adc637cbe55",
+                "url": "https://api.github.com/repos/lodash/lodash/zipball/dfbd78f71de0550068fc82ce6e013d443e5037d7",
+                "reference": "dfbd78f71de0550068fc82ce6e013d443e5037d7",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -2615,12 +2615,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "c502e12b25da77bb3b36c2ef7510c6d1aae44f39"
+                "reference": "2cd9b184c6f1eeb0b85562db9c5719448e9b45a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/c502e12b25da77bb3b36c2ef7510c6d1aae44f39",
-                "reference": "c502e12b25da77bb3b36c2ef7510c6d1aae44f39",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/2cd9b184c6f1eeb0b85562db9c5719448e9b45a4",
+                "reference": "2cd9b184c6f1eeb0b85562db9c5719448e9b45a4",
                 "shasum": ""
             },
             "require": {
@@ -2655,7 +2655,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-07-14 17:56:29"
+            "time": "2015-08-09 04:30:04"
         },
         {
             "name": "kartik-v/yii2-grid",
@@ -5260,16 +5260,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "ea8c13b9f5cd437bd7bf73cad8a3457a155f3727"
+                "reference": "f42b2eb80f61992438661b01d0d74c6738e2ff38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ea8c13b9f5cd437bd7bf73cad8a3457a155f3727",
-                "reference": "ea8c13b9f5cd437bd7bf73cad8a3457a155f3727",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/f42b2eb80f61992438661b01d0d74c6738e2ff38",
+                "reference": "f42b2eb80f61992438661b01d0d74c6738e2ff38",
                 "shasum": ""
             },
             "require": {
@@ -5344,7 +5344,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-07-11 02:37:59"
+            "time": "2015-08-05 22:00:30"
         },
         {
             "name": "yiisoft/yii2-apidoc",
@@ -5895,16 +5895,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "5c7081b2be71c61d3a50d978b31edc3e0b6f2f97"
+                "reference": "1b302e67521d46feb2413d9d96ca94ed82b39b0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/5c7081b2be71c61d3a50d978b31edc3e0b6f2f97",
-                "reference": "5c7081b2be71c61d3a50d978b31edc3e0b6f2f97",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/1b302e67521d46feb2413d9d96ca94ed82b39b0e",
+                "reference": "1b302e67521d46feb2413d9d96ca94ed82b39b0e",
                 "shasum": ""
             },
             "require": {
@@ -5938,7 +5938,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2015-05-10 22:08:56"
+            "time": "2015-08-06 16:14:06"
         },
         {
             "name": "yiisoft/yii2-faker",

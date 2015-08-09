@@ -1,7 +1,10 @@
 <?php
 
-use yii\helpers\Html;
+use common\models\Rule;
+
 use kartik\grid\GridView;
+
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\FlightSearch */
@@ -11,10 +14,15 @@ use kartik\grid\GridView;
 <ul id="flight-<?= $flight->id ?>" class="flight">
 
     <?php
-	if ($flight->getRegistrations()->one()->competition->isTeamCompetition())
+	if ($flight->getRegistrations()->one()->competition->isMatchCompetition())
+		foreach($flight->getMatches()->each() as $match) {
+			$teesColor = 'black';
+			echo '<li id="match-'.$match->id.'" class="golfer"  data-handicap="0">'.$match->getLabel(' vs. ').'</li>';
+		}
+	else if ($flight->getRegistrations()->one()->competition->isTeamCompetition())
 		foreach($flight->getTeams()->each() as $team) {
 			$teesColor = 'black';
-			echo '<li id="registration-'.$team->id.'" class="golfer"  data-handicap="'.$team->handicap.'">'.$team->name.' ('.
+			echo '<li id="team-'.$team->id.'" class="golfer"  data-handicap="'.$team->handicap.'">'.$team->getLabel().' ('.
 				'<span class="glyphicon glyphicon-filter" style="color: '.$teesColor.';"></span> '.$team->handicap.')</li>';
 		}
 	else

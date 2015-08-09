@@ -78,7 +78,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </div>
 
-<ul id="flight-case">
+<ul id="flight-case"
+    data-competition="<?= $competition->id ?>"
+	data-ismatch="<?= $competition->isMatchCompetition() ? '1' : '0' ?>"
+	data-isteam="<?= $competition->isTeamCompetition() ? '1' : '0' ?>"
+	>
 
     <?php // each flight
 	foreach($flights as $flight) {
