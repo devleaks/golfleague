@@ -167,21 +167,28 @@ class Matchboard extends _Scoretable {
 		$debug = '';
 		
 		$cnt = 0;
-		foreach($match->getRegistrations()->each() as $opponent) {			
+		foreach($match->getRegistrations()->each() as $opponent) {
+			$pid = $opponent->scorecard->player->id;		
 			$output .= Html::beginTag('tr', ['class' => 'golfleague-match-'.$cnt++]); // -0, -1 allows to distinguish opponent for styling
 
 			/* name */
 			$output .= Html::tag('td', $opponent->scorecard->player->name, ['class' => 'golfleague-name']);
 
 			/* hole details */
-			if($this->getOption(self::HOLES)) {
-				$detail = $opponent->scorecard->getScoreFromRule();
+			if($this->getOption(self::HOLES) && $opponent->scorecard->hasDetails()) {
+				$details = $opponent->scorecard->getScoreFromRule();
 				$score = 0;
-				for($i=0; $i<min($this->match->holes,count($scores)); $i++) {
-					$score += $scores[$i];
-					$output .= $this->td($name, self::HOLE.'-'.$i.'-'.$pid, $score);
+				for($i=0; $i<min($this->match->holes,$opponent->scorecard->thru); $i++) {
+					$score += 2*$details[$i] - 1;
+					$output .= $this->td(self::MATCH, self::HOLE.'-'.$i.'-'.$pid, $score);
 				}
+				for(; $i<$this->match->holes; $i++) {
+					$output .= $this->td(self::MATCH, self::HOLE.'-'.$i.'-'.$pid, '');
+				}
+			} else if($this->getOption(self::HOLES)) {
+				$output .= Html::tag('td', Yii::t('golf', 'No detailed scorecard.'), ['colspan' => $this->match->holes]);
 			}
+			
 
 			/* total, always displayed */
 			$points = $opponent->scorecard->getScoreFromRule(true);
@@ -189,9 +196,9 @@ class Matchboard extends _Scoretable {
 			$score  = 2 * $points - $thru;
 			
 			if($this->getOption(self::TODAY)) {
-				$output .= $this->td(self::TO_PAR, self::TODAY.'-'.$opponent->scorecard->player->id, $thru);
+				$output .= $this->td(self::TO_PAR, self::TODAY.'-'.$pid, $thru);
 			}
-			$output .= $this->td(self::MATCH, self::TOTAL.'-'.$opponent->scorecard->player->id, $score);
+			$output .= $this->td(self::MATCH, self::TOTAL.'-'.$pid, $score);
 
 			$output .= Html::endTag('tr');
 		}

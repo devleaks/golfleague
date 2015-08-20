@@ -57,9 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			Matchboard::TODAY => true,
 			Matchboard::TO_PAR => true,
 			Matchboard::COLOR => true,
-			Matchboard::LEGEND => true,
+			Matchboard::HOLES => true,
 			Matchboard::UPS => 'U',
 			Matchboard::DOWNS => 'D',
+			Matchboard::ALLSQUARE => 'AS',
 		]
     ]) ?>
 

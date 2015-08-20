@@ -326,10 +326,33 @@ class Scorecard extends _Scorecard
 		return $this->lastToPar(true);
 	}
 	
+	/**
+	 * For matchplay, points() compute up and down from scores. For strokeplay, points() returns the score rounded according to the rule.
+	 * In both cases, handicap is taken into account according to the rule.
+	 *
+	 */
 	public function points() {
 		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
 		$r = $rule->getRounding();
-		return array_map(function($a) use ($r) { return round($a, $r); }, $this->getHoleData('points'));
+		if($rule->rule_type == Rule::TYPE_MATCHPLAY) {
+			$ret = [];
+			// Get opponent scorecard
+			if($opponent = $this->getOpponent()) {
+				if($opponent_scorecard = $opponent->getScorecard()) {
+					$this_score = $this->score($rule->handicap);
+					$opponent_score = $opponent_scorecard->score($rule->handicap);
+					$score = 0;
+					// Compute Up/Down array
+					for($i = 0; $i < min($this->thru, $opponent_scorecard->thru); $i++) {
+						$ret[$i] = $this_score[$i] == $opponent_score[$i] ? 0.5 :
+									($this_score[$i] > $opponent_score[$i] ? 1 : 0);
+					}
+				}
+			}
+			return $ret;
+		} else { // Strokeplay
+			return array_map(function($a) use ($r) { return round($a, $r); }, $this->score($rule->handicap));
+		}
 	}
 
 	public function points_total() {
@@ -440,4 +463,19 @@ class Scorecard extends _Scorecard
 		$this->save();
 	}
 
+
+	public function getOpponent() {
+		$opponent = null;
+		if($r = $this->getRegistration()->one()) {
+			if($m = $r->getMatch()->one()) {
+				foreach($m->getRegistrations()->each() as $r2) {
+					if($r2->id != $r->id) {
+						$opponent = $r2;
+						Yii::trace('got '.$opponent->id, "Scorecard::getOpponent");
+					}
+				}
+			}
+		}
+		return $opponent;
+	}
 }
