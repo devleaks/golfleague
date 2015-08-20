@@ -84,7 +84,7 @@ use kartik\grid\GridView;
 $statuses = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
 				Yii::t('golf', 'Change Status of Selected Scorecards to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
 foreach(Scorecard::getLocalizedConstants('STATUS_') as $key => $value)
-	$statuses .= '<li>'.Html::a(Yii::t('golf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
+	$statuses .= '<li>'.Html::a(Yii::t('golf', 'Change to {0}', $value), null, ['class' => 'golfleague-bulk-action', 'data-status' => $key]).'</li>';
 $statuses .= '</ul></div>';
 
 $buttons = $competition ? Html::a(Yii::t('golf', 'Scores'), Url::to(['competition', 'id' => $competition->id]), ['class'=>'btn btn-primary']) : '';
@@ -97,7 +97,7 @@ echo $buttons;
 <script type="text/javascript">
 <?php
 $this->beginBlock('JS_PJAXREG') ?>
-$("a.igolf-bulk-action").click(function(e) {
+$("a.golfleague-bulk-action").click(function(e) {
 	collected = $('#scorecard').yiiGridView('getSelectedRows');
 	if(collected != '') {
 		status = $(this).data('status');

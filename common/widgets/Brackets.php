@@ -1,6 +1,6 @@
 <?php
 /**
- * Scoreboard widget renders a competition scoreboard for one or more rounds.
+ * Brackets widget renders a matchplay tournament in bracket format.
  *
  * @author Pierre M <devleaks.be@gmail.com>
  */
@@ -18,58 +18,8 @@ use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-class Scoreline extends Model {
-	/** Player */
-	public $pos;
-	public $player;
-	public $scorecard;
 
-	/** Details for display */
-	public $curr;
-
-	/** Current hole (may depend on round...) */
-	public $round;
-	public $thru;
-
-	/** Totals */
-	public $topar;
-	public $today;
-	public $total;
-	public $totals;
-	public $stats;
-
-	/** */
-	public $rule;
-
-	public static function compare($a, $b) {
-		if($a->rule) {
-			$sa = 0;
-			$sb = 0;
-			if($a->rule->competition_type == Competition::TYPE_ROUND) {
-				$sa = intval($a->total);
-				$sb = intval($b->total);
-			} else {
-				$sa = intval(array_sum($a->totals));
-				$sb = intval(array_sum($b->totals));
-			}
-			if($a->rule->source_direction == Scorecard::DIRECTION_ASC) {
-				return ($sa == $sb) ? ($a->thru > $b->thru) : ($sa < $sb);
-			} else {
-				return ($sa == $sb) ? ($a->thru < $b->thru) : ($sa > $sb);
-			}
-		}
-	}
-	
-	public static function compareToPar($a, $b) {
-		$sa = intval($a->topar);
-		$sb = intval($b->topar);
-		return ($sa == $sb) ? ($a->thru < $b->thru) : ($sa > $sb);
-	}
-	
-}
-
-
-class Scoreboard extends _Scoretable {
+class Brackets extends _Scoretable {
 	/** integer Maximum number of player displayed on scoreboard */
 	public $maxPlayers = 20;
 	

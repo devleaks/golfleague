@@ -96,7 +96,7 @@ use common\models\Competition;
 $statuses = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
 				Yii::t('golf', 'Change Status of Selected Registrations to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
 foreach(Registration::getLocalizedConstants('STATUS_') as $key => $value)
-	$statuses .= '<li>'.Html::a(Yii::t('golf', 'Change to {0}', $value), null, ['class' => 'igolf-bulk-action', 'data-status' => $key]).'</li>';
+	$statuses .= '<li>'.Html::a(Yii::t('golf', 'Change to {0}', $value), null, ['class' => 'golfleague-bulk-action', 'data-status' => $key]).'</li>';
 $statuses .= '</ul></div>';
 
 $buttons = '';
@@ -104,7 +104,7 @@ if($competition) {
 	$buttons = Html::a(Yii::t('golf', 'New Registration'), ['create', 'id' => $competition->id], ['class' => 'btn btn-success']);
 	$buttons .= ' '.Html::a(Yii::t('golf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']);
 }
-$buttons .= ' '.Html::a(Yii::t('golf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger igolf-bulk-action', 'data' => [
+$buttons .= ' '.Html::a(Yii::t('golf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger golfleague-bulk-action', 'data' => [
 				'status' => Registration::ACTION_DELETE,
 			    'confirm-local' => Yii::t('golf', 'Are you sure you want to delete selected registration(s)?'), // interference with bootbox
 ]]);
@@ -116,8 +116,8 @@ if($competition) {
 			$children = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
 							Yii::t('golf', 'Register Selected to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
 			foreach($competition->getCompetitions()->each() as $child)
-				$children .= '<li>'.Html::a(Yii::t('golf', 'Register to {0}', $child->name), null, ['class' => 'igolf-bulk-action', 'data-status' => 'competition', 'data-competition' => $child->id]).'</li>';
-			$children .= '<li>'.Html::a(Yii::t('golf', 'Register to all'), null, ['class' => 'igolf-bulk-action', 'data-status' => 'competition', 'data-competition' => -$competition->id]).'</li>';
+				$children .= '<li>'.Html::a(Yii::t('golf', 'Register to {0}', $child->name), null, ['class' => 'golfleague-bulk-action', 'data-status' => 'competition', 'data-competition' => $child->id]).'</li>';
+			$children .= '<li>'.Html::a(Yii::t('golf', 'Register to all'), null, ['class' => 'golfleague-bulk-action', 'data-status' => 'competition', 'data-competition' => -$competition->id]).'</li>';
 			$children .= '</ul></div>';
 			$buttons .= ' ' . $children;
 		}
@@ -132,7 +132,7 @@ echo $buttons;
 <script type="text/javascript">
 <?php
 $this->beginBlock('JS_PJAXREG') ?>
-$("a.igolf-bulk-action").click(function(e) {
+$("a.golfleague-bulk-action").click(function(e) {
 	collected = $('#registration').yiiGridView('getSelectedRows');
 	if(collected != '') {
 		status = $(this).data('status');

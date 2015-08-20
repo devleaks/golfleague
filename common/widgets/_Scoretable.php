@@ -38,6 +38,13 @@ class _Scoretable extends Widget {
 	const STABLEFORD_NET	= 'stableford_net';
 	const TO_PAR_NET	= 'to_par_net';
 
+	/* Displays for matchplay */
+	const MATCH			= 'match';
+	
+	const ALLSQUARE		= 'AS';
+	const UPS			= 'U';
+	const DOWNS			= 'D';
+	
 
 	/* Columns that can be displayed */
 	const HOLES			= 'holes';
@@ -194,6 +201,14 @@ class _Scoretable extends Widget {
 				$output = Html::tag('td', '');
 		return $output;
 	}
+	
+	protected function td_match($score, $str) {
+		if($score)
+			$output = Html::tag('td', abs($score).($score < 0 ? $this->getOptions(self::UPS) : $this->getOptions(self::DOWNS)));
+		else
+			$output = Html::tag('td', $this->getOptions(self::ALLSQUARE));
+		return $output;
+	}
 			
     protected function td($name, $str, $val, $topar = 0) {
 		$output = '';
@@ -204,6 +219,9 @@ class _Scoretable extends Widget {
 				break;
 			case self::ALLOWED:
 				$output = $this->td_allowed($val, $str);
+				break;
+			case self::MATCH:
+				$output = $this->td_match($val, $str);
 				break;
 			default:
 				$output = $this->td_score_highlight($val, $topar, $name);

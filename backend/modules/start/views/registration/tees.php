@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $statuses = '<div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'.
 				Yii::t('golf', 'Set Tees of Selected Golfer to '). ' <span class="caret"></span></button><ul class="dropdown-menu" role="menu">';
 foreach($starts as $key => $value)
-	$statuses .= '<li>'.Html::a(Yii::t('golf', $value), null, ['class' => 'igolf-bulk-action', 'data-tees_id' => $key]).'</li>';
+	$statuses .= '<li>'.Html::a(Yii::t('golf', $value), null, ['class' => 'golfleague-bulk-action', 'data-tees_id' => $key]).'</li>';
 $statuses .= '</ul></div>';
 
 $buttons = Html::a(Yii::t('golf', 'Assign Tees'), ['assign-tees', 'id' => $competition->id], ['class' => 'btn btn-success']);
@@ -110,7 +110,7 @@ echo $buttons;
 <script type="text/javascript">
 <?php
 $this->beginBlock('JS_PJAXREG') ?>
-$("a.igolf-bulk-action").click(function(e) {
+$("a.golfleague-bulk-action").click(function(e) {
 	collected = $('#registration').yiiGridView('getSelectedRows');
 	if(collected != '') {
 		tees_id = $(this).data('tees_id');

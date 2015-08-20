@@ -25,7 +25,6 @@ class BuildMatchChrono implements BuildMatch
 			if($flip) {
 				$match = new Match();
 				$match->position = $position++;
-				$match->level = $level;
 				$flip = false;
 			} else
 				$flip = true;
