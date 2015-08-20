@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d08934a3b8a6b1a4a3ded591bc73df2d",
+    "hash": "99e242b7f29f8fdc7a1ac5611fcc3f58",
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -2615,17 +2615,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "2cd9b184c6f1eeb0b85562db9c5719448e9b45a4"
+                "reference": "69f1df3b1f4757e9d6ee0c302db47744e8bed94a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/2cd9b184c6f1eeb0b85562db9c5719448e9b45a4",
-                "reference": "2cd9b184c6f1eeb0b85562db9c5719448e9b45a4",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/69f1df3b1f4757e9d6ee0c302db47744e8bed94a",
+                "reference": "69f1df3b1f4757e9d6ee0c302db47744e8bed94a",
                 "shasum": ""
             },
             "require": {
-                "kartik-v/yii2-helpers": "*",
-                "kartik-v/yii2-krajee-base": "*"
+                "kartik-v/yii2-helpers": "~1.3",
+                "kartik-v/yii2-krajee-base": "~1.7"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -2644,7 +2644,7 @@
                     "homepage": "http://www.krajee.com/"
                 }
             ],
-            "description": "Various enhancements to the Yii 2 Detail View with ability to edit data and manage Bootstrap 3 styles.",
+            "description": "Various enhancements to the Yii 2 Detail View with multi models, ability to edit data, manage Bootstrap 3 styles and more.",
             "homepage": "https://github.com/kartik-v/yii2-detail-view",
             "keywords": [
                 "detail",
@@ -2655,7 +2655,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-08-09 04:30:04"
+            "time": "2015-08-10 03:45:16"
         },
         {
             "name": "kartik-v/yii2-grid",
@@ -2703,7 +2703,7 @@
         },
         {
             "name": "kartik-v/yii2-helpers",
-            "version": "dev-master",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-helpers.git",
@@ -5994,7 +5994,6 @@
         "kartik-v/yii2-builder": 20,
         "kartik-v/yii2-datecontrol": 20,
         "kartik-v/yii2-detail-view": 20,
-        "kartik-v/yii2-helpers": 20,
         "kartik-v/yii2-icons": 20,
         "kartik-v/yii2-markdown": 20,
         "kartik-v/yii2-mpdf": 20,
