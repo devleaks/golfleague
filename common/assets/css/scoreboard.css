@@ -264,3 +264,7 @@ table.round_detail tbody tr.player-error td {
 .widget table.scoreboard {
 	border-color: #888;
 }
+
+tr.golfleague-match-1 {
+	border-bottom-style: double;
+}

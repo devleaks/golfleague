@@ -204,9 +204,9 @@ class _Scoretable extends Widget {
 	
 	protected function td_match($score, $str) {
 		if($score)
-			$output = Html::tag('td', abs($score).($score < 0 ? $this->getOptions(self::UPS) : $this->getOptions(self::DOWNS)));
+			$output = Html::tag('td', abs($score).' '.($score < 0 ? $this->getOption(self::UPS) : $this->getOption(self::DOWNS)));
 		else
-			$output = Html::tag('td', $this->getOptions(self::ALLSQUARE));
+			$output = Html::tag('td', $this->getOption(self::ALLSQUARE));
 		return $output;
 	}
 			

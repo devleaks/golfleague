@@ -334,6 +334,7 @@ class Scorecard extends _Scorecard
 
 	public function points_total() {
 		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
+		// Yii::trace('rounding:'.$rule->getRounding());
 		return $this->hasDetails() ? array_sum($this->points()) : round($this->points, $rule->getRounding());
 	}
 

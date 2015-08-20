@@ -179,6 +179,6 @@ class Rule extends _Rule
 	public function allowed($team, $tees) { }
 
 	public function getRounding() {
-		return 0;
+		return intval($this->destination_format);
 	}
 }

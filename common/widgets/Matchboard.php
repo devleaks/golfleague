@@ -8,7 +8,7 @@
 namespace common\widgets;
 
 use Yii;
-use common\assets\ScorecardAsset;
+use common\assets\ScoreboardAsset;
 use common\models\Rule;
 use yii\base\Model;
 use yii\bootstrap\Widget;
@@ -17,7 +17,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 
-class Matchplay extends _Scoretable {
+class Matchboard extends _Scoretable {
 	/** common\models\Match Current matchplay */
 	public $match;
 
@@ -30,7 +30,7 @@ class Matchplay extends _Scoretable {
 	 * @return string HTML table
 	 */
 	public function run() {
-		if(! $this->match->isMatchplay())
+		if(! $this->match->isMatchCompetition())
 			return Yii::t('golf', 'Competition is not a matchplay.');
 
 		if(!$this->match->hasScores())
@@ -58,13 +58,13 @@ class Matchplay extends _Scoretable {
 			$this->setOption(self::TO_PAR, false);
 		}
 
-		if($this->competition->holes == 9) {
+		if($this->match->holes == 9) {
 			$this->setOption(self::FRONTBACK, false);
 		}
 
 		$this->setOption(self::TOTAL, true);
 
-		return $this->print_table();
+		return $this->print_table(['class' => 'scoreboard scorecard']);
 	}
 
 	public function init() {
@@ -83,28 +83,18 @@ class Matchplay extends _Scoretable {
 	 *	Table Headers & Footers
 	 */
 	protected function caption() {
-		$competition = $this->competition->getFullName();
-		if($this->competition->getRounds() > 1) {
-			if($this->match) {
-				$r = $this->match->getRoundNumber();
-				$competition .= ' ('.$r.'/'.$this->competition->getRounds().')';
-			}
-			$competition .= ', '.str_replace(' ', '&nbsp;', $this->competition->getDateRange());
-		} else {
-			$competition .= ', '.Yii::$app->formatter->asDate($this->competition->start_date);
-		}
-		return Html::tag('caption', $competition);
+		return Html::tag('caption', $this->match->getFullName().', '.Yii::$app->formatter->asDate($this->match->start_date));
 	}
 
 	protected function print_header_split() {
 		$output =  Html::beginTag('tr', ['class' => 'scorecard-split']);
-		$output .= Html::tag('th', $this->tees ? $this->tees->name : '', ['colspan' => 2]);
+		$output .= Html::tag('th', $this->tees ? $this->tees->name : '');
 		if($this->getOption(self::HOLES)) {
-			for($i=0; $i<$this->competition->holes; $i++) {
+			for($i=0; $i<$this->match->holes; $i++) {
 				$output .= Html::tag('th', $i+1);
 			}
 		}
-		if($this->getOption(self::THRU)) {
+		if($this->getOption(self::TODAY)) {
 			$output .= Html::tag('th', Yii::t('golf', 'Thru'));
 		}
 		$output .= Html::tag('th', Yii::t('golf', 'Match'));
@@ -139,13 +129,17 @@ class Matchplay extends _Scoretable {
 		$output = '';
 		foreach($displays as $key => $display) {
 			$output .=  Html::beginTag('tr');
-			$output .= Html::tag('th', $display['label'], ['class' => 'labelr', 'colspan' => 2]);
+			$output .= Html::tag('th', $display['label'], ['class' => 'labelr']);
 			if($this->getOption(self::HOLES)) {
-				for($i=0; $i<$this->competition->holes; $i++) {
+				for($i=0; $i<$this->match->holes; $i++) {
 					$output .= Html::tag('th', $display['data'][$i]);
 				}
 			}
-			$output .= Html::tag('th', array_sum($display['data']), ['colspan' => $this->getOption(self::THRU) ? 2 : 1]);
+			if($display['total']) {
+				$output .= Html::tag('th', array_sum($display['data']), ['colspan' => $this->getOption(self::TODAY) ? 2 : 1]);
+			} else {
+				$output .= Html::tag('th', '', ['colspan' => $this->getOption(self::TODAY) ? 2 : 1]);
+			}
 			$output .= Html::endTag('tr');
 		}		
 		return $output;
@@ -177,13 +171,13 @@ class Matchplay extends _Scoretable {
 			$output .= Html::beginTag('tr', ['class' => 'golfleague-match-'.$cnt++]); // -0, -1 allows to distinguish opponent for styling
 
 			/* name */
-			$output .= Html::tag('td', $scoreline->scorecard->player->name, ['class' => 'golfleague-name']);
+			$output .= Html::tag('td', $opponent->scorecard->player->name, ['class' => 'golfleague-name']);
 
 			/* hole details */
 			if($this->getOption(self::HOLES)) {
 				$detail = $opponent->scorecard->getScoreFromRule();
 				$score = 0;
-				for($i=0; $i<min($this->competition->holes,count($scores)); $i++) {
+				for($i=0; $i<min($this->match->holes,count($scores)); $i++) {
 					$score += $scores[$i];
 					$output .= $this->td($name, self::HOLE.'-'.$i.'-'.$pid, $score);
 				}
@@ -194,8 +188,8 @@ class Matchplay extends _Scoretable {
 			$thru   = $opponent->scorecard->thru;
 			$score  = 2 * $points - $thru;
 			
-			if($this->getOption(self::THRU)) {
-				$output .= $this->td(self::TO_PAR, self::THRU.'-'.$opponent->scorecard->player->id, $thru);
+			if($this->getOption(self::TODAY)) {
+				$output .= $this->td(self::TO_PAR, self::TODAY.'-'.$opponent->scorecard->player->id, $thru);
 			}
 			$output .= $this->td(self::MATCH, self::TOTAL.'-'.$opponent->scorecard->player->id, $score);
 
@@ -205,6 +199,7 @@ class Matchplay extends _Scoretable {
 	}
 
 	protected function print_scores() {
+		$output = '';
 		foreach($this->match->getMatches()->orderBy('position')->each() as $match) {
 			$output .= $this->print_score($match);
 		}

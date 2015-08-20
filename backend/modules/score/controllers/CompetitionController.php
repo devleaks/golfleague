@@ -156,8 +156,11 @@ class CompetitionController extends GolfLeagueController
      */
     public function actionLeaderboard($id)
     {
-        return $this->render('leaderboard', [
-            'model' => $this->findModel($id),
+		$model = $this->findModel($id);
+		$view = $model->isMatchCompetition() ? 'matchboard' : 'scoreboard';
+		
+        return $this->render($view, [
+            'model' => $model,
         ]);
     }
 
