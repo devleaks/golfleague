@@ -684,7 +684,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1216.00</x>
-            <y>896.00</y>
+            <y>832.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -1029,8 +1029,8 @@
         <schema><![CDATA[]]></schema>
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
-            <x>1216.00</x>
-            <y>576.00</y>
+            <x>64.00</x>
+            <y>1664.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -1234,7 +1234,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>832.00</x>
-            <y>1536.00</y>
+            <y>1408.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -1548,8 +1548,8 @@
         <name><![CDATA[handicap_history]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>64.00</x>
-            <y>1792.00</y>
+            <x>832.00</x>
+            <y>1728.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2054,7 +2054,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>448.00</x>
-            <y>1344.00</y>
+            <y>1408.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2254,8 +2254,8 @@
         <name><![CDATA[group]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>1600.00</x>
-            <y>896.00</y>
+            <x>1216.00</x>
+            <y>576.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2342,7 +2342,7 @@
         <tableType><![CDATA[InnoDB]]></tableType>
         <location>
             <x>1216.00</x>
-            <y>1536.00</y>
+            <y>1408.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2653,7 +2653,7 @@ U1NjYWxpbmdGYWN0b3KGkoSjnqihAYaShJmZC05TUGFwZXJOYW1lhpKEmZkGaXNv
 LWE0hoaG
 ]]></encodedPrintInfo>
         <autoSizeTablesOption><![CDATA[0]]></autoSizeTablesOption>
-        <documentScaleFactor><![CDATA[0.75]]></documentScaleFactor>
+        <documentScaleFactor><![CDATA[0.728]]></documentScaleFactor>
         <exportDialect><![CDATA[mysql]]></exportDialect>
         <fileversion><![CDATA[3.1]]></fileversion>
         <generator><![CDATA[com.malcolmhardie.sqleditor]]></generator>
@@ -2667,11 +2667,11 @@ LWE0hoaG
         <SourceSidebarWidth><![CDATA[276.000000]]></SourceSidebarWidth>
         <SourceSplitViewState><![CDATA[2 495.391 1081.61]]></SourceSplitViewState>
         <uid><![CDATA[266254ED-452F-413C-A91E-9AB58B380E54]]></uid>
-        <windowHeight><![CDATA[1316.000000]]></windowHeight>
-        <windowLocationX><![CDATA[500.000000]]></windowLocationX>
-        <windowLocationY><![CDATA[96.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{27, 400}]]></windowScrollOrigin>
-        <windowWidth><![CDATA[1881.000000]]></windowWidth>
+        <windowHeight><![CDATA[971.000000]]></windowHeight>
+        <windowLocationX><![CDATA[0.000000]]></windowLocationX>
+        <windowLocationY><![CDATA[56.000000]]></windowLocationY>
+        <windowScrollOrigin><![CDATA[{6, 404}]]></windowScrollOrigin>
+        <windowWidth><![CDATA[1680.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
     <containerName><![CDATA[model controller orginal container]]></containerName>
