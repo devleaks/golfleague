@@ -72,6 +72,152 @@
             "time": "2015-04-12 22:21:58"
         },
         {
+            "name": "bower-asset/adminlte",
+            "version": "v2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/almasaeed2010/AdminLTE.git",
+                "reference": "81aa879d3a4489213888e24975b073c7478f0447"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/81aa879d3a4489213888e24975b073c7478f0447",
+                "reference": "81aa879d3a4489213888e24975b073c7478f0447",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "index2.html",
+                    "dist/css/AdminLTE.css",
+                    "dist/js/app.js",
+                    "build/less/AdminLTE.less"
+                ],
+                "bower-asset-ignore": [
+                    "/.*",
+                    "node_modules",
+                    "bower_components",
+                    "composer.json",
+                    "documentation"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Admin dashboard and control panel template",
+            "keywords": [
+                "admin",
+                "backend",
+                "bootstrap",
+                "css",
+                "html",
+                "js",
+                "responsive",
+                "template",
+                "theme"
+            ]
+        },
+        {
+            "name": "bower-asset/angular",
+            "version": "v1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/angular/bower-angular.git",
+                "reference": "f00cff5525db7c853f42854079a31936d400f99b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/angular/bower-angular/zipball/f00cff5525db7c853f42854079a31936d400f99b",
+                "reference": "f00cff5525db7c853f42854079a31936d400f99b",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "./angular.js",
+                "bower-asset-ignore": []
+            }
+        },
+        {
+            "name": "bower-asset/angular-bootstrap",
+            "version": "0.13.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/angular-ui/bootstrap-bower.git",
+                "reference": "0b83ef6828649d2a806985667f612eb0e6727184"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/angular-ui/bootstrap-bower/zipball/0b83ef6828649d2a806985667f612eb0e6727184",
+                "reference": "0b83ef6828649d2a806985667f612eb0e6727184",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/angular": ">=1.3.0"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./ui-bootstrap-tpls.js"
+                ],
+                "bower-asset-ignore": []
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Native AngularJS (Angular) directives for Bootstrap.",
+            "keywords": [
+                "angular",
+                "angular-ui",
+                "bootstrap"
+            ]
+        },
+        {
+            "name": "bower-asset/angular-resource",
+            "version": "v1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/angular/bower-angular-resource.git",
+                "reference": "1e95a21dfa69fe7b03c5d91dfe7aeb7cf4b82faf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/angular/bower-angular-resource/zipball/1e95a21dfa69fe7b03c5d91dfe7aeb7cf4b82faf",
+                "reference": "1e95a21dfa69fe7b03c5d91dfe7aeb7cf4b82faf",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/angular": "1.4.4"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "./angular-resource.js",
+                "bower-asset-ignore": []
+            }
+        },
+        {
+            "name": "bower-asset/angular-route",
+            "version": "v1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/angular/bower-angular-route.git",
+                "reference": "253b707a425ede44798caca0031293f33b291808"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/angular/bower-angular-route/zipball/253b707a425ede44798caca0031293f33b291808",
+                "reference": "253b707a425ede44798caca0031293f33b291808",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/angular": "1.4.4"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "./angular-route.js",
+                "bower-asset-ignore": []
+            }
+        },
+        {
             "name": "bower-asset/blueimp-gallery",
             "version": "2.15.4",
             "source": {
@@ -472,6 +618,43 @@
             ]
         },
         {
+            "name": "bower-asset/fontawesome",
+            "version": "v4.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/e554555d73a44e0a7d11b0361ad7a5325a5f551c",
+                "reference": "e554555d73a44e0a7d11b0361ad7a5325a5f551c",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "less/font-awesome.less",
+                    "scss/font-awesome.scss"
+                ],
+                "bower-asset-ignore": [
+                    "*/.*",
+                    "*.json",
+                    "src",
+                    "*.yml",
+                    "Gemfile",
+                    "Gemfile.lock",
+                    "*.md"
+                ]
+            },
+            "license": [
+                "OFL-1.1",
+                "MIT",
+                "CC-BY-3.0"
+            ],
+            "description": "Font Awesome"
+        },
+        {
             "name": "bower-asset/fullcalendar",
             "version": "v2.3.2",
             "source": {
@@ -714,16 +897,16 @@
         },
         {
             "name": "bower-asset/isotope",
-            "version": "v2.2.1",
+            "version": "v2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/metafizzy/isotope.git",
-                "reference": "feff43802bb689b3ab9d05855d8f3320640367a2"
+                "reference": "039796816edc0ad45eda23a1541505f63394ad7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/metafizzy/isotope/zipball/feff43802bb689b3ab9d05855d8f3320640367a2",
-                "reference": "feff43802bb689b3ab9d05855d8f3320640367a2",
+                "url": "https://api.github.com/repos/metafizzy/isotope/zipball/039796816edc0ad45eda23a1541505f63394ad7e",
+                "reference": "039796816edc0ad45eda23a1541505f63394ad7e",
                 "shasum": ""
             },
             "require": {
@@ -734,14 +917,14 @@
                 "bower-asset/outlayer": "~1.4.1"
             },
             "require-dev": {
-                "bower-asset/doc-ready": "dev-1.x,|1.x",
-                "bower-asset/isotope-cells-by-column": "dev-1.x,|1.x",
-                "bower-asset/isotope-cells-by-row": "dev-1.x,|1.x",
-                "bower-asset/isotope-fit-columns": "dev-1.x,|1.x",
-                "bower-asset/isotope-horizontal": "dev-1.x,|1.x",
-                "bower-asset/isotope-masonry-horizontal": "dev-1.x,|1.x",
+                "bower-asset/doc-ready": "dev-1.x|1.x",
+                "bower-asset/isotope-cells-by-column": "dev-1.x|1.x",
+                "bower-asset/isotope-cells-by-row": "dev-1.x|1.x",
+                "bower-asset/isotope-fit-columns": "dev-1.x|1.x",
+                "bower-asset/isotope-horizontal": "dev-1.x|1.x",
+                "bower-asset/isotope-masonry-horizontal": "dev-1.x|1.x",
                 "bower-asset/jquery": ">=1.4.3,<2",
-                "bower-asset/jquery-bridget": "dev-1.1.x,|1.1.x",
+                "bower-asset/jquery-bridget": "dev-1.1.x|1.1.x",
                 "bower-asset/qunit": ">=1.15.0,<2.0.0"
             },
             "type": "bower-asset-library",
@@ -918,16 +1101,16 @@
         },
         {
             "name": "bower-asset/masonry",
-            "version": "v3.3.1",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/desandro/masonry.git",
-                "reference": "1e9d69774f11d86fb82e93f034804918259bfe94"
+                "reference": "556d44869268c5e308676386aa30bf4bad4c0a5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/desandro/masonry/zipball/1e9d69774f11d86fb82e93f034804918259bfe94",
-                "reference": "1e9d69774f11d86fb82e93f034804918259bfe94",
+                "url": "https://api.github.com/repos/desandro/masonry/zipball/556d44869268c5e308676386aa30bf4bad4c0a5a",
+                "reference": "556d44869268c5e308676386aa30bf4bad4c0a5a",
                 "shasum": ""
             },
             "require": {
@@ -936,9 +1119,9 @@
                 "bower-asset/outlayer": "~1.4.0"
             },
             "require-dev": {
-                "bower-asset/doc-ready": "dev-1.x,|1.x",
+                "bower-asset/doc-ready": "dev-1.x|1.x",
                 "bower-asset/jquery": ">=1.4.3,<2",
-                "bower-asset/jquery-bridget": "dev-1.1.x,|1.1.x",
+                "bower-asset/jquery-bridget": "dev-1.1.x|1.1.x",
                 "bower-asset/qunit": ">=1.12.0,<2.0.0"
             },
             "type": "bower-asset-library",
@@ -1047,20 +1230,20 @@
         },
         {
             "name": "bower-asset/outlayer",
-            "version": "v1.4.1",
+            "version": "v1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/metafizzy/outlayer.git",
-                "reference": "03e374cbad2239bd83bb81af2ff27b175c2c76d3"
+                "reference": "2c7f1108a3d906df7ef3f03cda0a3d76791f186b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/metafizzy/outlayer/zipball/03e374cbad2239bd83bb81af2ff27b175c2c76d3",
-                "reference": "03e374cbad2239bd83bb81af2ff27b175c2c76d3",
+                "url": "https://api.github.com/repos/metafizzy/outlayer/zipball/2c7f1108a3d906df7ef3f03cda0a3d76791f186b",
+                "reference": "2c7f1108a3d906df7ef3f03cda0a3d76791f186b",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/doc-ready": "dev-1.0.x,|1.0.x",
+                "bower-asset/doc-ready": "dev-1.0.x|1.0.x",
                 "bower-asset/eventemitter": ">=4.2,<5",
                 "bower-asset/eventie": "~1.0.3",
                 "bower-asset/fizzy-ui-utils": "~1.0.1",
@@ -1070,7 +1253,7 @@
             },
             "require-dev": {
                 "bower-asset/jquery": ">=1.4.3,<2",
-                "bower-asset/jquery-bridget": "dev-1.x,|1.x",
+                "bower-asset/jquery-bridget": "dev-1.x|1.x",
                 "bower-asset/qunit": ">=1.12.0,<2.0.0"
             },
             "type": "bower-asset-library",
@@ -1102,28 +1285,28 @@
         },
         {
             "name": "bower-asset/packery",
-            "version": "v1.4.2",
+            "version": "v1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/metafizzy/packery.git",
-                "reference": "d0ef23479e804f8365a816afb9a198799c01b071"
+                "reference": "a64a5a86f5a468cc81b314fb238a62e2b0d275be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/metafizzy/packery/zipball/d0ef23479e804f8365a816afb9a198799c01b071",
-                "reference": "d0ef23479e804f8365a816afb9a198799c01b071",
+                "url": "https://api.github.com/repos/metafizzy/packery/zipball/a64a5a86f5a468cc81b314fb238a62e2b0d275be",
+                "reference": "a64a5a86f5a468cc81b314fb238a62e2b0d275be",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/classie": "dev-1.x,|1.x",
-                "bower-asset/get-size": "dev-1.2.x,|1.2.x",
-                "bower-asset/get-style-property": "dev-1.x,|1.x",
+                "bower-asset/classie": "dev-1.x|1.x",
+                "bower-asset/get-size": "dev-1.2.x|1.2.x",
+                "bower-asset/get-style-property": "dev-1.x|1.x",
                 "bower-asset/outlayer": "~1.4.1"
             },
             "require-dev": {
-                "bower-asset/draggabilly": "dev-1.x,|1.x",
+                "bower-asset/draggabilly": "dev-1.x|1.x",
                 "bower-asset/jquery": "~1",
-                "bower-asset/jquery-bridget": "dev-1.1.x,|1.1.x",
+                "bower-asset/jquery-bridget": "dev-1.1.x|1.1.x",
                 "bower-asset/jquery-ui-draggable": "*",
                 "bower-asset/qunit": ">=1.15.0,<2.0.0"
             },
@@ -1671,6 +1854,105 @@
                 "yii2"
             ],
             "time": "2015-05-12 08:36:25"
+        },
+        {
+            "name": "deesoft/yii2-adminlte",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deesoft/yii2-adminlte.git",
+                "reference": "a518e361faee1ece1b9ee849a621c64fe922d206"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deesoft/yii2-adminlte/zipball/a518e361faee1ece1b9ee849a621c64fe922d206",
+                "reference": "a518e361faee1ece1b9ee849a621c64fe922d206",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/adminlte": "~2.0",
+                "rmrevin/yii2-fontawesome": "~2.0",
+                "yiisoft/yii2": "~2.0",
+                "yiisoft/yii2-bootstrap": "~2.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dee\\adminlte\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Misbahul Munir",
+                    "email": "misbahuldmunir@gmail.com"
+                }
+            ],
+            "description": "yii2 adminlte theme",
+            "keywords": [
+                "AdminLTE",
+                "bootstrap",
+                "css"
+            ],
+            "time": "2015-07-27 12:27:04"
+        },
+        {
+            "name": "deesoft/yii2-angular",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deesoft/yii2-angular.git",
+                "reference": "d764136dfb3047fae3e82ba61053c2c3a699bd1f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deesoft/yii2-angular/zipball/d764136dfb3047fae3e82ba61053c2c3a699bd1f",
+                "reference": "d764136dfb3047fae3e82ba61053c2c3a699bd1f",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/angular": "~1.3",
+                "bower-asset/angular-bootstrap": "~0.13",
+                "bower-asset/angular-resource": "~1.3",
+                "bower-asset/angular-route": "~1.3",
+                "yiisoft/yii2": ">=2.0.4"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "bootstrap": "dee\\angular\\Bootstrap",
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dee\\angular\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Misbahul Munir",
+                    "email": "misbahuldmunir@gmail.com"
+                }
+            ],
+            "description": "Yii2 angular extension",
+            "keywords": [
+                "angularjs",
+                "yii2"
+            ],
+            "time": "2015-08-23 12:22:27"
         },
         {
             "name": "dektrium/yii2-user",
@@ -2615,12 +2897,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "69f1df3b1f4757e9d6ee0c302db47744e8bed94a"
+                "reference": "b4296b417b96de94688973a3c312fed854236550"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/69f1df3b1f4757e9d6ee0c302db47744e8bed94a",
-                "reference": "69f1df3b1f4757e9d6ee0c302db47744e8bed94a",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/b4296b417b96de94688973a3c312fed854236550",
+                "reference": "b4296b417b96de94688973a3c312fed854236550",
                 "shasum": ""
             },
             "require": {
@@ -2655,7 +2937,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-08-10 03:45:16"
+            "time": "2015-08-23 11:35:27"
         },
         {
             "name": "kartik-v/yii2-grid",
@@ -4015,29 +4297,29 @@
         },
         {
             "name": "mdmsoft/yii2-admin",
-            "version": "2.0.0",
+            "version": "3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mdmsoft/yii2-admin.git",
-                "reference": "38e480aed9306c2325e4f543714418f1cad15331"
+                "reference": "ce1fa6ff088f4cb9db204830ed030e3ef46c26eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mdmsoft/yii2-admin/zipball/38e480aed9306c2325e4f543714418f1cad15331",
-                "reference": "38e480aed9306c2325e4f543714418f1cad15331",
+                "url": "https://api.github.com/repos/mdmsoft/yii2-admin/zipball/ce1fa6ff088f4cb9db204830ed030e3ef46c26eb",
+                "reference": "ce1fa6ff088f4cb9db204830ed030e3ef46c26eb",
                 "shasum": ""
             },
             "require": {
-                "yiisoft/yii2": "~2.0.4"
-            },
-            "suggest": {
-                "yiisoft/yii2-bootstrap": "Used when using layout 'left-menu', 'right-menu' or 'top-menu'"
+                "deesoft/yii2-adminlte": "~1.0",
+                "deesoft/yii2-angular": "~1.1",
+                "yiisoft/yii2": ">=2.0.4"
             },
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
                     "dev-1.0.master": "1.0.x-dev",
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.x-dev",
+                    "dev-3.master": "3.x-dev"
                 }
             },
             "autoload": {
@@ -4062,7 +4344,7 @@
                 "rbac",
                 "yii"
             ],
-            "time": "2015-06-04 02:31:20"
+            "time": "2015-08-23 10:15:44"
         },
         {
             "name": "mdmsoft/yii2-ar-behaviors",
@@ -4620,6 +4902,58 @@
             "time": "2015-07-13 19:23:01"
         },
         {
+            "name": "rmrevin/yii2-fontawesome",
+            "version": "2.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rmrevin/yii2-fontawesome.git",
+                "reference": "51d33ec9d1d7edab2166f1d42668c1bc8d28c068"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rmrevin/yii2-fontawesome/zipball/51d33ec9d1d7edab2166f1d42668c1bc8d28c068",
+                "reference": "51d33ec9d1d7edab2166f1d42668c1bc8d28c068",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/fontawesome": "4.4.*",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "2.0.*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "rmrevin\\yii\\fontawesome\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Revin",
+                    "email": "xgismox@gmail.com",
+                    "homepage": "http://rmrevin.ru/"
+                }
+            ],
+            "description": "Asset Bundle for Yii2 with Font Awesome",
+            "keywords": [
+                "asset",
+                "awesome",
+                "bundle",
+                "font",
+                "yii"
+            ],
+            "time": "2015-08-15 16:50:16"
+        },
+        {
             "name": "schmunk42/yii2-giiant",
             "version": "0.4.0",
             "source": {
@@ -5081,16 +5415,16 @@
         },
         {
             "name": "vova07/yii2-imperavi-widget",
-            "version": "1.2.8",
+            "version": "1.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vova07/yii2-imperavi-widget.git",
-                "reference": "ebbcd63e27ffacafffaf18ca6c6df4c0e65dceb6"
+                "reference": "afb59bff9a4ce18f5ecd144cf1fe224bf939ec15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vova07/yii2-imperavi-widget/zipball/ebbcd63e27ffacafffaf18ca6c6df4c0e65dceb6",
-                "reference": "ebbcd63e27ffacafffaf18ca6c6df4c0e65dceb6",
+                "url": "https://api.github.com/repos/vova07/yii2-imperavi-widget/zipball/afb59bff9a4ce18f5ecd144cf1fe224bf939ec15",
+                "reference": "afb59bff9a4ce18f5ecd144cf1fe224bf939ec15",
                 "shasum": ""
             },
             "require": {
@@ -5139,7 +5473,7 @@
                 "yii 2",
                 "yii2"
             ],
-            "time": "2015-07-30 14:33:58"
+            "time": "2015-08-21 11:36:17"
         },
         {
             "name": "warrence/yii2-kartikgii",

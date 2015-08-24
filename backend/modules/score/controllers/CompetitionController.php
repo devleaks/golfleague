@@ -5,7 +5,9 @@ namespace backend\modules\score\controllers;
 use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\search\CompetitionSearch;
+use common\models\Registration;
 use common\models\Round;
+use common\models\Start;
 
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -157,7 +159,14 @@ class CompetitionController extends GolfLeagueController
     public function actionLeaderboard($id)
     {
 		$model = $this->findModel($id);
-		$view = $model->isMatchCompetition() ? 'matchboard' : 'scoreboard';
+		$view = 'scoreboard';
+		if($model->isMatchCompetition()) {
+			if($model->competition_type == Competition::TYPE_TOURNAMENT) {
+				$view = 'brackets';
+			} else {
+				$view = 'matchboard';
+			}
+		}
 		
         return $this->render($view, [
             'model' => $model,
@@ -269,4 +278,48 @@ class CompetitionController extends GolfLeagueController
         return $this->redirect(Url::to(['result', 'id' => $id]));
     }
 
+	/**
+	 *	Add a round that is a copy if this round but with rules applied.
+	 *	 - For a strokeplay with a cut, only registration of players who made the cut are added.
+	 *	 - For a matchplay, only players who won are added.
+	 */
+	public function actionAddRound($id) {
+		$competition = $this->findModel($id);
+		if($competition->competition_type == Competition::TYPE_ROUND) {
+			// checks if parent competition exists. Create it if not.
+			if(! ($parent = $competition->parent)) {
+				$parent = $competition->createParent($id);
+			}
+			// Create new round by duplicating this one.
+			$next_round = $competition->copy($id);
+			// Add starts to new competition
+			foreach($competition->getStarts()->each() as $start) {
+				$copy = new Start($start->attributes);
+				$copy->id = null;
+				$copy->created_at = null;
+				$copy->updated_at = null;
+				$copy->competition_id = $next_round->id;
+				$copy->save();
+			}
+			// Register players according to rule
+			foreach($competition->getRegistrations()->each() as $registration) {
+				if($registration->status == Registration::STATUS_CONFIRMED) {
+					if($registration->scorecard->isWinner()) {
+						$copy = new Registration([
+							'competition_id' => $next_round->id,
+							'golfer_id' => $registration->golfer_id,
+							'tees_id' => $registration->tees_id,
+							'status' => Registration::STATUS_REGISTERED,
+						]);
+						$copy->save();
+					}
+				}
+			}
+			
+			return $this->redirect(Url::to(['rule', 'id' => $next_round->id]));
+		}
+		
+        return $this->redirect(Url::to(['rule', 'id' => $id]));
+	}
+	
 }

@@ -11,7 +11,6 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  * @property integer $position
- * @property integer $level
  *
  * @property Registration[] $registrations
  */
@@ -32,7 +31,7 @@ class _Match extends \yii\db\ActiveRecord
     {
         return [
             [['created_at', 'updated_at'], 'safe'],
-            [['position', 'level'], 'integer']
+            [['position'], 'integer']
         ];
     }
 
@@ -46,7 +45,6 @@ class _Match extends \yii\db\ActiveRecord
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
             'position' => Yii::t('golf', 'Position'),
-            'level' => Yii::t('golf', 'Level'),
         ];
     }
 

@@ -46,7 +46,8 @@ class Scorecard extends _Scorecard
 	const DIRECTION_DESC	= 'DESC';
 	
 	/** Compute actions */
-	const COMPUTE_GROSS_TO_NET = 'gross2net';
+	const COMPUTE_GROSS_TO_NET	= 'gross2net';
+	const COMPUTE_MATCHPLAY 	= 'matchplay';
 
 
     /**
@@ -327,15 +328,18 @@ class Scorecard extends _Scorecard
 	}
 	
 	/**
-	 * For matchplay, points() compute up and down from scores. For strokeplay, points() returns the score rounded according to the rule.
+	 * For matchplay, computeMatchplay() compute up and down from scores. For strokeplay, computeMatchplay() returns the score rounded according to the rule.
 	 * In both cases, handicap is taken into account according to the rule.
 	 *
+	 * @return 	array()	Returns hole by hole points of matchplay, or hole by hole score for strokeplay.
 	 */
 	public function points() {
 		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
 		$r = $rule->getRounding();
 		if($rule->rule_type == Rule::TYPE_MATCHPLAY) {
-			$ret = [];
+			$this_ret = [];
+			$opponent_ret = [];
+			$winner = null;
 			// Get opponent scorecard
 			if($opponent = $this->getOpponent()) {
 				if($opponent_scorecard = $opponent->getScorecard()) {
@@ -344,15 +348,39 @@ class Scorecard extends _Scorecard
 					$score = 0;
 					// Compute Up/Down array
 					for($i = 0; $i < min($this->thru, $opponent_scorecard->thru); $i++) {
-						$ret[$i] = $this_score[$i] == $opponent_score[$i] ? 0.5 :
+						$this_ret[$i] = $this_score[$i] == $opponent_score[$i] ? 0.5 :
 									($this_score[$i] > $opponent_score[$i] ? 1 : 0);
+						$opponent_ret[$i] = $this_score[$i] == $opponent_score[$i] ? 0.5 :
+									($this_score[$i] < $opponent_score[$i] ? 1 : 0);
 					}
 				}
 			}
-			return $ret;
+			return $this_ret;
 		} else { // Strokeplay
 			return array_map(function($a) use ($r) { return round($a, $r); }, $this->score($rule->handicap));
 		}
+	}
+	
+	/**
+	 * For matchplay, isWinner() determines if scorecard is winner in regard to opponent'score.
+	 *
+	 * @return 	boolean|null	Returns true if winner, false if looser, or null if draw.
+	 *
+	 */
+	public function isWinner() {
+		$winner = null;
+		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
+		if($rule->rule_type == Rule::TYPE_MATCHPLAY) {
+			// Get opponent scorecard
+			if($opponent = $this->getOpponent()) {
+				if($opponent_scorecard = $opponent->getScorecard()) {
+					$this_total = $this->points_total($rule->handicap);
+					$opponent_total = $opponent_scorecard->points_total($rule->handicap);
+					$winner = ($this_total > $opponent_total) ? true : ($opponent_total > $this_total ? false : null);
+				}
+			}
+		}
+		return $winner;
 	}
 
 	public function points_total() {
@@ -457,10 +485,14 @@ class Scorecard extends _Scorecard
 				$allowed = array_sum($this->player->allowed($this->tees));
 				$this->score_net = $this->score - $allowed;
 				break;
+			case self::COMPUTE_MATCHPLAY:
+				if($this->hasDetails())
+					$this->points = array_sum($this->points());
+				break;
 			default:
 				return $this->validate();
 		}
-		$this->save();
+		return $this->save();
 	}
 
 
@@ -471,7 +503,7 @@ class Scorecard extends _Scorecard
 				foreach($m->getRegistrations()->each() as $r2) {
 					if($r2->id != $r->id) {
 						$opponent = $r2;
-						Yii::trace('got '.$opponent->id, "Scorecard::getOpponent");
+						//Yii::trace('opponent is '.$opponent->id, "Scorecard::getOpponent");
 					}
 				}
 			}

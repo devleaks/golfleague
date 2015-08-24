@@ -24,7 +24,7 @@ class Rule extends _Rule
 	const POINT_DECIMAL1	= 'DEC1';
 	const POINT_DECIMAL2	= 'DEC1';
 	
-
+	const HALF_POINT = ' ½';
     /**
      * @inheritdoc
      */
@@ -89,6 +89,8 @@ class Rule extends _Rule
 	            return new rule\Rank();
 	        case rule\SumChildren::className():
 	            return new rule\SumChildren();
+	        case rule\Matchplay::className():
+	            return new rule\Matchplay();
 	        default:
 	           return new self;
 	    }
@@ -107,6 +109,7 @@ class Rule extends _Rule
 			rule\Copy::className() => Yii::t('golf', 'Copy'),
 			rule\Rank::className() => Yii::t('golf', 'Rank'),
 			rule\SumChildren::className() => Yii::t('golf', 'Sum Children Scores'),
+			rule\Matchplay::className() => Yii::t('golf', 'Compute totals for matchplay'),
 		];
 	}
 
@@ -179,6 +182,29 @@ class Rule extends _Rule
 	public function allowed($team, $tees) { }
 
 	public function getRounding() {
-		return intval($this->destination_format);
+		$r = 0;
+		switch($this->destination_format) {
+			case self::POINT_HALF:
+			case self::POINT_DECIMAL1:
+				$r = 1;
+				break;
+			case self::POINT_DECIMAL2:
+				$r = 2;
+				break;
+			case self::POINT_FORMAT:
+			case self::POINT_POSITIVE:
+			default:
+		}
+		return $r;
+	}
+	
+	public function formatPoints($points) {
+		$r = $this->getRounding();
+		$d = round($points, $r);
+		if($this->destination_format == self::POINT_HALF) {
+			if(($d - floor($d)) > 0)
+				$d = floor($d).self::HALF_POINT;
+		}
+		return $d;
 	}
 }

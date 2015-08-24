@@ -1,4 +1,5 @@
 <?php
+use common\models\Competition;
 
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -55,9 +56,14 @@ $this->params['breadcrumbs'][] = $this->title;
 		]),		
 	])?>
 
-	<?= Html::a(Yii::t('golf', 'Apply Rule'), Url::to(['apply-final', 'id' => $model->id]), ['class'=>'btn btn-primary']).
-		' '.
-		Html::a(Yii::t('golf', 'Publish'), Url::to(['publish', 'id' => $model->id]), ['class'=>'btn btn-success'])
+	<?php
+		if($model->status != Competition::STATUS_CLOSED) {
+			echo Html::a(Yii::t('golf', 'Apply Rule'), Url::to(['apply-final', 'id' => $model->id]), ['class'=>'btn btn-primary']);
+			echo ' ';
+			echo Html::a(Yii::t('golf', 'Publish'), Url::to(['publish', 'id' => $model->id]), ['class'=>'btn btn-success']);
+		} else if ($model->competition_type == Competition::TYPE_ROUND && $model->isMatchCompetition() /*&& !$model->parent*/) {
+			echo Html::a(Yii::t('golf', 'Create Next Round'), Url::to(['add-round', 'id' => $model->id]), ['class'=>'btn btn-success']);
+		}
 	?>
 
 </div>

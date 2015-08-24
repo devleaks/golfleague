@@ -14,7 +14,6 @@ use yii\helpers\Url;
 <div class="registration-list">
 
      <?= GridView::widget([
-		'options' => ['id' => 'registration'],
         'dataProvider' => $dataProvider,
 		'panel'=>[
 	        'heading' => '<h4>'.Yii::t('golf', 'Scorecards').'</h4>',
@@ -37,7 +36,14 @@ use yii\helpers\Url;
 			'score_net',
 			'stableford',
 			'stableford_net',
-			'points',
+            [
+            	'attribute' => 'points',
+                'value' => function($model, $key, $index, $widget) {
+					if($rule = $model->registration->competition->rule)
+						return $rule->formatPoints($model->points);
+                    return  $model->points;
+                },
+			],
 			'rounds',
             [
                 'attribute' => 'status',

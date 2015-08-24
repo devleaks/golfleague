@@ -41,6 +41,13 @@ class Match extends _Match
     }
 
     /**
+     * @inheritdoc
+     */
+	public function getScorecards() {
+		return $this->hasMany(Scorecard::className(), ['registration_id' => 'id'])->viaTable('registration', ['match_id' => 'id']);
+	}
+
+    /**
      * Delete model after removing from registrations
      */
     public function cleanRegistrations($delete = false)

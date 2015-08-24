@@ -177,10 +177,10 @@ class Scoreboard extends _Scoretable {
 	 */
 	protected function caption() {
 		$competition = $this->competition->getFullName();
-		if($this->competition->getRounds() > 1) {
+		if($this->competition->getNumberOfRounds() > 1) {
 			if($this->match) {
 				$r = $this->match->getRoundNumber();
-				$competition .= ' ('.$r.'/'.$this->competition->getRounds().')';
+				$competition .= ' ('.$r.'/'.$this->competition->getNumberOfRounds().')';
 			}
 			$competition .= ', '.str_replace(' ', '&nbsp;', $this->competition->getDateRange());
 		} else {
@@ -205,7 +205,7 @@ class Scoreboard extends _Scoretable {
 			$output .= Html::tag('th', Yii::t('golf', 'Front'));
 			$output .= Html::tag('th', Yii::t('golf', 'Back'));
 		}
-		if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
+		if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getNumberOfRounds()) > 1)) {// do not show rounds if only one round...
 			for($r=0; $r<$rounds; $r++) {
 				$output .= Html::tag('th', ($r+1), ['class' => 'round']);
 			}
@@ -252,7 +252,7 @@ class Scoreboard extends _Scoretable {
 				$output .= Html::tag('th', '');
 				$output .= Html::tag('th', '');
 			}
-			if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
+			if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getNumberOfRounds()) > 1)) {// do not show rounds if only one round...
 				$output .= Html::tag('th', /*$key == self::PAR ? Yii::t('golf', 'Rounds') :*/ '', ['colspan' => $rounds]);
 			}
 			if($this->getOption(self::TOTAL)) {
@@ -345,7 +345,7 @@ class Scoreboard extends _Scoretable {
 		}
 
 		/* totals for rounds */
-		if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getRounds()) > 1)) {// do not show rounds if only one round...
+		if($this->getOption(self::ROUNDS) && (($rounds = $this->competition->getNumberOfRounds()) > 1)) {// do not show rounds if only one round...
 			for($r=0; $r<$rounds; $r++) {
 				$output .= Html::tag('td', $scoreline->totals[$r]);
 			}

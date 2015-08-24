@@ -285,7 +285,7 @@ class Competition extends _Competition
 	/**
 	 * Returns total number of rounds.
 	 */	
-	public function getRounds() {
+	public function getNumberOfRounds() {
 		return $this->getCompetitions()->count();
 	}
 
@@ -763,6 +763,114 @@ class Competition extends _Competition
 			}
 		}
 		return null;
+	}
+
+	private function copyAttributes($src) {
+		foreach([
+            'flight_size',
+            'registration_begin',
+            'registration_end',
+            'handicap_min',
+            'handicap_max',
+            'age_min',
+            'age_max',
+            'gender',
+            'recurrence_id',
+            'max_players',
+            'registration_special',
+            'flight_time',
+            'registration_time',
+		] as $attribute)
+			$this->$attribute = $src->$attribute;
+	}
+	
+	/**
+	 * Creates a parent competition with same characteristics.
+	 */
+	public function createParent() {
+		if($this->competition_type == self::TYPE_SEASON)
+			return null;
+		
+        $model = Competition::getNew($this->parentType());
+		$model->copyAttributes($this);
+
+		foreach([
+            'name',
+			'rule_id',
+		] as $attribute)
+			$model->$attribute = $this->$attribute;
+
+		$model->status = Competition::STATUS_OPEN;
+		$model->save();
+		Yii::trace(print_r($model->errors, true) , 'Competition::createParent');		
+		$model->refresh();
+		$this->parent_id = $model->id;
+		$this->save();
+        return $model;
+	}
+	
+	/**
+	 * Note: Not used. Probably do not work since child competition may need more information than parent holds.
+	 */
+	public function createChild() {
+		if($this->competition_type == self::TYPE_ROUND)
+			return null;
+
+        $model = Competition::getNew($this->childType());
+		$model->parent_id = $this->id;
+		$model->copyAttributes($this);
+		$model->save();
+		Yii::trace(print_r($model->errors, true) , 'Competition::createChild');		
+        return $model;
+	}
+
+	/**
+	 * Create a copy of a competition. Used for multi-round competitions.
+	 */
+	public function copy() {
+        $model = Competition::getNew($this->competition_type);
+		$model->copyAttributes($this);
+		
+		$attrs = [];
+		switch($this->competition_type) {
+			case Competition::TYPE_SEASON:
+				$attrs = ['name'];
+				break;
+			case Competition::TYPE_TOURNAMENT:
+				$attrs = ['name'];
+				break;
+			case Competition::TYPE_ROUND:
+				$attrs = ['name', 'rule_id', 'course_id', 'holes', 'start_date'];
+				break;
+		}
+		foreach($attrs as $attribute)
+			$model->$attribute = $this->$attribute;
+
+		$model->status = Competition::STATUS_OPEN;
+		$model->save();
+		Yii::trace(print_r($model->errors, true) , 'Competition::copy');		
+        return $model;
+	}
+
+
+	public function getLevel($statuses = Registration::STATUS_CONFIRMED) {
+		$c = $this->getScorecards()->count();
+		return $c > 0 ? log($c, 2) : 0;
+	}
+	
+
+	public function getLevelString($statuses = Registration::STATUS_CONFIRMED) {
+		$s = '';
+		$l = $this->getLevel($statuses);
+		switch( $l ) {
+			case 1: $s = Yii::t('golf', 'Final'); break;
+			case 2: $s = Yii::t('golf', 'Semi-Final'); break;
+			case 3: $s = Yii::t('golf', 'Quarter-Final'); break;
+			case 4: $s = Yii::t('golf', 'Eighth-Final'); break;
+			case 5: $s = Yii::t('golf', 'Sixteenth-Final'); break;
+			default: $s = Yii::t('golf', '{0}th Final', pow(2, $l)); break;
+		}
+		return $s;
 	}
 
 }

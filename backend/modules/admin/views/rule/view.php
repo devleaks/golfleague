@@ -62,6 +62,11 @@ $this->params['breadcrumbs'][] = $this->title;
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => [''=>''] + Scorecard::getConstants('SCORE_'),
             ],
+            [
+                'attribute'=>'destination_format',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => [''=>''] + Rule::getConstants('POINT_'),
+            ],
 	        [
 				'attribute'=>'handicap',
 				'type' => DetailView::INPUT_SWITCH,
@@ -71,6 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						'offText' => Yii::t('golf', 'Do Not Use Handicap')
 					]
 				],
+			'value' => $model->handicap ? Yii::t('golf', 'Yes') : Yii::t('golf', 'No'),
 			],
             [
                 'attribute'=>'team',

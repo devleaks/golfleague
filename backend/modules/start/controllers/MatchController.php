@@ -108,6 +108,24 @@ class MatchController extends Controller
 	}
 
 
+    /**
+     * Resets flights for a competition.
+     * @return mixed
+     */
+    public function actionPublish($id) {
+		$competition = Competition::findOne($id);
+		if(!$competition)
+        	throw new NotFoundHttpException('The requested page does not exist.');
+
+		$matches = $competition->getMatches();
+		
+		foreach($matches->each() as $match) {
+
+		}
+
+        return $this->redirect(['/start/competition', 'id' => $competition->id]);
+	}
+
 
     /**
      * Finds the Competition model based on its primary key value.
