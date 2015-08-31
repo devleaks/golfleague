@@ -13,7 +13,7 @@ class BracketsAsset extends AssetBundle
     public $sourcePath = '@common/assets/bracketsjs';
 
     public $js = [
-        'js/brackets.min.js',
+        'js/brackets.js',
     ];
 
 }

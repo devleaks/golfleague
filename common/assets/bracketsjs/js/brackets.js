@@ -135,7 +135,7 @@
         },
 
         get_width_container = function(max_brackets){
-                return (max_brackets)*150 + (max_brackets-1)*80 - (max_brackets-1)*75;
+                return (max_brackets)*200 + (max_brackets-1)*80 - (max_brackets-1)*75;
         },
 
         get_height_container = function(max_brackets){
@@ -174,7 +174,7 @@
             css += "    width: " + get_width_container( n_brackets ) + "px !important;";
             css += "    height: " + get_height_container( n_brackets ) + "px !important;";
             css += "}";
-            css += ".container-brackets .round{ width: 150px; margin-left: -75px; float: left;}";
+            css += ".container-brackets .round{ width: 200px; margin-left: -75px; float: left;}";
             css += "    .container-brackets .round:first-child{ margin-left: 0; }";
             css += "    .container-brackets .round .match{}";
             css += "        .container-brackets .round .match:last-child{ margin-bottom: 0px;}";
@@ -192,8 +192,9 @@
             css += "                    text-align: center;";
             css += "                    text-decoration: none;";
             css += "                    cursor: pointer;";
-            css += "                   width: 100%;";
-            css += "                    margin-left: 10px;";
+            css += "                    width: 100%;";
+            css += "                    white-space: nowrap;";
+            css += "                    margin-left: 0px;";
             css += "                    /*display: block;*/";
             css += "                    color: " + styles.color_player + ";";
             css += "                }";

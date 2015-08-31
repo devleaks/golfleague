@@ -376,7 +376,15 @@ class Scorecard extends _Scorecard
 				if($opponent_scorecard = $opponent->getScorecard()) {
 					$this_total = $this->points_total($rule->handicap);
 					$opponent_total = $opponent_scorecard->points_total($rule->handicap);
-					$winner = ($this_total > $opponent_total) ? true : ($opponent_total > $this_total ? false : null);
+					$winner = ($this_total > $opponent_total) ?
+								true :
+								($opponent_total > $this_total ?
+									false :
+									($this->tie_break > $opponent_scorecard->tie_break ?
+										true :
+										($this->tie_break < $opponent_scorecard->tie_break ?
+											false :
+											null)));
 				}
 			}
 		}
