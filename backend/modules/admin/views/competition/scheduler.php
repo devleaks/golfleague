@@ -328,7 +328,7 @@ function display_rrule() {
 			}
 			break;
 		default:
-			$('#match-recurrence').val('');
+			$('#round-recurrence').val('');
 			$('#recurrence-text').html('');
 			return;
 	}
@@ -342,22 +342,23 @@ function display_rrule() {
 	} else if(($('#recurrence-until').val() == 'DATE') && ((val = $('#recurrence-date_end').val()) != '')) {
 		options['until'] = new Date(val);		
 	}
-		
+	
 	rule = new RRule(options);
-	$('#match-recurrence').val(rule.toString());
-	$('#match-recurrence_text').val(rule.toText());
+	$('#round-recurrence').val(rule.toString());
+	$('#round-recurrence_text').val(rule.toText());
 	console.log('yoh! '+$('#recurrence-frequency').val());
 }
 
 /** Setup schedule form based on previously entered rrule */
 function init_rrule(rrule) {
 	// TEST
-	$('#match-recurrence').val('FREQ=WEEKLY;INTERVAL=2;BYDAY=TU;UNTIL=20150929T000000Z');
+	$('#round-recurrence').val('FREQ=WEEKLY;INTERVAL=2;BYDAY=TU;UNTIL=20150929T000000Z');
 	//
-	rrule_str = $('#match-recurrence').val();
+	rrule_str = $('#round-recurrence').val();
 	if(rrule_str != '') {
+		console.log('rrule_str='+rrule_str);
 		rule = RRule.fromString(rrule_str);
-		$('#match-recurrence_text').val(rule.toText());
+		$('#round-recurrence_text').val(rule.toText());
 		//console.log('rule='+JSON.stringify(rule));
 
 		//setup recurrence
@@ -474,9 +475,9 @@ $('#recurrence-until').change(function() {
 $('.action-ok').click(display_rrule);
 
 $('.remove-recurrence').click(function() {
-	$('#match-recurrence').val('');
-	$('#match-interval').val('1');
-	$('#match-recurrence_text').val('');
+	$('#round-recurrence').val('');
+	$('#round-interval').val('1');
+	$('#round-recurrence_text').val('');
 	$('#recurrence-frequency').val('NONE').change();
 	$('#recurrence-until').val('NEVER').change();
 	// should also reset other fields?
