@@ -158,7 +158,7 @@
             css += ".brackets-header .title{";
             css += "    color: " + styles.color_title + " !important;";
             css += "}";
-            css += ".brackets-header .title{ float: left; width: 150px;  margin-right: 5px; text-align: center;}";
+            css += ".brackets-header .title{ float: left; width: 200px;  margin-right: 5px; text-align: center;}";
             css += ".brackets-header .title:last-child{ margin-right: 0px;}";
             css += ".container-brackets *,";
             css += ".container-brackets *:before,";

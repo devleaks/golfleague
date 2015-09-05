@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\VarDumper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RegistrationSearch */
@@ -11,6 +12,9 @@ use yii\helpers\Url;
 
     <div class="brackets">
     </div>
+
+	<hr/>
+	<?php VarDumper::dumpAsString($data, 4, true) ?>
 
 </div>
 <script type="text/javascript">
