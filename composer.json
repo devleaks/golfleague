@@ -65,7 +65,8 @@
         "fedemotta/yii2-gridstack": "*",
         "simshaun/recurr": "*",
         "tplaner/when": "*",
-        "bower-asset/rrule": "*"
+        "bower-asset/rrule": "*",
+        "dmstr/yii2-adminlte-asset": "2.*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

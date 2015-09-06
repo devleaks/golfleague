@@ -54,15 +54,6 @@ class Registration extends _Registration
     /** Golfer is invited to next stage */
     const STATUS_QUALIFIED = 'QUALIFIED';
 
-	/** Score types */
-	const SCORE_GROSS = 'GROSS';
-	const SCORE_NET = 'NET';
-	const SCORE_POINTS = 'POINTS';
-	const SCORE_POSITION = 'POSITION';
-	
-    /** Special action keyword */
-    const ACTION_DELETE = 'DELETE';
-
 
     /**
      * @inheritdoc

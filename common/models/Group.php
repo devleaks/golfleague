@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\behaviors\Constant;
+
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -85,6 +87,15 @@ class Group extends _Group {
 	           return new self;
 	    }
 	}
+
+
+    /**
+     * @inheritdoc
+     */
+	public function getRegistrations() {
+		return $this->hasMany(Registration::className(), ['registration_id' => 'id'])->viaTable('group_registration', ['group_id' => 'id']);
+	}
+
 	
 
 

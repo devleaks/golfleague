@@ -1781,7 +1781,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1600.00</x>
-            <y>1664.00</y>
+            <y>960.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2204,7 +2204,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1600.00</x>
-            <y>1472.00</y>
+            <y>768.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2441,7 +2441,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1600.00</x>
-            <y>1216.00</y>
+            <y>512.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -2667,10 +2667,10 @@ LWE0hoaG
         <SourceSidebarWidth><![CDATA[276.000000]]></SourceSidebarWidth>
         <SourceSplitViewState><![CDATA[2 495.391 1081.61]]></SourceSplitViewState>
         <uid><![CDATA[266254ED-452F-413C-A91E-9AB58B380E54]]></uid>
-        <windowHeight><![CDATA[971.000000]]></windowHeight>
-        <windowLocationX><![CDATA[0.000000]]></windowLocationX>
-        <windowLocationY><![CDATA[56.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{6, 404}]]></windowScrollOrigin>
+        <windowHeight><![CDATA[1026.000000]]></windowHeight>
+        <windowLocationX><![CDATA[236.000000]]></windowLocationX>
+        <windowLocationY><![CDATA[366.000000]]></windowLocationY>
+        <windowScrollOrigin><![CDATA[{13, 131}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1680.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

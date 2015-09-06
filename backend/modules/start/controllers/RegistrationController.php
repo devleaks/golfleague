@@ -2,13 +2,15 @@
 
 namespace backend\modules\start\controllers;
 
-use Yii;
-use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\search\CompetitionSearch;
 use common\models\Golfer;
 use common\models\Registration;
 use common\models\search\RegistrationSearch;
+
+use backend\controllers\DefaultController as GolfLeagueController;
+
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
@@ -20,6 +22,9 @@ use yii\web\Response;
  */
 class RegistrationController extends GolfLeagueController
 {
+    /** Special action keyword */
+    const ACTION_DELETE = 'DELETE';
+
     public function behaviors()
     {
         return [
@@ -144,7 +149,7 @@ class RegistrationController extends GolfLeagueController
 	    if (!$ids) // Preventing extra unnecessary query
 	        return;
 
-		if($status == Registration::ACTION_DELETE) {
+		if($status == self::ACTION_DELETE) {
 			Yii::trace('deleting '.print_r($ids, true));
 			// Registration::deleteAll(['id' => $ids]);
 			foreach(Registration::find()->andWhere(['id' => $ids])->each() as $registration) {

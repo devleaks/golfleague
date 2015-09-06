@@ -53,7 +53,10 @@ having tot_count = 1
 		*/
 		$q = new Query();
 		  $q->select(['c.id as competition_id', 'count(c.id) as tot_count'])
-			->from('competition c, competition m')
+			->from([
+				'c' => Competition::tableName(),
+				'm' => Competition::tableName()
+			])
 			->andWhere(['c.parent_id' => null])										// tournament is not part of a 'season'
 			->andWhere(['c.competition_type' => Competition::TYPE_TOURNAMENT])
 			->andWhere(['m.competition_type' => Competition::TYPE_ROUND])

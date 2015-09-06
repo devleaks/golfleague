@@ -5,8 +5,8 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "AuthAssignment".
+ * This is a model class for table "group_registration".
  */
-class AuthAssignment extends _AuthAssignment
+class GroupRegistration extends _GroupRegistration
 {
 }

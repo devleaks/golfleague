@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use kartik\grid\GridView;
 use common\models\Registration;
 use common\models\Competition;
+use backend\modules\start\controllers\RegistrationController;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RegistrationSearch */
@@ -105,7 +106,7 @@ if($competition) {
 	$buttons .= ' '.Html::a(Yii::t('golf', 'Bulk Registrations'), ['bulk', 'id' => $competition->id], ['class' => 'btn btn-success']);
 }
 $buttons .= ' '.Html::a(Yii::t('golf', 'Delete Selected Registrations'), null, ['class' => 'btn btn-danger golfleague-bulk-action', 'data' => [
-				'status' => Registration::ACTION_DELETE,
+				'status' => RegistrationController::ACTION_DELETE,
 			    'confirm-local' => Yii::t('golf', 'Are you sure you want to delete selected registration(s)?'), // interference with bootbox
 ]]);
 $buttons .= ' '.$statuses;

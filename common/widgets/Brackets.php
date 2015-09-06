@@ -101,11 +101,9 @@ class Brackets extends _Scoretable {
 	}
 
 	private function make_bracket_lines($round) {
-		$url   = Url::to(['matchboard', 'id' => $round->id]);
 		$level = $round->getLevel();
-
 		$this->rounds[$level] = new BracketRound([
-			'level' => '"'.$round->getLevelString().'"'
+			'level' => '"<span class=matchlink data-round='.$round->id.'>'.$round->getLevelString().'</span>"'
 		]);
 
 		foreach($round->getMatches()->each() as $match) {
@@ -116,6 +114,7 @@ class Brackets extends _Scoretable {
 			$text = '
 {';
 			foreach($match->getScorecards()->each() as $scorecard) {
+				$url   = Url::to(['scorecard', 'id' => $scorecard->id]);
 				$points = $scorecard->getScoreFromRule(true);
 				$thru   = $scorecard->thru;
 				$score  = 2 * $points - $thru;
@@ -124,6 +123,9 @@ class Brackets extends _Scoretable {
 					$updowns = abs($score).' '.($score < 0 ? $this->getOption(self::DOWNS) : $this->getOption(self::UPS));
 				} else if($score === floatval(0)) {
 					$updowns = $this->getOption(self::ALLSQUARE);
+					if($scorecard->tie_break) {
+						$updowns .= ' ('.(2 * $scorecard->tie_break).')';
+					}
 				}
 				if($player > 1) {
 					$text .= ',
@@ -142,10 +144,13 @@ class Brackets extends _Scoretable {
 				} else {
 					$top = $scorecard->player->id;
 				}
-				if($scorecard->isWinner() && $level == 1) {
-					$this->brackets[0] = ['[{ player1 : { name: "'.$scorecard->player->name.
-						'", ID: "'.$scorecard->player->id.'", winner: true, url: "'.$url.'" }}
-'];
+				if($level == 1 && $scorecard->isWinner()) {
+					$this->rounds[0] = new BracketRound([
+						'level' => '"'.Yii::t('golf','Winner').'"',
+						'round' => '[{ player1 : { name: "'.$scorecard->player->name.
+							'", ID: "'.$scorecard->player->id.'", winner: true, url: "'.$url.'" }}
+]',
+					]);
 				}
 			}
 			$text .= '}
@@ -170,20 +175,18 @@ class Brackets extends _Scoretable {
 	}
 
 	private function make_bracket_rounds() {
-		$this->rounds[1]->round = '['.$this->brackets[1][0]->match.'],'.$this->brackets[0][0].']';
+		// Final
+		$this->rounds[1]->round = '['.$this->brackets[1][0]->match.']';
 		$this->brackets[1][0]->sequence = 0;
-		
+		// Other rounds:
 		for($level = 2; $level <= $this->levels; $level++) {
 			$seq = 0;			
-			$first = true;
 			$output = '[';
 
 			usort($this->brackets[$level - 1], array(BracketLine::className(), 'compare'));
 
 			foreach($this->brackets[$level - 1] as $bracket_line) {
-				if($first) {
-					$first = false;
-				} else {
+				if($output !== '[') {
 					$output .= ',
 ';
 				}
@@ -210,18 +213,17 @@ class Brackets extends _Scoretable {
 		// pass 2: Make rounds, starting from winner, ordering top/bot for each match.
 		$this->make_bracket_rounds();
 
-		for($level = $this->levels; $level > 0; $level--) {
-			if(!$rounds) {
-				$rounds = '[';
-				$titles = '[';
-			} else {
+		$rounds = '[';
+		$titles = '[';
+		for($level = $this->levels; $level >= 0; $level--) {
+			if($rounds !== '[') {
 				$rounds .= ',';
 				$titles .= ',';
 			}
 			$titles .= $this->rounds[$level]->level;
 			$rounds .= $this->rounds[$level]->round;
 		}
-	    $titles .= ',"'.Yii::t('golf','Winner').'"]';
+	    $titles .= ']';
 		$rounds .= ']';
 		
 		return $this->render('_brackets', [

@@ -376,6 +376,7 @@ class Scorecard extends _Scorecard
 				if($opponent_scorecard = $opponent->getScorecard()) {
 					$this_total = $this->points_total($rule->handicap);
 					$opponent_total = $opponent_scorecard->points_total($rule->handicap);
+					//Yii::trace('tie:'.$this->tie_break.'vs.'.$opponent_scorecard->tie_break, 'Scorecard::isWinner');
 					$winner = ($this_total > $opponent_total) ?
 								true :
 								($opponent_total > $this_total ?
@@ -388,6 +389,7 @@ class Scorecard extends _Scorecard
 				}
 			}
 		}
+		//Yii::trace('return:'.($winner ? 't' : 'f'), 'Scorecard::isWinner');
 		return $winner;
 	}
 

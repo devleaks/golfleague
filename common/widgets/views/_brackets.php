@@ -37,6 +37,14 @@ var titles = <?= $titles ?>;
 	});
 })(jQuery);
 
+var detailurl = "<?= Url::to(['leaderboard'])?>";
+
+$('.matchlink').click(function() {
+	round = $(this).data('round');
+	console.log(round);
+	window.location = detailurl+"?id="+round; 
+});
+
 <?php $this->endBlock(); ?>
 </script>
 <?php
