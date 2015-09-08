@@ -66,7 +66,8 @@
         "simshaun/recurr": "*",
         "tplaner/when": "*",
         "bower-asset/rrule": "*",
-        "dmstr/yii2-adminlte-asset": "2.*"
+        "dmstr/yii2-adminlte-asset": "2.*",
+        "mootensai/yii2-enhanced-gii": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

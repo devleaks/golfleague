@@ -11,7 +11,7 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 ?>
-<ul id="flight-<?= $flight->id ?>" class="flight">
+<ul id="flight-<?= $flight->id ?>" class="flight panel panel-default">
 
     <?php
 	if ($flight->getRegistrations()->one()->competition->isMatchCompetition())

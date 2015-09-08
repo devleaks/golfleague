@@ -94,7 +94,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	}
 	// new flight ?>
 	<li>
-		<ul id="flight-new" class="flight new">
+		<ul id="flight-new" class="flight new panel panel-info">
+			<div class="panel-heading handle-shiftbot"><span class="glyphicon glyphicon-star handle-shift"></span>Drop here to create a new flight.</div>
 		</ul>
 	</li>
 
