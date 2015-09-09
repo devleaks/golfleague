@@ -1,9 +1,11 @@
-.competition { list-style-type: none; }
-.competition li { height: 36px; }
+.competition {
+	list-style-type: none;
+	padding: 0;
+}
 .match-party {
 	display: inline-block;
 	width: 30%;
-	height: 24px;
+	margin: 4px;
 }
 .highlight {
 	display: inline-block;
@@ -17,4 +19,12 @@
 
 .match-error {
 	border: 2px solid #f00;
+}
+li.match {
+	margin: 10px;
+	width: 800px;
+}
+.match-handle {
+	margin-left: 4px;
+	margin-right: 10px;
 }

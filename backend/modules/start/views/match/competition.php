@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="alert alert-info">
 	<a href="#" class="close" data-dismiss="alert">&times;</a>
 	<p>Drag and drop golfers between matches.</p>
-	<p>Dure to a bug, you have to manually move both golfers to swap them. (Will be fixed some day.)</p>
+	<p>Due to a bug, you have to manually move both golfers to swap them. (Will be fixed some day.)</p>
 	<p>Save match or Reset to restart new fresh list. Select match algorithm from popup list to reset matches.</p>
 	<p>Publish matches when done programming.</p>
 </div>

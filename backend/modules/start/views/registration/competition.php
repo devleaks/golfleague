@@ -9,7 +9,7 @@ use common\models\Registration;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('golf', 'Registrations for {0}', $competition->name);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Registrations'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
