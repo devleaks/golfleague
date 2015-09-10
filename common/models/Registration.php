@@ -230,6 +230,27 @@ class Registration extends _Registration
 			parent::delete();
 	}
 
+    /**
+     * @inheritdoc
+     */
+	public function getFlight() {
+		return $this->hasOne(Flight::className(), ['id' => 'group_id'])->viaTable('registration_group', ['registration_id' => 'id']);
+	}
+
+    /**
+     * @inheritdoc
+     */
+	public function getMatch() {
+		return $this->hasOne(Match::className(), ['id' => 'group_id'])->viaTable('registration_group', ['registration_id' => 'id']);
+	}
+
+    /**
+     * @inheritdoc
+     */
+	public function getTeam() {
+		return $this->hasOne(Team::className(), ['id' => 'group_id'])->viaTable('registration_group', ['registration_id' => 'id']);
+	}
+
 	/**
 	 * Returns registration's associated scorecard. Creates one if none exists.
 	 *

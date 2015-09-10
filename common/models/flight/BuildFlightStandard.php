@@ -20,20 +20,28 @@ class BuildFlightStandard implements BuildFlight
 	
 	public static function addFlights($competition, $registrations) {
 		$flight_size = $competition->flight_size ? $competition->flight_size : Competition::FLIGHT_SIZE_DEFAULT;
-		$position = Flight::find()->andWhere(['competition_id' => $competition->id])->max('position');
+		$flight_interval = $competition->flight_time ? $competition->flight_time : Competition::FLIGHT_TIME_DEFAULT;
+		$position = $competition->getFlights()->max('group.position');
+		$flight_time = strtotime("+".($position * $flight_interval)." minutes", strtotime($competition->start_date));
 		if(! intval($position) > 0) $position = 0;
 		$position++;
 		$count = $flight_size;
 		foreach($registrations->each() as $registration) {
-			if($count >= $flight_size) {
-				$count = 0;
-				$flight = new Flight();
-				$flight->position = $position++;
-				$flight->save();
+			if(! $registration->getFlight()->exists() ) {
+				if($count >= $flight_size) {
+					$flight_time = strtotime("+".$flight_interval." minutes", strtotime($flight_time));
+					$count = 0;
+					$flight = new Flight();
+					$flight->group_type = Flight::TYPE_FLIGHT;
+					$flight->name = 'Flight '.$competition->id.'.'.$count;
+					$flight->position = $position++;
+					$flight->start_time = $flight_time;
+					$flight->start_hole = $competition->start_hole;
+					$flight->save();
+				}
+				$flight->add($registration);
+				$count++;
 			}
-			$registration->flight_id = $flight->id;
-			$registration->save();
-			$count++;
 		}
 	}
 }

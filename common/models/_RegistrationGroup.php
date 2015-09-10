@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "group_registration".
+ * This is the model class for table "registration_group".
  *
  * @property integer $id
  * @property integer $position
@@ -18,14 +18,14 @@ use Yii;
  * @property Group $group
  * @property Registration $registration
  */
-class _GroupRegistration extends \yii\db\ActiveRecord
+class _RegistrationGroup extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'group_registration';
+        return 'registration_group';
     }
 
     /**
@@ -34,8 +34,8 @@ class _GroupRegistration extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'group_id'], 'required'],
-            [['id', 'position', 'group_id', 'registration_id', 'practice_id'], 'integer'],
+            [['position', 'group_id', 'registration_id', 'practice_id'], 'integer'],
+            [['group_id'], 'required'],
             [['status'], 'string', 'max' => 20]
         ];
     }

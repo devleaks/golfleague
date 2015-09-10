@@ -65,10 +65,10 @@ class Group extends _Group {
 	public static function findGroup($id) {
 		$model = Group::findOne($id);
 		if($model)
-			switch($model->competition_type) {
-				case self::TYPE_FLIGHT:	return GFlight::findOne($id);	break;
-				case self::TYPE_MATCH:	return GMatch::findOne($id);	break;
-				case self::TYPE_TEAM:	return GTeam::findOne($id);		break;
+			switch($model->group_type) {
+				case self::TYPE_FLIGHT:	return Flight::findOne($id);	break;
+				case self::TYPE_MATCH:	return Match::findOne($id);		break;
+				case self::TYPE_TEAM:	return Team::findOne($id);		break;
 			}
 		return null;
 	}
@@ -79,10 +79,10 @@ class Group extends _Group {
      */
 	public static function instantiate($row)
 	{
-	    switch ($row['competition_type']) {
-			case self::TYPE_FLIGHT:	return new GFlight();	break;
-			case self::TYPE_MATCH:	return new GMatch();	break;
-			case self::TYPE_TEAM:	return new GTeam();		break;
+	    switch ($row['group_type']) {
+			case self::TYPE_FLIGHT:	return new Flight();	break;
+			case self::TYPE_MATCH:	return new Match();		break;
+			case self::TYPE_TEAM:	return new Team();		break;
 	        default:
 	           return new self;
 	    }
@@ -93,10 +93,87 @@ class Group extends _Group {
      * @inheritdoc
      */
 	public function getRegistrations() {
-		return $this->hasMany(Registration::className(), ['registration_id' => 'id'])->viaTable('group_registration', ['group_id' => 'id']);
+		return $this->hasMany(Registration::className(), ['id' => 'registration_id'])->viaTable('registration_group', ['group_id' => 'id']);
 	}
 
-	
+    /**
+     * @inheritdoc
+     */
+	public function getMatches() {
+		return Match::find()->joinWith('registrations')->where(['registration_id' => $this->getRegistrations()->select('id')]);
+	}
 
+    /**
+     * @inheritdoc
+     */
+	public function getTeams() {
+		return Team::find()->joinWith('registrations')->where(['registration_id' => $this->getRegistrations()->select('id')]);
+	}
+
+    /**
+     * @inheritdoc
+     */
+	public function getFlights() {
+		return Flight::find()->joinWith('registrations')->where(['registration_id' => $this->getRegistrations()->select('id')]);
+	}
+
+
+    /**
+     * @inheritdoc
+     */
+	public function getScorecards() {
+		return Scorecard::find()->where(['registration_id' => $this->getRegistrations()->select('id')]);
+	}
+
+
+    /**
+     * Get a label for match made from competitor's name separated by separator
+     */
+	public function getLabel($separator = '/') {
+		$names = '';
+		foreach($this->getRegistrations()->each() as $registration) {
+			if($registration->competition->isTeamCompetition())
+				$names .= $registration->team->getLabel('-').$separator;
+			else
+				$names .= $registration->golfer->name.$separator;
+		}
+		return substr($names, 0, - strlen($separator));;
+	}
+
+	/**
+	 * Add one registration from group
+	 */
+	public function add($registration) {
+		if(! $this->getRegistrationGroups()->andWhere(['registration_id' => $registration->id])->exists() ) {
+			$pos = $this->getRegistrationGroups()->count() + 1;
+			$link = new RegistrationGroup([
+				'registration_id' => $registration->id,
+				'group_id' => $this->id,
+				'position' => $pos
+			]);
+			$link->save();
+			//Yii::trace(print_r($link->errors, true) , 'Group::add');
+			//Yii::trace('added='.$registration->id.'='.$this->id, 'Group::add');
+		}
+		return $link;
+	}
+
+	/**
+	 * Removes one registration from group
+	 */
+	public function remove($registration) {
+		if($link = $this->getRegistrationGroups()->andWhere(['registration_id' => $registration->id])) {
+			return $link->delete();
+		}
+		return false;
+	}
+	
+	/**
+	 * Removes all registration from group
+	 */
+	public function clean() {
+		foreach($this->getRegistrationGroups()->each() as $rg)
+			$rg->delete();
+	}
 
 }

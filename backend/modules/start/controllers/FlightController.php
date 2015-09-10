@@ -139,8 +139,10 @@ class FlightController extends GolfLeagueController
 		$flight = Flight::findOne($flight_arr[1]);
 		if(!$flight) { // need to create it
 			$flight = new Flight();
+			$flight->group_type = Flight::TYPE_FLIGHT;
+			$flight->name = 'Flight '.$competition->id.'.';
 		} else { // remove existings
-			$flight->cleanRegistrations();
+			$flight->clean();
 		}
 		$flight->position = $flight_str->position;
 		Yii::trace($competition_date . ' ' . $flight_str->start_time . ':00'  , 'FlightController::makeFlight');
@@ -156,8 +158,7 @@ class FlightController extends GolfLeagueController
 				$team = Team::findOne($registration_arr[1]);
 				if($team) {
 					foreach($team->getRegistrations()->each() as $registration) {
-						$registration->flight_id = $flight->id;
-						$registration->save();
+						$flight->add($registration);
 					}
 				}
 			}
@@ -166,8 +167,7 @@ class FlightController extends GolfLeagueController
 				$match_arr = explode('-', $match_str); // match-456
 				if($match = Match::findOne($match_arr[1])) {
 					foreach($match->getRegistrations()->each() as $registration) {
-						$registration->flight_id = $flight->id;
-						$registration->save();
+						$flight->add($registration);
 					}
 				}
 			}
@@ -176,8 +176,7 @@ class FlightController extends GolfLeagueController
 				$registration_arr = explode('-', $registration_str); // registration-456
 				$registration = Registration::findOne($registration_arr[1]);
 				if($registration) {
-					$registration->flight_id = $flight->id;
-					$registration->save();
+					$flight->add($registration);
 				}
 			}
 		}
@@ -207,8 +206,7 @@ class FlightController extends GolfLeagueController
 			$flights = json_decode($savedflights);
 
 			$oldFlights = [];
-			$ff = $competition->getFlights()->all();
-			if($ff)
+			if($ff = $competition->getFlights()->all())
 				foreach($ff as $f)
 					$oldFlights[$f->id] = $f;
 				
@@ -217,7 +215,8 @@ class FlightController extends GolfLeagueController
 				unset($oldFlights[$id]); // flight still used, remove from "oldFlights"
 			}
 			foreach($oldFlights as $flight) { // delete unused flights ($oldFlights minus those still in use.)
-				$flight->cleanRegistrations(true);
+				$flight->clean();
+				$flight->delete();
 			}
 
 			if($flights) // @todo need a better test...
@@ -249,7 +248,8 @@ class FlightController extends GolfLeagueController
 		$flights = $competition->getFlights();
 		
 		foreach($flights->each() as $flight) {
-			$flight->cleanRegistrations(true);
+			$flight->clean();
+			$flight->delete();
 		}
 
 		$flights = $this->getFlights($competition);

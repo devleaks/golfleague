@@ -33,15 +33,17 @@ class BuildFlightChrono implements BuildFlight
 				$flight_time = strtotime("+".$flight_interval." minutes", strtotime($flight_time));
 				$count = 0;
 				$flight = new Flight();
+				$flight->group_type = Flight::TYPE_FLIGHT;
+				$flight->name = 'Flight '.$competition->id.'.'.$count;
 				$flight->position = $position++;
 				$flight->start_time = $flight_time;
 				$flight->start_hole = $competition->start_hole;
 				$flight->save();
+				Yii::trace(print_r($flight->errors, true) , 'BuildFlightChrono::execute');
 				$flight->refresh();
 			}
 			Yii::trace('doing='.$registration->id.'='.$flight->id.' at='.$flight_time, 'BuildFlightChrono::execute');
-			$registration->flight_id = $flight->id;
-			$registration->save();
+			$flight->add($registration);
 			$count++;
 		}
 	}

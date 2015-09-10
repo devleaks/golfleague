@@ -202,8 +202,13 @@ class Competition extends _Competition
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getFlights() {
-		return $this->hasMany(Flight::className(), ['id' => 'flight_id'])->viaTable('registration', ['competition_id' => 'id']);
-	}
+		return Flight::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
+//							 ->andWhere(['registration_group.registration_id' => Registration::find()->select('id')->where(['competition_id' => $this->id])]);
+/*
+		return $this->hasMany(Flight::className(), ['group.id' => 'registration_group.group_id'])
+			->viaTable('registration_group', ['registration_id' => 'registration.id'])
+			->viaTable('registration', ['competition_id' => 'id']);
+*/	}
 
 	/**
 	 * Returns competition teams, if any
@@ -211,7 +216,8 @@ class Competition extends _Competition
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getTeams() {
-		return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['competition_id' => 'id']);
+		return Team::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
+		//return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['competition_id' => 'id']);
 	}
 
 	/**
@@ -220,7 +226,8 @@ class Competition extends _Competition
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getMatches() {
-		return $this->hasMany(Match::className(), ['id' => 'match_id'])->viaTable('registration', ['competition_id' => 'id']);
+		return Match::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
+		//return $this->hasMany(Match::className(), ['id' => 'match_id'])->viaTable('registration', ['competition_id' => 'id']);
 	}
 
 

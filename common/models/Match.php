@@ -3,74 +3,22 @@
 namespace common\models;
 
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "match".
- *
+ * This is the model class for table "group where group_type = 'match'".
  */
-class Match extends _Match
-{
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
+class Match extends Group {
+	const GROUP_TYPE = self::TYPE_MATCH;
+
+    public static function defaultScope($query)
     {
-        return [
-                'timestamp' => [
-                        'class' => 'yii\behaviors\TimestampBehavior',
-                        'attributes' => [
-                                ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                                ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at',
-                        ],
-                        'value' => function() { return date('Y-m-d H:i:s'); /* mysql datetime format is ‘AAAA-MM-JJ HH:MM:SS’*/},
-                ],
-        ];
+		Yii::trace('Match::defaultScope');
+        $query->andWhere(['group_type' => self::TYPE_MATCH]);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
+	public static function find()
     {
-        return [
-            'id' => Yii::t('golf', 'Match'),
-            'created_at' => Yii::t('golf', 'Created At'),
-            'updated_at' => Yii::t('golf', 'Updated At'),
-        ];
+        return new GroupQuery(get_called_class(), ['type' => self::GROUP_TYPE]);
     }
 
-    /**
-     * @inheritdoc
-     */
-	public function getScorecards() {
-		return $this->hasMany(Scorecard::className(), ['registration_id' => 'id'])->viaTable('registration', ['match_id' => 'id']);
-	}
-
-    /**
-     * Delete model after removing from registrations
-     */
-    public function cleanRegistrations($delete = false)
-    {
-        foreach($this->getRegistrations()->each() as $r) {
-			$r->match_id = null;
-			$r->save();
-		}
-		if($delete)
-			$this->delete();
-    }
-
-    /**
-     * Get a label for match made from competitor's name separated by separator
-     */
-	public function getLabel($separator = '/') {
-		$names = '';
-		foreach($this->getRegistrations()->each() as $registration) {
-			if($registration->competition->isTeamCompetition())
-				$names .= $registration->team->getLabel('-').$separator;
-			else
-				$names .= $registration->golfer->name.$separator;
-		}
-		return substr($names, 0, - strlen($separator));;
-	}
 }
