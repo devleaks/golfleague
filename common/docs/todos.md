@@ -26,7 +26,7 @@ nth day of month
 ### Flights
 
 If flight setup changes flight time, it should be brought back to
-competition setup. Use other mthod to build flight manually (create + add/remove
+competition setup. Use other method to build flight manually (create + add/remove
 golfer).
 
 
@@ -65,5 +65,16 @@ Problem when tournament is point-based and match is stroke/stb based
 
 ---------
 4 types of competitions: STROKE or MATCH and SINGLE or TEAM
+
+
+---------
+Merge REGISTRATION and PRACTICE, may be move course/hole nr/starttime details from practice to group of single (practice) golfer?
+
+Allow REGISTRATION to EVENT. 
+
+(in OO: Events and Competition can be registered to.)
+
+May be event have a max. number of participant; also time slots for registration (from 8 to 8:30, 8:30 to 9, etc)
+
 
 
