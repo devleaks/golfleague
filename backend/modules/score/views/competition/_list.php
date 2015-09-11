@@ -15,12 +15,12 @@ use yii\data\ActiveDataProvider;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
 		'panel' => [
-	        'heading' => '<h4>'.$title.'</h4>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($title).' </h3>',
+			'type' => Gridview::TYPE_SUCCESS,
+			'footer' => false,
 		],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
-
-            //'id',
             [
                 'label' => Yii::t('golf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
@@ -39,18 +39,7 @@ use yii\data\ActiveDataProvider;
 					return new DateTime($model->start_date);
 				}
 			],
-            // 'registration_begin',
-            // 'registration_end',
-            // 'handicap_min',
-            // 'handicap_max',
-            // 'age_min',
-            // 'age_max',
-            // 'gender',
             'status',
-            // 'created_at',
-            // 'updated_at',
-            // 'parent_id',
-
             $actionButtons,
         ],
     ]); ?>

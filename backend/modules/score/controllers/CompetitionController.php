@@ -288,7 +288,7 @@ class CompetitionController extends GolfLeagueController
 		if($competition->competition_type == Competition::TYPE_ROUND) {
 			// checks if parent competition exists. Create it if not.
 			if(! ($parent = $competition->parent)) {
-				$parent = $competition->createParent($id);
+				$parent = $competition->createParent();
 			}
 			// Create new round by duplicating this one.
 			$next_round = $competition->copy($id);

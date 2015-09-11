@@ -14,7 +14,7 @@ $buttons = '';
 
 if($competition->course->hasTees()) {
 	$buttons = '<div class="btn-group">';
-	$buttons .= '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'. Yii::t('golf', 'Quick Add') . ' <span class="caret"></span></button>';
+	$buttons .= '<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">'. Yii::t('golf', 'Quick Add') . ' <span class="caret"></span></button>';
 	$buttons .= '<ul class="dropdown-menu" role="menu">';
     $buttons .= '<li>'.Html::a(Yii::t('golf', 'First tees'), ['start/add', 'id' => $competition->id, 'm' => 'q']).'</a></li>';
 	if($competition->course->hasTees(Golfer::GENDER_LADY) && $competition->course->hasTees(Golfer::GENDER_GENTLEMAN)) {
@@ -32,8 +32,8 @@ if($competition->course->hasTees()) {
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 		'panel'=>[
-	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => Html::a(Yii::t('golf', 'Add Start'), ['start/add', 'id' => $competition->id], ['class' => 'btn btn-primary'])
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i>  '.Html::encode($this->title).' </h3>',
+			'before' => Html::a(Yii::t('golf', 'Add Start'), ['start/add', 'id' => $competition->id], ['class' => 'btn btn-success'])
 						.' '.$buttons,
 	    ],
 		'export' => false,

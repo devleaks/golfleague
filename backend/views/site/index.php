@@ -11,46 +11,39 @@ $this->title = 'Golf League - Administration';
 
         <p class="lead">Welcome to Your Golf League Administration.</p>
 
-        <p><a class="btn btn-lg btn-success" href="<?= Url::to(['']) ?>">Get started with Your Golf League</a></p>
+        <p><a class="btn btn-lg btn-success" href="<?= Url::to(['/admin/competition']) ?>">Get started with Your Golf League</a></p>
     </div>
 
     <div class="body-content">
 
         <div class="row">
 	
-            <div class="col-lg-4">
-                <h2>Menu for Managers</h2>
+            <div class="col-lg-2 col-lg-offset-3">
+                <h3>Create</h3>
 
-                <ul>
-                    <li><a href="<?= Url::to(['/admin/competition']) ?>">Competitions</a></li>
-                    <li><a href="<?= Url::to(['/admin/golfer']) ?>">Golfers</a></li>
-                    <li><a href="<?= Url::to(['/admin/facility']) ?>">Golf courses</a></li>
-                    <li><a href="<?= Url::to(['/admin/event']) ?>">Calendar events</a></li>
-                    <li><a href="<?= Url::to(['/admin/message']) ?>">Site messages</a></li>
+				<ul style="list-style: none;padding-left:0;">
+                    <li>&raquo; <a href="<?= Url::to(['/admin/competition']) ?>">Competitions</a></li>
+                    <li>&raquo; <a href="<?= Url::to(['/admin/golfer']) ?>">Golfers</a></li>
+                    <li>&raquo; <a href="<?= Url::to(['/admin/facility']) ?>">Golf courses</a></li>
+                    <li>&raquo; <a href="<?= Url::to(['/admin/event']) ?>">Events</a></li>
+                    <li>&raquo; <a href="<?= Url::to(['/admin/message']) ?>">Messages</a></li>
                 </ul>
 
             </div>
 
-            <div class="col-lg-4">
-                <h2>Menu for Starters</h2>
+            <div class="col-lg-2">
+                <h3>Prepare</h3>
 
-                <ul>
-                    <li><a href="<?= Url::to(['/start']) ?>">Starter Home</a></li>
-                </ul>
-				<ul style="list-style: none;">
-					<li>&raquo; <a href="<?= Url::to(['/start/competition']) ?>">Competitions</a></li>
-					<li>&raquo; <a href="<?= Url::to(['/start/registration']) ?>">Registrations</a></li>
+				<ul style="list-style: none;padding-left:0;">
+					<li>&raquo; <a href="<?= Url::to(['/start/competition']) ?>">Competitions to prepare</a></li>
 				</ul>
             </div>
 
-            <div class="col-lg-4">
-                <h2>Menus for Scorers</h2>
+            <div class="col-lg-2">
+                <h3>Report</h3>
 
-                <ul>
-                    <li><a href="<?= Url::to(['/score']) ?>">Scorer Home</a></li>
-                </ul>
-				<ul style="list-style: none;">
-					<li>&raquo; <a href="<?= Url::to(['/score/competition']) ?>">Competitions</a></li>
+				<ul style="list-style: none;padding-left:0;">
+					<li>&raquo; <a href="<?= Url::to(['/score/competition']) ?>">Score Reporting</a></li>
 				</ul>
             </div>
         </div>

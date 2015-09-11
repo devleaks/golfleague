@@ -1,9 +1,12 @@
 <?php
 
-use yii\data\ActiveDataProvider;
-use kartik\detail\DetailView;
 use common\models\Facility;
 use common\models\Course;
+
+use kartik\detail\DetailView;
+
+use yii\data\ActiveDataProvider;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Facility */
@@ -15,10 +18,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="facility-view">
 
     <?= DetailView::widget([
-        'model' => $model,
-		'panel'=>[
-	        'heading' => '<h3>'.$model->name.'</h3>',
-	    ],
+	    'model' => $model,
+	    'condensed'=>false,
+	    'hover'=>true,
+	    'mode'=>Yii::$app->request->get('edit')=='t' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
+	    'panel'=>[
+		    'heading'=>'<h3 class="panel-title"> '.Html::encode($this->title).' </h3>',
+		],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
             'name',

@@ -15,8 +15,8 @@ $tees_color = Yii::$app->params['tees_colors'];
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
 		'panel'=>[
-	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => Html::a(Yii::t('golf', 'Add Tee Set'), ['tees/add', 'course_id' => $course->id], ['class' => 'btn btn-primary']),
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i>  '.Html::encode($this->title).' </h3>',
+			'before' => Html::a(Yii::t('golf', 'Add Tee Set'), ['tees/add', 'course_id' => $course->id], ['class' => 'btn btn-success']),
 	    ],
 		'export' => false,
         'columns' => [

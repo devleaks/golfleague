@@ -18,12 +18,10 @@ Icon::map($this);
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
 		'panel' => [
-	        'heading' => '<h3>'.$title.'</h3>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($title).' </h3>',
+			'type' => Gridview::TYPE_INFO
 		],
         'columns' => [
-//            ['class' => 'kartik\grid\SerialColumn'],
-
-            //'id',
             [
                 'label' => Yii::t('golf', 'Competition'),
                 'value' => function($model, $key, $index, $widget) {
@@ -38,8 +36,6 @@ Icon::map($this);
 					return $model->course ? $model->course->name : '';
 				}
 			],
-            // 'holes',
-            // 'rule_id',
 			[
 				'attribute' => 'start_date',
 				'format' => 'datetime',
@@ -54,17 +50,7 @@ Icon::map($this);
 					return '<span class="'.($model->registration_end < date('Y-m-d H:i:s') ? 'text-danger' : '').'">'. Yii::$app->formatter->asDateTime(new DateTime($model->registration_end)) . '</span';
 				},
 			],
-            // 'registration_begin',
-            // 'handicap_min',
-            // 'handicap_max',
-            // 'age_min',
-            // 'age_max',
-            // 'gender',
              'status',
-            // 'created_at',
-            // 'updated_at',
-            // 'parent_id',
-
             $actionButtons,
         ],
     ]); ?>

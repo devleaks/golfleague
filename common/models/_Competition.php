@@ -14,6 +14,7 @@ use Yii;
  * @property string $status
  * @property integer $parent_id
  * @property string $start_date
+ * @property string $recurrence
  * @property integer $recurrence_id
  * @property integer $course_id
  * @property integer $holes
@@ -38,7 +39,6 @@ use Yii;
  * @property integer $registration_time
  * @property string $created_at
  * @property string $updated_at
- * @property string $recurrence
  *
  * @property _Competition $recurrence0
  * @property _Competition[] $competitions
@@ -69,10 +69,11 @@ class _Competition extends \yii\db\ActiveRecord
             [['competition_type', 'name', 'rule_id', 'registration_begin', 'registration_end'], 'required'],
             [['parent_id', 'recurrence_id', 'course_id', 'holes', 'start_hole', 'rule_id', 'final_rule_id', 'age_min', 'age_max', 'max_players', 'cba', 'tour', 'flight_size', 'flight_time', 'flight_window', 'registration_time'], 'integer'],
             [['start_date', 'registration_begin', 'registration_end', 'created_at', 'updated_at'], 'safe'],
+            [['recurrence'], 'string'],
             [['handicap_min', 'handicap_max'], 'number'],
             [['competition_type', 'status', 'gender', 'player_type'], 'string', 'max' => 20],
             [['name'], 'string', 'max' => 80],
-            [['description', 'recurrence'], 'string', 'max' => 255],
+            [['description'], 'string', 'max' => 255],
             [['registration_special'], 'string', 'max' => 160]
         ];
     }
@@ -90,6 +91,7 @@ class _Competition extends \yii\db\ActiveRecord
             'status' => Yii::t('golf', 'Status'),
             'parent_id' => Yii::t('golf', 'Parent ID'),
             'start_date' => Yii::t('golf', 'Start Date'),
+            'recurrence' => Yii::t('golf', 'Recurrence'),
             'recurrence_id' => Yii::t('golf', 'Recurrence ID'),
             'course_id' => Yii::t('golf', 'Course ID'),
             'holes' => Yii::t('golf', 'Holes'),
@@ -114,7 +116,6 @@ class _Competition extends \yii\db\ActiveRecord
             'registration_time' => Yii::t('golf', 'Registration Time'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
-            'recurrence' => Yii::t('golf', 'Recurrence'),
         ];
     }
 

@@ -43,7 +43,7 @@ $role = MenuHelper::getRole();
 
             // admin stuff
             if(in_array($role, ['admin', 'super'])) {
-                $menus[] = ['label' => Yii::t('golf', 'Site admin'), 'url' => ['/admin']];
+                $menus[] = ['label' => Yii::t('golf', 'Site Admin'), 'url' => ['/admin']];
             }
 
             // golf league stuff
@@ -58,6 +58,8 @@ $role = MenuHelper::getRole();
 
 				if(YII_ENV == 'dev')
 					$menus[] = ['label' => Yii::t('golf', 'Development'), 'items' => MenuHelper::getDeveloperMenu($role)];
+
+				$menus[] = ['label' => Yii::t('golf', 'Help'), 'url' => ['/site/help']];
 
 				$user_menu = [];
 				$user_menu[] = ['label' => Yii::t('golf', 'Profile'), 'url' => ['/user/settings']];

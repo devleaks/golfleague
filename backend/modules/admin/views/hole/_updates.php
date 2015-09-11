@@ -14,12 +14,12 @@ $this->title = Yii::t('golf', 'Holes');
 $buttons = '';
 
 if( sizeof($tees->getHoles()->all()) == 0 ) {
-    $buttons .= Html::a(Yii::t('golf', 'Create holes'), ['tees/addholes', 'id' => $tees->id], ['class' => 'btn btn-primary']);
+    $buttons .= Html::a(Yii::t('golf', 'Create holes'), ['tees/addholes', 'id' => $tees->id], ['class' => 'btn btn-success']);
 
     $tees_with_holes = $tees->course->getTeesWithHoles();
     if(sizeof($tees_with_holes) > 0 ) {
 	    $buttons .= ' <div class="btn-group">';
-	    $buttons .= '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'. Yii::t('golf', 'Copy tees set from') . ' <span class="caret"></span></button>';
+	    $buttons .= '<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">'. Yii::t('golf', 'Copy tees set from') . ' <span class="caret"></span></button>';
 	    $buttons .= '<ul class="dropdown-menu" role="menu">';
 
 	    foreach($tees_with_holes->each() as $twh) {
@@ -50,8 +50,8 @@ if( sizeof($tees->getHoles()->all()) == 0 ) {
 		    'gridSettings' => [
 		        'floatHeader' => true,
 		        'panel' => [
-		            'heading' => '<h4>'.$this->title.'</h4>',
-		            'footer'=> $buttons
+		            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i>  '.Html::encode($this->title).' </h3>',
+		            'before'=> $buttons
 		        ]
 		    ], 
             'attributes' => [

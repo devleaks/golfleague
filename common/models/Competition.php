@@ -798,21 +798,28 @@ class Competition extends _Competition
 		if($this->competition_type == self::TYPE_SEASON)
 			return null;
 		
+		//1. Create parent competition & link this one to it
         $model = Competition::getNew($this->parentType());
 		$model->copyAttributes($this);
-
 		foreach([
             'name',
 			'rule_id',
 		] as $attribute)
 			$model->$attribute = $this->$attribute;
-
 		$model->status = Competition::STATUS_OPEN;
-		$model->save();
-		Yii::trace(print_r($model->errors, true) , 'Competition::createParent');		
-		$model->refresh();
-		$this->parent_id = $model->id;
-		$this->save();
+		if($model->save()) {
+			$model->refresh();
+
+			$this->parent_id = $model->id;
+			$this->save();
+
+			//2. Add registration to parent competition
+			foreach($this->getRegistrations()->each() as $registration) {
+				$model->register($registration->golfer, true);
+			}
+		} else {
+			Yii::trace(print_r($model->errors, true) , 'Competition::createParent');		
+		}
         return $model;
 	}
 	

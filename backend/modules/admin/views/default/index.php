@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h2><?= Html::encode($this->title) ?></h2>
 
                 <ul>
+                    <li><a href="<?= Url::to(['/admin/league']) ?>">Leagues</a></li>
                     <li><a href="<?= Url::to(['/user/admin']) ?>">Users and Access</a></li>
                     <li><a href="<?= Url::to(['/rbac/#/role']) ?>">Roles and Privileges</a></li>
                     <li><a href="<?= Url::to(['/rbac/#/menu']) ?>">Menus</a></li>

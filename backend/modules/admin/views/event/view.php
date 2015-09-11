@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.$model->name.'</h3>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-cutlery"></i>  '.Html::encode($this->title).' </h3>',
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [

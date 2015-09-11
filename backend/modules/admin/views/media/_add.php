@@ -28,7 +28,7 @@ else
 	]); ?>
 
 	<?= Html::panel([
-		'heading' => Html::tag('h4', Yii::t('golf', 'Pictures')),
+		'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-picture"></i> '.Yii::t('golf', 'Pictures').' </h3>',
 		'body' => $form->field($model, 'media[]')->widget(FileInput::classname(), [
 			'options' => ['accept' => 'image/jpeg, image/png, image/gif', 'multiple' => true],
 			'pluginOptions' => [

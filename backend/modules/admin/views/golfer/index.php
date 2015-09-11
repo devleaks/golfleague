@@ -12,17 +12,21 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="golfer-index">
 
-    <h1>    <h1><?= Html::encode($this->title) ?> <?= Html::a(Yii::t('golf', 'Create {modelClass}', [
-
-    'modelClass' => 'Golfer',
-]), ['create'], ['class' => 'btn btn-success']) ?></h1>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'responsive'=>true,
+        'hover'=>true,
+        'condensed'=>true,
+        'floatHeader'=>true,
+        'panel' => [
+            'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-user"></i> '.Html::encode($this->title).' </h3>',
+            'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),                                                                                                                                                          	
+//			'after'=>Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
+            'showFooter'=>false
+        ],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
-//          'id',
             [
 				'attribute' => 'name',
 				'noWrap' => true,

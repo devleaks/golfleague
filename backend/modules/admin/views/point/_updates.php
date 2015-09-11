@@ -58,10 +58,13 @@ if( $rule->getPoints()->count() > 0 ) {
 			],
             'checkboxColumn' => false,
 		    'gridSettings' => [
-		        'floatHeader' => true,
+		        'responsive'=>true,
+		        'hover'=>true,
+		        'condensed'=>true,
+		        'floatHeader'=>true,
 		        'panel' => [
-		            'heading' => '<h4>'.$this->title.'</h4>',
-		            'footer'=> $buttons
+		            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i>  '.Html::encode($this->title).' </h3>',
+		            'before'=> $buttons
 		        ]
 		    ], 
             'attributes' => [

@@ -18,9 +18,9 @@ use Yii;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
- * @property integer $recurrence_id
- *
- * @property Reccurence $recurrence
+ * @property string $recurrence
+ * @property string $registration_special
+ * @property integer $max_players
  */
 class _Event extends \yii\db\ActiveRecord
 {
@@ -40,10 +40,10 @@ class _Event extends \yii\db\ActiveRecord
         return [
             [['name', 'event_start'], 'required'],
             [['event_start', 'event_end', 'created_at', 'updated_at'], 'safe'],
-            [['object_type'], 'string'],
-            [['object_id', 'recurrence_id'], 'integer'],
+            [['object_type', 'recurrence'], 'string'],
+            [['object_id', 'max_players'], 'integer'],
             [['name'], 'string', 'max' => 80],
-            [['description'], 'string', 'max' => 160],
+            [['description', 'registration_special'], 'string', 'max' => 160],
             [['event_type', 'status'], 'string', 'max' => 20]
         ];
     }
@@ -65,15 +65,9 @@ class _Event extends \yii\db\ActiveRecord
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
-            'recurrence_id' => Yii::t('golf', 'Recurrence ID'),
+            'recurrence' => Yii::t('golf', 'Recurrence'),
+            'registration_special' => Yii::t('golf', 'Registration Special'),
+            'max_players' => Yii::t('golf', 'Max Players'),
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRecurrence()
-    {
-        return $this->hasOne(Reccurence::className(), ['id' => 'recurrence_id']);
     }
 }

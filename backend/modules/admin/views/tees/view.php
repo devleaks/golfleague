@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title . ' (' . Yii::t('golf', ucfirst($m
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h2>'.$model->name.'</h2>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i>  '.Html::encode($this->title).' </h3>',
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [

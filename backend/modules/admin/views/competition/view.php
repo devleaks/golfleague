@@ -41,7 +41,7 @@ if($model->recurrence) { // strips "RRULE:" at begining of string
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.Yii::t('golf', $model->competition_type).' '.$model->name.'</h3>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i>  '.Html::encode(Yii::t('golf', $model->competition_type).' '.$model->name).' </h3>',
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [

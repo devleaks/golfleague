@@ -8,34 +8,40 @@ use kartik\grid\GridView;
 /* @var $searchModel common\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$buttons = '<div class="btn-group">
+	<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">'.Yii::t('golf', 'New').' <span class="caret"></span></button>
+	<ul class="dropdown-menu" role="menu">';
+foreach(Competition::getConstants('TYPE_') as $competition) {
+	$buttons .= '<li>'. Html::a(Yii::t('golf', $competition), ['create', 'type' => $competition]) .'</li>';	
+}
+
+$buttons .= '</ul></div>';
+
 $this->title = Yii::t('golf', ucfirst(strtolower(isset($type) ? $type : 'Competitions')));
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="season-index">
 
-    <h1>
-		<?= Html::encode($this->title) ?>
-    	
-		<div class="btn-group">
-			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><?= Yii::t('golf', 'New')?> <span class="caret"></span></button>
-			<ul class="dropdown-menu" role="menu">
-				<?php foreach(Competition::getConstants('TYPE_') as $competition): ?>
-				<li><?= Html::a(Yii::t('golf', $competition), ['create', 'type' => $competition]) ?></li>
-				<?php endforeach; ?>
-			</ul>
-		</div>
-	</h1>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'responsive'=>true,
+        'hover'=>true,
+        'condensed'=>true,
+        'floatHeader'=>true,
+        'panel' => [
+            'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
+            'before'=>$buttons,                                                                                                                                                          	
+            'showFooter'=>false
+        ],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
-
-            //'id',
-            //'competition_type',
-            'name',
 			[
+                'attribute'=>'name',
+				'noWrap' => true,
+			],
+			[
+                'label' => Yii::t('golf', 'Type'),
                 'attribute'=>'competition_type',
 				'hAlign' => GridView::ALIGN_CENTER,
 				'noWrap' => true,
@@ -50,13 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->parent ? $model->parent->name : '';
                 },
-				'noWrap' => true,
 			],
-            //'parent_id',
-            // 'course_id',
-            // 'holes',
-            // 'rule_id',
-            // 'start_date',
 			[
                 'attribute'=>'registration_begin',
 				'format' => 'datetime',
@@ -75,20 +75,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
 				'noWrap' => true,
 			],
-            // 'handicap_min',
-            // 'handicap_max',
-            // 'age_min',
-            // 'age_max',
-            // 'gender',
             [
                 'label' => Yii::t('golf', 'Status'),
                 'value' => function ($model, $key, $index, $widget) {
                     return Yii::t('golf', $model->status);
                 },
             ],
-            // 'created_at',
-            // 'updated_at',
-
             [
 				'class' => 'kartik\grid\ActionColumn',
 				'template' => '{view} {delete}',

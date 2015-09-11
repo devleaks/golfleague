@@ -16,8 +16,8 @@ $this->title = Yii::t('golf', $parent->childType());
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 		'panel'=>[
-	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => Html::a(Yii::t('golf', 'Add {0}',$parent->childType()), ['add', 'parent_id' => $parent->id], ['class' => 'btn btn-primary']),
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i>  '.Html::encode($this->title).' </h3>',
+			'before' => Html::a(Yii::t('golf', 'Add {0}',$parent->childType()), ['add', 'parent_id' => $parent->id], ['class' => 'btn btn-success']),
 	    ],
 		'export' => false,
         'columns' => [
