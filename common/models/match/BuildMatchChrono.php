@@ -23,8 +23,12 @@ class BuildMatchChrono implements BuildMatch
 		$flip = true;
 		foreach($registrations->each() as $registration) {			
 			if($flip) {
-				$match = new Match();
+				$match = Match::getNew(Match::TYPE_MATCH);
+				$match->name = 'Match '.$competition->id;
 				$match->position = $position++;
+				$match->save();
+				Yii::trace(print_r($match->errors, true) , 'BuildFlightChrono::execute');
+				$match->refresh();
 				$flip = false;
 			} else
 				$flip = true;
@@ -32,8 +36,27 @@ class BuildMatchChrono implements BuildMatch
 			$match->save();
 			$match->refresh();
 			Yii::trace('doing='.$registration->id.'='.$match->id.' at='.$position, 'BuildMatchByHandicap::execute');
-			$registration->match_id = $match->id;
-			$registration->save();
+			$match->add($registration);
+		}
+	}
+
+	public static function addMatches($competition, $registrations) {
+		$position = $competition->getFlights()->max('group.position');
+		if(! intval($position) > 0) $position = 0;
+		$position++;
+		$flip = true;
+		foreach($registrations->each() as $registration) {
+			if(! $registration->getFlight()->exists() ) {
+				if($flip) {
+					$match = Match::getNew(Match::TYPE_MATCH);
+					$match->name = 'Match '.$competition->id;
+					$match->position = $position++;
+					$match->save();
+					$flip = false;
+				} else
+					$flip = true;
+				$match->add($registration);
+			}
 		}
 	}
 }

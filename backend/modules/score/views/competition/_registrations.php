@@ -66,16 +66,6 @@ use yii\helpers\Url;
                 },
 				'filter' => Registration::getLocalizedPostCompetitionStatuses(),
             ],
-            [
-                'attribute' => 'team_id',
-            	'label' => Yii::t('golf', 'Team'),
-				'visible' => $competition->isTeamCompetition(),
-            ],
-            [
-                'attribute' => 'match_id',
-        		'label' => Yii::t('golf', 'Match'),
-				'visible' => $competition->isMatchCompetition(),
-            ],
         ],
     ]); ?>
 

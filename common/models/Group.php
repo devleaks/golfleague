@@ -90,6 +90,29 @@ class Group extends _Group {
 
 
     /**
+	 * Returns new Competition of proper type.
+     */
+	public static function getNew($type) {
+	    switch ($type) {
+	        case Group::TYPE_FLIGHT:
+	            $new = new Flight();
+				break;
+	        case Group::TYPE_MATCH:
+	            $new = new Match();
+				break;
+	        case Group::TYPE_TEAM:
+	            $new = new Team();
+				break;
+	        default:
+	        	$new = new self;
+				break;
+	    }
+		$new->group_type = $type;
+		return $new;
+	}
+
+
+    /**
      * @inheritdoc
      */
 	public function getRegistrations() {

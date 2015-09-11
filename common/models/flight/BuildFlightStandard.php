@@ -31,8 +31,7 @@ class BuildFlightStandard implements BuildFlight
 				if($count >= $flight_size) {
 					$flight_time = strtotime("+".$flight_interval." minutes", strtotime($flight_time));
 					$count = 0;
-					$flight = new Flight();
-					$flight->group_type = Flight::TYPE_FLIGHT;
+					$flight = Match::getNew(Match::TYPE_FLIGHT);
 					$flight->name = 'Flight '.$competition->id.'.'.$count;
 					$flight->position = $position++;
 					$flight->start_time = $flight_time;

@@ -11,9 +11,6 @@ use Yii;
  * @property integer $competition_id
  * @property integer $golfer_id
  * @property integer $tees_id
- * @property integer $team_id
- * @property integer $match_id
- * @property integer $flight_id
  * @property string $note
  * @property string $status
  * @property string $created_at
@@ -42,7 +39,7 @@ class _Registration extends \yii\db\ActiveRecord
     {
         return [
             [['competition_id', 'golfer_id', 'status'], 'required'],
-            [['competition_id', 'golfer_id', 'tees_id', 'team_id', 'match_id', 'flight_id'], 'integer'],
+            [['competition_id', 'golfer_id', 'tees_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
             [['status'], 'string', 'max' => 20]
@@ -59,9 +56,6 @@ class _Registration extends \yii\db\ActiveRecord
             'competition_id' => Yii::t('golf', 'Competition ID'),
             'golfer_id' => Yii::t('golf', 'Golfer ID'),
             'tees_id' => Yii::t('golf', 'Tees ID'),
-            'team_id' => Yii::t('golf', 'Team ID'),
-            'match_id' => Yii::t('golf', 'Match ID'),
-            'flight_id' => Yii::t('golf', 'Flight ID'),
             'note' => Yii::t('golf', 'Note'),
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),

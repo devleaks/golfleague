@@ -111,9 +111,7 @@ class FlightController extends GolfLeagueController
 			$flights = $competition->getFlights()->orderBy('position')->all();		
 		} else { // we got flights, but may be some players registered after the last time we arranged flights
 			$newRegs = $competition->getRegistrations()
-						->andWhere(['status' => Registration::STATUS_REGISTERED])
-						->andWhere(['flight_id' => null])
-						;
+						->andWhere(['status' => Registration::STATUS_REGISTERED]);
 			// build additional flights with new registrations
 			if($newRegs->exists()) {
 				if($competition->isMatchCompetition())

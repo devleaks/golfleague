@@ -8,10 +8,10 @@ use common\models\Registration;
 use common\models\match\BuildMatchChrono;
 
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class MatchController extends Controller
 {
-
     /**
      * Make or Lists Flight models for a competition.
      * @return mixed
@@ -24,9 +24,7 @@ class MatchController extends Controller
 			$matches = $competition->getMatches()->orderBy('position')->all();		
 		} else { // we got flights, but may be some players registered after the last time we arranged flights
 			$newRegs = $competition->getRegistrations()
-						->andWhere(['status' => Registration::STATUS_REGISTERED])
-						->andWhere(['match_id' => null])
-						;
+						->andWhere(['status' => Registration::STATUS_REGISTERED]);
 			// build additional flights with new registrations
 			if($newRegs->exists()) {
 				BuildMatchChrono::addMatches($competition, $newRegs);
@@ -59,8 +57,7 @@ class MatchController extends Controller
 			foreach($matches as $match) {
 				foreach($match->registrations as $reg_id) {
 					if($registration = Registration::findOne($reg_id)) {
-						$registration->match_id = $match->id;
-						$registration->save();
+						$match->add($registratration);
 					}
 				}
 			}
@@ -95,7 +92,7 @@ class MatchController extends Controller
 		$matches = $competition->getMatches();
 		
 		foreach($matches->each() as $match) {
-			$match->cleanRegistrations(true);
+			$match->clean();
 		}
 
 		$matches = $this->getMatches($competition);

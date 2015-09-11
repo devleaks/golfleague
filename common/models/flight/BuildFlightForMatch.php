@@ -30,7 +30,8 @@ class BuildFlightForMatch implements BuildFlight
 			if($count >= $flight_size) {
 				$flight_time = strtotime("+".$flight_interval." minutes", strtotime($flight_time));
 				$count = 0;
-				$flight = new Flight();
+				$flight = Match::getNew(Match::TYPE_FLIGHT);
+				$flight->name = 'Flight '.$competition->id.'.'.$count;
 				$flight->position = $position++;
 				$flight->start_time = $flight_time;
 				$flight->start_hole = $competition->start_hole;
@@ -40,8 +41,7 @@ class BuildFlightForMatch implements BuildFlight
 			}
 			foreach($match->getRegistrations()->each() as $registration) {
 				Yii::trace('update reg '.$registration->id);
-				$registration->flight_id = $flight->id;
-				$registration->save();
+				$flight->add($registration);
 				$count++;
 			}
 		}
@@ -56,22 +56,25 @@ class BuildFlightForMatch implements BuildFlight
 		
 		// we collect the matches for which we don't have a registration yet
 		$match_ids = [];
-		foreach($registrations->each() as $registration)
-			$match_ids[$registration->match_id] = $registration->match_id;
+		foreach($registrations->each() as $registration) {
+			$match_ids[] = $registration->getMatch()->one()->id;
+		}
 			
-		foreach(Match::find()->andWhere(['id' => $match_ids])->each() as $match) {
+		foreach(Match::find()->andWhere(['id' => array_values($match_ids)])->each() as $match) {
 			if($count >= $flight_size) {
 				$count = 0;
-				$flight = new Flight();
+				$flight = Match::getNew(Match::TYPE_FLIGHT);
+				$flight->name = 'Flight '.$competition->id.'.'.$count;
 				$flight->position = $position++;
+				$flight->start_time = $flight_time;
+				$flight->start_hole = $competition->start_hole;
 				$flight->save();
 				$flight->refresh();
 			}
 			foreach($match->getRegistrations()->each() as $registration) {
-				$registration->flight_id = $flight->id;
-				$registration->save();
+				$flight->add($registration);
+				$count++;
 			}
-			$count++;
 		}
 	}
 }
