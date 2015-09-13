@@ -13,21 +13,9 @@ Repeatable events/competitions
 
 Nicer Editor for Message
 
-------------------------------
-
-every n days/weeks/month
-
-first..fourth day-of-week of month last..fourth-last day-of-week of month
-
-nth day of month
-
-
-
 ### Flights
 
-If flight setup changes flight time, it should be brought back to
-competition setup. Use other method to build flight manually (create + add/remove
-golfer).
+Add other method to build flight manually (create + add/remove golfer).
 
 
 ## Misc

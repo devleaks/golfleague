@@ -5,9 +5,10 @@ use mdm\admin\models\Menu;
 
 /* @var $content string */
 
+$rootMenu = Menu::findOne(['name' => 'Manage']);
 
 $menus = Menu::find()
-    ->where(['parent' => 8])
+    ->where(['parent' => $rootMenu->id])
     ->orderBy('order')
     ->all();
 
@@ -25,7 +26,7 @@ $activeMenu = Yii::$app->controller->id;
                 echo Html::a($label1, Yii::$app->homeUrl.ltrim ($menu->route,'/'), [
                     'class' => strpos($menu->route, $activeMenu) > 0 ? 'list-group-item active' : 'list-group-item',
                 ]);
-            }
+           }
             ?>
         </div>
     </div>

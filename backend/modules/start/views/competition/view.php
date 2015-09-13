@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.Yii::t('golf', $model->competition_type).' '.$model->name.'</h3>',
+	        'heading' => '<h3>'.Html::encode(Yii::t('golf', $model->competition_type).' '.$model->name).' </h3>',
 			'headingOptions' => [
 				'template' => '{title}'
 			],

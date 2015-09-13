@@ -35,6 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	<p>Publish final flights when done.</p>
 </div>
 
+<?php $form = ActiveForm::begin(['id' => 'flights-form']); ?>
+
 <div class="row">
 	<div class="col-lg-2">
 		<label class="control-label">Competition start</label> 
@@ -101,7 +103,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </ul>
 
-<?php $form = ActiveForm::begin(['id' => 'flights-form']); ?>
 <?= Html::hiddenInput( 'flights', null, ['id' => 'savedflights'] )?>
 <?= Html::submitButton(Yii::t('golf', 'Save flights'), ['class' => 'btn btn-success']) ?>
 

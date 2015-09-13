@@ -3265,12 +3265,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-icons.git",
-                "reference": "bce5f85e8e9b76a11e34dd43156f2db4bdb566a5"
+                "reference": "e53b404e15328c01dac97a69657d518ebf327cfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-icons/zipball/bce5f85e8e9b76a11e34dd43156f2db4bdb566a5",
-                "reference": "bce5f85e8e9b76a11e34dd43156f2db4bdb566a5",
+                "url": "https://api.github.com/repos/kartik-v/yii2-icons/zipball/e53b404e15328c01dac97a69657d518ebf327cfb",
+                "reference": "e53b404e15328c01dac97a69657d518ebf327cfb",
                 "shasum": ""
             },
             "require": {
@@ -3305,7 +3305,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2015-04-21 15:15:10"
+            "time": "2015-09-11 20:20:54"
         },
         {
             "name": "kartik-v/yii2-krajee-base",

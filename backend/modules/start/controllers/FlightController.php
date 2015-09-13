@@ -202,6 +202,24 @@ class FlightController extends GolfLeagueController
 		$savedflights = Yii::$app->request->post('flights');
 		if($savedflights) {
 			$flights = json_decode($savedflights);
+			
+			$to_save = false;
+			if(isset($_POST['GLtimeStart'])) {
+				$start_day = date('Y-m-d', strtotime($competition->start_date));
+				$start_time = $start_day.' '.Yii::$app->request->post('GLtimeStart');
+				$competition->start_date = $start_time;
+				$to_save = true;
+			}
+			if(isset($_POST['GLdeltaStart'])) {
+				$competition->flight_time = intval(Yii::$app->request->post('GLdeltaStart'));
+				$to_save = true;			
+			}
+			if(isset($_POST['GLflightSize'])) {
+				$competition->flight_size = intval(Yii::$app->request->post('GLflightSize'));
+				$to_save = true;
+			}
+			if($to_save)
+				$competition->save();
 
 			$oldFlights = [];
 			if($ff = $competition->getFlights()->all())

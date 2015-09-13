@@ -5,9 +5,10 @@ use mdm\admin\models\Menu;
 
 /* @var $content string */
 
+$rootMenu = Menu::findOne(['name' => 'Privileges']);
 
 $menus = Menu::find()
-    ->where(['parent' => 7])
+    ->where(['parent' => $rootMenu->id])
     ->orderBy('order')
     ->all();
 

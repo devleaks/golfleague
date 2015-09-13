@@ -18,7 +18,7 @@ use backend\modules\start\controllers\RegistrationController;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 		'panel'=>[
-	        'heading' => '<h4>'.$this->title.'</h4>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
 			'footer' => false,
 	    ],
 		'pjax' => true,
