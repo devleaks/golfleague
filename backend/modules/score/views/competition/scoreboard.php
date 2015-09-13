@@ -8,16 +8,16 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Competition */
 
-$this->title = $model->name;
+$this->title = Html::encode($model->getFullName()).' <small>('.Html::encode(Yii::t('golf', $model->competition_type)).')</small>';
 $this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = Html::encode($model->getFullName());
 ?>
 <div class="competition-view">
 
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.$model->getFullName().' <small>('.Yii::t('golf', $model->competition_type).')</small></h3>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> '.$this->title.' </h3>',
 			'headingOptions' => [
 				'template' => '{title}'
 			],

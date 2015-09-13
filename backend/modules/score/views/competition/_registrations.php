@@ -17,7 +17,7 @@ use yii\helpers\Url;
 		'options' => ['id' => 'registration'],
         'dataProvider' => $dataProvider,
 		'panel'=>[
-	        'heading' => '<h4>'.Yii::t('golf', 'Registrations').'</h4>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Yii::t('golf', 'Registrations').' </h3>',
 			'footer' => false,
 	    ],
 		'pjax' => true,

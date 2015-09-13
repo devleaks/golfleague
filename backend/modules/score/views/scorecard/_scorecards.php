@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\grid\GridView;
 
+$this->title = Yii::t('golf', 'Scorecards for competition «{0}»', $competition->name);
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,7 +19,7 @@ use kartik\grid\GridView;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 		'panel'=>[
-	        'heading' => '<h4>'.$this->title.'</h4>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
 			'footer' => false,
 	    ],
 		'pjax' => true,
