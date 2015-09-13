@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "87391e741fbc7e7342b811ec47c69320",
+    "hash": "24f8aaaed2c57eda4511e35a40a99fb7",
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -1142,6 +1142,32 @@
                 "mask",
                 "plugins"
             ]
+        },
+        {
+            "name": "bower-asset/jquery.recurrenceinput.js",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/collective/jquery.recurrenceinput.js.git",
+                "reference": "2a3b93c8f4758ef1a6a5893a7a504f3f38f0ac73"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/collective/jquery.recurrenceinput.js/zipball/2a3b93c8f4758ef1a6a5893a7a504f3f38f0ac73",
+                "reference": "2a3b93c8f4758ef1a6a5893a7a504f3f38f0ac73",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.7.0"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./src/jquery.recurrenceinput.js",
+                    "./src/jquery.recurrenceinput.css"
+                ]
+            },
+            "time": "2015-07-16 16:46:53"
         },
         {
             "name": "bower-asset/lodash",
@@ -2285,6 +2311,50 @@
             "time": "2015-04-02 14:33:08"
         },
         {
+            "name": "devleaks/yii2-recurinput",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/devleaks/yii2-recurinput.git",
+                "reference": "c6cd99656faa221b1b443d9a1b78dd57a2802a77"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/devleaks/yii2-recurinput/zipball/c6cd99656faa221b1b443d9a1b78dd57a2802a77",
+                "reference": "c6cd99656faa221b1b443d9a1b78dd57a2802a77",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/rrule": "*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "\\devleaks\\widgets\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pierre M",
+                    "email": "devleaks.be@gmail.com"
+                }
+            ],
+            "description": "RFC 2445 iCalendar RECUR Data Type Input",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "support": {
+                "source": "https://github.com/devleaks/yii2-recurinput/tree/master",
+                "issues": "https://github.com/devleaks/yii2-recurinput/issues"
+            },
+            "time": "2015-09-13 13:00:00"
+        },
+        {
             "name": "devleaks/yii2-weather",
             "version": "dev-master",
             "source": {
@@ -3077,7 +3147,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/09c6a1b21350d4eb9dc80cd6e0e8095f4ccef4d7",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/6ae616b4c78c34150f6dafcd31989d98bbfea6c7",
                 "reference": "09c6a1b21350d4eb9dc80cd6e0e8095f4ccef4d7",
                 "shasum": ""
             },
@@ -5740,12 +5810,12 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Console.git",
+                "url": "git@github.com:symfony/Console.git",
                 "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/9ff9032151186bd66ecee727d728f1319f52d1d8",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/f1f7376766394f409b9b33a57a5675a52f8aad93",
                 "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8",
                 "shasum": ""
             },
@@ -6922,7 +6992,8 @@
         "devleaks/yii2-weather": 20,
         "composer/composer": 20,
         "yiisoft/yii2-jui": 20,
-        "mootensai/yii2-enhanced-gii": 20
+        "mootensai/yii2-enhanced-gii": 20,
+        "bower-asset/jquery.recurrenceinput.js": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

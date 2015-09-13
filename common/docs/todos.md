@@ -65,4 +65,7 @@ Allow REGISTRATION to EVENT.
 May be event have a max. number of participant; also time slots for registration (from 8 to 8:30, 8:30 to 9, etc)
 
 
+'devleaks\\recurinput\\' => array($vendorDir . '/devleaks/yii2-recurinput'),
+
+
 
