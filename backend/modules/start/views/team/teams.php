@@ -1,10 +1,12 @@
 <?php
 
 use backend\assets\TeamsAsset;
-use common\models\Competition;
+use common\models\Team;
+
 use kartik\widgets\TimePicker;
 use kartik\widgets\TouchSpin;
 use kartik\grid\GridView;
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -35,19 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
 	<div class="col-lg-2">
 		<label class="control-label">Competition start</label> 
-		<p><strong><?= Yii::$app->formatter->asDate($competition->start_date) ?></strong></p>
+		<?= Html::textInput( 'GLstartDate', Yii::$app->formatter->asDate($competition->start_date), ['class' => 'form-control', 'readonly' => 'readonly'] )?>
 	</div>
 
 	<div class="col-lg-3">
 		<label class="control-label">Team size</label>
-		<?= TouchSpin::widget([
-		    'name' => 'GLflightSize',
-		    'options' => ['id' => 'GLflightSize'],
-			'pluginOptions' => ['postfix' => 'golfers', 'initval' => 2, 'min' => 2, 'max' => 4],
-			'pluginEvents' => [
-				'change' => 'cleanUp',
-			]
-		]); ?>
+		<?= Html::textInput( 'GLflightSize', $competition->rule->team, ['class' => 'form-control', 'readonly' => 'readonly'] )?>
 	</div>
 
 </div>
@@ -55,9 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <ul id="flight-case">
 
 	<li>
-		<ul id="flight-new" class="flight bench">
+		<ul id="flight-new" class="flight bench panel panel-warning">
+			<div class="panel-heading"><span class="glyphicon glyphicon-list handle-shift"></span>Bench - Unassigned players</div>
+
 		    <?php // each flight
-		foreach($registrations->each() as $registration) {
+		foreach($competition->getRegistrationsNotIn(Team::TYPE_TEAM)->each() as $registration) {
 			$golfer = $registration->golfer;
 			$teesColor = isset($registration->tees->color) ? $registration->tees->color : 'black';
 			echo '<li id="registration-'.$registration->id.'" class="golfer"  data-handicap="'.$golfer->handicap.'">'.$golfer->name.' ('.
@@ -68,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	</li>
 
     <?php // each flight
-	foreach($teams->each() as $team) {
+	foreach($competition->getTeams()->each() as $team) {
 		echo '<li>';
 		echo $this->render('team', [
 			'team' => $team,
@@ -77,7 +74,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	}
 	// new flight ?>
 	<li>
-		<ul id="flight-new" class="flight new">
+		<ul id="flight-new" class="flight new panel panel-info">
+			<div class="panel-heading handle-shiftbot"><span class="glyphicon glyphicon-star handle-shift"></span>Drop here to create a new team</div>
 		</ul>
 	</li>
 

@@ -3,8 +3,6 @@
 use common\models\Rule;
 use common\models\Course;
 
-use devleaks\recurinput\RecurInput;
-
 use kartik\widgets\DateTimePicker;
 use kartik\form\ActiveForm;
 
@@ -72,13 +70,6 @@ $model->recurrence = 'RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU;UNTIL=20150929T00000
 		    ])->label(Yii::t('golf', 'Start Date &amp; Time')) ?>
 			</div>
 
-			<div class='col-lg-8'>
-			<?= $form->field($model, 'recurrence')->widget(RecurInput::className(), [
-		            'pluginOptions' => [
-		                'todayHighlight' => true
-					]
-				])->label(Yii::t('golf', 'Repeat Event')) ?>
-			</div>
 		</div>
 
 	<?php endif; ?>
@@ -92,22 +83,3 @@ $model->recurrence = 'RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU;UNTIL=20150929T00000
     <?php ActiveForm::end(); ?>
 
 </div>
-<script type="text/javascript">
-<?php
-$this->beginBlock('RI_TEMPLATES'); ?>
-var DISPLAYTMPL = ['<div class="ridisplay" id="mytemplate">',
-    '<div class="rimain">',
-        '{{if !readOnly}}',
-            '<button class="input-group-addon" name="riedit"><i class="glyphicon glyphicon-repeat"></i></button>',
-            '<button class="input-group-addon" name="ridelete"><i class="glyphicon glyphicon-remove"></i></button>',
-        '{{/if}}',
-        '<label class="ridisplay">${i18n.displayUnactivate}</label>',
-    '</div>',
-    '<div class="rioccurrences" style="display:none" /></div>'].join('\n');
-
-$.template('displayTmpl', DISPLAYTMPL);
-<?php $this->endBlock(); ?>
-</script>
-<?php
-$this->registerJs($this->blocks['RI_TEMPLATES'], yii\web\View::POS_READY);
-

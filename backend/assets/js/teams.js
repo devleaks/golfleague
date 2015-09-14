@@ -2,7 +2,7 @@
 /** S U B R O U T I N E S
  *
  */
-var handleString = '<div class="team-info"><span class="handle glyphicon glyphicon-move"></span>Team No <span class="team-number">#</span>—Total handicap: <span class="team-handicap">0</span>.</div>';
+var handleString = '<div class="panel-heading"><span class="handle glyphicon glyphicon-move"></span>Team No <span class="team-number">#</span>—Total handicap: <span class="team-handicap">0</span>.</div>';
 var maxSizeDefault = 2;
 
 function getFlightMaxSize() {
@@ -35,9 +35,11 @@ function initSortable(element) {
 						//console.log('create new');
 		                var clone = $(this).clone();
 		                $(this).removeClass('new');
+						$(this).removeClass('panel-info');$(this).addClass('panel-default');
+						$(this).find('div.handle-shiftbot').remove();
 						now = new Date();
 						$(this).attr('id', 'flight-'+now.getTime());
-		                clone.empty();
+		                clone.find('li').remove();
 						initSortable(clone);
 		                $(this).parent().after(clone.wrap('<li></li>').parent());
 						$(this).prepend(handleString);
@@ -58,14 +60,14 @@ function cleanUp() {
     $('.flight').not('.new').not('.bench').each(function() {
 		var len = $(this).find('li').length;
 		if(len == maxSize) {
-			$(this).removeClass("flight-error");
-			$(this).addClass("flight-full");
+			$(this).removeClass("panel-danger");
+			$(this).addClass("panel-success");
 		} else if(len <= maxSize) {
-			$(this).removeClass("flight-error");
-			$(this).removeClass("flight-full");
+			$(this).removeClass("panel-danger");
+			$(this).removeClass("panel-success");
 		} else if(len >= maxSize) {
-			$(this).removeClass("flight-full");
-			$(this).addClass("flight-error");
+			$(this).removeClass("panel-success");
+			$(this).addClass("panel-danger");
 		}
 		if(len === 0) {
 			$(this).parent().remove();
@@ -130,8 +132,6 @@ $('#GLflightSize').change(function() {
 initSortable($(".flight"));
 
 $(".flight").not('.new').not('.bench').prepend(handleString);
-
-$(".flight.bench").prepend('<div class="bench-info">Bench - Unassigned players.</div>');
 
 $('#teams-form').submit(function () {
 	var flights = new Array();

@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 ?>
-<ul id="team-<?= $team->id ?>" class="flight">
+<ul id="team-<?= $team->id ?>" class="flight panel panel-default">
 
     <?php
 	foreach($team->getRegistrations()->each() as $registration) {
