@@ -2,16 +2,12 @@
 
 namespace backend\modules\start\controllers;
 
-use Yii;
 
-use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\Flight;
 use common\models\Match;
 use common\models\Registration;
-use common\models\Rule;
 use common\models\Team;
-use common\models\TeesForm;
 use common\models\flight\BuildFlightChrono;
 use common\models\flight\BuildFlightForTeam;
 use common\models\flight\BuildFlightForMatch;
@@ -19,16 +15,18 @@ use common\models\flight\BuildFlightStandard;
 use common\models\search\CompetitionSearch;
 use common\models\search\FlightSearch;
 
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
 
 /**
  * FlightController implements the CRUD actions for Flight model.
  */
-class FlightController extends GolfLeagueController
+class FlightController extends GroupController
 {
     public function behaviors()
     {
@@ -43,58 +41,11 @@ class FlightController extends GolfLeagueController
     }
 
     /**
-     * Lists all Flight models.
-     * @return mixed
-     */
-    public function actionIndex($id)
-    {
-		$competition = $this->findCompetition($id);
-
-		$flights = $competition->getFlights();
-
-		$regs_ok = [];
-		foreach($flights->each() as $flight) {
-			foreach($flight->getRegistrations()->each() as $registration) {
-				$regs_ok[] = $registration->id;
-			}
-		}
-
-		// collect new registrations not in existing flights
-		$registrations = $competition->getRegistrations()->andWhere(['not', ['registration_id' => $regs_ok]]);	
-
-        return $this->render('flights', [
-			'competition' => $competition,
-            'flights' => $flights,
-            'registrations' => $registrations,
-        ]);
-    }
-
-	
-    /**
-     * Lists all Registration models for approval.
-     * @return mixed
-     */
-    public function actionCompetitions()
-    {
-        $searchModel = new CompetitionSearch();
-        $query = Competition::find();
-        $query->andWhere(['status' => Competition::STATUS_OPEN]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
-        return $this->render('competitions', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
      * Make or Lists Flight models for a competition.
      * @return mixed
      */
 	private function getFlights($competition) {
-		$flights = $competition->getFlights()->orderBy('position')->all();		
+		$flights = $competition->getFlights()->orderBy('position')->all();
 		if(!$flights) {// need to make them
 
 			$method = null;
@@ -110,8 +61,7 @@ class FlightController extends GolfLeagueController
 			
 			$flights = $competition->getFlights()->orderBy('position')->all();		
 		} else { // we got flights, but may be some players registered after the last time we arranged flights
-			$newRegs = $competition->getRegistrations()
-						->andWhere(['status' => Registration::STATUS_REGISTERED]);
+			$newRegs = $competition->getRegistrationsNotIn(Flight::TYPE_FLIGHT);
 			// build additional flights with new registrations
 			if($newRegs->exists()) {
 				if($competition->isMatchCompetition())
@@ -187,6 +137,24 @@ class FlightController extends GolfLeagueController
      * Displays and/or update Flight models for a competition.
      * @return mixed
      */
+    public function actionCompetition2($id)
+    {
+		$competition = Competition::findOne($id);
+		if(!$competition)
+        	throw new NotFoundHttpException('The requested page does not exist.');
+
+		$flights = $this->getFlights($competition);
+		
+        return $this->render('flights', [
+			'competition' => $competition,
+        ]);
+
+	}
+
+    /**
+     * Displays and/or update Flight models for a competition.
+     * @return mixed
+     */
     public function actionCompetition($id)
     {
 		$competition = Competition::findOne($id);
@@ -195,7 +163,7 @@ class FlightController extends GolfLeagueController
 
 		if($competition->isTeamCompetition() && !$competition->isTeamOk()) {
 			Yii::$app->session->setFlash('error', Yii::t('golf', 'Teams for competition not completed.'));
-			return $this->redirect(Url::to(['competition/index']));
+			// return $this->redirect(Url::to(['competition/index']));
 		}
 
 		//should check that competition exists or exit.
@@ -246,8 +214,7 @@ class FlightController extends GolfLeagueController
         	throw new NotFoundHttpException('There is no registration for this competition.');
 
         return $this->render('flights', [
-			'competition' => $competition,
-            'flights' => $flights,
+			'competition' => Competition::findOne($id),
         ]);
 
     }
@@ -381,19 +348,4 @@ class FlightController extends GolfLeagueController
         }
     }
 
-    /**
-     * Finds the Flight model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Flight the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findCompetition($id)
-    {
-        if (($model = Competition::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
 }

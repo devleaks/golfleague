@@ -17,6 +17,10 @@
 		},
 		{
 		    "type": "vcs",
+		    "url": "https://github.com/devleaks/yii2-recurinput"
+		},
+		{
+		    "type": "vcs",
 		    "url": "https://github.com/devleaks/yii2-weather"
 		}
     ],
@@ -67,7 +71,9 @@
         "tplaner/when": "*",
         "bower-asset/rrule": "*",
         "dmstr/yii2-adminlte-asset": "2.*",
-        "mootensai/yii2-enhanced-gii": "dev-master"
+        "mootensai/yii2-enhanced-gii": "dev-master",
+        "devleaks/yii2-recurinput": "*",
+        "bower-asset/jquery.recurrenceinput.js": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

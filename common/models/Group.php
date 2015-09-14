@@ -167,6 +167,7 @@ class Group extends _Group {
 	 * Add one registration from group
 	 */
 	public function add($registration) {
+		$link = null;
 		if(! $this->getRegistrationGroups()->andWhere(['registration_id' => $registration->id])->exists() ) {
 			$pos = $this->getRegistrationGroups()->count() + 1;
 			$link = new RegistrationGroup([

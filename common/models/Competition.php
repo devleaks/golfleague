@@ -193,7 +193,6 @@ class Competition extends _Competition
 	 */
 	public function getScorecards() {
 		return $this->hasMany(Scorecard::className(), ['registration_id' => 'id'])->viaTable('registration', ['competition_id' => 'id']);
-		//return Scorecard::find()->where(['registration_id' => $this->getRegistrations()->select('id')]);
 	}
 
 	/**
@@ -202,13 +201,8 @@ class Competition extends _Competition
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getFlights() {
-		return Flight::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
-//							 ->andWhere(['registration_group.registration_id' => Registration::find()->select('id')->where(['competition_id' => $this->id])]);
-/*
-		return $this->hasMany(Flight::className(), ['group.id' => 'registration_group.group_id'])
-			->viaTable('registration_group', ['registration_id' => 'registration.id'])
-			->viaTable('registration', ['competition_id' => 'id']);
-*/	}
+		return Flight::find()->joinWith('registrations')->where(['competition_id' => $this->id])->distinct();
+	}
 
 	/**
 	 * Returns competition teams, if any
@@ -217,7 +211,6 @@ class Competition extends _Competition
 	 */
 	public function getTeams() {
 		return Team::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
-		//return $this->hasMany(Team::className(), ['id' => 'team_id'])->viaTable('registration', ['competition_id' => 'id']);
 	}
 
 	/**
@@ -227,7 +220,16 @@ class Competition extends _Competition
 	 */
 	public function getMatches() {
 		return Match::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
-		//return $this->hasMany(Match::className(), ['id' => 'match_id'])->viaTable('registration', ['competition_id' => 'id']);
+	}
+
+
+	/**
+	 * Returns groups of registrations
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getGroups() {
+		return Group::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
 	}
 
 
@@ -723,7 +725,6 @@ class Competition extends _Competition
 		$registrations = [];
 		foreach($this->getRegistrations()->andWhere(['status' => Registration::STATUS_REGISTERED])->each() as $registration) {
 			$registrations[$registration->id] = $registration;
-			//Yii::trace('adding '.$registration->id);
 		}
 			
 		foreach($this->getTeams()->each() as $team) {
@@ -731,13 +732,10 @@ class Competition extends _Competition
 			foreach($team->getRegistrations()->each() as $registration) {
 				$regcount++;
 				unset($registrations[$registration->id]);
-				Yii::trace('removing '.$registration->id);
 			}
-			Yii::trace('checking '.$regcount.' vs '.$team_size);
 			if($regcount != $team_size)
 				return false;
 		}
-		Yii::trace('final '.count($registrations));
 		return count($registrations) == 0;
 	}
 
@@ -887,4 +885,23 @@ class Competition extends _Competition
 		return $s;
 	}
 
+	/**
+	 * Returns registration that are not in a group of type passed as parameter
+	 * @param string $group_type Type of group (flight, team or match)
+	 * @return ActiveQuery Registrations to this competition not in groups of type specified.
+	 */
+	public function getRegistrationsNotIn($group_type) {
+		$regs_in_group = [];
+		foreach($this->getGroups()->andWhere(['group_type' => $group_type])->each() as $group) {
+			foreach($group->getRegistrations()->each() as $r) {
+				$regs_in_group[] = $r->id;
+			}
+		}
+
+		$registrations = $this->getRegistrations();
+		if(count($regs_in_group) > 0)
+			$registrations->andWhere(['not', ['id' => $regs_in_group]]);
+		
+		return $registrations;
+	}
 }

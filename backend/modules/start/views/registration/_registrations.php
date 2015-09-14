@@ -86,9 +86,6 @@ use backend\modules\start\controllers\RegistrationController;
                 },
 				'filter' => Registration::getLocalizedPreCompetitionStatuses(),
             ],
-            // 'flight_id',
-            // 'tees_id',
-
             ['class' => 'kartik\grid\CheckboxColumn'],
         ],
     ]); ?>

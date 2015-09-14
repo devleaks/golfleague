@@ -87,9 +87,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
 				'filter' => Registration::getLocalizedConstants('STATUS_'),
             ],
-            // 'flight_id',
-            // 'tees_id',
-
             ['class' => 'kartik\grid\CheckboxColumn'],
         ],
     ]); ?>

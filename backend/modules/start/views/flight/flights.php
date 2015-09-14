@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	>
 
     <?php // each flight
-	foreach($flights as $flight) {
+	foreach($competition->getFlights()->each() as $flight) {
 		echo '<li>';
 		echo $this->render('flight', [
 			'flight' => $flight,

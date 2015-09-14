@@ -93,8 +93,6 @@ class Registration extends _Registration
             'id' => Yii::t('golf', 'Registration'),
             'competition_id' => Yii::t('golf', 'Competition'),
             'golfer_id' => Yii::t('golf', 'Golfer'),
-            'flight_id' => Yii::t('golf', 'Flight'),
-            'team_id' => Yii::t('golf', 'Team'),
             'tees_id' => Yii::t('golf', 'Tees'),
             'points' => Yii::t('golf', 'Points'),
             'position' => Yii::t('golf', 'Position'),
