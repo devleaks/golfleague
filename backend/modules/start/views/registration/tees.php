@@ -1,11 +1,13 @@
 <?php
 
+use common\models\Registration;
+use common\models\Golfer;
+use common\models\Competition;
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use kartik\grid\GridView;
-use common\models\Registration;
-use common\models\Competition;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RegistrationSearch */
@@ -21,6 +23,20 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="registration-index">
+
+<?php if(! $competition->getStarts()->exists()): ?>
+	<div class="alert alert-warning">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<p>Competition is no starting tee set.</p>
+		
+		<?= Html::a(Yii::t('golf', 'Add first tees found'), ['/admin/start/add', 'id' => $competition->id, 'm' => 'q']) ?>.
+		<?php if($competition->course->hasTees(Golfer::GENDER_LADY) && $competition->course->hasTees(Golfer::GENDER_GENTLEMAN)): ?>
+			<?= Html::a(Yii::t('golf', 'Add tees per gender'), ['/admin/start/add', 'id' => $competition->id, 'm' => 'g']) ?>.
+		<?php endif; ?>
+		<?= Html::a(Yii::t('golf', 'Edit competition'), ['/admin/competition/view', 'id' => $competition->id]) ?>.
+	</div>
+
+<?php endif; ?>
 
      <?= GridView::widget([
 		'options' => ['id' => 'registration'],
