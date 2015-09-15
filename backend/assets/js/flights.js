@@ -5,8 +5,17 @@
 var handleString = '<div class="panel-heading"><span class="handle glyphicon glyphicon-move"></span>Flight No <span class="flight-number">#</span>—Start Time <span class="flight-time">00:00</span>—Total handicap: <span class="flight-handicap">0</span>.</div>';
 
 function getFlightMaxSize() {
-	var maxSize = $('#GLflightSize').val();
+	var maxSize = 4;
+	maxSize = $('#GLflightSize').val();
 	if(!parseInt(maxSize) > 0) maxSize = 4;
+
+	var isTeam = $('#flight-case').data('isteam');
+	if(isTeam > 0) {
+		teamsize = $('#flight-case').data('teamsize');
+		if(parseInt(teamsize) > 0) {
+			maxSize = Math.round(maxSize / parseInt(teamsize), 0);
+		}
+	}	
 	console.log("max size="+maxSize);
 	return maxSize;
 }

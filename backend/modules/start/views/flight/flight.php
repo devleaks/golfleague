@@ -22,7 +22,7 @@ use yii\helpers\Html;
 	else if ($flight->getCompetition()->isTeamCompetition())
 		foreach($flight->getTeams()->each() as $team) {
 			$teesColor = 'black';
-			echo '<li id="team-'.$team->id.'" class="golfer"  data-handicap="'.$team->handicap.'"  data-teamsize="'.$team->getRegistrations()->count().'">'.$team->getLabel().' ('.
+			echo '<li id="team-'.$team->id.'" class="golfer"  data-handicap="'.$team->handicap.'">'.$team->getLabel().' ('.
 				'<span class="glyphicon glyphicon-filter" style="color: '.$teesColor.';"></span> '.$team->handicap.')</li>';
 		}
 	else

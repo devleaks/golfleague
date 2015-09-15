@@ -84,6 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
     data-competition="<?= $competition->id ?>"
 	data-ismatch="<?= $competition->isMatchCompetition() ? '1' : '0' ?>"
 	data-isteam="<?= $competition->isTeamCompetition() ? '1' : '0' ?>"
+	data-teamsize="<?= $competition->rule->team ?>"
 	>
 
     <?php // each flight
