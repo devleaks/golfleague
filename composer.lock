@@ -2316,12 +2316,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/devleaks/yii2-recurinput.git",
-                "reference": "c6cd99656faa221b1b443d9a1b78dd57a2802a77"
+                "reference": "be4e7c3afc3ee70eb07a6d0bb1dbb3ad7ad776ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/devleaks/yii2-recurinput/zipball/c6cd99656faa221b1b443d9a1b78dd57a2802a77",
-                "reference": "c6cd99656faa221b1b443d9a1b78dd57a2802a77",
+                "url": "https://api.github.com/repos/devleaks/yii2-recurinput/zipball/be4e7c3afc3ee70eb07a6d0bb1dbb3ad7ad776ca",
+                "reference": "be4e7c3afc3ee70eb07a6d0bb1dbb3ad7ad776ca",
                 "shasum": ""
             },
             "require": {
@@ -2331,7 +2331,7 @@
             "type": "yii2-extension",
             "autoload": {
                 "psr-4": {
-                    "\\devleaks\\widgets\\": ""
+                    "\\devleaks\\recurinput\\": ""
                 }
             },
             "license": [
@@ -2352,7 +2352,7 @@
                 "source": "https://github.com/devleaks/yii2-recurinput/tree/master",
                 "issues": "https://github.com/devleaks/yii2-recurinput/issues"
             },
-            "time": "2015-09-13 13:00:00"
+            "time": "2015-09-13 16:45:58"
         },
         {
             "name": "devleaks/yii2-weather",

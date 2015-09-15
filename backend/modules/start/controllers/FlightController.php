@@ -97,7 +97,7 @@ class FlightController extends GroupController
 		$flight->start_time = $competition_date . ' ' . $flight_str->start_time . ':00';
 		$flight->start_hole = $competition->start_hole;
 		$flight->save();
-		//Yii::trace(print_r($flight->errors, true) , 'FlightController::makeFlight');
+		Yii::trace(print_r($flight->attributes, true) , 'FlightController::makeFlight');
 
 		// add currents
 		if($competition->isTeamCompetition()) {
@@ -106,6 +106,7 @@ class FlightController extends GroupController
 				$team = Team::findOne($registration_arr[1]);
 				if($team) {
 					foreach($team->getRegistrations()->each() as $registration) {
+						//Yii::trace('Tadding '.$registration->id , 'FlightController::makeFlight');
 						$flight->add($registration);
 					}
 				}
@@ -115,6 +116,7 @@ class FlightController extends GroupController
 				$match_arr = explode('-', $match_str); // match-456
 				if($match = Match::findOne($match_arr[1])) {
 					foreach($match->getRegistrations()->each() as $registration) {
+						//Yii::trace('Madding '.$registration->id , 'FlightController::makeFlight');
 						$flight->add($registration);
 					}
 				}
@@ -124,6 +126,7 @@ class FlightController extends GroupController
 				$registration_arr = explode('-', $registration_str); // registration-456
 				$registration = Registration::findOne($registration_arr[1]);
 				if($registration) {
+					//Yii::trace('Radding '.$registration->id , 'FlightController::makeFlight');
 					$flight->add($registration);
 				}
 			}
@@ -163,7 +166,7 @@ class FlightController extends GroupController
 
 		if($competition->isTeamCompetition() && !$competition->isTeamOk()) {
 			Yii::$app->session->setFlash('error', Yii::t('golf', 'Teams for competition not completed.'));
-			// return $this->redirect(Url::to(['competition/index']));
+			return $this->redirect(Url::to(['competition/index']));
 		}
 
 		//should check that competition exists or exit.
@@ -214,7 +217,7 @@ class FlightController extends GroupController
         	throw new NotFoundHttpException('There is no registration for this competition.');
 
         return $this->render('flights', [
-			'competition' => Competition::findOne($id),
+			'competition' => $competition,
         ]);
 
     }

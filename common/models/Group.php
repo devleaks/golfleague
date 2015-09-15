@@ -122,6 +122,16 @@ class Group extends _Group {
     /**
      * @inheritdoc
      */
+	public function getCompetition() {
+		if($registration = $this->getRegistrations()->one()) {
+			return Competition::findOne($registration->competition_id);
+		}
+		return null;
+	}
+
+    /**
+     * @inheritdoc
+     */
 	public function getMatches() {
 		return Match::find()->joinWith('registrations')->where(['registration_id' => $this->getRegistrations()->select('id')]);
 	}
@@ -155,10 +165,7 @@ class Group extends _Group {
 	public function getLabel($separator = '/') {
 		$names = '';
 		foreach($this->getRegistrations()->each() as $registration) {
-			if($registration->competition->isTeamCompetition())
-				$names .= $registration->team->getLabel('-').$separator;
-			else
-				$names .= $registration->golfer->name.$separator;
+			$names .= $registration->golfer->name.$separator;
 		}
 		return substr($names, 0, - strlen($separator));;
 	}
