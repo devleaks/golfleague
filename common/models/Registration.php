@@ -256,14 +256,16 @@ class Registration extends _Registration
 	 *
 	 * return common\models\Scorecard
 	 */
-	public function getScorecard($detailed = false) {
-		if(! $scorecard = $this->getScorecards()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
-			$scorecard = new ScorecardForCompetition([
-				'scorecard_type' => Scorecard::TYPE_COMPETITION,
-				'registration_id' => $this->id,
+	public function makeScorecard($detailed = false) {
+		$scorecard = null;
+		if(! $scorecard = parent::getScorecard()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
+			$scorecard = new Scorecard([
 				'status' => Scorecard::STATUS_OPEN,
 			]);
 			$scorecard->save();
+			$scorecard->refresh();
+			$this->scorecard_id = $scorecard->id;
+			$this->save();
 			if($detailed) {
 				$scorecard->makeScores();
 			}
@@ -271,8 +273,23 @@ class Registration extends _Registration
 		return $scorecard;
 	}
 
-	public function hasScore() { // opposed to isCompetition()
-		if($scorecard = $this->getScorecards()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
+	/**
+	 * Returns registration's associated scorecard. Creates one if none exists.
+	 *
+	 * @param boolean $detailed Whether to create hole detail score for scorecard
+	 *
+	 * return common\models\Scorecard
+	 */
+	public function getScorecard($detailed = false) {
+		if($scorecard = parent::getScorecard()->one()) {
+			return $scorecard;
+		} else {
+			return $this->makeScorecard($detailed);
+		}
+	}
+
+	public function hasScore() {
+		if($scorecard = $this->getScorecard()) {
 			return $scorecard->hasScore();
 		}
 		return false;

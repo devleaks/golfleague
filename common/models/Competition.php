@@ -192,7 +192,7 @@ class Competition extends _Competition
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getScorecards() {
-		return $this->hasMany(Scorecard::className(), ['registration_id' => 'id'])->viaTable('registration', ['competition_id' => 'id']);
+		return $this->hasMany(Scorecard::className(), ['id' => 'scorecard_id'])->viaTable('registration', ['competition_id' => 'id']);
 	}
 
 	/**

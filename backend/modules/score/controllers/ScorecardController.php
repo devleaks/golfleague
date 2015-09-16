@@ -6,7 +6,7 @@ use backend\controllers\DefaultController as GolfLeagueController;
 use common\models\Competition;
 use common\models\Registration;
 use common\models\search\ScorecardSearch;
-use common\models\ScorecardForCompetition;
+use common\models\Scorecard;
 
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -46,9 +46,9 @@ class ScorecardController extends GolfLeagueController
     {
 		$competition = $this->findCompetition($id);
 
-		if(isset($_POST['ScorecardForCompetition'])) {
-	        $models = ScorecardForCompetition::find()->andWhere(['id' => array_keys($_POST['ScorecardForCompetition'])])->indexBy('id')->all();
-	        if (! ScorecardForCompetition::loadMultiple($models, Yii::$app->request->post()) || ! ScorecardForCompetition::validateMultiple($models)) {
+		if(isset($_POST['Scorecard'])) {
+	        $models = Scorecard::find()->andWhere(['id' => array_keys($_POST['Scorecard'])])->indexBy('id')->all();
+	        if (! Scorecard::loadMultiple($models, Yii::$app->request->post()) || ! Scorecard::validateMultiple($models)) {
 				$errors = [];
 				foreach($models as $model) {
 					$errors += $model->errors;
@@ -110,7 +110,7 @@ class ScorecardController extends GolfLeagueController
     {
 		$competition = $this->findCompetition($id);
 
-		if($competition->getScorecards()->andWhere(['status' => ScorecardForCompetition::STATUS_OPEN])->exists() ) {
+		if($competition->getScorecards()->andWhere(['status' => Scorecard::STATUS_OPEN])->exists() ) {
 			Yii::$app->session->setFlash('danger', Yii::t('golf', 'There are missing scorecards.'));
 	        return $this->redirect(Url::to(['scorecard/competition', 'id' => $competition->id]));
 		} else {
@@ -144,7 +144,7 @@ class ScorecardController extends GolfLeagueController
 	public function actionComputeNet($id) {
 		$competition = $this->findCompetition($id);
 		foreach($competition->getScorecards()->each() as $scorecard) {
-			$scorecard->compute(ScorecardForCompetition::COMPUTE_GROSS_TO_NET);
+			$scorecard->compute(Scorecard::COMPUTE_GROSS_TO_NET);
 		}
         return $this->redirect(Url::to(['competition', 'id' => $competition->id]));
 	}
@@ -160,7 +160,7 @@ class ScorecardController extends GolfLeagueController
 	    if (!$ids) // Preventing extra unnecessary query
 	        return;
 
-		foreach(ScorecardForCompetition::find()->andWhere(['id' => $ids])->each() as $r) {
+		foreach(Scorecard::find()->andWhere(['id' => $ids])->each() as $r) {
 			$r->status = $status;
 			$r->save();
         }

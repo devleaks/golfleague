@@ -32,10 +32,20 @@ class Scoreline extends Model {
 	public $thru;
 
 	/** Totals */
+	
+	/** Score relative to par (See: Frank Chirkinian on Wikipedia) */
 	public $topar;
+	
+	/** Score of the current round */
 	public $today;
+	
+	/** total of current round */
 	public $total;
+
+	/** total of all rounds (for tournaments) */
 	public $totals;
+
+	/** Array with number of eagles, birdies, par, bogey, etc. */
 	public $stats;
 
 	/** */

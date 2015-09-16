@@ -34,7 +34,7 @@ class Practice extends _Practice
                 ],
         ];
     }
-
+/* practice_id = 4, sc=19*/
 
     /**
      * @inheritdoc
@@ -65,8 +65,7 @@ class Practice extends _Practice
 	 */
 	public function getScorecard($detailed = false) {
 		if(! $scorecard = $this->getScorecards()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
-			$scorecard = new ScorecardForPractice([
-				'scorecard_type' => Scorecard::TYPE_PRACTICE,
+			$scorecard = new Scorecard([
 				'practice_id' => $this->id,
 				'status' => Scorecard::STATUS_OPEN,
 			]);
@@ -74,6 +73,9 @@ class Practice extends _Practice
 			if($detailed) {
 				$scorecard->makeScores();
 			}
+			$scorecard->refresh();
+			$this->scorecard_id = $scorecard->id;
+			$this->save();
 		}
 		return $scorecard;
 	}

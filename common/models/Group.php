@@ -155,7 +155,7 @@ class Group extends _Group {
      * @inheritdoc
      */
 	public function getScorecards() {
-		return Scorecard::find()->where(['registration_id' => $this->getRegistrations()->select('id')]);
+		return Scorecard::find()->where(['id' => $this->getRegistrations()->select('scorecard_id')]);
 	}
 
 

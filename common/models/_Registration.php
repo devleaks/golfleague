@@ -15,12 +15,13 @@ use Yii;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $scorecard_id
  *
- * @property Tees $tees
+ * @property Scorecard $scorecard
  * @property Competition $competition
  * @property Golfer $golfer
+ * @property Tees $tees
  * @property RegistrationGroup[] $registrationGroups
- * @property Scorecard[] $scorecards
  */
 class _Registration extends \yii\db\ActiveRecord
 {
@@ -39,7 +40,7 @@ class _Registration extends \yii\db\ActiveRecord
     {
         return [
             [['competition_id', 'golfer_id', 'status'], 'required'],
-            [['competition_id', 'golfer_id', 'tees_id'], 'integer'],
+            [['competition_id', 'golfer_id', 'tees_id', 'scorecard_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
             [['status'], 'string', 'max' => 20]
@@ -60,15 +61,16 @@ class _Registration extends \yii\db\ActiveRecord
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
+            'scorecard_id' => Yii::t('golf', 'Scorecard ID'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTees()
+    public function getScorecard()
     {
-        return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
+        return $this->hasOne(Scorecard::className(), ['id' => 'scorecard_id']);
     }
 
     /**
@@ -90,16 +92,16 @@ class _Registration extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRegistrationGroups()
+    public function getTees()
     {
-        return $this->hasMany(RegistrationGroup::className(), ['registration_id' => 'id']);
+        return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getScorecards()
+    public function getRegistrationGroups()
     {
-        return $this->hasMany(Scorecard::className(), ['registration_id' => 'id']);
+        return $this->hasMany(RegistrationGroup::className(), ['registration_id' => 'id']);
     }
 }

@@ -73,7 +73,8 @@
         "dmstr/yii2-adminlte-asset": "2.*",
         "mootensai/yii2-enhanced-gii": "dev-master",
         "devleaks/yii2-recurinput": "*",
-        "bower-asset/jquery.recurrenceinput.js": "dev-master"
+        "bower-asset/jquery.recurrenceinput.js": "dev-master",
+        "kartik-v/yii2-popover-x": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

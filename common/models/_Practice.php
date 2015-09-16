@@ -19,12 +19,15 @@ use Yii;
  * @property string $updated_at
  * @property string $created_at
  * @property string $note
+ * @property integer $scorecard_id
  *
- * @property Tees $tees
+ * @property Scorecard $scorecard
  * @property Golfer $golfer
  * @property Course $course
+ * @property Tees $tees
+ * @property PracticeFlight[] $practiceFlights
  * @property PracticeGolfer[] $practiceGolfers
- * @property Scorecard[] $scorecards
+ * @property RegistrationGroup[] $registrationGroups
  */
 class _Practice extends \yii\db\ActiveRecord
 {
@@ -43,7 +46,7 @@ class _Practice extends \yii\db\ActiveRecord
     {
         return [
             [['golfer_id', 'course_id', 'tees_id'], 'required'],
-            [['golfer_id', 'course_id', 'start_hole', 'holes', 'tees_id'], 'integer'],
+            [['golfer_id', 'course_id', 'start_hole', 'holes', 'tees_id', 'scorecard_id'], 'integer'],
             [['start_time', 'updated_at', 'created_at'], 'safe'],
             [['handicap'], 'number'],
             [['status'], 'string', 'max' => 20],
@@ -69,15 +72,16 @@ class _Practice extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('golf', 'Updated At'),
             'created_at' => Yii::t('golf', 'Created At'),
             'note' => Yii::t('golf', 'Note'),
+            'scorecard_id' => Yii::t('golf', 'Scorecard ID'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTees()
+    public function getScorecard()
     {
-        return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
+        return $this->hasOne(Scorecard::className(), ['id' => 'scorecard_id']);
     }
 
     /**
@@ -99,6 +103,22 @@ class _Practice extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getTees()
+    {
+        return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPracticeFlights()
+    {
+        return $this->hasMany(PracticeFlight::className(), ['practice_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getPracticeGolfers()
     {
         return $this->hasMany(PracticeGolfer::className(), ['practice_id' => 'id']);
@@ -107,8 +127,8 @@ class _Practice extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getScorecards()
+    public function getRegistrationGroups()
     {
-        return $this->hasMany(Scorecard::className(), ['practice_id' => 'id']);
+        return $this->hasMany(RegistrationGroup::className(), ['practice_id' => 'id']);
     }
 }

@@ -8,10 +8,7 @@ use kartik\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\StartSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = Yii::t('golf', 'Starts');
-
 $buttons = '';
-
 if($competition->course->hasTees()) {
 	$buttons = '<div class="btn-group">';
 	$buttons .= '<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">'. Yii::t('golf', 'Quick Add') . ' <span class="caret"></span></button>';

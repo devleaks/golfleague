@@ -10,8 +10,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "golfers".
  */
-class Golfer extends _Golfer
-{
+class Golfer extends _Golfer implements Player {
 	use Constant;
 
     /** Golfer genders */
@@ -22,7 +21,7 @@ class Golfer extends _Golfer
     const HAND_RIGHT	= 'RIGHT';
     const HAND_LEFT		= 'LEFT';
 
-	const DEFAULT_HANDICAP = 54;
+	const DEFAULT_HANDICAP = 36;
 
     /**
      * @inheritdoc
@@ -87,10 +86,6 @@ class Golfer extends _Golfer
 		return $this->birthdate ? floor((time() - strtotime($this->birthdate))/31556926) : 0;
 	}
 
-	public function handicap() {
-		return $this->handicap ? $this->handicap : self::DEFAULT_HANDICAP;
-	}
-	
 	public function allowed($tees) {
 		Yii::trace('top', 'Golfer::allowed');
 		return Yii::$app->golfleague->handicap_system->allowed($tees, $this);
@@ -100,4 +95,12 @@ class Golfer extends _Golfer
 		return array_sum($this->allowed($tees));
 	}
 
+	public function getHandicap() {
+		return $this->handicap ? $this->handicap : self::DEFAULT_HANDICAP;
+	}
+	
+	public function getName() {
+		return $this->name;
+	}
+	
 }
