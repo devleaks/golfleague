@@ -237,7 +237,21 @@ class Competition extends _Competition
 	/**
 	 * General Information
 	 */
-	
+
+	/**
+	 * Generates colored labels for Document status
+	 *
+	 * @return string HTML fragment
+	 */
+	public function getLabelColors() {
+		return [
+			self::STATUS_READY => 'success',
+			self::STATUS_OPEN => 'primary',
+			self::STATUS_CLOSED => 'danger',
+			self::STATUS_COMPLETED => 'warning',
+		];
+	}
+		
 	/**
 	 * Get hierarchical list of links for breadcrumbs, from Season to match.
 	 *

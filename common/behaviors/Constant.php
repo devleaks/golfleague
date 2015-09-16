@@ -45,4 +45,16 @@ trait Constant {
         return $result;
     }
 
+	/**
+	 * Generates colored labels for Document. Color depends on document status.
+	 *
+	 * @return string HTML fragment
+	 */
+	function makeLabel($str) {
+		$colors = $this->getLabelColors();
+		$color  = in_array($str, array_keys($colors)) ? $colors[$str] : 'default';
+		return '<span class="label label-'.$color.'">'.Yii::t('golf', $str).'</span>';
+	}
+
+
 }

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-$this->title = Yii::t('store', 'Help');
+$this->title = Yii::t('golf', 'Help');
 
 $docdir = Yii::getAlias('@common').'/docs/';
 
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = isset($file) ? $file : $this->title;
 <?php if (isset($content)): ?>
 	<?= Markdown::convert($content);?>
 <?php else: ?>
-	<h1><?= Yii::t('store', 'Help') ?></h1>
+	<h1><?= Yii::t('golf', 'Help') ?></h1>
 
 	<ul>
 	<?php

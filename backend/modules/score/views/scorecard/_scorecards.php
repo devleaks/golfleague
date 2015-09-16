@@ -72,8 +72,10 @@ $this->title = Yii::t('golf', 'Scorecards for competition «{0}»', $competition
 			],
             [
                 'attribute' => 'status',
+				'format' => 'raw',
+				'hAlign' => GridView::ALIGN_CENTER,
                 'value' => function($model, $key, $index, $widget) {
-                	return Yii::t('golf', $model->status);
+                	return $model->makeLabel($model->status);
                 },
 				'filter' => Scorecard::getLocalizedConstants('STATUS_'),
             ],

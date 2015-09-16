@@ -36,8 +36,8 @@ class CaptureRecurrence extends Model
     public function attributeLabels()
     {
         return [
-            'date' => Yii::t('store', 'Date'),
-        	'action' => Yii::t('store', 'Action'),
+            'date' => Yii::t('golf', 'Date'),
+        	'action' => Yii::t('golf', 'Action'),
         ];
     }
 }

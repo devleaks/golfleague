@@ -162,7 +162,24 @@ class Registration extends _Registration
 	}
 
 	
-
+	public function getLabelColors() {
+		return [
+			self::STATUS_UNREGISTERED => 'default',
+			self::STATUS_PENDING => 'info',
+			self::STATUS_INVITED => 'primary',
+			self::STATUS_REGISTERED => 'primary',
+			self::STATUS_REJECTED => 'danger',
+			self::STATUS_CONFIRMED => 'success',
+			self::STATUS_CANCELLED => 'danger',
+			self::STATUS_FORFEIT => 'danger',
+			self::STATUS_MISSEDCUT => 'warning',
+			self::STATUS_ELIMINATED => 'warning',
+			self::STATUS_DISQUALIFIED => 'danger',
+			self::STATUS_WITHDRAWN => 'warning',
+			self::STATUS_QUALIFIED => 'success',
+		];
+	}
+	
 	/**
 	 *  Cancel an existing registration by changing status appropriately
 	 *

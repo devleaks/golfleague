@@ -89,6 +89,15 @@ class Scorecard extends _Scorecard
     }
 
 
+	public function getLabelColors() {
+		return [
+			self::STATUS_OPEN => 'primary',
+			self::STATUS_RETURNED => 'success',
+			self::STATUS_NOSHOW => 'warning',
+			self::STATUS_DISQUAL => 'danger',
+		];
+	}
+	
 	/**
 	 * Cascade delete scores attached to this scorecard
 	 */	

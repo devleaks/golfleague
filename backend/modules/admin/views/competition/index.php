@@ -47,12 +47,16 @@ $this->params['breadcrumbs'][] = $this->title;
 				'noWrap' => true,
 				'visible' => !isset($type),
 				'filter' => Competition::getLocalizedConstants('TYPE_'),
+                'value' => function ($model, $key, $index, $widget) {
+                    return substr($model->competition_type, 0, 1);
+                },
 			],
             'description',
 			[
                 'attribute'=>'parent_id',
                 'label' => Yii::t('golf', 'Part Of'),
 				'hAlign' => GridView::ALIGN_CENTER,
+				'noWrap' => true,
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->parent ? $model->parent->name : '';
                 },
@@ -76,9 +80,13 @@ $this->params['breadcrumbs'][] = $this->title;
 				'noWrap' => true,
 			],
             [
+            	'attribute'=>'status',
                 'label' => Yii::t('golf', 'Status'),
+				'format' => 'raw',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'filter' => Competition::getLocalizedConstants('STATUS_'),
                 'value' => function ($model, $key, $index, $widget) {
-                    return Yii::t('golf', $model->status);
+                    return $model->makeLabel($model->status);
                 },
             ],
             [
