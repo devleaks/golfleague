@@ -30,6 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		'panel'=>[
 	        'heading' => '<h3 class="panel-title">'.Html::encode($this->title).'</h3>',
 	    ],
+		'buttons1' => '{update}',
+		'buttons2' => '{view} {save}',
 		'labelColOptions' => ['style' => 'width: 30%'],
 		'formOptions' => ['action' => Url::to(['view', 'id' => $model->id])],
         'attributes' => [

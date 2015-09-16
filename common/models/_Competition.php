@@ -130,7 +130,7 @@ class _Competition extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCompetitions()
+    public function getCompetitions0()
     {
         return $this->hasMany(_Competition::className(), ['recurrence_id' => 'id']);
     }
@@ -146,7 +146,7 @@ class _Competition extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCompetitions0()
+    public function getCompetitions()
     {
         return $this->hasMany(_Competition::className(), ['parent_id' => 'id']);
     }

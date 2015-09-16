@@ -11,11 +11,12 @@ use Yii;
  * @property integer $competition_id
  * @property integer $golfer_id
  * @property integer $tees_id
+ * @property integer $scorecard_id
  * @property string $note
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
- * @property integer $scorecard_id
+ * @property string $preference
  *
  * @property Scorecard $scorecard
  * @property Competition $competition
@@ -43,7 +44,8 @@ class _Registration extends \yii\db\ActiveRecord
             [['competition_id', 'golfer_id', 'tees_id', 'scorecard_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
-            [['status'], 'string', 'max' => 20]
+            [['status'], 'string', 'max' => 20],
+            [['preference'], 'string', 'max' => 40]
         ];
     }
 
@@ -57,11 +59,12 @@ class _Registration extends \yii\db\ActiveRecord
             'competition_id' => Yii::t('golf', 'Competition ID'),
             'golfer_id' => Yii::t('golf', 'Golfer ID'),
             'tees_id' => Yii::t('golf', 'Tees ID'),
+            'scorecard_id' => Yii::t('golf', 'Scorecard ID'),
             'note' => Yii::t('golf', 'Note'),
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
-            'scorecard_id' => Yii::t('golf', 'Scorecard ID'),
+            'preference' => Yii::t('golf', 'Preference'),
         ];
     }
 

@@ -32,19 +32,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3>'.Yii::t('golf', $model->competition_type).' '.$model->name.'</h3>',
+	        'heading' => '<h3 class="panel-title">'.$model->getFullName().' <small>('.Yii::t('golf', $model->competition_type).')</small></h3>',
 	    ],
+		'buttons1' => false,
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
-            //'competition_type',
-            'name',
             'description',
             [
                 'attribute'=>'parent_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => 	$model->getParentCandidates(),
                 'value'=> $model->parent ? $model->parent->name : '',
-				'visible' => $model->competition_type != Competition::TYPE_SEASON,
+				'visible' => $model->parent_id != '',
             ],
             [
                 'attribute'=>'course_id',

@@ -20,22 +20,111 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'competition_type',
-            'name',
-            'description',
-            'parent_id',
-            'course_id',
-            'holes',
-            'rule_id',
-            'start_date',
-            'registration_begin',
-            'registration_end',
-            'handicap_min',
-            'handicap_max',
-            'age_min',
-            'age_max',
-            'gender',
-            'status',
+	        'attributes' => [
+	            //'competition_type',
+	            'name',
+	            'description',
+	            [
+	                'attribute'=>'parent_id',
+					'type' => DetailView::INPUT_DROPDOWN_LIST,
+					'items' => $model->getParentCandidates(),
+	                'label'=>Yii::t('golf','Parent'),
+	                'value'=> $model->parent ? $model->parent->name.Html::a(' <span class="glyphicon glyphicon-share"></span>', ['view', 'id' => $model->parent_id]) : '',
+					'visible' => $model->competition_type != Competition::TYPE_SEASON,
+					'format' => 'raw',
+	            ],
+	            [
+	                'attribute'=>'course_id',
+					'type' => DetailView::INPUT_DROPDOWN_LIST,
+	                'label'=> Yii::t('golf', 'Course'),
+					'items' => Course::getCourseList(true),
+	                'value' => $model->course ? $model->course->getFullName().Html::a(' <span class="glyphicon glyphicon-share"></span>', ['course/view', 'id' => $model->course_id]) : '' ,
+					'format' => 'raw',
+	            ],
+	            [
+	                'attribute'=>'holes',
+					'type' => DetailView::INPUT_DROPDOWN_LIST,
+					'items' => array(18 => '18', 9 => '9'),
+	            ],
+	            [
+					'attribute' => 'rule_id',
+					'type' => DetailView::INPUT_DROPDOWN_LIST,
+					'items' => ArrayHelper::map([''=>'']+Rule::find()->where(['competition_type' => $model->competition_type])->asArray()->all(), 'id', 'name'),
+					'value' => $model->rule->name.Html::a(' <span class="glyphicon glyphicon-share"></span>', ['rule/view', 'id' => $model->rule_id]),
+					'format' => 'raw',
+				],
+	            [
+					'attribute' => 'final_rule_id',
+					'type' => DetailView::INPUT_DROPDOWN_LIST,
+					'items' => ArrayHelper::map([''=>'']+Rule::find()->where(['competition_type' => $model->competition_type])->asArray()->all(), 'id', 'name'),
+					'value' => $model->final_rule_id ? $model->finalRule->name.Html::a(' <span class="glyphicon glyphicon-share"></span>', ['rule/view', 'id' => $model->final_rule_id]) : '',
+					'format' => 'raw',
+				],
+	            [
+	                'attribute'=>'start_date',
+					'format' => 'datetime',
+					'type' => DetailView::INPUT_DATETIME,
+					'widgetOptions' => [
+						'pluginOptions' => [
+		                	'format' => 'yyyy-mm-dd hh:ii:ss',
+		                	'todayHighlight' => true
+		            	]
+					],
+					'value' => $model->registration_begin ? new DateTime($model->start_date) : '',
+	            ],
+	            [
+	                'attribute'=>'recurrence',
+					'format' => 'raw',
+					'type' => DetailView::INPUT_TEXT,
+					'value' => /*$model->recurrence.'='.*/$recurrence,
+	            ],
+	            [
+	                'attribute'=>'registration_begin',
+					'format' => 'datetime',
+					'type' => DetailView::INPUT_DATETIME,
+					'widgetOptions' => [
+						'pluginOptions' => [
+		                	'format' => 'yyyy-mm-dd hh:ii:ss',
+		                	'todayHighlight' => true
+		            	]
+					],
+					'value' => $model->registration_begin ? new DateTime($model->registration_begin) : '',
+	            ],
+	            [
+	                'attribute'=>'registration_end',
+					'format' => 'datetime',
+					'type' => DetailView::INPUT_DATETIME,
+					'widgetOptions' => [
+						'pluginOptions' => [
+		                	'format' => 'yyyy-mm-dd hh:ii:ss',
+		                	'todayHighlight' => true
+		            	]
+					],
+					'value' => $model->registration_end ? new DateTime($model->registration_end) : '',
+	            ],
+	            'handicap_min',
+	            'handicap_max',
+	            'age_min',
+	            'age_max',
+	            [
+					'attribute' => 'gender',
+					'type' => DetailView::INPUT_DROPDOWN_LIST,
+					'items' => [''=>'']+Competition::getLocalizedConstants('GENDER_')
+				],
+	            'max_players',
+	            [
+	                'attribute'=>'registration_special',
+					'type' => DetailView::INPUT_DROPDOWN_LIST,
+					'items' => [''=>'']+Competition::getLocalizedConstants('SPECIAL_')
+	            ],
+	        	'registration_time',
+	            'flight_size',
+				'flight_time',
+	            [
+					'attribute' => 'status',
+					'type' => DetailView::INPUT_DROPDOWN_LIST,
+					'items' => Competition::getLocalizedConstants('STATUS_')
+				],
         ],
     ]) ?>
 

@@ -9,15 +9,16 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\SeasonSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Yii::t('golf', ucfirst(strtolower(isset($type) ? $type : 'All')));
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="season-index">
+<div class="subcompetition-index">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'panel' => [
+	        'heading' => '<h3 class="panel-title">'.$parent->getFullName().' <small>('.Yii::t('golf', $parent->childType()).')</small></h3>',
+            'showFooter'=>false
+        ],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
 			[

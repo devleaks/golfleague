@@ -1856,6 +1856,11 @@
             <uid><![CDATA[ACDCE68B-85CD-47A1-8097-8E2CFE5FABFB]]></uid>
         </SQLField>
         <SQLField>
+            <name><![CDATA[preference]]></name>
+            <type><![CDATA[VARCHAR(40)]]></type>
+            <uid><![CDATA[2112C5A7-F118-4508-A9C2-3717D00EC88E]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[note]]></name>
             <type><![CDATA[VARCHAR(160)]]></type>
             <uid><![CDATA[298006A1-F2D8-4E53-B398-FB7D772AD0FE]]></uid>
@@ -2650,10 +2655,10 @@ LWE0hoaG
         <SourceSidebarWidth><![CDATA[276.000000]]></SourceSidebarWidth>
         <SourceSplitViewState><![CDATA[2 495.391 1081.61]]></SourceSplitViewState>
         <uid><![CDATA[266254ED-452F-413C-A91E-9AB58B380E54]]></uid>
-        <windowHeight><![CDATA[1026.000000]]></windowHeight>
-        <windowLocationX><![CDATA[841.000000]]></windowLocationX>
-        <windowLocationY><![CDATA[171.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{28, 483}]]></windowScrollOrigin>
+        <windowHeight><![CDATA[1081.000000]]></windowHeight>
+        <windowLocationX><![CDATA[850.000000]]></windowLocationX>
+        <windowLocationY><![CDATA[205.000000]]></windowLocationY>
+        <windowScrollOrigin><![CDATA[{58, 210}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1680.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

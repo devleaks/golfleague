@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $scorecard->registration->competition,
 		'panel'=>[
-	        'heading' => '<h3>'.$scorecard->registration->competition->getFullName().' <small>('.Yii::t('golf', $scorecard->registration->competition->competition_type).')</small></h3>',
+	        'heading' => '<h3 class="panel-title">'.$scorecard->registration->competition->getFullName().' <small>('.Yii::t('golf', $scorecard->registration->competition->competition_type).')</small></h3>',
 			'headingOptions' => [
 				'template' => '{title}'
 			],
