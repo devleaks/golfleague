@@ -10,7 +10,7 @@ $golfer = Golfer::findOne(['user_id' => Yii::$app->user->identity->id]);
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a('<span class="logo-mini">YGL</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -250,21 +250,25 @@ $golfer = Golfer::findOne(['user_id' => Yii::$app->user->identity->id]);
                         <!-- Menu Body -->
                         <li class="user-body">
                             <div class="col-xs-4 text-center">
-                                <a href="#">Followers</a>
+                                <a href="#">Registrations</a>
                             </div>
                             <div class="col-xs-4 text-center">
-                                <a href="#">Sales</a>
+                                <a href="#">Scores</a>
                             </div>
                             <div class="col-xs-4 text-center">
-                                <a href="#">Friends</a>
+                                <a href="#">Handicap</a>
                             </div>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <?= Html::a(
+                                    'Profile',
+                                    ['/user/settings'],
+                                    ['class' => 'btn btn-default btn-flat']
+                                ) ?>
                             </div>
-                            <div class="pull-right">
+                           <div class="pull-right">
                                 <?= Html::a(
                                     'Sign out',
                                     ['/user/security/logout'],

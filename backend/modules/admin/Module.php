@@ -6,7 +6,7 @@ class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'backend\modules\admin\controllers';
 
-    public $layout = 'admin';
+    // public $layout = 'admin';
     
     public function init()
     {

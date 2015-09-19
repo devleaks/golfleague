@@ -1,4 +1,41 @@
-<aside class="main-sidebar">
+<?php
+
+use common\components\MenuHelper;
+use yii\helpers\Url;
+
+$role = MenuHelper::getRole();
+$menus = array();
+
+$menus[] = ['label' => Yii::t('golf', 'Home'), 'url' => ['/site/index']];
+
+// admin stuff
+if(in_array($role, ['admin', 'super'])) {
+    $menus[] = ['label' => Yii::t('golf', 'Site Admin'), 'url' => ['/admin']];
+}
+
+// golf league stuff
+if($role) {
+    $menus[] = ['label' => Yii::t('golf', 'Golf League'), 'items' => MenuHelper::getMenu($role)];
+}
+
+if(!Yii::$app->user->isGuest) {
+    $who = Yii::$app->user->identity->username;
+    if (YII_DEBUG)
+        $who .= ($role ? '/'.$role : '/?');
+
+	if(YII_ENV == 'dev')
+		$menus[] = ['label' => Yii::t('golf', 'Development'), 'items' => MenuHelper::getDeveloperMenu($role)];
+
+	$menus[] = ['label' => Yii::t('golf', 'Help'), 'url' => ['/site/help']];
+
+	$user_menu = [];
+	$user_menu[] = ['label' => Yii::t('golf', 'Profile'), 'url' => ['/user/settings']];
+	$user_menu[] = ['label' => Yii::t('golf', 'Logout'), 'url' => ['/user/security/logout'], 'linkOptions' => ['data-method' => 'post']];
+
+	$menus[] = ['label' => $who, 'items' => $user_menu];
+}
+
+?><aside class="main-sidebar">
 
     <section class="sidebar">
 
@@ -24,42 +61,53 @@
               </span>
             </div>
         </form>
-        <!-- /.search form -->
 
+        <!-- /.search form -->
         <?= dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
-                    ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
-                    ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
-                    ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug']],
-                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     [
-                        'label' => 'Same tools',
-                        'icon' => 'fa fa-share',
+                        'label' => 'Create',
+                        'icon' => 'fa fa-list',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii'],],
-                            ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug'],],
-                            [
-                                'label' => 'Level One',
-                                'icon' => 'fa fa-circle-o',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Level Two', 'icon' => 'fa fa-circle-o', 'url' => '#',],
-                                    [
-                                        'label' => 'Level Two',
-                                        'icon' => 'fa fa-circle-o',
-                                        'url' => '#',
-                                        'items' => [
-                                            ['label' => 'Level Three', 'icon' => 'fa fa-circle-o', 'url' => '#',],
-                                            ['label' => 'Level Three', 'icon' => 'fa fa-circle-o', 'url' => '#',],
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
+                            ['label' => 'Competitions', 'icon' => 'fa fa-trophy', 'url' => ['/admin/competition'],],
+                        	['label' => 'Rules', 'icon' => 'fa fa-legal', 'url' => ['/admin/rule'],],
+                            ['label' => 'Golfers', 'icon' => 'fa fa-user', 'url' => ['/admin/golfer'],],
+                            ['label' => 'Golf courses', 'icon' => 'fa fa-flag', 'url' => ['/admin/facility'],],
+                            ['label' => 'Events', 'icon' => 'fa fa-calendar', 'url' => ['/admin/event'],],
+                            ['label' => 'Messages', 'icon' => 'fa fa-newspaper-o', 'url' => ['/admin/message'],],
+						],
+					],
+                    [
+                        'label' => 'Prepare',
+                        'icon' => 'fa fa-pencil-square',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Competitions', 'icon' => 'fa fa-trophy', 'url' => ['/start/competition'],],
+						],
+					],
+                    [
+                        'label' => 'Report',
+                        'icon' => 'fa fa-file-text',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Competitions', 'icon' => 'fa fa-trophy', 'url' => ['/score/competition'],],
+						],
+					],
+			        [
+                        'label' => 'Development',
+                        'icon' => 'fa fa-dashboard',
+                        'url' => '#',
+                        'items' => [
+		                    // ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
+	                    	['label' => 'Frontend', 'icon' => 'fa fa-trophy', 'url' => ['/../golfleague']],
+		                    ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
+		                    ['label' => 'Debug', 'icon' => 'fa fa-bug', 'url' => ['/debug']],
+		                    // ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+						],
+					],		
                 ],
             ]
         ) ?>
