@@ -21,4 +21,17 @@ class Match extends Group {
         return new GroupQuery(get_called_class(), ['type' => self::GROUP_TYPE]);
     }
 
+
+	public function getPlayers() {
+		$type = $this->getGroupMembers()->one()->object_type;
+		return $type == GroupMember::TEAM ? $this->getTeams(true) : $this->getRegistrations();
+	}
+
+    /**
+     * @inheritdoc
+     */
+	public function getTeams() {
+		return Team::find()->andWhere(['id' => GroupMember::find()->andWhere(['group_id' => $this->id])->select('object_id')]);
+	}
+
 }

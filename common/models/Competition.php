@@ -21,12 +21,12 @@ class Competition extends _Competition
 	
 	const COMPETITION_TYPE = null;
 
-    /** Competition type SEASON */
-    const TYPE_SEASON = 'SEASON';
-    /** Competition type TOURNAMENT */
-    const TYPE_TOURNAMENT = 'TOURNAMENT';
     /** Competition type ROUND */
     const TYPE_ROUND = 'ROUND';
+    /** Competition type TOURNAMENT */
+    const TYPE_TOURNAMENT = 'TOURNAMENT';
+    /** Competition type SEASON */
+    const TYPE_SEASON = 'SEASON';
 
     /** Competition is open, for registration if within time frame */
     const STATUS_OPEN = 'OPEN';
@@ -219,7 +219,18 @@ class Competition extends _Competition
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getMatches() {
-		return Match::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
+		if($this->isTeamCompetition()) {
+			$tids = [];
+			foreach($this->getTeams()->each() as $team) {
+				$tids[$team->id] = $team->id;
+			}
+			$gids = [];
+			foreach(GroupMember::find()->andWhere(['object_id' => array_keys($tids), 'object_type' => GroupMember::TEAM])->each() as $gm) {
+				$gids[$gm->group_id] = $gm->group_id;
+			}
+			return Match::find()->andWhere(['id' => array_keys($gids)]);
+		} else
+			return Match::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
 	}
 
 

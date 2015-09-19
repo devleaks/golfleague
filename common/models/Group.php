@@ -116,7 +116,7 @@ class Group extends _Group {
      * @inheritdoc
      */
 	public function getRegistrations() {
-		return $this->hasMany(Registration::className(), ['id' => 'registration_id'])->viaTable('registration_group', ['group_id' => 'id']);
+		return $this->hasMany(Registration::className(), ['id' => 'object_id'])->viaTable('group_member', ['group_id' => 'id']);
 	}
 
     /**
@@ -133,21 +133,21 @@ class Group extends _Group {
      * @inheritdoc
      */
 	public function getMatches() {
-		return Match::find()->joinWith('registrations')->where(['registration_id' => $this->getRegistrations()->select('id')]);
+		return Match::find()->joinWith('registrations')->where(['object_id' => $this->getRegistrations()->select('id')]);
 	}
 
     /**
      * @inheritdoc
      */
 	public function getTeams() {
-		return Team::find()->joinWith('registrations')->where(['registration_id' => $this->getRegistrations()->select('id')]);
+		return Team::find()->joinWith('registrations')->where(['object_id' => $this->getRegistrations()->select('id')]);
 	}
 
     /**
      * @inheritdoc
      */
 	public function getFlights() {
-		return Flight::find()->joinWith('registrations')->where(['registration_id' => $this->getRegistrations()->select('id')]);
+		return Flight::find()->joinWith('registrations')->where(['object_id' => $this->getRegistrations()->select('id')]);
 	}
 
 
@@ -171,14 +171,27 @@ class Group extends _Group {
 	}
 
 	/**
-	 * Add one registration from group
+	 * Add one registration/team from group
 	 */
-	public function add($registration) {
+	protected function getType($object) {
+		$type = null;
+		switch($object::className()) {
+			case Registration::className():
+				$type = GroupMember::REGISTRATION; break;
+			case Team::className():
+				$type = GroupMember::TEAM; break;
+		}
+		return $type;
+	}
+	
+	public function add($object) {
 		$link = null;
-		if(! $this->getRegistrationGroups()->andWhere(['registration_id' => $registration->id])->exists() ) {
-			$pos = $this->getRegistrationGroups()->count() + 1;
-			$link = new RegistrationGroup([
-				'registration_id' => $registration->id,
+		$type = $this->getType($object);
+		if(! $this->getGroupMembers()->andWhere(['object_id' => $object->id, 'object_type' => $type])->exists() ) {
+			$pos = $this->getGroupMembers()->count() + 1;
+			$link = new GroupMember([
+				'object_id' => $object->id,
+				'object_type' => $type,
 				'group_id' => $this->id,
 				'position' => $pos
 			]);
@@ -192,8 +205,8 @@ class Group extends _Group {
 	/**
 	 * Removes one registration from group
 	 */
-	public function remove($registration) {
-		if($link = $this->getRegistrationGroups()->andWhere(['registration_id' => $registration->id])) {
+	public function remove($object) {
+		if($link = $this->getGroupMembers()->andWhere(['object_id' => $object->id, 'object_type' => $this->getType($object)])) {
 			return $link->delete();
 		}
 		return false;
@@ -203,7 +216,7 @@ class Group extends _Group {
 	 * Removes all registration from group
 	 */
 	public function clean() {
-		foreach($this->getRegistrationGroups()->each() as $rg)
+		foreach($this->getGroupMembers()->each() as $rg)
 			$rg->delete();
 	}
 

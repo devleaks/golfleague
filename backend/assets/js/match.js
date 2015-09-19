@@ -60,7 +60,7 @@ $('.matchFormSubmit').click(function () {
 			//console.log(parties);
 			matches.push( {
 				id: $(this).data('match'),
-				registrations: parties,
+				competitors: parties,
 			} );
 		});
 		$('#savedmatches').val(JSON.stringify(matches));

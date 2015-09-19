@@ -18,7 +18,7 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property RegistrationGroup[] $registrationGroups
+ * @property GroupMember[] $groupMembers
  */
 class _Group extends \yii\db\ActiveRecord
 {
@@ -68,8 +68,8 @@ class _Group extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRegistrationGroups()
+    public function getGroupMembers()
     {
-        return $this->hasMany(RegistrationGroup::className(), ['group_id' => 'id']);
+        return $this->hasMany(GroupMember::className(), ['group_id' => 'id']);
     }
 }

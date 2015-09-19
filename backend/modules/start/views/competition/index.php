@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						if($model->isMatchCompetition()) {
 							$url = Url::to(['match/competition', 'id' => $model->id]);
 		                    return Html::a(Icon::show('exchange', [], Icon::FA), $url, [
-		                        'title' => Yii::t('golf', 'Rounds'),
+		                        'title' => Yii::t('golf', 'Matches'),
 		                    ]);
 						}
 						return null;

@@ -14,20 +14,20 @@ use Yii;
  * This class builds matches according to time of registration (?).
  *
  */
-class BuildMatchChrono implements BuildMatch
+class BuildMatchForTeam implements BuildMatch
 {
 	public function execute($competition) {
-		$registrations = $competition->getRegistrations()->andWhere(['status' => Registration::STATUS_REGISTERED])->orderBy('created_at');
+		$teams = $competition->getTeams();
 		$level = $competition->getLevel();
 		$position = 1;
 		$flip = true;
-		foreach($registrations->each() as $registration) {			
+		foreach($teams->each() as $team) {			
 			if($flip) {
 				$match = Match::getNew(Match::TYPE_MATCH);
 				$match->name = 'Match '.$competition->id;
 				$match->position = $position++;
 				$match->save();
-				Yii::trace(print_r($match->errors, true) , 'BuildFlightChrono::execute');
+				Yii::trace(print_r($match->errors, true) , 'BuildMatchForTeams::execute');
 				$match->refresh();
 				$flip = false;
 			} else
@@ -35,27 +35,29 @@ class BuildMatchChrono implements BuildMatch
 
 			$match->save();
 			$match->refresh();
-			Yii::trace('doing='.$registration->id.'='.$match->id.' at='.$position, 'BuildFlightChrono::execute');
-			$match->add($registration);
+			Yii::trace('doing='.$team->id.'='.$match->id.' at='.$position, 'BuildMatchForTeams::execute');
+			$match->add($team);
 		}
 	}
 
 	public static function addMatches($competition, $registrations) {
-		$position = $competition->getFlights()->max('position');
+		$position = $competition->getMatches()->max('position');
 		if(! intval($position) > 0) $position = 0;
 		$position++;
 		$flip = true;
 		foreach($registrations->each() as $registration) {
-			if(! $registration->getFlight()->exists() ) {
-				if($flip) {
-					$match = Match::getNew(Match::TYPE_MATCH);
-					$match->name = 'Match '.$competition->id;
-					$match->position = $position++;
-					$match->save();
-					$flip = false;
-				} else
-					$flip = true;
-				$match->add($registration);
+			if($team = $registration->getMatch()->one() ) {
+				if(! $team->getMatch()->exists() ) {
+					if($flip) {
+						$match = Match::getNew(Match::TYPE_MATCH);
+						$match->name = 'Match '.$competition->id;
+						$match->position = $position++;
+						$match->save();
+						$flip = false;
+					} else
+						$flip = true;
+					$match->add($team);
+				}
 			}
 		}
 	}

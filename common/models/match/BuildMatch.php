@@ -9,4 +9,5 @@ namespace common\models\match;
 interface BuildMatch
 {
 	public function execute($id);
+	public static function addMatches($competition, $registrations);
 }

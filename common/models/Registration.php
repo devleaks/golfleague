@@ -249,21 +249,21 @@ class Registration extends _Registration
      * @inheritdoc
      */
 	public function getFlight() {
-		return $this->hasOne(Flight::className(), ['id' => 'group_id'])->viaTable('registration_group', ['registration_id' => 'id']);
+		return $this->hasOne(Flight::className(), ['id' => 'group_id'])->viaTable('group_member', ['object_id' => 'id']);
 	}
 
     /**
      * @inheritdoc
      */
 	public function getMatch() {
-		return $this->hasOne(Match::className(), ['id' => 'group_id'])->viaTable('registration_group', ['registration_id' => 'id']);
+		return $this->hasOne(Match::className(), ['id' => 'group_id'])->viaTable('group_member', ['object_id' => 'id']);
 	}
 
     /**
      * @inheritdoc
      */
 	public function getTeam() {
-		return $this->hasOne(Team::className(), ['id' => 'group_id'])->viaTable('registration_group', ['registration_id' => 'id']);
+		return $this->hasOne(Team::className(), ['id' => 'group_id'])->viaTable('group_member', ['object_id' => 'id']);
 	}
 
 	/**

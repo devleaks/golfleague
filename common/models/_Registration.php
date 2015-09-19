@@ -22,7 +22,6 @@ use Yii;
  * @property Competition $competition
  * @property Golfer $golfer
  * @property Tees $tees
- * @property RegistrationGroup[] $registrationGroups
  */
 class _Registration extends \yii\db\ActiveRecord
 {
@@ -98,13 +97,5 @@ class _Registration extends \yii\db\ActiveRecord
     public function getTees()
     {
         return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRegistrationGroups()
-    {
-        return $this->hasMany(RegistrationGroup::className(), ['registration_id' => 'id']);
     }
 }

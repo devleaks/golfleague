@@ -159,16 +159,16 @@
         },
         {
             "name": "bower-asset/angular",
-            "version": "v1.4.5",
+            "version": "v1.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/angular/bower-angular.git",
-                "reference": "3809d44e5279e94a0596d5bc216d921f34f8ab2a"
+                "reference": "0e8a4e9b36704cacad159b99dd06bbcacef94975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/angular/bower-angular/zipball/3809d44e5279e94a0596d5bc216d921f34f8ab2a",
-                "reference": "3809d44e5279e94a0596d5bc216d921f34f8ab2a",
+                "url": "https://api.github.com/repos/angular/bower-angular/zipball/0e8a4e9b36704cacad159b99dd06bbcacef94975",
+                "reference": "0e8a4e9b36704cacad159b99dd06bbcacef94975",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -213,20 +213,20 @@
         },
         {
             "name": "bower-asset/angular-resource",
-            "version": "v1.4.5",
+            "version": "v1.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/angular/bower-angular-resource.git",
-                "reference": "1b00ddb9576b35da312fc044f114e4ec31bc7377"
+                "reference": "6fccc96ce601c60709a35c102a83239312062e6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/angular/bower-angular-resource/zipball/1b00ddb9576b35da312fc044f114e4ec31bc7377",
-                "reference": "1b00ddb9576b35da312fc044f114e4ec31bc7377",
+                "url": "https://api.github.com/repos/angular/bower-angular-resource/zipball/6fccc96ce601c60709a35c102a83239312062e6f",
+                "reference": "6fccc96ce601c60709a35c102a83239312062e6f",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/angular": "1.4.5"
+                "bower-asset/angular": "1.4.6"
             },
             "type": "bower-asset-library",
             "extra": {
@@ -236,20 +236,20 @@
         },
         {
             "name": "bower-asset/angular-route",
-            "version": "v1.4.5",
+            "version": "v1.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/angular/bower-angular-route.git",
-                "reference": "73164ac5aa58a3b433463977825d738bdccc1202"
+                "reference": "3372cf63c4e9bfc1bb827b54bd9267a9943c4822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/angular/bower-angular-route/zipball/73164ac5aa58a3b433463977825d738bdccc1202",
-                "reference": "73164ac5aa58a3b433463977825d738bdccc1202",
+                "url": "https://api.github.com/repos/angular/bower-angular-route/zipball/3372cf63c4e9bfc1bb827b54bd9267a9943c4822",
+                "reference": "3372cf63c4e9bfc1bb827b54bd9267a9943c4822",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/angular": "1.4.5"
+                "bower-asset/angular": "1.4.6"
             },
             "type": "bower-asset-library",
             "extra": {
@@ -3187,12 +3187,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "6ae616b4c78c34150f6dafcd31989d98bbfea6c7"
+                "reference": "a3a140e7f88149c96957cda2f9e391bbf7980575"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/6ae616b4c78c34150f6dafcd31989d98bbfea6c7",
-                "reference": "6ae616b4c78c34150f6dafcd31989d98bbfea6c7",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/a3a140e7f88149c96957cda2f9e391bbf7980575",
+                "reference": "a3a140e7f88149c96957cda2f9e391bbf7980575",
                 "shasum": ""
             },
             "require": {
@@ -3227,7 +3227,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-09-12 19:53:33"
+            "time": "2015-09-18 07:54:40"
         },
         {
             "name": "kartik-v/yii2-export",

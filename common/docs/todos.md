@@ -67,5 +67,8 @@ May be event have a max. number of participant; also time slots for registration
 
 'devleaks\\recurinput\\' => array($vendorDir . '/devleaks/yii2-recurinput'),
 
+----------
+
+Refactor: Unify Match, Team, Flight in BuildXXXForXXX procedures.
 
 
