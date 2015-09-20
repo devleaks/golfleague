@@ -26,7 +26,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['help', 'index'],
+                        'actions' => ['help', 'index', 'search'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -72,4 +72,8 @@ class SiteController extends Controller
         	return $this->render('help', ['file' => $f]);
     }
 
+
+	public function actionSearch($search) {
+		return $this->redirect(['/admin/competition']);
+	}
 }

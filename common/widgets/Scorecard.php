@@ -197,7 +197,7 @@ ENDofCSS;
 		$rule = $this->scorecard->registration ? $this->scorecard->registration->competition->rule : new Rule();
 		$stableford_points = $rule->getStablefordPoints();
 
-		$output = print_r($this->scorecard->score(), true); // '';
+		$output = ''; // print_r($this->scorecard->score(), true);
 		foreach($displays as $key => $display) {
 			if( $this->getOption($key) ) { 
 				$output .=  Html::beginTag('tr', ['class' => $key]);

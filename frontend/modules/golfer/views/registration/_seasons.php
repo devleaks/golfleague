@@ -16,11 +16,16 @@ $me = Golfer::me();
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-		'panel' => [
-	        'heading' => '<h4>'.Yii::t('golf', 'Simple Rounds').'</h4>',
+        'responsive'=>true,
+        'hover'=>true,
+        'condensed'=>true,
+        'floatHeader'=>true,
+        'panel' => [
+            'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> '.Html::encode(Yii::t('golf', 'Simple Rounds')).' </h3>',
 			'before' => Yii::t('golf', 'Tournaments here under are multiple matches tournaments.'),
 			'beforeOptions' => ['class' => 'alert-info'],
-		],
+            'showFooter'=>false
+        ],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
             [

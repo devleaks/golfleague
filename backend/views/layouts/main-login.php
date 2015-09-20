@@ -21,6 +21,8 @@ dmstr\web\AdminLteAsset::register($this);
 
 <?php $this->beginBody() ?>
 
+<img src="images/welcome.png" class="center" />
+
     <?= $content ?>
 
 <?php $this->endBody() ?>

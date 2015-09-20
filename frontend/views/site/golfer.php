@@ -11,7 +11,7 @@ use yii\bootstrap\Tabs;
 
 
 /* @var $this yii\web\View */
-$this->title = 'My Golf League';
+$this->title = 'Yii Golf League';
 ?>
 <div class="site-index">
 
@@ -19,7 +19,7 @@ $this->title = 'My Golf League';
 
         <div class="row">
             <div class="col-lg-8">
-                <h2><?= Yii::t('golf', 'Competitions') ?></h2>
+                <h2><?= Yii::t('golf', 'Calendar of Competitions') ?></h2>
 
 				<?= Tabs::widget([
 						'items' => [

@@ -15,9 +15,15 @@ use kartik\grid\GridView;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-		'panel' => [
-	        'heading' => '<h4>'.Yii::t('golf', 'Current Registrations').'</h4>',
-		],
+        'responsive'=>true,
+        'hover'=>true,
+        'condensed'=>true,
+        'floatHeader'=>true,
+        'panel' => [
+            'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> '.Html::encode(Yii::t('golf', 'Current Registrations')).' </h3>',
+			'before' => Yii::t('golf', 'Competitions you registered to.'),
+            'showFooter'=>false
+        ],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
 

@@ -16,8 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <ul>
                     <li><a href="<?= Url::to(['/admin/league']) ?>">Leagues</a></li>
                     <li><a href="<?= Url::to(['/user/admin']) ?>">Users and Access</a></li>
-                    <li><a href="<?= Url::to(['/rbac/#/role']) ?>">Roles and Privileges</a></li>
-                    <li><a href="<?= Url::to(['/rbac/#/menu']) ?>">Menus</a></li>
                 </ul>
 
             </div>

@@ -15,10 +15,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-		'panel'=>[
-	        'heading' => '<h4>'.$this->title.'</h4>',
-			'footer' => Html::a(Yii::t('golf', 'Add Practice Round'), ['create'], ['class' => 'btn btn-success']),
-	    ],
+        'responsive'=>true,
+        'hover'=>true,
+        'condensed'=>true,
+        'floatHeader'=>true,
+        'panel' => [
+            'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> '.Html::encode($this->title).' </h3>',
+            'before'=>Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),                                                                                                                                                          	
+//			'after'=>Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
+            'showFooter'=>false
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

@@ -63,21 +63,36 @@ class Practice extends _Practice
 	 *
 	 * return common\models\Scorecard
 	 */
-	public function getScorecard($detailed = false) {
-		if(! $scorecard = $this->getScorecards()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
+	public function makeScorecard($detailed = false) {
+		$scorecard = null;
+		if(! $scorecard = parent::getScorecard()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
 			$scorecard = new Scorecard([
-				'practice_id' => $this->id,
 				'status' => Scorecard::STATUS_OPEN,
 			]);
 			$scorecard->save();
-			if($detailed) {
-				$scorecard->makeScores();
-			}
 			$scorecard->refresh();
 			$this->scorecard_id = $scorecard->id;
 			$this->save();
+			if($detailed) {
+				$scorecard->makeScores();
+			}
 		}
 		return $scorecard;
+	}
+
+	/**
+	 * Returns registration's associated scorecard. Creates one if none exists.
+	 *
+	 * @param boolean $detailed Whether to create hole detail score for scorecard
+	 *
+	 * return common\models\Scorecard
+	 */
+	public function getScorecard($detailed = false) {
+		if($scorecard = parent::getScorecard()->one()) {
+			return $scorecard;
+		} else {
+			return $this->makeScorecard($detailed);
+		}
 	}
 
 }

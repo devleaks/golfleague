@@ -3,7 +3,7 @@
 namespace common\components;
 
 use Yii;
-use common\models\AuthAssignment;
+use common\models\User;
 use yii\helpers\Url;
 
 /**
@@ -18,8 +18,8 @@ class MenuHelper extends \yii\base\Object
 	 */
     static public function getRole() {
 		if(!Yii::$app->user->isGuest) {
-			if($role = AuthAssignment::findOne(['user_id' => Yii::$app->user->identity->id]))
-				if($key = array_search($role->item_name, Yii::$app->params['league_roles']))
+			if($user = User::findOne(Yii::$app->user->identity->id))
+				if($key = array_search($user->role, Yii::$app->params['league_roles']))
 					return $key;
 			return self::DEFAULT_ROLE;
 		}

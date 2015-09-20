@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 /* @var $this yii\web\View */
-$this->title = 'My Golf League';
+$this->title = 'Yii Golf League';
 ?>
 <div class="site-index">
 

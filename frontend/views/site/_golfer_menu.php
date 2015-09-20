@@ -17,12 +17,8 @@ use yii\helpers\Url;
 		<li><a href="<?= Url::to(['/golfer/registration']) ?>">Registrations</a></li>
 
 		<li>Enter scores</li>
-		<li>View scores</li>
-		<li>View standing tournament</li>
-		<li>View standing season</li>
-		<li>Enter practice scorecard</li>
-		<li>View scorecards</li>
-		<li>View stats</li>
+		<li>Competitions</li>
+		<li>Statistics</li>
 	</ul>
 
 </div>

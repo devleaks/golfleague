@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Event;
+use common\models\Round;
 use yii2fullcalendar\models\Event as CalendarEvent;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
@@ -16,7 +17,11 @@ class CalendarController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+		$now = date('Y-m-d H:i:s');
+		$competitions = new ActiveDataProvider([
+			'query' => Round::find()->andWhere(['>','start_date', $now])
+		]);
+        return $this->render('index', ['competitions' => $competitions]);
     }
 
     /**
