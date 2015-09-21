@@ -92,6 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		echo '<li>';
 		echo $this->render('flight', [
 			'flight' => $flight,
+			'competition' => $competition,
 		]);
 		echo '</li>';
 	}

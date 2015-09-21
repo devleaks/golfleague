@@ -63,9 +63,14 @@ function cleanUp() {
 	
 	var cnt = 1;
 	var maxSize = getFlightMaxSize();
+	
+	team_size = parseInt($('#flight-case').data('teamsize'));
     
     $('.flight').not('.new').not('.bench').each(function() {
 		var len = $(this).find('li').length;
+		if(teamsize > 1)
+			len *= teamsize;
+			
 		if(len == maxSize) {
 			$(this).removeClass("panel-danger");
 			$(this).addClass("panel-success");

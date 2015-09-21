@@ -31,7 +31,27 @@ class Match extends Group {
      * @inheritdoc
      */
 	public function getTeams() {
+		Yii::trace('search for group_id='.$this->id, 'Match::getTeams');
 		return Team::find()->andWhere(['id' => GroupMember::find()->andWhere(['group_id' => $this->id])->select('object_id')]);
 	}
+
+    /**
+     * Get a label for match made from competitor's name separated by separator
+     */
+	public function getLabel($separator = '/') {
+		$competition = $this->getCompetition();
+		Yii::trace('entering for '.$this->id.'/'.$competition->id, 'Match::getLabel');
+		if($competition->isTeamCompetition()) {
+			$label = '';
+			foreach($this->getTeams()->each() as $team) {
+				Yii::trace('adding team'.$team->id.'/'.$team->getLabel(), 'Match::getLabel');
+				$label .= $team->getLabel('-');
+				$label .= $separator;
+			}
+			return substr($label, 0, - strlen($separator));;
+		} else
+			return parent::getLabel($separator);
+	}
+
 
 }

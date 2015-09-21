@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'showFooter'=>false
         ],
         'columns' => [
-            ['class' => 'kartik\grid\SerialColumn'],
+            // ['class' => 'kartik\grid\SerialColumn'],
 			[
                 'attribute'=>'name',
 				'noWrap' => true,

@@ -123,8 +123,16 @@ class Group extends _Group {
      * @inheritdoc
      */
 	public function getCompetition() {
-		if($registration = $this->getRegistrations()->one()) {
-			return Competition::findOne($registration->competition_id);
+		if($group_member = $this->getGroupMembers()->one()) {
+			if($group_member->object_type == GroupMember::REGISTRATION) {
+				if($registration = $group_member->getObject()) {
+					return Competition::findOne($registration->competition_id);
+				}
+			} else if($group_member->object_type == GroupMember::TEAM) {
+				if($team = $group_member->getObject()) {
+					return $team->getCompetition();
+				}
+			}
 		}
 		return null;
 	}
@@ -197,7 +205,7 @@ class Group extends _Group {
 			]);
 			$link->save();
 			//Yii::trace(print_r($link->errors, true) , 'Group::add');
-			//Yii::trace('added='.$registration->id.'='.$this->id, 'Group::add');
+			//Yii::trace('added='.$type.':'.$object->id.' to '.$this->id, 'Group::add');
 		}
 		return $link;
 	}

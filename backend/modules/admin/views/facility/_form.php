@@ -1,8 +1,9 @@
 <?php
 
+use common\models\Facility;
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use common\models\Facility;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Facility */

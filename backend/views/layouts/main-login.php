@@ -19,9 +19,11 @@ dmstr\web\AdminLteAsset::register($this);
 </head>
 <body class="login-page">
 
-<?php $this->beginBody() ?>
+<div style="text-align: center; padding-top: 40px;" >
+	<img src="/igolf/images/welcome.png" />
+</div>
 
-<img src="images/welcome.png" class="center" />
+<?php $this->beginBody() ?>
 
     <?= $content ?>
 

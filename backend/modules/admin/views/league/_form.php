@@ -1,9 +1,12 @@
 <?php
 
-use yii\helpers\Html;
+use common\models\Facility;
+
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\datecontrol\DateControl;
+
+use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
@@ -23,20 +26,14 @@ use kartik\datecontrol\DateControl;
 
 'name'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Name...', 'maxlength'=>80]], 
 
-'created_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]], 
-
-'updated_at'=>['type'=> Form::INPUT_WIDGET, 'widgetClass'=>DateControl::classname(),'options'=>['type'=>DateControl::FORMAT_DATETIME]], 
+'website'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Website...', 'maxlength'=>255]], 
 
 'email'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Email...', 'maxlength'=>80]], 
 
 'phone'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Phone...', 'maxlength'=>20]], 
 
-'units'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Units...', 'maxlength'=>20]], 
-
-'website'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Website...', 'maxlength'=>255]], 
-
+'units'=>['type'=> Form::INPUT_DROPDOWN_LIST, 'items' => Facility::getLocalizedConstants('UNITS_'), 'options'=>['placeholder'=>'Enter Units...', 'maxlength'=>20]], 
     ]
-
 
     ]);
     echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);

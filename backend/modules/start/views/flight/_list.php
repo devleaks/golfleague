@@ -21,19 +21,35 @@ use kartik\grid\GridView;
 				'attribute' => 'golfers',
 				'value' => function($model, $key, $index, $widget) {
 					$s = '<ol class="flight">';
-					if($model->getRegistrations()->one()->competition->isTeamCompetition())
-						foreach($model->getTeams()->each() as $team) {
-							$s .= '<li>'.$team->name.'</li>';
+					$competition = $model->getCompetition();
+					if ($competition->isMatchCompetition()) {
+						foreach($model->getMatches()->each() as $match) {
+							$teesColor = 'black';
+							$s .= '<li>'.$match->getLabel(' vs. ').'</li>';
+						}
+					} else if ($competition->isTeamCompetition())
+						foreach($flight->getTeams()->each() as $team) {
+							$teesColor = 'black';
+							$s .= '<li>'.$team->getLabel().' (<span class="glyphicon glyphicon-filter" style="color: '.$teesColor.';"></span> '.$team->handicap.')</li>';
 						}
 					else
-						foreach($model->getRegistrations()->each() as $registration) {
-							$s .= '<li>'.$registration->golfer->name.'</li>';
+						foreach($flight->getRegistrations()->each() as $registration) {
+							$player = $registration->golfer;
+							$teesColor = isset($registration->tees->color) ? $registration->tees->color : 'black';
+							$s .= '<li>'.$player->name.' (<span class="glyphicon glyphicon-filter" style="color: '.$teesColor.';"></span> '.$player->handicap.')</li>';
 						}
+
 					return $s . '</ol>';
 				},
 				'format' => 'raw',
 			],
-			'start_time:datetime',
+			[/** php datetime bug for timezone */
+				'attribute' => 'start_time',
+				'format' => 'datetime',
+				'value' => function ($model, $key, $index, $widget) {
+					return new DateTime($model->start_time);
+				}
+			],
 			[
 				'attribute' => 'start_hole',
 				'value' => function($model, $key, $index, $widget) {

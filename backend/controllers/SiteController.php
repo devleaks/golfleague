@@ -74,6 +74,7 @@ class SiteController extends Controller
 
 
 	public function actionSearch($search) {
-		return $this->redirect(['/admin/competition']);
+		Yii::$app->session->setFlash('warning', Yii::t('golf', 'Search function is not active yet.'));
+		return $this->redirect(['/admin/competition', 'sort' => '-created_at']);
 	}
 }

@@ -1,8 +1,11 @@
 <?php
 
-use yii\helpers\Html;
+use common\models\Facility;
+
 use kartik\detail\DetailView;
 use kartik\datecontrol\DateControl;
+
+use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
@@ -29,7 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'phone',
             'email:email',
             'website',
-            'units',
+            [
+				'attribute' => 'units',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => Facility::getLocalizedConstants('UNITS_'),
+			],
             [
                 'attribute'=>'created_at',
                 'format'=>['datetime',(isset(Yii::$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A'],

@@ -35,7 +35,6 @@
 		"bower-asset/isotope": "*",
 		"bower-asset/masonry": "*",
 		"bower-asset/packery": "*",
-        "mdmsoft/yii2-admin": "*",
 		"kartik-v/yii2-builder": "dev-master",
 		"kartik-v/yii2-date-range": "*",
 		"kartik-v/yii2-datecontrol": "dev-master",

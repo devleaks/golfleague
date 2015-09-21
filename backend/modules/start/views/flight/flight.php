@@ -14,12 +14,12 @@ use yii\helpers\Html;
 <ul id="flight-<?= $flight->id ?>" class="flight panel panel-default">
 
     <?php
-	if ($flight->getCompetition()->isMatchCompetition())
+	if ($competition->isMatchCompetition()) {
 		foreach($flight->getMatches()->each() as $match) {
 			$teesColor = 'black';
 			echo '<li id="match-'.$match->id.'" class="golfer"  data-handicap="0">'.$match->getLabel(' vs. ').'</li>';
 		}
-	else if ($flight->getCompetition()->isTeamCompetition())
+	} else if ($competition->isTeamCompetition())
 		foreach($flight->getTeams()->each() as $team) {
 			$teesColor = 'black';
 			echo '<li id="team-'.$team->id.'" class="golfer"  data-handicap="'.$team->handicap.'">'.$team->getLabel().' ('.

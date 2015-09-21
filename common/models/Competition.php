@@ -201,7 +201,25 @@ class Competition extends _Competition
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getFlights() {
-		return Flight::find()->joinWith('registrations')->where(['competition_id' => $this->id])->distinct();
+		if($this->isTeamCompetition()) {
+			$tids = [];
+			foreach($this->getTeams()->each() as $team) {
+				$tids[$team->id] = $team->id;
+			}
+			Yii::trace('teams='.print_r(array_keys($tids), true), 'Competition::getFlights');
+			$gids = [];
+			foreach(GroupMember::find()->andWhere(['object_id' => array_keys($tids), 'object_type' => GroupMember::TEAM])->each() as $gm) {
+				$gids[$gm->group_id] = $gm->group_id;
+			}
+			Yii::trace('groups='.print_r(array_keys($gids), true), 'Competition::getFlights');
+			return Flight::find()->andWhere(['id' => array_keys($gids)]);
+		} else
+			return Flight::find()->joinWith('registrations')->where(['competition_id' => $this->id])->distinct();
+	}
+	
+	public function getMinFlightSize() {
+		$team_size = $this->rule->team ? $this->rule->team : 1;
+		return $this->isMatchCompetition() ? 2 * $team_size : $team_size;
 	}
 
 	/**
@@ -734,13 +752,6 @@ class Competition extends _Competition
 	}
 
 	/**
-	 * Matchplay
-	 */
-	public function isMatchCompetition() {
-		return $this->rule->rule_type == Rule::TYPE_MATCHPLAY;
-	}
-
-	/**
 	 * Checks whether some registrations are not in team yet
 	 */
 	public function isTeamOk() {
@@ -764,6 +775,53 @@ class Competition extends _Competition
 		return count($registrations) == 0;
 	}
 
+	/**
+	 * Matchplay
+	 */
+	public function isMatchCompetition() {
+		return $this->rule->rule_type == Rule::TYPE_MATCHPLAY;
+	}
+
+	/**
+	 * Checks whether some registrations are not in match yet
+	 */
+	public function isMatchOk() {
+		if(!$this->getMatches()->exists()) {
+			Yii::trace('no match', 'Competition::isMatchOk');
+			return false;
+		}
+		if($this->isTeamCompetition()) {
+			$teams = [];
+			foreach($this->getTeams()->each() as $team) {
+				$teams[$team->id] = $team;
+			}
+
+			foreach($this->getMatches()->each() as $match) {
+				foreach($match->getTeams()->each() as $team) {
+					unset($teams[$team->id]);
+				}
+			}
+			//Yii::trace('teams left='.print_r($teams, true), 'Competition::isMatchOk');
+			return count($teams) == 0;
+		} else {
+			$registrations = [];
+			foreach($this->getRegistrations()->andWhere(['status' => Registration::STATUS_REGISTERED])->each() as $registration) {
+				$registrations[$registration->id] = $registration;
+			}
+
+			foreach($this->getMatches()->each() as $match) {
+				foreach($match->getRegistrations()->each() as $registration) {
+					unset($registrations[$registration->id]);
+				}
+			}
+			//Yii::trace('regs left='.print_r($registrations, true), 'Competition::isMatchOk');
+			return count($registrations) == 0;
+		}
+	}
+
+	/**
+	 * Scores & Scorecards
+	 */
 	public function getScorecard($player) {
 		if($registration = $this->getRegistration($player)) { //@todo not correct for teams.
 			return $registration->getScorecard();

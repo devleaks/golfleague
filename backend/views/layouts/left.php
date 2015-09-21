@@ -60,7 +60,7 @@ $role = MenuHelper::getRole();
 					],
                     [
                         'label' => 'Report',
-                        'icon' => 'fa fa-file-text',
+                        'icon' => 'fa fa-server',
                         'url' => '#',
                         'items' => [
                             ['label' => 'Competitions', 'icon' => 'fa fa-trophy', 'url' => ['/score/competition'],],
@@ -78,7 +78,7 @@ $role = MenuHelper::getRole();
 					],
 			        [
                         'label' => 'Development',
-                        'icon' => 'fa fa-file-code-o',
+                        'icon' => 'fa fa-cog',
                         'url' => '#',
                         'items' => [
 		                    // ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
