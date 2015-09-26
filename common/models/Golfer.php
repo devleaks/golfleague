@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "golfers".
  */
-class Golfer extends _Golfer implements Player {
+class Golfer extends _Golfer implements Opponent {
 	use Constant;
 
     /** Golfer genders */

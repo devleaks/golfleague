@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "group where group_type = 'team'".
  */
-class Team extends Group implements Player {
+class Team extends Group implements Opponent {
 	const GROUP_TYPE = self::TYPE_TEAM;
 
     public static function defaultScope($query)
@@ -28,5 +28,25 @@ class Team extends Group implements Player {
 	public function getName() {
 		return $this->name;
 	}
+
+	public function getMatch() {
+		if($registration-> $this->getRegistrations()->one()) {
+			return $registration->getMatch();
+		}
+		return null;
+	}
 	
+	public function getOpponent() {
+		$opponent = null;
+		if($match = $this->getMatch()->one()) {
+			foreach($match->getOpponents()->each() as $team) {
+				if($team->id != $this->id) {
+					$opponent = $team;
+					Yii::trace('opponent is '.$opponent->id, "Team::getOpponent");
+				}
+			}
+		}
+		return $opponent;
+	}
+
 }

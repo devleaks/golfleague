@@ -10,24 +10,29 @@ use Yii;
  * @property integer $id
  * @property string $name
  * @property string $description
+ * @property string $note
  * @property string $competition_type
+ * @property string $rule_type
  * @property string $source_type
  * @property string $source_direction
  * @property string $destination_type
- * @property string $rule_type
+ * @property string $destination_format
  * @property integer $handicap
- * @property integer $team
  * @property string $classname
  * @property string $parameters
- * @property string $note
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
- * @property string $destination_format
+ * @property integer $league_id
+ * @property integer $team_size
+ * @property string $flightMethod
+ * @property string $teamMethod
+ * @property string $matchMethod
  *
  * @property Competition[] $competitions
  * @property Competition[] $competitions0
  * @property Point[] $points
+ * @property League $league
  */
 class _Rule extends \yii\db\ActiveRecord
 {
@@ -46,13 +51,13 @@ class _Rule extends \yii\db\ActiveRecord
     {
         return [
             [['competition_type'], 'required'],
-            [['handicap', 'team'], 'integer'],
+            [['handicap', 'league_id', 'team_size'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'classname'], 'string', 'max' => 80],
             [['description', 'parameters'], 'string', 'max' => 255],
-            [['competition_type', 'source_direction', 'status'], 'string', 'max' => 20],
-            [['source_type', 'destination_type', 'rule_type', 'destination_format'], 'string', 'max' => 40],
             [['note'], 'string', 'max' => 160],
+            [['competition_type', 'source_direction', 'status'], 'string', 'max' => 20],
+            [['rule_type', 'source_type', 'destination_type', 'destination_format', 'flightMethod', 'teamMethod', 'matchMethod'], 'string', 'max' => 40],
             [['name'], 'unique']
         ];
     }
@@ -66,20 +71,24 @@ class _Rule extends \yii\db\ActiveRecord
             'id' => Yii::t('golf', 'ID'),
             'name' => Yii::t('golf', 'Name'),
             'description' => Yii::t('golf', 'Description'),
+            'note' => Yii::t('golf', 'Note'),
             'competition_type' => Yii::t('golf', 'Competition Type'),
+            'rule_type' => Yii::t('golf', 'Rule Type'),
             'source_type' => Yii::t('golf', 'Source Type'),
             'source_direction' => Yii::t('golf', 'Source Direction'),
             'destination_type' => Yii::t('golf', 'Destination Type'),
-            'rule_type' => Yii::t('golf', 'Rule Type'),
+            'destination_format' => Yii::t('golf', 'Destination Format'),
             'handicap' => Yii::t('golf', 'Handicap'),
-            'team' => Yii::t('golf', 'Team'),
             'classname' => Yii::t('golf', 'Classname'),
             'parameters' => Yii::t('golf', 'Parameters'),
-            'note' => Yii::t('golf', 'Note'),
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
-            'destination_format' => Yii::t('golf', 'Destination Format'),
+            'league_id' => Yii::t('golf', 'League ID'),
+            'team_size' => Yii::t('golf', 'Team Size'),
+            'flightMethod' => Yii::t('golf', 'Flight Method'),
+            'teamMethod' => Yii::t('golf', 'Team Method'),
+            'matchMethod' => Yii::t('golf', 'Match Method'),
         ];
     }
 
@@ -105,5 +114,13 @@ class _Rule extends \yii\db\ActiveRecord
     public function getPoints()
     {
         return $this->hasMany(Point::className(), ['rule_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLeague()
+    {
+        return $this->hasOne(League::className(), ['id' => 'league_id']);
     }
 }

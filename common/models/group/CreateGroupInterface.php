@@ -8,7 +8,7 @@ namespace common\models\group;
  */
 interface CreateGroupInterface
 {
-	public function create($id);
+	public function create();
 
-	public function add($competition, $registration);
+	public function update();
 }

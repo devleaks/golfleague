@@ -116,7 +116,7 @@ class Group extends _Group {
      * @inheritdoc
      */
 	public function getRegistrations() {
-		return $this->hasMany(Registration::className(), ['id' => 'object_id'])->viaTable('group_member', ['group_id' => 'id']);
+		return $this->hasMany(Registration::className(), ['id' => 'registration_id'])->viaTable(GroupMember::tableName(), ['group_id' => 'id']);
 	}
 
     /**
@@ -124,40 +124,26 @@ class Group extends _Group {
      */
 	public function getCompetition() {
 		if($group_member = $this->getGroupMembers()->one()) {
-			if($group_member->object_type == GroupMember::REGISTRATION) {
-				if($registration = $group_member->getObject()) {
-					return Competition::findOne($registration->competition_id);
-				}
-			} else if($group_member->object_type == GroupMember::TEAM) {
-				if($team = $group_member->getObject()) {
-					return $team->getCompetition();
-				}
+			if($registration = $group_member->getRegistration()->one()) {
+				return Competition::findOne($registration->competition_id);
 			}
 		}
 		return null;
 	}
 
-    /**
-     * @inheritdoc
-     */
-	public function getMatches() {
-		return Match::find()->joinWith('registrations')->where(['object_id' => $this->getRegistrations()->select('id')]);
+	/**
+	 * Get flight this group is in.
+	 */
+	public function getFlight() {
+		if($registration-> $this->getRegistrations()->one()) {
+			return $registration->getFlight();
+		}
+		return null;
 	}
-
-    /**
-     * @inheritdoc
-     */
+	
 	public function getTeams() {
-		return Team::find()->joinWith('registrations')->where(['object_id' => $this->getRegistrations()->select('id')]);
+		return Team::find()->andWhere(['id' => GroupMember::find()->andWhere(['registration_id' => $this->getRegistrations()->select('id')->distinct()])->select('group_id')->distinct()]);
 	}
-
-    /**
-     * @inheritdoc
-     */
-	public function getFlights() {
-		return Flight::find()->joinWith('registrations')->where(['object_id' => $this->getRegistrations()->select('id')]);
-	}
-
 
     /**
      * @inheritdoc
@@ -178,43 +164,24 @@ class Group extends _Group {
 		return substr($names, 0, - strlen($separator));;
 	}
 
-	/**
-	 * Add one registration/team from group
-	 */
-	protected function getType($object) {
-		$type = null;
-		switch($object::className()) {
-			case Registration::className():
-				$type = GroupMember::REGISTRATION; break;
-			case Team::className():
-				$type = GroupMember::TEAM; break;
-		}
-		return $type;
-	}
-	
-	public function add($object) {
-		$link = null;
-		$type = $this->getType($object);
-		if(! $this->getGroupMembers()->andWhere(['object_id' => $object->id, 'object_type' => $type])->exists() ) {
+	public function add($registration) {
+		if(!GroupMember::find()->andWhere(['group_id' => $this->id, 'registration_id' => $registration->id])->exists()) {
 			$pos = $this->getGroupMembers()->count() + 1;
 			$link = new GroupMember([
-				'object_id' => $object->id,
-				'object_type' => $type,
+				'registration_id' => $registration->id,
 				'group_id' => $this->id,
 				'position' => $pos
 			]);
 			$link->save();
-			//Yii::trace(print_r($link->errors, true) , 'Group::add');
-			//Yii::trace('added='.$type.':'.$object->id.' to '.$this->id, 'Group::add');
+			Yii::trace('added='.$registration->id.' to '.$this->id, 'Group::add');
 		}
-		return $link;
 	}
 
 	/**
 	 * Removes one registration from group
 	 */
-	public function remove($object) {
-		if($link = $this->getGroupMembers()->andWhere(['object_id' => $object->id, 'object_type' => $this->getType($object)])) {
+	public function remove($registration) {
+		if($link = $this->getGroupMembers()->andWhere(['registration_id' => $registration->id])) {
 			return $link->delete();
 		}
 		return false;
@@ -223,9 +190,12 @@ class Group extends _Group {
 	/**
 	 * Removes all registration from group
 	 */
-	public function clean() {
+	public function clean($delete = false) {
 		foreach($this->getGroupMembers()->each() as $rg)
 			$rg->delete();
+			
+		if($delete)
+			return $this->delete();
 	}
 
 }

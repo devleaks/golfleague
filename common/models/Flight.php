@@ -44,4 +44,9 @@ class Flight extends Group {
 		return substr($names, 0, - strlen($separator));;
 	}
 
+
+	public function getMatches() { //@todo: rewritable with viaTable?
+		return Match::find()->andWhere(['id' => GroupMember::find()->andWhere(['registration_id' => $this->getRegistrations()->select('id')->distinct()])->select('group_id')->distinct()]);
+	}
+
 }

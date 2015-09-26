@@ -47,6 +47,15 @@ ul#flight-case > li {
 	padding: 2px 2px 2px 8px;
 }
 
+.exempted {
+	width: 500px;
+	padding-left: 0;
+}
+
+.exempted li {
+	padding: 2px 2px 2px 8px;
+}
+
 .bench-info {
 	background-color: #eee;
 	font-size: larger;

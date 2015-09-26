@@ -1,26 +1,29 @@
 <?php
 
-namespace common\models\group;
+namespace common\models\flight;
 
-use common\models\Group;
 use common\models\Competition;
+use common\models\Flight;
+use common\models\Group;
 use common\models\Registration;
 
+use Yii;
+use yii\base\Model;
+
 /**
- * This is the implementation for group building algorithms.
+ * This is the interface for flight building algorithms.
  *
  */
-class CreateGroup extends Model implements CreateGroupInterface
+class Standard extends Model implements BuildFlightInterface
 {
 	public $competition;
-	public $group_type;
 		
 	public function create() {
 		$this->update();
 	}
 	
 	public function update() {
-		$registrations = $this->competition->getRegistrationsNotIn($this->group_type);
+		$registrations = $this->competition->getRegistrationsNotIn(Group::TYPE_FLIGHT);
 		$flight_size = $this->competition->flight_size ? $this->competition->flight_size : Competition::FLIGHT_SIZE_DEFAULT;
 		$flight_interval = $this->competition->flight_time ? $this->competition->flight_time : Competition::FLIGHT_TIME_DEFAULT;
 		$position = $this->competition->getFlights()->max('group.position');
@@ -39,8 +42,8 @@ class CreateGroup extends Model implements CreateGroupInterface
 					$flight_time = strtotime("+".$flight_interval." minutes", strtotime($flight_time));
 					$count = 0;
 					$handicap = 0;
-					$flight = Group::getNew($this->group_type);
-					$flight->name = $this->group_type.' '.$this->competition->id.'.'.$count;
+					$flight = Flight::getNew(Flight::TYPE_FLIGHT);
+					$flight->name = 'Flight '.$this->competition->id.'.'.$count;
 					$flight->position = $position++;
 					$flight->start_time = $flight_time;
 					$flight->start_hole = $this->competition->start_hole;

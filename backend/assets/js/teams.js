@@ -6,7 +6,7 @@ var handleString = '<div class="panel-heading"><span class="handle glyphicon gly
 var maxSizeDefault = 2;
 
 function getFlightMaxSize() {
-	var maxSize = $('#GLflightSize').val();
+	var maxSize = $('input[name="GLflightSize"]').val();
 	if(!parseInt(maxSize) > 0) maxSize = maxSizeDefault;
 	console.log("max size="+maxSize);
 	return maxSize;
@@ -28,7 +28,7 @@ function initSortable(element) {
 			},
 		receive: function(event, ui) {
 				if ($(this).children('li').length > maxSize && !$(this).hasClass('bench')) {
-					//console.log('would have '+$(this).children('li').length+' items, cancelling...');
+					console.log('would have '+$(this).children('li').length+' items, cancelling...'+maxSize);
 					$(ui.sender).sortable('cancel');
 				} else {
 					if($(this).hasClass('new')) {
@@ -114,16 +114,16 @@ function saveFlights() {
  *
  */
 
-/** To change order of flights */
+/** To change order of teams */
 $("#flight-case").sortable({
 	handle : '.handle',
 	cursor: 'move',
 	stop: function (event, ui) {
-				cleanUp();
-			},
+		cleanUp();
+	},
 });
 
-/** To recompute flights start time when first start time and time interval changed */
+/** Reset team sizes */
 $('#GLflightSize').change(function() {
 	cleanUp();
 });

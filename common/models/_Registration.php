@@ -18,6 +18,7 @@ use Yii;
  * @property string $updated_at
  * @property string $preference
  *
+ * @property GroupMember[] $groupMembers
  * @property Scorecard $scorecard
  * @property Competition $competition
  * @property Golfer $golfer
@@ -65,6 +66,14 @@ class _Registration extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('golf', 'Updated At'),
             'preference' => Yii::t('golf', 'Preference'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroupMembers()
+    {
+        return $this->hasMany(GroupMember::className(), ['registration_id' => 'id']);
     }
 
     /**

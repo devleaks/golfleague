@@ -103,3 +103,49 @@ ul.flight2 li:before {
 	padding-top: 2px;
 	color: #aaa;
 }
+
+#login-form input:focus {
+	border-color: #00a65a;
+}
+
+#login-form a {
+	color: #00a65a;
+}
+
+#login-form button.btn-primary {
+	background-color: #00a65a;
+	border-color: #00a65a;
+}
+
+#login-form input[type=checkbox] {
+  font-size: 16px;
+  position: relative;
+  border: 2px solid #00a65a;
+  display: inline-block;
+  line-height: 1em;
+  margin: 0;
+  padding: 0;
+  width: 1em;
+  height: 1em;
+  vertical-align: text-top;
+  -webkit-appearance: none;
+  -webkit-border-radius: 3px;
+}
+
+#login-form input[type=checkbox]:active {
+  background: -webkit-linear-gradient(
+    top, rgba(255,255,255,0.05), rgba(255,255,255,0.2)
+  );
+}
+
+#login-form input[type=checkbox]:checked::after {
+  position: absolute;
+  content: '';
+  color: #00a65a;
+  left: 15%;
+  top: -10%;
+  height: 40%;
+  width: 90%;
+  -webkit-box-shadow: -1px 1px 0 rgba(0,0,0,0.8);
+  -webkit-transform: rotate(-45deg);
+}

@@ -82,6 +82,6 @@ class _Hole extends \yii\db\ActiveRecord
      */
     public function getScorecards()
     {
-        return $this->hasMany(Scorecard::className(), ['id' => 'scorecard_id'])->viaTable('score', ['hole_id' => 'id']);
+        return $this->hasMany(Scorecard::className(), ['id' => 'scorecard_id'])->viaTable(Score::tableName(), ['hole_id' => 'id']);
     }
 }

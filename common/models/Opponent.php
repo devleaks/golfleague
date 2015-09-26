@@ -6,7 +6,7 @@ namespace common\models;
  * This is the interface for computing handicap related values depending on the handicap system.
  *
  */
-interface Player
+interface Opponent
 {
 	/**
 	 * Return player name

@@ -1,6 +1,7 @@
 <?php
 
 use backend\assets\MatchAsset;
+use common\models\Registration;
 
 use kartik\grid\GridView;
 
@@ -33,9 +34,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <ul class="competition" data-competition="<?= $competition->id ?>">
 <?php
+$count = 0;
+$maxmatches = pow(2.0, $competition->getLevel(Registration::STATUS_REGISTERED));
 foreach($matches as $match) {
 	echo $this->render('_match', [
 		'match' => $match,
+	]);
+	$count++;
+}
+/** We add matches to get a power of two and allow "byes" */
+for($i = $count; $i < $maxmatches; $i++) {
+	echo $this->render('_match-empty', [
+		'match' => null,
 	]);
 }
 ?>

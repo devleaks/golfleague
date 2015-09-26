@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			 	'template' => '{view} {tees} {flight} {team} {match}',
 	            'buttons' => [
 	                'team' => function ($url, $model) {
-						if($model->rule->team) {
+						if($model->rule->team_size) {
 							$url = Url::to(['team/competition', 'id' => $model->id]);
 		                    return Html::a(Icon::show('groups-friends', [], Icon::WHHG), $url, [
 		                        'title' => Yii::t('golf', 'Make Teams'),

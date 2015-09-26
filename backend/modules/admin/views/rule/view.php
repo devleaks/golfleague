@@ -3,9 +3,11 @@
 use common\models\Competition;
 use common\models\Scorecard;
 use common\models\Rule;
+use common\models\League;
 
 use kartik\detail\DetailView;
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\data\ActiveDataProvider;
 
@@ -31,6 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'description',
             'note',
+            [
+                'attribute'=>'league_id',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => [''=>''] + ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
+                'value'=>$model->league ? $model->league->name : '',
+            ],
             [
                 'attribute'=>'competition_type',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
@@ -79,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'value' => $model->handicap ? Yii::t('golf', 'Yes') : Yii::t('golf', 'No'),
 			],
             [
-                'attribute'=>'team',
+                'attribute'=>'team_size',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => Rule::getTeamList(),
             ],

@@ -21,6 +21,12 @@ class TeamController extends GroupController
 		if(!$competition)
         	throw new NotFoundHttpException('The requested page does not exist.');
 
+		if(!$competition->isTeamCompetition()) {
+			Yii::$app->session->setFlash('error', Yii::t('golf', 'This is not a team competition.'));
+			return $this->redirect(Url::to(['competition/index']));
+		}
+
+
 		if($savedteams = Yii::$app->request->post('teams')) {
 			$this->adjustGroups($savedteams, Team::TYPE_TEAM, $competition);
 
@@ -39,7 +45,7 @@ class TeamController extends GroupController
     }
 
     /**
-     * Displays a single Flight model.
+     * Displays a Competition model's teams.
      * @param integer $id
      * @return mixed
      */

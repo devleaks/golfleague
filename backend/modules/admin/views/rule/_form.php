@@ -3,9 +3,11 @@
 use common\models\Competition;
 use common\models\Scorecard;
 use common\models\Rule;
+use common\models\League;
 
 use kartik\widgets\SwitchInput;
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -25,6 +27,9 @@ if(! $model->rule_type) $model->rule_type = 0;
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
 
     <?= $form->field($model, 'note')->textInput(['maxlength' => 255]) ?>
+
+    <?= $form->field($model, 'league_id')->dropDownList([''=>''] + ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'))
+			->hint(Yii::t('golf', 'Leave blank if rule applies to all leagues')) ?>
 
     <?= $form->field($model, 'competition_type')->dropDownList(Competition::getLocalizedConstants('TYPE_'))
 			->hint(Yii::t('golf', 'Rule applies to this type of competition')) ?>
@@ -52,7 +57,7 @@ if(! $model->rule_type) $model->rule_type = 0;
 		]
 	]) ?>
 			
-    <?= $form->field($model, 'team')->dropDownList(Rule::getTeamList())
+    <?= $form->field($model, 'team_size')->dropDownList(Rule::getTeamList())
 			->hint(Yii::t('golf', 'Camp size')) ?>
 
     <?= $form->field($model, 'classname')->dropDownList(Rule::getList())

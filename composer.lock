@@ -2585,16 +2585,16 @@
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
-            "version": "v3.5.3",
+            "version": "v3.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "bd9c52db6ac71cb270620c1aee601d142ab2cc00"
+                "reference": "987777ee21a599bebbc545c743063fcee9833842"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/bd9c52db6ac71cb270620c1aee601d142ab2cc00",
-                "reference": "bd9c52db6ac71cb270620c1aee601d142ab2cc00",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/987777ee21a599bebbc545c743063fcee9833842",
+                "reference": "987777ee21a599bebbc545c743063fcee9833842",
                 "shasum": ""
             },
             "type": "library",
@@ -2622,7 +2622,7 @@
                 "jquery",
                 "star"
             ],
-            "time": "2015-06-18 14:42:46"
+            "time": "2015-09-21 09:06:33"
         },
         {
             "name": "kartik-v/dependent-dropdown",
@@ -2903,12 +2903,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "a3a140e7f88149c96957cda2f9e391bbf7980575"
+                "reference": "68160aec8610ad3a01899e98bd2b985a70a92436"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/a3a140e7f88149c96957cda2f9e391bbf7980575",
-                "reference": "a3a140e7f88149c96957cda2f9e391bbf7980575",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/68160aec8610ad3a01899e98bd2b985a70a92436",
+                "reference": "68160aec8610ad3a01899e98bd2b985a70a92436",
                 "shasum": ""
             },
             "require": {
@@ -2943,7 +2943,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-09-18 07:54:40"
+            "time": "2015-09-25 11:38:48"
         },
         {
             "name": "kartik-v/yii2-export",
@@ -3001,16 +3001,16 @@
         },
         {
             "name": "kartik-v/yii2-grid",
-            "version": "v3.0.6",
+            "version": "v3.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "5e5229fd7ea30d65cdde15db073ea8cb1a39be68"
+                "reference": "913fde8fbe41bf998d53a88d0443e25e1e696194"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/5e5229fd7ea30d65cdde15db073ea8cb1a39be68",
-                "reference": "5e5229fd7ea30d65cdde15db073ea8cb1a39be68",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/913fde8fbe41bf998d53a88d0443e25e1e696194",
+                "reference": "913fde8fbe41bf998d53a88d0443e25e1e696194",
                 "shasum": ""
             },
             "require": {
@@ -3041,7 +3041,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-07-14 19:20:52"
+            "time": "2015-09-12 19:41:22"
         },
         {
             "name": "kartik-v/yii2-helpers",
@@ -4324,20 +4324,23 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.12",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "7323424a9d39c24e597ed3f2144419dfbb52e086"
+                "reference": "202c7775d959f377e2e302d93e7127c47604438a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/7323424a9d39c24e597ed3f2144419dfbb52e086",
-                "reference": "7323424a9d39c24e597ed3f2144419dfbb52e086",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/202c7775d959f377e2e302d93e7127c47604438a",
+                "reference": "202c7775d959f377e2e302d93e7127c47604438a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
+            },
+            "conflict": {
+                "league/flysystem-sftp": "<1.0.6"
             },
             "require-dev": {
                 "ext-fileinfo": "*",
@@ -4401,7 +4404,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-09-05 12:06:41"
+            "time": "2015-09-22 19:18:28"
         },
         {
             "name": "loop8/yii2-l8-actioncolumn",
@@ -4644,16 +4647,16 @@
         },
         {
             "name": "miloschuman/yii2-highcharts-widget",
-            "version": "v4.1.7",
+            "version": "v4.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/miloschuman/yii2-highcharts.git",
-                "reference": "4b3f3a138c99ea475842e3ea4ddeb6784fa82074"
+                "reference": "d092818143963bcc68ec72e0c749bf1d056b7b8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miloschuman/yii2-highcharts/zipball/4b3f3a138c99ea475842e3ea4ddeb6784fa82074",
-                "reference": "4b3f3a138c99ea475842e3ea4ddeb6784fa82074",
+                "url": "https://api.github.com/repos/miloschuman/yii2-highcharts/zipball/d092818143963bcc68ec72e0c749bf1d056b7b8c",
+                "reference": "d092818143963bcc68ec72e0c749bf1d056b7b8c",
                 "shasum": ""
             },
             "require": {
@@ -4685,7 +4688,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-07-09 20:36:01"
+            "time": "2015-09-23 19:25:06"
         },
         {
             "name": "mootensai/yii2-enhanced-gii",
@@ -5564,16 +5567,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.4",
+            "version": "v2.7.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Console.git",
-                "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8"
+                "url": "https://github.com/symfony/console.git",
+                "reference": "06cb17c013a82f94a3d840682b49425cd00a2161"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/9ff9032151186bd66ecee727d728f1319f52d1d8",
-                "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8",
+                "url": "https://api.github.com/repos/symfony/console/zipball/06cb17c013a82f94a3d840682b49425cd00a2161",
+                "reference": "06cb17c013a82f94a3d840682b49425cd00a2161",
                 "shasum": ""
             },
             "require": {
@@ -5617,20 +5620,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-03 11:40:38"
+            "time": "2015-09-25 08:32:23"
         },
         {
             "name": "symfony/finder",
-            "version": "v2.7.4",
+            "version": "v2.7.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Finder.git",
-                "reference": "fff4b0c362640a0ab7355e2647b3d461608e9065"
+                "url": "https://github.com/symfony/finder.git",
+                "reference": "8262ab605973afbb3ef74b945daabf086f58366f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/fff4b0c362640a0ab7355e2647b3d461608e9065",
-                "reference": "fff4b0c362640a0ab7355e2647b3d461608e9065",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/8262ab605973afbb3ef74b945daabf086f58366f",
+                "reference": "8262ab605973afbb3ef74b945daabf086f58366f",
                 "shasum": ""
             },
             "require": {
@@ -5666,20 +5669,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-26 17:56:37"
+            "time": "2015-09-19 19:59:23"
         },
         {
             "name": "symfony/process",
-            "version": "v2.7.4",
+            "version": "v2.7.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Process.git",
-                "reference": "f7b3f73f70a7f8f49a1c838dc3debbf054732d8e"
+                "url": "https://github.com/symfony/process.git",
+                "reference": "b27c8e317922cd3cdd3600850273cf6b82b2e8e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/f7b3f73f70a7f8f49a1c838dc3debbf054732d8e",
-                "reference": "f7b3f73f70a7f8f49a1c838dc3debbf054732d8e",
+                "url": "https://api.github.com/repos/symfony/process/zipball/b27c8e317922cd3cdd3600850273cf6b82b2e8e9",
+                "reference": "b27c8e317922cd3cdd3600850273cf6b82b2e8e9",
                 "shasum": ""
             },
             "require": {
@@ -5715,7 +5718,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-27 06:45:45"
+            "time": "2015-09-19 19:59:23"
         },
         {
             "name": "thomaspark/bootswatch",
@@ -5727,7 +5730,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/913f54b9483b99fa12c7feccfa18ee5cc0206043",
+                "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/ceb6bc5d80af9c7905b54ac4146339e6b1c68490",
                 "reference": "57a25bd6da65fcc034c2029c0390272830572b93",
                 "shasum": ""
             },
@@ -6152,16 +6155,16 @@
         },
         {
             "name": "yiisoft/yii2-authclient",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-authclient.git",
-                "reference": "cbe801a7d8bb477be15cb0fbdaa75ca5bdfeb91b"
+                "reference": "22910bfe0000538f5b3ca1102cd3de0b5d14a0e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/cbe801a7d8bb477be15cb0fbdaa75ca5bdfeb91b",
-                "reference": "cbe801a7d8bb477be15cb0fbdaa75ca5bdfeb91b",
+                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/22910bfe0000538f5b3ca1102cd3de0b5d14a0e2",
+                "reference": "22910bfe0000538f5b3ca1102cd3de0b5d14a0e2",
                 "shasum": ""
             },
             "require": {
@@ -6196,25 +6199,25 @@
                 "oauth",
                 "yii2"
             ],
-            "time": "2015-05-10 22:07:56"
+            "time": "2015-09-23 17:26:02"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "1b6b1e61cf91c3cdd517d6a7e71d30bb212e4af0"
+                "reference": "1464f93834b1d5edb1f5625f7ffd6c3723fa4923"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/1b6b1e61cf91c3cdd517d6a7e71d30bb212e4af0",
-                "reference": "1b6b1e61cf91c3cdd517d6a7e71d30bb212e4af0",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/1464f93834b1d5edb1f5625f7ffd6c3723fa4923",
+                "reference": "1464f93834b1d5edb1f5625f7ffd6c3723fa4923",
                 "shasum": ""
             },
             "require": {
                 "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
-                "yiisoft/yii2": ">=2.0.4"
+                "yiisoft/yii2": ">=2.0.6"
             },
             "type": "yii2-extension",
             "extra": {
@@ -6246,7 +6249,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2015-05-10 22:08:17"
+            "time": "2015-09-23 17:48:24"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -6493,290 +6496,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "bower-asset/adminlte",
-            "version": "v2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/almasaeed2010/AdminLTE.git",
-                "reference": "81aa879d3a4489213888e24975b073c7478f0447"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/81aa879d3a4489213888e24975b073c7478f0447",
-                "reference": "81aa879d3a4489213888e24975b073c7478f0447",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "index2.html",
-                    "dist/css/AdminLTE.css",
-                    "dist/js/app.js",
-                    "build/less/AdminLTE.less"
-                ],
-                "bower-asset-ignore": [
-                    "/.*",
-                    "node_modules",
-                    "bower_components",
-                    "composer.json",
-                    "documentation"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Admin dashboard and control panel template",
-            "keywords": [
-                "admin",
-                "backend",
-                "bootstrap",
-                "css",
-                "html",
-                "js",
-                "responsive",
-                "template",
-                "theme"
-            ]
-        },
-        {
-            "name": "bower-asset/angular",
-            "version": "v1.4.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/angular/bower-angular.git",
-                "reference": "0e8a4e9b36704cacad159b99dd06bbcacef94975"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/angular/bower-angular/zipball/0e8a4e9b36704cacad159b99dd06bbcacef94975",
-                "reference": "0e8a4e9b36704cacad159b99dd06bbcacef94975",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "./angular.js",
-                "bower-asset-ignore": []
-            }
-        },
-        {
-            "name": "bower-asset/angular-bootstrap",
-            "version": "0.13.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/angular-ui/bootstrap-bower.git",
-                "reference": "4fa8d643acc1829e77984dc004ceb52791c50592"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/angular-ui/bootstrap-bower/zipball/4fa8d643acc1829e77984dc004ceb52791c50592",
-                "reference": "4fa8d643acc1829e77984dc004ceb52791c50592",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/angular": ">=1.3.0"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "./ui-bootstrap-tpls.js"
-                ],
-                "bower-asset-ignore": []
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Native AngularJS (Angular) directives for Bootstrap.",
-            "keywords": [
-                "angular",
-                "angular-ui",
-                "bootstrap"
-            ]
-        },
-        {
-            "name": "bower-asset/angular-resource",
-            "version": "v1.4.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/angular/bower-angular-resource.git",
-                "reference": "6fccc96ce601c60709a35c102a83239312062e6f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/angular/bower-angular-resource/zipball/6fccc96ce601c60709a35c102a83239312062e6f",
-                "reference": "6fccc96ce601c60709a35c102a83239312062e6f",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/angular": "1.4.6"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "./angular-resource.js",
-                "bower-asset-ignore": []
-            }
-        },
-        {
-            "name": "bower-asset/angular-route",
-            "version": "v1.4.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/angular/bower-angular-route.git",
-                "reference": "3372cf63c4e9bfc1bb827b54bd9267a9943c4822"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/angular/bower-angular-route/zipball/3372cf63c4e9bfc1bb827b54bd9267a9943c4822",
-                "reference": "3372cf63c4e9bfc1bb827b54bd9267a9943c4822",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/angular": "1.4.6"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "./angular-route.js",
-                "bower-asset-ignore": []
-            }
-        },
-        {
-            "name": "bower-asset/angular-validation",
-            "version": "v1.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/huei90/angular-validation.git",
-                "reference": "f4a14536035aa5cc644ee8f562ec10a294f0bf08"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/huei90/angular-validation/zipball/f4a14536035aa5cc644ee8f562ec10a294f0bf08",
-                "reference": "f4a14536035aa5cc644ee8f562ec10a294f0bf08",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "dist/angular-validation.js",
-                "bower-asset-ignore": [
-                    "**/.*",
-                    "node_modules",
-                    "bower_components",
-                    "test",
-                    "tests"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Client-side Validation for AngularJS",
-            "keywords": [
-                "angular",
-                "angular validation",
-                "angularjs",
-                "client-side",
-                "validation",
-                "validator"
-            ]
-        },
-        {
-            "name": "deesoft/yii2-adminlte",
-            "version": "1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/deesoft/yii2-adminlte.git",
-                "reference": "a518e361faee1ece1b9ee849a621c64fe922d206"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/deesoft/yii2-adminlte/zipball/a518e361faee1ece1b9ee849a621c64fe922d206",
-                "reference": "a518e361faee1ece1b9ee849a621c64fe922d206",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/adminlte": "~2.0",
-                "rmrevin/yii2-fontawesome": "~2.0",
-                "yiisoft/yii2": "~2.0",
-                "yiisoft/yii2-bootstrap": "~2.0"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "dee\\adminlte\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Misbahul Munir",
-                    "email": "misbahuldmunir@gmail.com"
-                }
-            ],
-            "description": "yii2 adminlte theme",
-            "keywords": [
-                "AdminLTE",
-                "bootstrap",
-                "css"
-            ],
-            "time": "2015-07-27 12:27:04"
-        },
-        {
-            "name": "deesoft/yii2-angular",
-            "version": "1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/deesoft/yii2-angular.git",
-                "reference": "97031eb540ac337054f8f8b2acd1f3f03057cadb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/deesoft/yii2-angular/zipball/97031eb540ac337054f8f8b2acd1f3f03057cadb",
-                "reference": "97031eb540ac337054f8f8b2acd1f3f03057cadb",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/angular": "~1.3",
-                "bower-asset/angular-bootstrap": "~0.13",
-                "bower-asset/angular-resource": "~1.3",
-                "bower-asset/angular-route": "~1.3",
-                "bower-asset/angular-validation": "~1.3",
-                "yiisoft/yii2": ">=2.0.4"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "bootstrap": "dee\\angular\\Bootstrap",
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "dee\\angular\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Misbahul Munir",
-                    "email": "misbahuldmunir@gmail.com"
-                }
-            ],
-            "description": "Yii2 angular extension",
-            "keywords": [
-                "angularjs",
-                "yii2"
-            ],
-            "time": "2015-09-03 14:43:37"
-        },
         {
             "name": "fzaninotto/faker",
             "version": "v1.5.0",

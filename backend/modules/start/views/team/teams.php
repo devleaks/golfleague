@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 TeamsAsset::register($this);
 
-$this->title = Yii::t('golf', 'Teams for ').$competition->name;
+$this->title = Yii::t('golf', 'Teams for « {0} »',$competition->name);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Competitions'), 'url' => ['competition/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<div class="col-lg-3">
 		<label class="control-label">Team size</label>
-		<?= Html::textInput( 'GLflightSize', $competition->rule->team, ['class' => 'form-control', 'readonly' => 'readonly'] )?>
+		<?= Html::textInput( 'GLflightSize', $competition->rule->team_size, ['class' => 'form-control', 'readonly' => 'readonly'] )?>
 	</div>
 
 </div>
@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <script type="text/javascript">
 <?php
 $this->beginBlock('JS_TEAM_INIT') ?>
-maxSizeDefault = <?= $competition->rule->team ? $competition->rule->team : 2 ?>;
+maxSizeDefault = <?= $competition->rule->team_size ? $competition->rule->team_size : 2 ?>;
 cleanUp();
 <?php $this->endBlock(); ?>
 </script>

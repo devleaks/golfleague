@@ -25,6 +25,15 @@ class Rule extends _Rule
 	const POINT_DECIMAL2	= 'DEC1';
 	
 	const HALF_POINT = ' ½';
+	
+	
+	
+	public $flightMethods;
+	public $teamMethods;
+	public $matchMethods;
+	
+	public $defaultMethodName = 'Standard';
+	
     /**
      * @inheritdoc
      */
@@ -54,9 +63,10 @@ class Rule extends _Rule
 	        'competition_type' => Yii::t('golf', 'Competition Type'),
 	        'object_type' => Yii::t('golf', 'Object Type'),
 	        'rule_type' => Yii::t('golf', 'Rule Type'),
-	        'team' => Yii::t('golf', 'Team'),
+	        'team_size' => Yii::t('golf', 'Team Size'),
 	        'note' => Yii::t('golf', 'Note'),
 	        'classname' => Yii::t('golf', 'Classname'),
+        	'league_id' => Yii::t('golf', 'League'),
 	        'created_at' => Yii::t('golf', 'Created At'),
 	        'updated_at' => Yii::t('golf', 'Updated At'),
         ];
@@ -207,4 +217,21 @@ class Rule extends _Rule
 		}
 		return $d;
 	}
+	
+	public function getDefaultMethodClass() {
+		$classname = $this->defaultMethodName;
+		$add = null;
+		if($this->team_size > 1) {
+			$add .= 'Team';
+		}
+		if($this->rule_type == Rule::TYPE_MATCHPLAY) {
+			$add .= 'Match';
+		}
+		if($add) {
+			$classname .= 'For'.$add;
+		}
+		return $classname;
+	}
+
+	
 }

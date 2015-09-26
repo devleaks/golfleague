@@ -2,9 +2,12 @@
 
 use backend\assets\FlightsAsset;
 use common\models\Competition;
+use common\models\Flight;
+
 use kartik\widgets\TimePicker;
 use kartik\widgets\TouchSpin;
 use kartik\grid\GridView;
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -84,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
     data-competition="<?= $competition->id ?>"
 	data-ismatch="<?= $competition->isMatchCompetition() ? '1' : '0' ?>"
 	data-isteam="<?= $competition->isTeamCompetition() ? '1' : '0' ?>"
-	data-teamsize="<?= $competition->rule->team ?>"
+	data-teamsize="<?= $competition->rule->team_size ?>"
 	>
 
     <?php // each flight
@@ -105,8 +108,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </ul>
 
+<ul class="exempted panel panel-warning">
+	<div class="panel-heading"><span class="glyphicon glyphicon-warning-sign handle-shift"></span>Players exempted.</div>
+<?php
+if ($competition->isMatchCompetition()) {
+	foreach($competition->getRegistrationsNotIn(Flight::TYPE_FLIGHT)->each() as $r) {
+		echo '<li class="golfer">'.$r->golfer->name.'</li>';
+	}
+} ?>
+</ul>
+
 <?= Html::hiddenInput( 'flights', null, ['id' => 'savedflights'] )?>
 <?= Html::submitButton(Yii::t('golf', 'Save flights'), ['class' => 'btn btn-success']) ?>
+
+
 
 <div class="btn-group">
     <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">

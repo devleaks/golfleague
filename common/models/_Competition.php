@@ -39,14 +39,16 @@ use Yii;
  * @property integer $registration_time
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $league_id
  *
- * @property _Competition $recurrence0
- * @property _Competition[] $competitions
+ * @property League $league
  * @property _Competition $parent
- * @property _Competition[] $competitions0
+ * @property _Competition[] $competitions
  * @property Course $course
  * @property Rule $rule
  * @property Rule $finalRule
+ * @property _Competition $recurrence0
+ * @property _Competition[] $competitions0
  * @property Registration[] $registrations
  * @property Start[] $starts
  */
@@ -67,7 +69,7 @@ class _Competition extends \yii\db\ActiveRecord
     {
         return [
             [['competition_type', 'name', 'rule_id', 'registration_begin', 'registration_end'], 'required'],
-            [['parent_id', 'recurrence_id', 'course_id', 'holes', 'start_hole', 'rule_id', 'final_rule_id', 'age_min', 'age_max', 'max_players', 'cba', 'tour', 'flight_size', 'flight_time', 'flight_window', 'registration_time'], 'integer'],
+            [['parent_id', 'recurrence_id', 'course_id', 'holes', 'start_hole', 'rule_id', 'final_rule_id', 'age_min', 'age_max', 'max_players', 'cba', 'tour', 'flight_size', 'flight_time', 'flight_window', 'registration_time', 'league_id'], 'integer'],
             [['start_date', 'registration_begin', 'registration_end', 'created_at', 'updated_at'], 'safe'],
             [['recurrence'], 'string'],
             [['handicap_min', 'handicap_max'], 'number'],
@@ -116,23 +118,16 @@ class _Competition extends \yii\db\ActiveRecord
             'registration_time' => Yii::t('golf', 'Registration Time'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
+            'league_id' => Yii::t('golf', 'League ID'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRecurrence0()
+    public function getLeague()
     {
-        return $this->hasOne(_Competition::className(), ['id' => 'recurrence_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCompetitions0()
-    {
-        return $this->hasMany(_Competition::className(), ['recurrence_id' => 'id']);
+        return $this->hasOne(League::className(), ['id' => 'league_id']);
     }
 
     /**
@@ -173,6 +168,22 @@ class _Competition extends \yii\db\ActiveRecord
     public function getFinalRule()
     {
         return $this->hasOne(Rule::className(), ['id' => 'final_rule_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecurrence0()
+    {
+        return $this->hasOne(_Competition::className(), ['id' => 'recurrence_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompetitions0()
+    {
+        return $this->hasMany(_Competition::className(), ['recurrence_id' => 'id']);
     }
 
     /**

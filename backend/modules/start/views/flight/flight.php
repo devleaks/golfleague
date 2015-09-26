@@ -16,8 +16,10 @@ use yii\helpers\Html;
     <?php
 	if ($competition->isMatchCompetition()) {
 		foreach($flight->getMatches()->each() as $match) {
-			$teesColor = 'black';
-			echo '<li id="match-'.$match->id.'" class="golfer"  data-handicap="0">'.$match->getLabel(' vs. ').'</li>';
+			if($match->getOpponents()->count() == 2) {
+				$teesColor = 'black';
+				echo '<li id="match-'.$match->id.'" class="golfer"  data-handicap="0">'.$match->getLabel(' vs. ').'</li>';
+			}
 		}
 	} else if ($competition->isTeamCompetition())
 		foreach($flight->getTeams()->each() as $team) {

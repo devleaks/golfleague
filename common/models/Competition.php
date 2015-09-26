@@ -118,6 +118,7 @@ class Competition extends _Competition
         return array_merge(
 			parent::rules(), [
 	            'id' => Yii::t('golf', 'Competition'),
+            	'league_id' => Yii::t('golf', 'League'),
 	            'parent_id' => Yii::t('golf', 'Part Of'),
 	            'course_id' => Yii::t('golf', 'Course'),
 	            'rule_id' => Yii::t('golf', 'Rule'),
@@ -192,8 +193,18 @@ class Competition extends _Competition
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getScorecards() {
-		return $this->hasMany(Scorecard::className(), ['id' => 'scorecard_id'])->viaTable('registration', ['competition_id' => 'id']);
+		return $this->hasMany(Scorecard::className(), ['id' => 'scorecard_id'])->viaTable(Registration::tableName(), ['competition_id' => 'id']);
 	}
+
+	/**
+	 * Returns groups of registrations
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getGroups() {
+		return Group::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
+	}
+
 
 	/**
 	 * Returns competition flights, if any
@@ -201,24 +212,11 @@ class Competition extends _Competition
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getFlights() {
-		if($this->isTeamCompetition()) {
-			$tids = [];
-			foreach($this->getTeams()->each() as $team) {
-				$tids[$team->id] = $team->id;
-			}
-			Yii::trace('teams='.print_r(array_keys($tids), true), 'Competition::getFlights');
-			$gids = [];
-			foreach(GroupMember::find()->andWhere(['object_id' => array_keys($tids), 'object_type' => GroupMember::TEAM])->each() as $gm) {
-				$gids[$gm->group_id] = $gm->group_id;
-			}
-			Yii::trace('groups='.print_r(array_keys($gids), true), 'Competition::getFlights');
-			return Flight::find()->andWhere(['id' => array_keys($gids)]);
-		} else
-			return Flight::find()->joinWith('registrations')->where(['competition_id' => $this->id])->distinct();
+		return Flight::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
 	}
 	
 	public function getMinFlightSize() {
-		$team_size = $this->rule->team ? $this->rule->team : 1;
+		$team_size = $this->rule->team_size ? $this->rule->team_size : 1;
 		return $this->isMatchCompetition() ? 2 * $team_size : $team_size;
 	}
 
@@ -237,30 +235,16 @@ class Competition extends _Competition
 	 * @return \yii\db\ActiveQuery
 	 */
 	public function getMatches() {
-		if($this->isTeamCompetition()) {
-			$tids = [];
-			foreach($this->getTeams()->each() as $team) {
-				$tids[$team->id] = $team->id;
-			}
-			$gids = [];
-			foreach(GroupMember::find()->andWhere(['object_id' => array_keys($tids), 'object_type' => GroupMember::TEAM])->each() as $gm) {
-				$gids[$gm->group_id] = $gm->group_id;
-			}
-			return Match::find()->andWhere(['id' => array_keys($gids)]);
-		} else
-			return Match::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
+		return Match::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
 	}
 
 
 	/**
-	 * Returns groups of registrations
-	 *
-	 * @return \yii\db\ActiveQuery
+	 * Rename Gii generated getter
 	 */
-	public function getGroups() {
-		return Group::find()->joinWith('registrations')->where(['competition_id' => $this->id]);
+	public function getRecurringCompetitions() {
+        return $this->hasMany(Competition::className(), ['recurrence_id' => 'id']);
 	}
-
 
 
 	/**
@@ -748,14 +732,14 @@ class Competition extends _Competition
 	 * Teams
 	 */
 	public function isTeamCompetition() {
-		return $this->rule->team > 1;
+		return $this->rule->team_size > 1;
 	}
 
 	/**
 	 * Checks whether some registrations are not in team yet
 	 */
 	public function isTeamOk() {
-		$team_size = $this->rule->team;
+		$team_size = $this->rule->team_size;
 		if(!$this->getTeams()->exists())
 			return false;
 		$registrations = [];
@@ -949,8 +933,8 @@ class Competition extends _Competition
 
 
 	public function getLevel($statuses = Registration::STATUS_CONFIRMED) {
-		$c = $this->getScorecards()->count();
-		return $c > 0 ? log($c, 2) : 0;
+		$c = $this->getRegistrations()->andWhere(['status' => $statuses])->count();
+		return $c > 0 ? floor(log($c, 2)) : 0;
 	}
 	
 
@@ -974,17 +958,33 @@ class Competition extends _Competition
 	 * @return ActiveQuery Registrations to this competition not in groups of type specified.
 	 */
 	public function getRegistrationsNotIn($group_type) {
-		$regs_in_group = [];
+		$regs_in = [];
 		foreach($this->getGroups()->andWhere(['group_type' => $group_type])->each() as $group) {
-			foreach($group->getRegistrations()->each() as $r) {
-				$regs_in_group[] = $r->id;
+			foreach($group->getRegistrations()->each() as $registration) {
+				$regs_in[] = $registration->id;
 			}
 		}
-
-		$registrations = $this->getRegistrations();
-		if(count($regs_in_group) > 0)
-			$registrations->andWhere(['not', ['id' => $regs_in_group]]);
-		
-		return $registrations;
+		return $this->getRegistrations()->andWhere(['not', ['id' => $regs_in]]);
+	}
+	
+	/**
+	 * Find & instanciate methods to build fligts, matches and teams.
+	 */
+	protected function getMethodClass($type) {
+		$type_str = $type.'Method';
+		$method_name = $this->rule->$type_str ? $this->rule->$type_str : $this->rule->getDefaultMethodClass();
+		$classname = 'common\models\\'.$type.'\\'.$method_name;
+		Yii::trace('Class name:'.$classname, 'Competition::getMethodClass');
+		return new $classname(['competition' => $this]);
+	}
+	
+	public function getFlightClass() {
+		return $this->getMethodClass('flight');
+	}
+	public function getMatchClass() {
+		return $this->isMatchCompetition() ? $this->getMethodClass('match') : null;
+	}
+	public function getTeamClass() {
+		return $this->isTeamCompetition() ? $this->getMethodClass('team') : null;
 	}
 }

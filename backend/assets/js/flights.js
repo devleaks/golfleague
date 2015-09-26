@@ -9,11 +9,16 @@ function getFlightMaxSize() {
 	maxSize = $('#GLflightSize').val();
 	if(!parseInt(maxSize) > 0) maxSize = 4;
 
+	var isMatch = parseInt($('#flight-case').data('ismatch'));
+	if(isMatch > 0) {
+		maxSize = Math.round(maxSize / 2, 0);
+	}
+	
 	var isTeam = $('#flight-case').data('isteam');
 	if(isTeam > 0) {
-		teamsize = $('#flight-case').data('teamsize');
-		if(parseInt(teamsize) > 0) {
-			maxSize = Math.round(maxSize / parseInt(teamsize), 0);
+		teamsize = parseInt($('#flight-case').data('teamsize'));
+		if(teamsize > 0) {
+			maxSize = Math.round(maxSize / teamsize, 0);
 		}
 	}	
 	console.log("max size="+maxSize);
@@ -64,12 +69,11 @@ function cleanUp() {
 	var cnt = 1;
 	var maxSize = getFlightMaxSize();
 	
-	team_size = parseInt($('#flight-case').data('teamsize'));
+	teamsize = parseInt($('#flight-case').data('teamsize'));
+	if(teamsize < 1) teamsize = 1;
     
     $('.flight').not('.new').not('.bench').each(function() {
 		var len = $(this).find('li').length;
-		if(teamsize > 1)
-			len *= teamsize;
 			
 		if(len == maxSize) {
 			$(this).removeClass("panel-danger");

@@ -11,7 +11,7 @@ use common\behaviors\Constant;
 /**
  * This is the model class for table "registrations".
  */
-class Registration extends _Registration
+class Registration extends _Registration implements Opponent
 {
 	use Constant;
 
@@ -109,6 +109,15 @@ class Registration extends _Registration
 	public function getPlayer() {
 		return $this->competition->isTeamCompetition() ? $this->team : $this->golfer;
 	}
+
+	public function getHandicap() {
+		return $this->golfer->handicap;
+	}
+	
+	public function getName() {
+		return $this->golfer->name;
+	}
+	
 
 	static public function getLocalizedPreCompetitionStatuses() {
 		$s = [];
@@ -249,21 +258,34 @@ class Registration extends _Registration
      * @inheritdoc
      */
 	public function getFlight() {
-		return $this->hasOne(Flight::className(), ['id' => 'group_id'])->viaTable('group_member', ['object_id' => 'id']);
+		return $this->hasOne(Flight::className(), ['id' => 'group_id'])->viaTable(GroupMember::tableName(), ['registration_id' => 'id']);
 	}
 
     /**
      * @inheritdoc
      */
 	public function getMatch() {
-		return $this->hasOne(Match::className(), ['id' => 'group_id'])->viaTable('group_member', ['object_id' => 'id']);
+		return $this->hasOne(Match::className(), ['id' => 'group_id'])->viaTable(GroupMember::tableName(), ['registration_id' => 'id']);
 	}
 
     /**
      * @inheritdoc
      */
 	public function getTeam() {
-		return $this->hasOne(Team::className(), ['id' => 'group_id'])->viaTable('group_member', ['object_id' => 'id']);
+		return $this->hasOne(Team::className(), ['id' => 'group_id'])->viaTable(GroupMember::tableName(), ['registration_id' => 'id']);
+	}
+
+	public function getOpponent() {
+		$opponent = null;
+		if($match = $this->getMatch()->one()) {
+			foreach($match->getOpponents()->each() as $registration) {
+				if($registration->id != $this->id) {
+					$opponent = $registration;
+					Yii::trace('opponent is '.$opponent->id, "Registration::getOpponent");
+				}
+			}
+		}
+		return $opponent;
 	}
 
 	/**

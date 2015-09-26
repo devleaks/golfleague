@@ -8,13 +8,6 @@ use common\models\Flight;
 use common\models\Match;
 use common\models\Registration;
 use common\models\Team;
-use common\models\flight\BuildFlightChrono;
-use common\models\flight\BuildFlightForTeam;
-use common\models\flight\BuildFlightForMatch;
-use common\models\flight\BuildFlightForTeamMatch;
-use common\models\flight\BuildFlightStandard;
-use common\models\search\CompetitionSearch;
-use common\models\search\FlightSearch;
 
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -47,51 +40,22 @@ class FlightController extends GroupController
      */
 	private function getFlights($competition) {
 		$flights = $competition->getFlights()->orderBy('position')->all();
+		Yii::trace('flights? '.($flights? 'yes':'no'), 'FlightController::getFlights');
 		
-		Yii::trace('flight count='.($flights? 'yes':'no'), 'FlightController::getFlights');
+		$method = $competition->getFlightClass();		
 		if(!$flights) {// need to make them
-
-			$method = null;
-
-			if($competition->isMatchCompetition()) {
-				if($competition->isTeamCompetition())
-					$method = new BuildFlightForTeamMatch();
-				else
-					$method = new BuildFlightForMatch();
-			}
-			else if($competition->isTeamCompetition())
-				$method = new BuildFlightForTeam();
-			else
-				$method = new BuildFlightChrono(); // later, method will be chosen from list of value
-				
-			$method->execute($competition);
-			
-			$flights = $competition->getFlights()->orderBy('position')->all();		
+			$method->create();			
 		} else { // we got flights, but may be some players registered after the last time we arranged flights
-			$newRegs = $competition->getRegistrationsNotIn(Flight::TYPE_FLIGHT);
-			// build additional flights with new registrations
-			if($newRegs->exists()) {
-				if($competition->isMatchCompetition())
-					if($competition->isTeamCompetition())
-						; // BuildFlightForTeamMatch::addFlights($competition, $newRegs);
-					else
-						BuildFlightForMatch::addFlights($competition, $newRegs);
-				else if($competition->isTeamCompetition())
-					BuildFlightForTeam::addFlights($competition, $newRegs);
-				else
-					BuildFlightStandard::addFlights($competition, $newRegs);
-
-				$flights = $competition->getFlights()->orderBy('position')->all();		
-			}
+			$method->update();			
 		}
-		return $flights;
+		return $competition->getFlights()->orderBy('position')->all();
 	}
 
 	/**
 	 * Build flight and place registration in it. Create flight if necessary.
 	 * @return flight_id updated or created
 	 */
-	private function makeFlight($flight_str, $competition) {
+	private function makeFlight($competition, $flight_str) {
 		$competition_date = substr($competition->start_date, 0, 10);
 		$flight_arr = explode('-', $flight_str->id); // flight-123
 		$flight = Flight::findOne($flight_arr[1]);
@@ -109,49 +73,8 @@ class FlightController extends GroupController
 		$flight->save();
 		Yii::trace(print_r($flight->attributes, true) , 'FlightController::makeFlight');
 
-		// add currents
-		if($competition->isMatchCompetition()) { // matchplay
-			if($competition->isTeamCompetition()) { // team matchplay
-				foreach($flight_str->registrations as $match_str) {
-					$match_arr = explode('-', $match_str); // xxx-456
-					if($match = Match::findOne($match_arr[1])) {
-						foreach($match->getTeams()->each() as $team) {
-							$flight->add($team);
-						}
-					}
-				}
-			} else { // single matchplay
-				foreach($flight_str->registrations as $match_str) {
-					$match_arr = explode('-', $match_str); // xxx-456
-					if($match = Match::findOne($match_arr[1])) {
-						foreach($match->getRegistrations()->each() as $registration) {
-							//Yii::trace('Madding '.$registration->id , 'FlightController::makeFlight');
-							$flight->add($registration);
-						}
-					}
-				}
-			}
-		} else if($competition->isTeamCompetition()) {
-			foreach($flight_str->registrations as $registration_str) {
-				$registration_arr = explode('-', $registration_str); // registration-456
-				$team = Team::findOne($registration_arr[1]);
-				if($team) {
-					foreach($team->getRegistrations()->each() as $registration) {
-						//Yii::trace('Tadding '.$registration->id , 'FlightController::makeFlight');
-						$flight->add($registration);
-					}
-				}
-			}
-		} else {
-			foreach($flight_str->registrations as $registration_str) {
-				$registration_arr = explode('-', $registration_str); // registration-456
-				$registration = Registration::findOne($registration_arr[1]);
-				if($registration) {
-					//Yii::trace('Radding '.$registration->id , 'FlightController::makeFlight');
-					$flight->add($registration);
-				}
-			}
-		}
+		$method = $competition->getFlightClass();
+		$method->updateFromJson($flight, $flight_str->registrations);
 
 		Yii::trace('returning '.$flight->id , 'FlightController::makeFlight');
 		
@@ -208,13 +131,13 @@ class FlightController extends GroupController
 					$oldFlights[$f->id] = $f;
 				
 			foreach($flights as $flight) { // update or create each flight
-				$id = $this->makeFlight($flight, $competition);
+				$id = $this->makeFlight($competition, $flight);
+				Yii::trace('unsetting old flight:'.$flight->id, 'FlightController::actionCompetition');
 				unset($oldFlights[$id]); // flight still used, remove from "oldFlights"
 			}
 			foreach($oldFlights as $flight) { // delete unused flights ($oldFlights minus those still in use.)
-				// Yii::trace('removing old flight:'.$flight->id, 'FlightController::actionCompetition');
-				$flight->clean();
-				$flight->delete();
+				Yii::trace('removing old flight:'.$flight->id, 'FlightController::actionCompetition');
+				$flight->clean(true);
 			}
 
 			if($flights) // @todo need a better test...

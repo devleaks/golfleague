@@ -28,12 +28,12 @@ use kartik\grid\GridView;
 							$s .= '<li>'.$match->getLabel(' vs. ').'</li>';
 						}
 					} else if ($competition->isTeamCompetition())
-						foreach($flight->getTeams()->each() as $team) {
+						foreach($model->getTeams()->each() as $team) {
 							$teesColor = 'black';
 							$s .= '<li>'.$team->getLabel().' (<span class="glyphicon glyphicon-filter" style="color: '.$teesColor.';"></span> '.$team->handicap.')</li>';
 						}
 					else
-						foreach($flight->getRegistrations()->each() as $registration) {
+						foreach($model->getRegistrations()->each() as $registration) {
 							$player = $registration->golfer;
 							$teesColor = isset($registration->tees->color) ? $registration->tees->color : 'black';
 							$s .= '<li>'.$player->name.' (<span class="glyphicon glyphicon-filter" style="color: '.$teesColor.';"></span> '.$player->handicap.')</li>';
@@ -56,6 +56,7 @@ use kartik\grid\GridView;
 					return $model->start_hole ? $model->start_hole : 1;
 				}
 			],
+			'handicap',
 			'note',
         ],
     ]); ?>

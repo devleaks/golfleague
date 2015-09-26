@@ -8,13 +8,13 @@ use Yii;
  * This is the model class for table "group_member".
  *
  * @property integer $id
+ * @property integer $registration_id
  * @property integer $group_id
- * @property string $object_type
- * @property integer $object_id
  * @property integer $position
  * @property string $status
  *
  * @property Group $group
+ * @property Registration $registration
  */
 class _GroupMember extends \yii\db\ActiveRecord
 {
@@ -32,9 +32,8 @@ class _GroupMember extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['group_id'], 'required'],
-            [['group_id', 'object_id', 'position'], 'integer'],
-            [['object_type'], 'string'],
+            [['registration_id', 'group_id'], 'required'],
+            [['registration_id', 'group_id', 'position'], 'integer'],
             [['status'], 'string', 'max' => 20]
         ];
     }
@@ -46,9 +45,8 @@ class _GroupMember extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('golf', 'ID'),
+            'registration_id' => Yii::t('golf', 'Registration ID'),
             'group_id' => Yii::t('golf', 'Group ID'),
-            'object_type' => Yii::t('golf', 'Object Type'),
-            'object_id' => Yii::t('golf', 'Object ID'),
             'position' => Yii::t('golf', 'Position'),
             'status' => Yii::t('golf', 'Status'),
         ];
@@ -60,5 +58,13 @@ class _GroupMember extends \yii\db\ActiveRecord
     public function getGroup()
     {
         return $this->hasOne(Group::className(), ['id' => 'group_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegistration()
+    {
+        return $this->hasOne(Registration::className(), ['id' => 'registration_id']);
     }
 }

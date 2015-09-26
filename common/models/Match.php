@@ -22,19 +22,6 @@ class Match extends Group {
     }
 
 
-	public function getPlayers() {
-		$type = $this->getGroupMembers()->one()->object_type;
-		return $type == GroupMember::TEAM ? $this->getTeams(true) : $this->getRegistrations();
-	}
-
-    /**
-     * @inheritdoc
-     */
-	public function getTeams() {
-		Yii::trace('search for group_id='.$this->id, 'Match::getTeams');
-		return Team::find()->andWhere(['id' => GroupMember::find()->andWhere(['group_id' => $this->id])->select('object_id')]);
-	}
-
     /**
      * Get a label for match made from competitor's name separated by separator
      */
@@ -53,5 +40,10 @@ class Match extends Group {
 			return parent::getLabel($separator);
 	}
 
-
+	/**
+	 * Returns 2 opponents in a matchplay competition
+	 */
+	public function getOpponents() {
+		return ($this->getGroupMembers()->count() > 2) ? $this->getTeams() : $this->getRegistrations();
+	}
 }
