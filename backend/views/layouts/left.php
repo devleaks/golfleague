@@ -73,6 +73,7 @@ $role = MenuHelper::getRole();
                         'items' => [
                             ['label' => 'Leagues', 'icon' => 'fa fa-trophy', 'url' => ['/admin/league'],],
 	                        ['label' => 'Users and Access', 'icon' => 'fa fa-user', 'url' => ['/user/admin'],],
+	                        ['label' => 'Backup', 'icon' => 'fa fa-download', 'url' => ['/admin/backup'],],
 
 						],
 					],
