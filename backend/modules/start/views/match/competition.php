@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <ul class="competition" data-competition="<?= $competition->id ?>">
 <?php
 $count = 0;
-$maxmatches = pow(2.0, $competition->getLevel(Registration::STATUS_REGISTERED));
 foreach($matches as $match) {
 	echo $this->render('_match', [
 		'match' => $match,
@@ -43,6 +42,7 @@ foreach($matches as $match) {
 	$count++;
 }
 /** We add matches to get a power of two and allow "byes" */
+$maxmatches = pow(2.0, $competition->getLevel(Registration::STATUS_REGISTERED));
 for($i = $count; $i < $maxmatches; $i++) {
 	echo $this->render('_match-empty', [
 		'match' => null,

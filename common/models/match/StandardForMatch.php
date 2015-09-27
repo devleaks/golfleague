@@ -47,12 +47,12 @@ class StandardForMatch extends Model implements BuildMatchInterface
 	}
 	
 	public function create() {
-		Yii::trace('in', 'Standard::create');
+		Yii::trace('in', 'StandardForMatch::create');
 		$this->updateMatches($this->competition->getRegistrations());
 	}
 	
 	public function update() {
-		Yii::trace('in', 'Standard::update');
+		Yii::trace('in', 'StandardForMatch::update');
 		$this->updateMatches($this->competition->getRegistrationsNotIn(Match::TYPE_MATCH));
 	}
 	

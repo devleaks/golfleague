@@ -109,11 +109,21 @@ $this->params['breadcrumbs'][] = $this->title;
 </ul>
 
 <ul class="exempted panel panel-warning">
-	<div class="panel-heading"><span class="glyphicon glyphicon-warning-sign handle-shift"></span>Players exempted.</div>
+	<div class="panel-heading"><span class="glyphicon glyphicon-warning-sign handle-shift"></span><?= Yii::t('golf', 'Exempted') ?></div>
 <?php
 if ($competition->isMatchCompetition()) {
-	foreach($competition->getRegistrationsNotIn(Flight::TYPE_FLIGHT)->each() as $r) {
-		echo '<li class="golfer">'.$r->golfer->name.'</li>';
+	if($competition->isTeamCompetition()) {
+		foreach($competition->getMatches()->each() as $m) {
+			if($m->getOpponents()->count() < 2) {
+				foreach($m->getOpponents()->each() as $o) {
+					echo '<li class="golfer">'.$o->name.'</li>';
+				}
+			}
+		}
+	} else {
+		foreach($competition->getRegistrationsNotIn(Flight::TYPE_FLIGHT)->each() as $r) {
+			echo '<li class="golfer">'.$r->golfer->name.'</li>';
+		}
 	}
 } ?>
 </ul>

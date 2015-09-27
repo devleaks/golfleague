@@ -19,6 +19,7 @@ class MatchController extends Controller
      */
 	private function getMatches($competition) {
 		$matches = $competition->getMatches()->orderBy('position')->all();
+		Yii::trace(print_r($matches, true) , 'MatchController::getMatches');	
 		$method = $competition->getMatchClass();		
 		if(!$matches) {// need to make them
 			$method->create();			
@@ -27,6 +28,32 @@ class MatchController extends Controller
 		}
 		return $competition->getMatches()->orderBy('position')->all();
 	}
+
+	/**
+	 * Build flight and place registration in it. Create flight if necessary.
+	 * @return flight_id updated or created
+	 */
+	private function makeMatch($competition, $match_str) {
+		if(!$match = Match::findOne($match_str->id)) { // need to create it
+			$position = $competition->getMatches()->max('group.position');
+			if(! intval($position) > 0) $position = 0;
+			$position++;
+			$match = Match::getNew(MAtch::TYPE_MATCH);
+			$match->position = $position++;
+			$match->name = 'Match '.$this->competition->id.'.'.$count;
+		} else { // remove existings
+			$match->clean();
+		}
+		$match->save();
+
+		$method = $competition->getMatchClass();
+		$method->updateFromJson($match, $match_str->competitors);
+
+		Yii::trace('returning '.$match->id , 'MatchController::makeMatch');
+		
+		return $match->id;
+	}
+
 
     /**
      * Displays and/or update Match models for a competition.
@@ -40,7 +67,7 @@ class MatchController extends Controller
 
 		if($competition->isTeamCompetition() && !$competition->isTeamOk()) {
 			Yii::$app->session->setFlash('error', Yii::t('golf', 'Teams for competition not completed.'));
-			return $this->redirect(Url::to(['competition/index']));
+			return $this->redirect(['competition/index']);
 		}
 
 		//should check that competition exists or exit.
@@ -50,10 +77,7 @@ class MatchController extends Controller
 			$matches = json_decode($savedmatches);
 			
 			foreach($matches as $match_str) {
-				if($match = Match::findOne($match_str->id)) {
-					$match->clean();
-					$method->updateFromJson($match, $match_str->competitors);
-				}
+				$id = $this->makeMatch($competition, $match_str);
 			}
 
 			if($matches) // need a better test...

@@ -62,12 +62,12 @@ class StandardForTeam extends Model implements BuildFlightInterface
 	}
 	
 	public function create() {
-		Yii::trace('in', 'Standard::create');
+		Yii::trace('in', 'StandardForTeam::create');
 		$this->updateFlights($this->competition->getTeams());
 	}
 	
 	public function update() {
-		Yii::trace('in', 'Standard::update');
+		Yii::trace('in', 'StandardForTeam::update');
 		$this->updateFlights($this->getTeamsNotInFlights());
 	}
 	

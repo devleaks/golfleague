@@ -44,6 +44,10 @@ class Match extends Group {
 	 * Returns 2 opponents in a matchplay competition
 	 */
 	public function getOpponents() {
-		return ($this->getGroupMembers()->count() > 2) ? $this->getTeams() : $this->getRegistrations();
+		$isTeamCompetition = false;
+		if($competition = $this->getCompetition()) {
+			$isTeamCompetition = $competition->isTeamCompetition();
+		}	
+		return $isTeamCompetition ? $this->getTeams() : $this->getRegistrations();
 	}
 }

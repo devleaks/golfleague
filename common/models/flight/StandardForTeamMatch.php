@@ -5,16 +5,16 @@ namespace common\models\flight;
 use common\models\Competition;
 use common\models\Flight;
 use common\models\Match;
-use common\models\Registration;
+use common\models\Team;
 
 use Yii;
 use yii\base\Model;
 
 /**
- * This is the interface for flight building algorithms.
+ * This is the interface for match building algorithms.
  *
  */
-class StandardForMatch extends Model implements BuildFlightInterface
+class StandardForTeamMatch extends Model implements BuildFlightInterface
 {
 	public $competition;
 		
@@ -62,12 +62,12 @@ class StandardForMatch extends Model implements BuildFlightInterface
 	}
 	
 	public function create() {
-		Yii::trace('in', 'StandardForMatch::create');
+		Yii::trace('in', 'StandardForTeamMatch::create');
 		$this->updateFlights($this->competition->getMatches());
 	}
 	
 	public function update() {
-		Yii::trace('in', 'StandardForMatch::update');
+		Yii::trace('in', 'StandardForTeamMatch::update');
 		$this->updateFlights($this->getMatchesNotInFlights());
 	}
 	

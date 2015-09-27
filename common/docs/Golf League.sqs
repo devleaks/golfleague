@@ -798,6 +798,50 @@
         <uid><![CDATA[2F775BA8-B60F-48F0-B9B1-2E52848F818A]]></uid>
     </SQLTable>
     <SQLTable>
+        <name><![CDATA[marker]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>448.00</x>
+            <y>1920.00</y>
+        </location>
+        <size>
+            <width>256.00</width>
+            <height>128.00</height>
+        </size>
+        <zorder>22</zorder>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <primaryKey>1</primaryKey>
+            <autoIncrement><![CDATA[1]]></autoIncrement>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <indexed><![CDATA[0]]></indexed>
+            <uid><![CDATA[714D680D-AFFE-4758-A9DD-91D649AD477D]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[name]]></name>
+            <type><![CDATA[VARCHAR(80)]]></type>
+            <notNull><![CDATA[1]]></notNull>
+            <uid><![CDATA[CD07F10B-9371-47F3-841D-B656A18B483B]]></uid>
+            <unique><![CDATA[1]]></unique>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[email]]></name>
+            <type><![CDATA[VARCHAR(40)]]></type>
+            <uid><![CDATA[B68438F2-6E8C-4334-89FE-ABDF29FF5E3A]]></uid>
+            <unique><![CDATA[1]]></unique>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[created_at]]></name>
+            <type><![CDATA[DATETIME]]></type>
+            <temporaryOriginalName><![CDATA[limit_0]]></temporaryOriginalName>
+            <uid><![CDATA[C863D5E5-FF49-4D0C-AD42-546E79C1C366]]></uid>
+        </SQLField>
+        <labelColor><![CDATA[{0.83217,0.985484,0.473331,1}]]></labelColor>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[45CD9676-A736-44F1-A826-DB79165E4880]]></uid>
+    </SQLTable>
+    <SQLTable>
         <name><![CDATA[group_member]]></name>
         <schema><![CDATA[]]></schema>
         <location>
@@ -882,6 +926,11 @@
             <indexed><![CDATA[0]]></indexed>
             <uid><![CDATA[A028BCD4-0252-47A9-A371-2F6C24D7E9EB]]></uid>
             <zorder><![CDATA[0]]></zorder>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[marker_id]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[EE64D406-3B07-4A65-991C-4996CC901621]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[handicap]]></name>
@@ -1440,11 +1489,6 @@
             <type><![CDATA[DATETIME]]></type>
             <temporaryOriginalName><![CDATA[limit_0]]></temporaryOriginalName>
             <uid><![CDATA[812FD592-6198-4CC2-8DBA-53673242C0F8]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[id_1]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <uid><![CDATA[2612412E-ACE4-4D0B-B68D-9CAED626E4AF]]></uid>
         </SQLField>
         <labelColor><![CDATA[{0.83217,0.985484,0.473331,1}]]></labelColor>
         <labelWindowIndex><![CDATA[17]]></labelWindowIndex>
@@ -2660,7 +2704,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1301.000000]]></windowHeight>
         <windowLocationX><![CDATA[462.000000]]></windowLocationX>
         <windowLocationY><![CDATA[116.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{15, 314}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{38, 114}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1680.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

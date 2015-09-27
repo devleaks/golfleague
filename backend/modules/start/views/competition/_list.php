@@ -19,7 +19,7 @@ Icon::map($this);
         'dataProvider' => $dataProvider,
 		'panel' => [
 	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($title).' </h3>',
-			'type' => Gridview::TYPE_INFO
+			'type' => Gridview::TYPE_SUCCESS,
 		],
         'columns' => [
             [
@@ -47,7 +47,8 @@ Icon::map($this);
 				'attribute' => 'registration_end',
 				'format' => 'raw',
 				'value' => function ($model, $key, $index, $widget) {
-					return '<span class="'.($model->registration_end < date('Y-m-d H:i:s') ? 'text-danger' : '').'">'. Yii::$app->formatter->asDateTime(new DateTime($model->registration_end)) . '</span';
+					return '<span class="'.($model->registration_end < date('Y-m-d H:i:s') ? 'text-danger' : '').'">'.
+								Yii::$app->formatter->asDateTime(new DateTime($model->registration_end)) . '</span';
 				},
 			],
              'status',

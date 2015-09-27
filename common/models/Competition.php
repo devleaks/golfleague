@@ -933,7 +933,12 @@ class Competition extends _Competition
 
 
 	public function getLevel($statuses = Registration::STATUS_CONFIRMED) {
-		$c = $this->getRegistrations()->andWhere(['status' => $statuses])->count();
+		$c = 1;
+		if($this->isTeamCompetition()) {
+			$c = $this->getTeams()->distinct()->count();
+		} else {
+			$c = $this->getRegistrations()->andWhere(['status' => $statuses])->count();
+		}
 		return $c > 0 ? floor(log($c, 2)) : 0;
 	}
 	
