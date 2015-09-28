@@ -69,7 +69,6 @@ class ScorecardController extends GolfLeagueController
 				$scorecards[] = $registration->getScorecard(); // this will create a scorecard if none exists
 			}
 		}
-		
 
         return $this->render('competition', [
 			'competition' => $competition,

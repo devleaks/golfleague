@@ -5,6 +5,7 @@ namespace common\components;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
+use yii\di\Container;
 
 /**
  * GolfLeague Main Component. Contains global league behavior components, options, variables...
@@ -20,6 +21,10 @@ class GolfLeague extends Component
 		parent::init();
 		$r = new \ReflectionClass($this->handicapSystem);
 		$this->handicap_system = $r->newInstance();
+		$container = new Container;
+		$container->set('common\models\Rules', [
+		    'flightMethods' => ['Chrono'],
+		]);
 	}
 
 	/**

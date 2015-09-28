@@ -16,7 +16,7 @@ use common\models\Competition;
 		'options' => ['id' => 'registration'],
         'dataProvider' => $dataProvider,
 		'panel'=>[
-	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode(Yii::t('golf', 'Registrations for {0}', $this->title)).' </h3>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-user"></i> '.Html::encode(Yii::t('golf', 'Registrations for {0}', $this->title)).' </h3>',
 			'footer' => false,
 	    ],
 		'pjax' => true,

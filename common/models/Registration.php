@@ -297,6 +297,15 @@ class Registration extends _Registration implements Opponent
 	 */
 	public function makeScorecard($detailed = false) {
 		$scorecard = null;
+
+		if($this->competition->isTeamCompetition()) {
+			if($team = $this->getTeam()) {
+				if($scorecard = $team->getScorecard()) {
+					return $scorecard;
+				}
+			}
+		}
+		
 		if(! $scorecard = parent::getScorecard()->one() ) { // Scorecard::findOne(['registration_id'=>$registration->id])
 			$scorecard = new Scorecard([
 				'status' => Scorecard::STATUS_OPEN,
@@ -307,6 +316,12 @@ class Registration extends _Registration implements Opponent
 			$this->save();
 			if($detailed) {
 				$scorecard->makeScores();
+			}
+		}
+
+		if($this->competition->isTeamCompetition()) {
+			if($team = $this->getTeam()) {
+				$team->setScorecard($scorecard);
 			}
 		}
 		return $scorecard;

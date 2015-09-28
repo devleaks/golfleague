@@ -49,4 +49,16 @@ class Team extends Group implements Opponent {
 		return $opponent;
 	}
 
+	public function getScorecard() {
+		foreach($this->getRegistrations()->each() as $registration) {
+			
+		}
+	}
+
+	public function setScorecard($scorecard) {
+		foreach($this->getRegistrations()->each() as $registration) {
+			$registration->scorecard_id = $scorecard->id;
+			$registration->save();
+		}
+	}
 }
