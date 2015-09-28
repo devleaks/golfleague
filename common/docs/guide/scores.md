@@ -1,5 +1,5 @@
-Scoring
-=======
+Scorecards and Scoreboards
+==========================
 
 The Scorecard
 

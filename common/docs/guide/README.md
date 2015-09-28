@@ -24,6 +24,7 @@ Running Your League
 * [Creating Your Golf Environment](facilities.md)
 * [Competitions](competitions.md)
 * [Rules](rules.md)
+* [Users and Roles](users.md)
 * [Running A Golf League](league.md)
 * [Preparing a Competition](start.md)
 * [Reporting Scores](scores.md)
@@ -45,4 +46,6 @@ Appendix
 
 * [Installing Yii Golf League](install.md)
 * [Upgrading Yii Golf League](upgrade.md)
-* [Maintaining Yii Golf League](maintain.md)
+* [Maintaining Yii Golf League](admin.md)
+* [Sample Data](sample.md)
+* [Developing Custom Code for Rules or Groups](develop.md)

@@ -1,5 +1,5 @@
-Communication
-=============
+Yii Golf League Web Site
+========================
 
 Yii Golf League offers a few global, league-wide communication mechanisms:
 
