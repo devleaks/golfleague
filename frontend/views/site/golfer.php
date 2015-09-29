@@ -43,6 +43,7 @@ $this->title = 'Yii Golf League';
 							            'registration_end',
 							            [
 							                'class' => 'kartik\grid\ActionColumn',
+											'controller' => 'competition',
 											'template' => '{view}',
 											'noWrap' => true,
 							            ],

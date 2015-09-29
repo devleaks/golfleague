@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Scorecard as ScorecardModel;
+use common\models\Competition;
 use common\widgets\Scorecard;
 use kartik\detail\DetailView;
 use yii\data\ActiveDataProvider;
@@ -77,9 +78,11 @@ $this->params['breadcrumbs'][] = $this->title;
 		]*/
     ]) ?>
 
-	<?php if(! in_array($scorecard->competition->status, [Competition::STATUS_COMPLETED, Competition::STATUS_CLOSED]) ): ?>
-		<div class="clearfix"></div>
-		<?= Html::a(Yii::t('golf', 'Update'), Url::to(['update', 'id' => $scorecard->id]), ['class' => 'btn btn-primary']) ?>
-	<?php endif; ?>
+	<?php if($scorecard->registration) {
+		if(! in_array($scorecard->registration->competition->status, [Competition::STATUS_COMPLETED, Competition::STATUS_CLOSED]) ) {
+			echo '<div class="clearfix"></div>';
+			echo Html::a(Yii::t('golf', 'Update'), Url::to(['update', 'id' => $scorecard->id]), ['class' => 'btn btn-primary']);
+		}
+	} ?>
 
 </div>

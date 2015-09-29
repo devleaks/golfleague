@@ -83,9 +83,9 @@ $role = MenuHelper::getRole();
                         'url' => '#',
                         'items' => [
 		                    // ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
-	                    	['label' => 'Frontend', 'icon' => 'fa fa-trophy', 'url' => ['/../golfleague']],
+	                    	['label' => 'Debug', 'icon' => 'fa fa-bug', 'url' => ['/debug']],
 		                    ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
-		                    ['label' => 'Debug', 'icon' => 'fa fa-bug', 'url' => ['/debug']],
+	                    	['label' => 'Frontend', 'icon' => 'fa fa-heart', 'url' => ['/../golfleague']],
 		                    // ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
 						],
 					],		

@@ -98,6 +98,22 @@ class Scorecard extends _Scorecard
 		];
 	}
 	
+    /**
+     * @return common\models\Registration
+     */
+    public function getRegistration()
+    {
+        return $this->hasOne(Registration::className(), ['scorecard_id' => 'id']);
+    }
+
+    /**
+     * @return common\models\Practice
+     */
+    public function getPractice()
+    {
+        return $this->hasOne(Practice::className(), ['scorecard_id' => 'id']);
+    }
+
 	/**
 	 * Cascade delete scores attached to this scorecard
 	 */	
@@ -527,7 +543,7 @@ class Scorecard extends _Scorecard
 
 	public function getOpponent() {
 		$opponent = null;
-		if($r = $this->getRegistration()->one()) {
+		if($r = $this->getRegistration()) {
 			if($m = $r->getMatch()->one()) {
 				foreach($m->getRegistrations()->each() as $r2) {
 					if($r2->id != $r->id) {
@@ -583,13 +599,5 @@ class Scorecard extends _Scorecard
 			}
 		return $scores;
 	}
-
-	    /**
-	     * @return \yii\db\ActiveQuery
-	     */
-	    public function getRegistration()
-	    {
-	        return $this->hasOne(Registration::className(), ['scorecard_id' => 'id']);
-	    }
 
 }

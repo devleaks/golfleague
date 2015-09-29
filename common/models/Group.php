@@ -173,6 +173,8 @@ class Group extends _Group {
 				'position' => $pos
 			]);
 			$link->save();
+			$this->handicap += $registration->getHandicap();
+			$this->save();
 			Yii::trace('added='.$registration->id.' to '.$this->id, 'Group::add');
 		}
 	}
@@ -182,6 +184,8 @@ class Group extends _Group {
 	 */
 	public function remove($registration) {
 		if($link = $this->getGroupMembers()->andWhere(['registration_id' => $registration->id])) {
+			$this->handicap -= $registration->getHandicap();
+			$this->save();
 			return $link->delete();
 		}
 		return false;
@@ -191,11 +195,15 @@ class Group extends _Group {
 	 * Removes all registration from group
 	 */
 	public function clean($delete = false) {
-		foreach($this->getGroupMembers()->each() as $rg)
+		foreach($this->getGroupMembers()->each() as $rg) {
 			$rg->delete();
+		}
 			
 		if($delete)
 			return $this->delete();
+
+		$this->handicap = 0;
+		return $this->save();
 	}
 
 }
