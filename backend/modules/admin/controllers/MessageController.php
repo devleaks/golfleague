@@ -3,6 +3,7 @@
 namespace backend\modules\admin\controllers;
 
 use Yii;
+use common\models\Media;
 use common\models\Message;
 use common\models\search\MessageSearch;
 use backend\controllers\DefaultController as GolfLeagueController;
@@ -25,6 +26,23 @@ class MessageController extends GolfLeagueController
             ],
         ];
     }
+
+	public function actions()
+	{
+	    return [
+	        'images-get' => [
+	            'class' => 'vova07\imperavi\actions\GetAction',
+	            'url' => Media::MEDIA_ROOT_URL.'/news', // Directory URL address, where files are stored.
+	            'path' => Media::MEDIA_ROOT_PATH.'/news', // Or absolute path to directory where files are stored.
+	            'type' => Media::ACCEPTED_FORMATS,
+	        ],
+	        'image-upload' => [
+	            'class' => 'vova07\imperavi\actions\UploadAction',
+	            'url' => Media::MEDIA_ROOT_URL.'/news', // Directory URL address, where files are stored.
+	            'path' => Media::MEDIA_ROOT_PATH.'/news' // Or absolute path to directory where files are stored.
+	        ],
+	    ];
+	}
 
     /**
      * Lists all Message models.

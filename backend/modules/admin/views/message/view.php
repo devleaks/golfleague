@@ -1,8 +1,13 @@
 <?php
 
-use yii\helpers\Html;
-use kartik\detail\DetailView;
 use common\models\Message;
+
+use vova07\imperavi\Widget as RedactorWidget;
+
+use kartik\detail\DetailView;
+
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Message */
@@ -23,7 +28,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'subject',
 			[
                 'attribute'=>'body',
-				'type' => DetailView::INPUT_TEXTAREA,
+				'type' => DetailView::INPUT_WIDGET,
+				'widgetOptions' => [
+					'class' => RedactorWidget::className(),
+				    'settings' => [
+				        'lang' => 'fr',
+				        'minHeight' => 300,
+				        'plugins' => [
+				            'clips',
+				        ],
+				    	'imageUpload' => Url::to(['image-upload']),
+						'imageManagerJson' => Url::to(['images-get']),
+					],
+				],
 			],
 			[
                 'attribute'=>'message_start',

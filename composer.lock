@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "hash": "8956761f4f0ff536ea742546f5ec234a",
+    "content-hash": "1f852ebc78a082f8a3b77f049f386959",
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -4323,16 +4324,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.14",
+            "version": "1.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "202c7775d959f377e2e302d93e7127c47604438a"
+                "reference": "31525caf9e8772683672fefd8a1ca0c0736020f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/202c7775d959f377e2e302d93e7127c47604438a",
-                "reference": "202c7775d959f377e2e302d93e7127c47604438a",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/31525caf9e8772683672fefd8a1ca0c0736020f4",
+                "reference": "31525caf9e8772683672fefd8a1ca0c0736020f4",
                 "shasum": ""
             },
             "require": {
@@ -4403,7 +4404,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-09-22 19:18:28"
+            "time": "2015-09-30 22:26:59"
         },
         {
             "name": "loop8/yii2-l8-actioncolumn",
@@ -5459,16 +5460,16 @@
         },
         {
             "name": "simshaun/recurr",
-            "version": "v0.4.7",
+            "version": "v0.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simshaun/recurr.git",
-                "reference": "8e435cc2de22230c48df6e8ced508efcc2e7a1e5"
+                "reference": "202c067b73c6630763dcb8e3d98576d7a5fb838c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simshaun/recurr/zipball/8e435cc2de22230c48df6e8ced508efcc2e7a1e5",
-                "reference": "8e435cc2de22230c48df6e8ced508efcc2e7a1e5",
+                "url": "https://api.github.com/repos/simshaun/recurr/zipball/202c067b73c6630763dcb8e3d98576d7a5fb838c",
+                "reference": "202c067b73c6630763dcb8e3d98576d7a5fb838c",
                 "shasum": ""
             },
             "require": {
@@ -5509,7 +5510,7 @@
                 "recurring",
                 "rrule"
             ],
-            "time": "2015-07-05 18:30:53"
+            "time": "2015-10-01 06:06:14"
         },
         {
             "name": "swiftmailer/swiftmailer",

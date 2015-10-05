@@ -19,6 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		echo Html::img($picture->getThumbnailUrl(), ['class' => 'img-responsive pull-left', 'style' => 'padding: 4px;', 'alt'=>$picture->name, 'title'=>$picture->name]);
 	} ?>
 
-    <?= Html::encode($model->body) ?>
+    <?= $model->body ?>
 
 </div>

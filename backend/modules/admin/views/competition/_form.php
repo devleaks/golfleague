@@ -19,6 +19,8 @@ use yii\bootstrap\Alert;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'league_id')->dropDownList(ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Select League']) ?>
+
     <?= $form->field($model, 'name')->textInput(['maxlength' => 80]) ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>

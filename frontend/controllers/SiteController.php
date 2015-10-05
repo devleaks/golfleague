@@ -17,6 +17,7 @@ use yii\data\ActiveDataProvider;
  */
 class SiteController extends Controller
 {
+	public $layout = '//public';
     /**
      * @inheritdoc
      */
@@ -38,6 +39,7 @@ class SiteController extends Controller
 		if(Yii::$app->user->isGuest) {
 	        return $this->render('index');
 		}
+		$this->layout = '//main';
 		$now = date('Y-m-d H:i:s');
 		$competitions = new ActiveDataProvider([
 			'query' => Round::find()->andWhere(['>','start_date', $now])

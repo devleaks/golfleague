@@ -1,10 +1,12 @@
 <?php
 
 use common\models\Facility;
+use common\models\User;
 
 use kartik\detail\DetailView;
 use kartik\datecontrol\DateControl;
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
@@ -27,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'heading'=>$this->title,
         ],
         'attributes' => [
-            'id',
             'name',
             'phone',
             'email:email',
@@ -38,13 +39,20 @@ $this->params['breadcrumbs'][] = $this->title;
 				'items' => Facility::getLocalizedConstants('UNITS_'),
 			],
             [
+				'attribute' => 'owner_id',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'),
+				'value'=> $model->owner ? $model->owner->username : '',     
+			],
+            [
                 'attribute'=>'created_at',
                 'format'=>['datetime',(isset(Yii::$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A'],
                 'type'=>DetailView::INPUT_WIDGET,
                 'widgetOptions'=> [
                     'class'=>DateControl::classname(),
                     'type'=>DateControl::FORMAT_DATETIME
-                ]
+                ],
+				'displayOnly' => true,
             ],
             [
                 'attribute'=>'updated_at',
@@ -53,7 +61,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'widgetOptions'=> [
                     'class'=>DateControl::classname(),
                     'type'=>DateControl::FORMAT_DATETIME
-                ]
+                ],
+				'displayOnly' => true,
             ],
         ],
         'deleteOptions'=>[

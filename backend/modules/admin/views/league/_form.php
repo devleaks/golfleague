@@ -1,11 +1,13 @@
 <?php
 
 use common\models\Facility;
+use common\models\User;
 
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\datecontrol\DateControl;
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
@@ -33,8 +35,10 @@ use yii\helpers\Html;
 'phone'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Phone...', 'maxlength'=>20]], 
 
 'units'=>['type'=> Form::INPUT_DROPDOWN_LIST, 'items' => Facility::getLocalizedConstants('UNITS_'), 'options'=>['placeholder'=>'Enter Units...', 'maxlength'=>20]], 
-    ]
 
+'owner_id'=>['type'=> Form::INPUT_DROPDOWN_LIST, 'items' => ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'), 'options'=>['placeholder'=>'Select Yii User']],
+
+	]
     ]);
     echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);
     ActiveForm::end(); ?>

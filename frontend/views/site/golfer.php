@@ -18,7 +18,7 @@ $this->title = 'Yii Golf League';
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <h2><?= Yii::t('golf', 'Calendar of Competitions') ?></h2>
 
 				<?= Tabs::widget([
@@ -26,9 +26,9 @@ $this->title = 'Yii Golf League';
 							[
 					            'label' => Yii::t('golf', 'Calendar'),
 					            'content' => Calendar::widget(),
-					            'active' => true
 					        ],
 					        [
+							    'active' => true,
 					            'label' => Yii::t('golf', 'List'),
 					            'content' => GridView::widget([
 							        'dataProvider' => $competitions,
@@ -54,29 +54,6 @@ $this->title = 'Yii Golf League';
 						'options' => ['style' => 'margin-bottom: 20px;']
 					])
 				?>
-
-            </div>
-
-			<?php echo ' '; /*Masonry::widget([
-				'options' => ['id' => 'mycontent']
-			])*/; ?>
-
-            <div class="col-lg-4">
-                <h2>Search</h2>
-
-				<?= $this->render('_search') ?>
-
-
-                <h2>Menu</h2>
-
-				<?= $this->render('_golfer_menu') ?>
-
-                <h2>News</h2>
-
-				<?= LatestMessages::widget([
-					'messages_count' => 3,
-					'words' => 30
-				]); ?>
 
             </div>
 

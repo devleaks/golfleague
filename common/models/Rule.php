@@ -26,8 +26,6 @@ class Rule extends _Rule
 	
 	const HALF_POINT = ' ½';
 	
-	
-	
 	public $flightMethods;
 	public $teamMethods;
 	public $matchMethods;
@@ -51,25 +49,26 @@ class Rule extends _Rule
         ];
     }
 
+/*
+	public function attributes()
+	{
+	    return array_merge(['flightMethods', 'teamMethods', 'matchMethods'], parent::attributes());
+	}
+*/
+
     /**
      * @inheritdoc
      */
     public function attributeLabels()
     {
-        return [
-            'id' => Yii::t('golf', 'Rule'),
-	        'name' => Yii::t('golf', 'Name'),
-	        'description' => Yii::t('golf', 'Description'),
-	        'competition_type' => Yii::t('golf', 'Competition Type'),
-	        'object_type' => Yii::t('golf', 'Object Type'),
-	        'rule_type' => Yii::t('golf', 'Rule Type'),
-	        'team_size' => Yii::t('golf', 'Team Size'),
-	        'note' => Yii::t('golf', 'Note'),
-	        'classname' => Yii::t('golf', 'Classname'),
-        	'league_id' => Yii::t('golf', 'League'),
-	        'created_at' => Yii::t('golf', 'Created At'),
-	        'updated_at' => Yii::t('golf', 'Updated At'),
-        ];
+        return array_merge(
+			parent::rules(),
+			[
+				'flightMethods' => Yii::t('golf', 'Flight Building Methods'),
+				'teamMethods' => Yii::t('golf', 'Team Building Methods'),
+				'matchMethods' => Yii::t('golf', 'Match Building Methods'),
+			]
+        );
     }
 
     /**
@@ -83,6 +82,7 @@ class Rule extends _Rule
 	            [['source_direction'], 'in', 'range' => array_keys(Scorecard::getConstants('DIRECTION_'))],
             	[['source_type', 'destination_type'], 'in', 'range' => array_keys(Scorecard::getConstants('SCORE_'))],
 	            [['status'], 'in', 'range' => array_keys(self::getConstants('STATUS_'))],
+	            [['flightMethods', 'teamMethods', 'matchMethods'], 'safe'],
         	]
 		);
     }

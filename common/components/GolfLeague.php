@@ -17,14 +17,14 @@ class GolfLeague extends Component
 	public $handicapSystem;
 	public $handicap_system;
 	
+	public $flightMethods;
+	public $teamMethods;
+	public $matchMethods;
+
 	public function init() {
 		parent::init();
 		$r = new \ReflectionClass($this->handicapSystem);
 		$this->handicap_system = $r->newInstance();
-		$container = new Container;
-		$container->set('common\models\Rules', [
-		    'flightMethods' => ['Chrono'],
-		]);
 	}
 
 	/**

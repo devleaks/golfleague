@@ -2,9 +2,10 @@
 
 namespace common\models;
 
-use Yii;
 use common\behaviors\Constant;
-use dektrium\user\models\User;
+use common\models\User;
+
+use Yii;
 use yii\db\ActiveRecord;
 
 /**
@@ -62,6 +63,7 @@ class Golfer extends _Golfer implements Opponent {
     {
         return [
             'id' => Yii::t('golf', 'Golfer'),
+        	'league_id' => Yii::t('golf', 'League'),
             'name' => Yii::t('golf', 'Name'),
             'email' => Yii::t('golf', 'Email'),
             'phone' => Yii::t('golf', 'Phone'),

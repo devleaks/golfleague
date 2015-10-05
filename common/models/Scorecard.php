@@ -177,13 +177,6 @@ class Scorecard extends _Scorecard
 	}
 	
 	/**
-	 * Returns practice round associated with scorecard, usually only one practice associated.
-	 */
-	public function getPractice() {
-		return $this->getPractices()->one();
-	}
-	
-	/**
 	 * Creates Score entry for each hole of the scorecard if none exists.
 	 */
 	public function makeScores() {

@@ -2,8 +2,11 @@
 
 use common\models\Facility;
 use common\models\Golfer;
+use common\models\League;
 use dektrium\user\models\User;
+
 use yii2mod\selectize\Selectize;
+
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -16,6 +19,8 @@ use yii\widgets\ActiveForm;
 <div class="golfer-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'league_id')->dropDownList(ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Select League']) ?>
 
     <?= $form->field($model, 'user_id')->dropDownList(ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'), ['prompt' => 'Select Yii User']) ?>
 

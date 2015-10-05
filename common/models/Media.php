@@ -26,10 +26,23 @@ class Media extends _Media
     const THUMBNAIL_SIZE = 150; // px;
 
     /**
-     * Maximum size of thumbnail images associated with ads
-     * @var integer
+     * URL to view media
+     * @var string
      */
     const MEDIA_ROOT_URL = '/uploads';
+
+    /**
+     * Path to store media
+     * @var string
+     */
+	const MEDIA_ROOT_PATH = '@common/uploads';
+
+    /**
+     * Comma separated list of accepted media format (mime types)
+     * @var string
+     */
+	const ACCEPTED_FORMATS = 'image/jpeg, image/png, image/gif';
+
 
     /**
      * @inheritdoc

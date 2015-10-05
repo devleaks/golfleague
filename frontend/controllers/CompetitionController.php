@@ -7,6 +7,7 @@ use common\models\Competition;
 use common\models\search\CompetitionSearch;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class CompetitionController extends Controller
 {

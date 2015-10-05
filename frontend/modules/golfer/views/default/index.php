@@ -18,13 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="golfer-profile-index">
 
-	<div class="row">
-		<div class="col-lg-8">
-			<?php if(!$model): ?>
-				<div class="alert alert-info">
-					Your are not registered as a golfer.
-				</div>
-			<?php else: ?>
+<?php if(!$model): ?>
+	<div class="alert alert-info">
+		Your are not registered as a golfer.
+	</div>
+<?php else: ?>
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
@@ -65,26 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
         ],
     ]) ?>
-
-			<?php endif; ?>
-		</div>
-		
-		<div class="col-lg-4">
-		    <h3><?= Yii::t('goflleague', 'Menu') ?></h3>
-
-		    <h3><?= Yii::t('goflleague', 'Enter score') ?></h3>
-
-				List of registration, with date of event in the past, for which there is no completed scorecard.
-
-		    <h3><?= Yii::t('goflleague', 'Register') ?></h3>
-
-				List of matches, with date in future, where player is allowed to play.
-
-		    <h3><?= Yii::t('goflleague', 'Recent results') ?></h3>
-
-				List of completed scorecards, with links to leaderboards, etc.
-		</div>
-	</div>
-
+<?php endif; ?>
 
 </div>

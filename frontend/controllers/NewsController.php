@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use common\models\Message;
+use yii\web\NotFoundHttpException;
 
 class NewsController extends Controller
 {

@@ -2,11 +2,12 @@
 
 namespace backend\modules\admin\controllers;
 
-use Yii;
 use common\models\Rule;
 use common\models\search\RuleSearch;
 use common\models\Point;
 use backend\controllers\DefaultController as GolfLeagueController;
+
+use Yii;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\VarDumper;
@@ -72,6 +73,8 @@ class RuleController extends GolfLeagueController
     public function actionCreate()
     {
         $model = new Rule();
+
+		Yii::trace(print_r($model->attributes, true), 'RuleController::actionCreate');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			if(!in_array($model->rule_type, [Rule::TYPE_STROKEPLAY, Rule::TYPE_MATCHPLAY])) {

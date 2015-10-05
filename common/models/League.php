@@ -21,6 +21,7 @@ class League extends _League
             'email' => Yii::t('golf', 'Email'),
             'website' => Yii::t('golf', 'Website'),
             'units' => Yii::t('golf', 'Units'),
+            'owner_id' => Yii::t('golf', 'Owner'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
         ];

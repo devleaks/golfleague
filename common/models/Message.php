@@ -68,6 +68,7 @@ class Message extends _Message
     {
         return [
             'id' => Yii::t('golf', 'Message'),
+        	'league_id' => Yii::t('golf', 'League'),
             'subject' => Yii::t('golf', 'Subject'),
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
