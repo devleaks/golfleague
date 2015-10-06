@@ -15,7 +15,7 @@ $this->title = 'Yii Golf League';
 
         <p><a class="btn btn-lg btn-success" href="<?= Url::to(['/user/login']) ?>">Get started with Your Golf League</a></p>
 
-		<img src="images/welcome.png" class="center" />
+		<img src="/igolf/images/welcome.png" class="center" />
 
     </div>
 
