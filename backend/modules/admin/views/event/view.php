@@ -1,8 +1,14 @@
 <?php
 
-use yii\helpers\Html;
-use kartik\detail\DetailView;
 use common\models\Event;
+use common\models\Facility;
+use common\models\League;
+
+use kartik\detail\DetailView;
+
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Event */
@@ -20,6 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
+            [
+                'attribute'=>'league_id',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
+                'value'=> $model->league ? $model->league->name : '',
+            ],
+            [
+                'attribute'=>'facility_id',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => ArrayHelper::map(Facility::find()->asArray()->all(), 'id', 'name'),
+                'value'=> $model->facility ? $model->facility->name : '',
+            ],
             'name',
             'description',
 			[

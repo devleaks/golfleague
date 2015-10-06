@@ -275,7 +275,10 @@ class Registration extends _Registration implements Opponent
 		return $this->hasOne(Team::className(), ['id' => 'group_id'])->viaTable(GroupMember::tableName(), ['registration_id' => 'id']);
 	}
 
-	public function getOpponent() {
+    /**
+     * @inheritdoc
+     */
+	public function getOpponent() { //@todo: should check it is a matchplay?
 		$opponent = null;
 		if($match = $this->getMatch()->one()) {
 			foreach($match->getOpponents()->each() as $registration) {

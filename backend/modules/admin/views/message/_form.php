@@ -24,6 +24,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'league_id')->dropDownList([''=>'']+ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'), ['prompt' => 'Select League']) ?>
 
+    <?= $form->field($model, 'facility_id')->dropDownList([''=>''] + ArrayHelper::map(Facility::find()->asArray()->all(), 'id', 'name')) ?>
+
     <?= $form->field($model, 'subject')->textInput(['maxlength' => 80]) ?>
 
 	<?= $form->field($model, 'body')->widget(RedactorWidget::className(), [
@@ -39,8 +41,6 @@ use yii\widgets\ActiveForm;
 	]) ?>
 	
     <?= $form->field($model, 'message_type')->dropDownList(Message::getLocalizedConstants('TYPE_')) ?>
-
-    <?= $form->field($model, 'facility_id')->dropDownList([''=>''] + ArrayHelper::map(Facility::find()->asArray()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'message_start')->widget(DateTimePicker::classname(), [
             'pluginOptions' => [

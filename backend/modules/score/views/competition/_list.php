@@ -13,10 +13,37 @@ use yii\data\ActiveDataProvider;
 <div class="competition-list">
 
     <?= GridView::widget([
+		/**/
+		
+		'panelTemplate' =>'
+<div class="box {type}">
+    {panelHeading}
+    {panelBefore}
+    {items}
+    {panelAfter}
+    {panelFooter}
+</div>',
+		'panelHeadingTemplate' => '
+<div class="pull-right">
+    {summary}
+</div>
+<h3 class="box-title">
+    {heading}
+</h3>
+<div class="clearfix"></div>',
+		'panelFooterTemplate' => '
+<div class="kv-panel-pager">
+    {pager}
+</div>
+{footer}
+<div class="clearfix"></div>',
+
+		/**/
         'dataProvider' => $dataProvider,
 		'panel' => [
-	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($title).' </h3>',
-			'type' => Gridview::TYPE_SUCCESS,
+	        'heading' => '<h3 class="box-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($title).'</h3>',
+			'type' => ' box-success',
+			'headingOptions' => ['class' => 'box-heading'],
 			'footer' => false,
 		],
         'columns' => [

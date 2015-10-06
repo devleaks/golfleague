@@ -69,6 +69,7 @@ class Message extends _Message
         return [
             'id' => Yii::t('golf', 'Message'),
         	'league_id' => Yii::t('golf', 'League'),
+            'facility_id' => Yii::t('golf', 'Facility'),
             'subject' => Yii::t('golf', 'Subject'),
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
@@ -77,7 +78,6 @@ class Message extends _Message
             'message_start' => Yii::t('golf', 'Message Start'),
             'message_end' => Yii::t('golf', 'Message End'),
             'message_type' => Yii::t('golf', 'Message Type'),
-            'facility_id' => Yii::t('golf', 'Facility'),
             'media' => Yii::t('golf', 'Images'),
         ];
     }

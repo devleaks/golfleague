@@ -1,9 +1,9 @@
 <?php
 
-use common\components\MenuHelper;
+use common\models\User;
 use yii\helpers\Url;
 
-$role = MenuHelper::getRole();
+$role = User::getRole();
 
 ?><aside class="main-sidebar">
 

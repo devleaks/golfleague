@@ -535,18 +535,10 @@ class Scorecard extends _Scorecard
 
 
 	public function getOpponent() {
-		$opponent = null;
-		if($r = $this->getRegistration()) {
-			if($m = $r->getMatch()->one()) {
-				foreach($m->getRegistrations()->each() as $r2) {
-					if($r2->id != $r->id) {
-						$opponent = $r2;
-						//Yii::trace('opponent is '.$opponent->id, "Scorecard::getOpponent");
-					}
-				}
-			}
+		if($r = $this->getRegistration()->one()) {
+			return $r->getOpponent();
 		}
-		return $opponent;
+		return null;
 	}
 
     /**

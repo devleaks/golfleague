@@ -78,6 +78,8 @@ class Event extends _Event
     {
         return [
             'id' => Yii::t('golf', 'Event'),
+	    	'league_id' => Yii::t('golf', 'League'),
+	        'facility_id' => Yii::t('golf', 'Facility'),
             'object_type' => Yii::t('golf', 'Object Type'),
             'object_id' => Yii::t('golf', 'Object'),
             'name' => Yii::t('golf', 'Name'),

@@ -1,11 +1,14 @@
 <?php
 
+use common\models\Facility;
+use common\models\League;
 use common\models\Message;
 
 use vova07\imperavi\Widget as RedactorWidget;
 
 use kartik\detail\DetailView;
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -25,6 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
+            [
+                'attribute'=>'league_id',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
+                'value'=>$model->facility->name,
+            ],
+            [
+                'attribute'=>'facility_id',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => ArrayHelper::map(Facility::find()->asArray()->all(), 'id', 'name'),
+                'value'=>$model->facility->name,
+            ],
             'subject',
 			[
                 'attribute'=>'body',

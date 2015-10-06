@@ -1,5 +1,4 @@
 <?php
-use common\components\MenuHelper;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
 use yii\bootstrap\Nav;
@@ -14,7 +13,6 @@ if(isset(Yii::$app->params['BootswatchTheme']))
 
 $asset = AppAsset::register($this);
 
-$role = MenuHelper::getRole();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -70,9 +68,6 @@ $role = MenuHelper::getRole();
 
             if(!Yii::$app->user->isGuest) {
                 $who = Yii::$app->user->identity->username;
-
-				if(YII_ENV == 'dev')
-					$menuItems[] = ['label' => Yii::t('golf', 'Development'), 'items' => MenuHelper::getDeveloperMenu($role)];
 
 				$user_menu = [];
 				$user_menu[] = ['label' => Yii::t('golf', 'Profile'), 'url' => ['/user/settings']];

@@ -14,8 +14,17 @@ use yii\di\Container;
  */
 class GolfLeague extends Component
 {
+	/** Default values */
+	const DAYS_BEFORE = 28;
+	const HANDICAP_SYSTEM = 'common\models\handicap\HandicapEGA';
+	
+
 	public $handicapSystem;
 	public $handicap_system;
+	
+	public $league_roles;
+	public $tee_colors;
+	public $days_before;
 	
 	public $flightMethods;
 	public $teamMethods;
@@ -23,8 +32,30 @@ class GolfLeague extends Component
 
 	public function init() {
 		parent::init();
-		$r = new \ReflectionClass($this->handicapSystem);
+		$r = new \ReflectionClass($this->handicapSystem ? $this->handicapSystem : self::HANDICAP_SYSTEM);
 		$this->handicap_system = $r->newInstance();
+		$this->league_roles = [
+			'super' => 'Super-Admin',
+			'admin' => 'Site Administrator',
+			'manager' => 'League Organiser',
+			'starter' => 'Starter',
+			'scorer' => 'Scorer',
+			'golfer' => 'Golfer',
+			'golferplus' => 'Golfer+',
+			'marker' => 'Marker'
+		];
+		$this->tee_colors = [
+			'yellow' => Yii::t('golf', 'Yellow'),
+			'black' => Yii::t('golf', 'Black'),
+			'white' => Yii::t('golf', 'White'),
+			'blue' => Yii::t('golf', 'Blue'),
+			'red' => Yii::t('golf', 'Red'),
+			'gold' => Yii::t('golf', 'Gold'),
+			'silver' => Yii::t('golf', 'Silver'),
+			'orange' => Yii::t('golf', 'Orange'),
+			'pink' => Yii::t('golf', 'Pink'),
+		];
+		$this->days_before = self::DAYS_BEFORE;
 	}
 
 	/**
@@ -66,4 +97,5 @@ class GolfLeague extends Component
 		}
 		return [];
 	}
+	
 }

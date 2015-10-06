@@ -8,7 +8,7 @@ use yii\helpers\VarDumper;
 /* @var $searchModel app\models\RegistrationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
-<div class="wrapper">
+<div class="well">
 
     <div class="brackets">
     </div>

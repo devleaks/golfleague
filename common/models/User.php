@@ -12,6 +12,7 @@ class User extends _User
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+	const DEFAULT_ROLE = 'golfer';
 
     /**
      * @inheritdoc
@@ -29,5 +30,19 @@ class User extends _User
                 ],
         ];
     }
+
+	/**
+	 * Returns "league" role of user, from roles attributiion. Default is golfer. Null if not loggued in.
+	 */
+    static public function getRole() {
+		if(!Yii::$app->user->isGuest) {
+			if($user = User::findOne(Yii::$app->user->identity->id))
+				if($key = array_search($user->role, Yii::$app->golfleague->league_roles))
+					return $key;
+			return self::DEFAULT_ROLE;
+		}
+		return null;
+	}
+
 
 }
