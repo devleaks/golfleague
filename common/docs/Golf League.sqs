@@ -632,7 +632,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>240.00</height>
+            <height>260.00</height>
         </size>
         <zorder>20</zorder>
         <SQLField>
@@ -691,6 +691,11 @@
             <name><![CDATA[layout]]></name>
             <type><![CDATA[VARCHAR(40)]]></type>
             <uid><![CDATA[3369070B-FFCF-481A-9B60-603DA4A94EE1]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[pattern_match]]></name>
+            <type><![CDATA[VARCHAR(40)]]></type>
+            <uid><![CDATA[EA783977-E534-408B-85B5-75224BB60C7D]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[owner_id]]></name>
@@ -1082,7 +1087,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>64.00</x>
-            <y>320.00</y>
+            <y>384.00</y>
         </location>
         <size>
             <width>256.00</width>
@@ -1274,7 +1279,7 @@
         <name><![CDATA[start]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>832.00</x>
+            <x>1216.00</x>
             <y>512.00</y>
         </location>
         <size>
@@ -1592,7 +1597,7 @@
         </location>
         <size>
             <width>256.00</width>
-            <height>440.00</height>
+            <height>460.00</height>
         </size>
         <zorder>7</zorder>
         <SQLField>
@@ -1648,6 +1653,11 @@
             <uid><![CDATA[97385F7A-E7E9-4659-BBEB-D6C2ED45F5AB]]></uid>
         </SQLField>
         <SQLField>
+            <name><![CDATA[team_score]]></name>
+            <type><![CDATA[TINYINT]]></type>
+            <uid><![CDATA[E00FAEE5-B39D-424A-9F47-1DFB846F17E8]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[handicap]]></name>
             <type><![CDATA[TINYINT]]></type>
             <uid><![CDATA[37BCEDEE-32CB-4EE3-A3C1-B91C20AF5D70]]></uid>
@@ -1675,6 +1685,7 @@
         <SQLField>
             <name><![CDATA[classname]]></name>
             <type><![CDATA[VARCHAR(80)]]></type>
+            <forcedUnique><![CDATA[0]]></forcedUnique>
             <temporaryOriginalName><![CDATA[name_1]]></temporaryOriginalName>
             <uid><![CDATA[9E6F7120-C596-40E8-B162-5ED5152D0427]]></uid>
             <unique><![CDATA[0]]></unique>
@@ -2775,7 +2786,7 @@ LWE0hoaG
         <windowHeight><![CDATA[1301.000000]]></windowHeight>
         <windowLocationX><![CDATA[462.000000]]></windowLocationX>
         <windowLocationY><![CDATA[116.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{0, 646}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{1, 0}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1680.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
