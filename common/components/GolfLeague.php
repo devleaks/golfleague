@@ -2,6 +2,8 @@
 
 namespace common\components;
 
+use common\models\League;
+
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
@@ -18,6 +20,7 @@ class GolfLeague extends Component
 	const DAYS_BEFORE = 28;
 	const HANDICAP_SYSTEM = 'common\models\handicap\HandicapEGA';
 	
+	public $league;
 
 	public $handicapSystem;
 	public $handicap_system;
@@ -32,12 +35,14 @@ class GolfLeague extends Component
 
 	public function init() {
 		parent::init();
+		
+		// $this->league = League::findOne(Yii::$app->user->league_id);		
+		
 		$r = new \ReflectionClass($this->handicapSystem ? $this->handicapSystem : self::HANDICAP_SYSTEM);
 		$this->handicap_system = $r->newInstance();
 		$this->league_roles = [
-			'super' => 'Super-Admin',
 			'admin' => 'Site Administrator',
-			'manager' => 'League Organiser',
+			'manager' => 'League Manager',
 			'starter' => 'Starter',
 			'scorer' => 'Scorer',
 			'golfer' => 'Golfer',

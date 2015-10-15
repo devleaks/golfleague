@@ -12,7 +12,7 @@ use Yii;
  * @property string $name
  * @property string $email
  * @property string $phone
- * @property double $handicap
+ * @property string $handicap
  * @property string $gender
  * @property string $birthdate
  * @property string $hand
@@ -20,11 +20,14 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  * @property integer $facility_id
+ * @property integer $league_id
  *
- * @property Facility $facility
+ * @property League $league
  * @property User $user
+ * @property Facility $facility
+ * @property HandicapHistory[] $handicapHistories
+ * @property Practice[] $practices
  * @property Registration[] $registrations
- * @property Scorecard[] $scorecards
  */
 class _Golfer extends \yii\db\ActiveRecord
 {
@@ -42,7 +45,7 @@ class _Golfer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'facility_id'], 'integer'],
+            [['user_id', 'facility_id', 'league_id'], 'integer'],
             [['name'], 'required'],
             [['handicap'], 'number'],
             [['birthdate', 'created_at', 'updated_at'], 'safe'],
@@ -73,15 +76,16 @@ class _Golfer extends \yii\db\ActiveRecord
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
             'facility_id' => Yii::t('golf', 'Facility ID'),
+            'league_id' => Yii::t('golf', 'League ID'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFacility()
+    public function getLeague()
     {
-        return $this->hasOne(Facility::className(), ['id' => 'facility_id']);
+        return $this->hasOne(League::className(), ['id' => 'league_id']);
     }
 
     /**
@@ -95,16 +99,32 @@ class _Golfer extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRegistrations()
+    public function getFacility()
     {
-        return $this->hasMany(Registration::className(), ['golfer_id' => 'id']);
+        return $this->hasOne(Facility::className(), ['id' => 'facility_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getScorecards()
+    public function getHandicapHistories()
     {
-        return $this->hasMany(Scorecard::className(), ['golfer_id' => 'id']);
+        return $this->hasMany(HandicapHistory::className(), ['golfer_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPractices()
+    {
+        return $this->hasMany(Practice::className(), ['golfer_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegistrations()
+    {
+        return $this->hasMany(Registration::className(), ['golfer_id' => 'id']);
     }
 }

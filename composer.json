@@ -87,6 +87,13 @@
         "process-timeout": 1800
     },
     "extra": {
+	    "asset-repositories": [
+	         {
+	             "name": "bower-asset/eventemitter",
+	             "type": "bower-vcs",
+	             "url": "git://github.com/Olical/EventEmitter.git"
+	         }
+	     ],
         "asset-installer-paths": {
             "npm-asset-library": "vendor/npm",
             "bower-asset-library": "vendor/bower"

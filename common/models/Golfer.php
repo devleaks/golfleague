@@ -105,4 +105,12 @@ class Golfer extends _Golfer implements Opponent {
 		return $this->name;
 	}
 	
+	public function getHandicapHistory($count = 10) {
+		$hh = [];
+		foreach($this->getHandicapHistories()->orderBy('event_date desc')->limit($count)->each() as $h) {
+			$hh[] = $h->new_handicap;
+		}
+		return count($hh) > 0 ? array_reverse($hh) : null;
+	}
+	
 }

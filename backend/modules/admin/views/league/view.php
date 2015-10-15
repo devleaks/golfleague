@@ -39,12 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
 				'items' => Facility::getLocalizedConstants('UNITS_'),
 			],
             [
-				'attribute' => 'owner_id',
-				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'),
-				'value'=> $model->owner ? $model->owner->username : '',     
-			],
-            [
                 'attribute'=>'created_at',
                 'format'=>['datetime',(isset(Yii::$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A'],
                 'type'=>DetailView::INPUT_WIDGET,

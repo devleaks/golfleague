@@ -1,15 +1,28 @@
 <?php
 
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
-use kartik\detail\DetailView;
 use common\models\Facility;
 use common\models\Golfer;
 use common\models\User;
+
+use kartik\detail\DetailView;
+
+use machour\sparkline\Sparkline;
 use yii2mod\selectize\Selectize;
+
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Golfer */
+$h = '';
+if($hh = $model->getHandicapHistory()) {
+	$h = Sparkline::widget([
+	    'data' => $hh,
+	    'clientOptions' => [
+	        'type' => 'line',
+	    ],
+	]);
+}
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Golfers'), 'url' => ['index']];
@@ -20,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
 		'panel'=>[
-	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-user"></i>  '.Html::encode($this->title).' </h3>',
+	        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-user"></i>  '.Html::encode($this->title).'</h3>',
 	    ],
 		'labelColOptions' => ['style' => 'width: 30%'],
         'attributes' => [
@@ -28,7 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'email:email',
             'phone',
-            'handicap',
+            [
+				'attribute' => 'handicap',
+				'value' => $model->handicap.' '.$h,
+				'format' => 'raw',
+			],
             [
 				'attribute' => 'gender',
 				'type' => DetailView::INPUT_RADIO_LIST,

@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'condensed'=>true,
         'floatHeader'=>true,
         'panel' => [
-            'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-warning-sign"></i> '.Html::encode($this->title).' </h3>',
+            'heading'=>'<h3 class="panel-title"><i class="fa fa-download"></i> '.Html::encode($this->title).' </h3>',
             'before'=>false,
             'showFooter'=>false
         ],

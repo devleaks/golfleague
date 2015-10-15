@@ -1,9 +1,6 @@
 <?php
 
-use common\models\User;
 use yii\helpers\Url;
-
-$role = User::getRole();
 
 ?><aside class="main-sidebar">
 
@@ -17,7 +14,7 @@ $role = User::getRole();
             <div class="pull-left info">
                 <p><?= Yii::$app->user->identity->username ?></p>
 
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online - <?= Yii::$app->user->identity->role ?></a>
             </div>
         </div>
 

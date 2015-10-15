@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "34d8042fce9a23a9b22b04aaeafe7b53",
-    "content-hash": "b0544fc42b2cb4286c501e61d5065e47",
+    "hash": "28bc896794ae46d1fd9efcdcc48ca3e3",
+    "content-hash": "724dd8977093f2a9e1437bb7ef422147",
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -448,12 +448,12 @@
             "version": "v4.2.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Wolfy87/EventEmitter.git",
+                "url": "https://github.com/Olical/EventEmitter.git",
                 "reference": "4e1bee26addc8eb16d36d77906e5d64554fc3d16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Wolfy87/EventEmitter/zipball/4e1bee26addc8eb16d36d77906e5d64554fc3d16",
+                "url": "https://api.github.com/repos/Olical/EventEmitter/zipball/4e1bee26addc8eb16d36d77906e5d64554fc3d16",
                 "reference": "4e1bee26addc8eb16d36d77906e5d64554fc3d16",
                 "shasum": ""
             },

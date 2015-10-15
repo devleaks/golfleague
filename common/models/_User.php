@@ -9,22 +9,26 @@ use Yii;
  *
  * @property integer $id
  * @property string $username
+ * @property string $email
+ * @property string $role
+ * @property integer $flags
  * @property string $auth_key
  * @property string $password_hash
- * @property string $email
  * @property integer $confirmed_at
  * @property string $unconfirmed_email
  * @property integer $blocked_at
  * @property integer $registration_ip
  * @property integer $created_at
  * @property integer $updated_at
- * @property integer $flags
- * @property string $role
+ * @property integer $league_id
  *
  * @property Golfer[] $golfers
+ * @property League[] $leagues
+ * @property Message[] $messages
  * @property Profile $profile
  * @property SocialAccount[] $socialAccounts
  * @property Token[] $tokens
+ * @property League $league
  */
 class _User extends \yii\db\ActiveRecord
 {
@@ -42,12 +46,12 @@ class _User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
-            [['confirmed_at', 'blocked_at', 'registration_ip', 'created_at', 'updated_at', 'flags'], 'integer'],
+            [['username', 'email', 'auth_key', 'password_hash', 'created_at', 'updated_at'], 'required'],
+            [['flags', 'confirmed_at', 'blocked_at', 'registration_ip', 'created_at', 'updated_at', 'league_id'], 'integer'],
             [['username'], 'string', 'max' => 25],
+            [['email', 'role', 'unconfirmed_email'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['password_hash'], 'string', 'max' => 60],
-            [['email', 'unconfirmed_email', 'role'], 'string', 'max' => 255],
             [['username'], 'unique'],
             [['email'], 'unique']
         ];
@@ -61,17 +65,18 @@ class _User extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('golf', 'ID'),
             'username' => Yii::t('golf', 'Username'),
+            'email' => Yii::t('golf', 'Email'),
+            'role' => Yii::t('golf', 'Role'),
+            'flags' => Yii::t('golf', 'Flags'),
             'auth_key' => Yii::t('golf', 'Auth Key'),
             'password_hash' => Yii::t('golf', 'Password Hash'),
-            'email' => Yii::t('golf', 'Email'),
             'confirmed_at' => Yii::t('golf', 'Confirmed At'),
             'unconfirmed_email' => Yii::t('golf', 'Unconfirmed Email'),
             'blocked_at' => Yii::t('golf', 'Blocked At'),
             'registration_ip' => Yii::t('golf', 'Registration Ip'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
-            'flags' => Yii::t('golf', 'Flags'),
-            'role' => Yii::t('golf', 'Role'),
+            'league_id' => Yii::t('golf', 'League ID'),
         ];
     }
 
@@ -81,6 +86,14 @@ class _User extends \yii\db\ActiveRecord
     public function getGolfers()
     {
         return $this->hasMany(Golfer::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMessages()
+    {
+        return $this->hasMany(Message::className(), ['created_by' => 'id']);
     }
 
     /**
@@ -105,5 +118,13 @@ class _User extends \yii\db\ActiveRecord
     public function getTokens()
     {
         return $this->hasMany(Token::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLeague()
+    {
+        return $this->hasOne(League::className(), ['id' => 'league_id']);
     }
 }

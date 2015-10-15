@@ -36,7 +36,6 @@ use yii\helpers\Html;
 
 'units'=>['type'=> Form::INPUT_DROPDOWN_LIST, 'items' => Facility::getLocalizedConstants('UNITS_'), 'options'=>['placeholder'=>'Enter Units...', 'maxlength'=>20]], 
 
-'owner_id'=>['type'=> Form::INPUT_DROPDOWN_LIST, 'items' => ArrayHelper::map(User::find()->asArray()->all(), 'id', 'username'), 'options'=>['placeholder'=>'Select Yii User']],
 
 	]
     ]);

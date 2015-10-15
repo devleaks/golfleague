@@ -1,9 +1,12 @@
 <?php
 
-use common\models\User;
 use yii\helpers\Url;
+use common\models\League;
 
-$role = User::getRole();
+$role = Yii::$app->user->identity->role;
+if($league = $league = League::findOne(Yii::$app->user->identity->league_id)) {	
+	$role .= ' '.$league->name ;
+}
 
 ?><aside class="main-sidebar">
 
@@ -17,7 +20,7 @@ $role = User::getRole();
             <div class="pull-left info">
                 <p><?= Yii::$app->user->identity->username ?></p>
 
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online - <?= $role ?></a>
             </div>
         </div>
 
@@ -72,7 +75,8 @@ $role = User::getRole();
                         'url' => '#',
                         'items' => [
                             ['label' => 'Leagues', 'icon' => 'fa fa-trophy', 'url' => ['/admin/league'],],
-	                        ['label' => 'Users and Access', 'icon' => 'fa fa-user', 'url' => ['/user/admin'],],
+                        	['label' => 'Users', 'icon' => 'fa fa-user', 'url' => ['/admin/user'],],
+	                        ['label' => 'Accounts', 'icon' => 'fa fa-user', 'url' => ['/user/admin'],],
 	                        ['label' => 'Backup', 'icon' => 'fa fa-download', 'url' => ['/admin/backup'],],
 
 						],
