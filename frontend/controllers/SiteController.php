@@ -70,4 +70,12 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    /**
+     * Search action
+     */
+	public function actionSearch($q) {
+        return $this->render('search', [
+			'query' => $q,
+        ]);
+	}
 }

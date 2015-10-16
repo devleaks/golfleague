@@ -4,7 +4,6 @@ namespace backend\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use common\models\LoginForm;
 use yii\filters\VerbFilter;
 
 /**
@@ -73,8 +72,12 @@ class SiteController extends Controller
     }
 
 
-	public function actionSearch($search) {
-		Yii::$app->session->setFlash('warning', Yii::t('golf', 'Search function is not active yet.'));
-		return $this->redirect(['/admin/competition', 'sort' => '-created_at']);
+    /**
+     * Search action
+     */
+	public function actionSearch($q) {
+        return $this->render('search', [
+			'query' => $q,
+        ]);
 	}
 }

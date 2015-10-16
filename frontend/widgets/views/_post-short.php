@@ -4,8 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\FlightSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $model Model to display */
 ?>
 <div class="news-post-short">
 
