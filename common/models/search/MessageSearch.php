@@ -15,8 +15,8 @@ class MessageSearch extends Message
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['subject', 'body', 'message_start', 'message_end', 'message_type', 'status', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'league_id'], 'integer'],
+            [['subject', 'body', 'message_start', 'message_end', 'message_type', 'status', 'created_at', 'updated_at', 'league_id'], 'safe'],
         ];
     }
 
@@ -40,6 +40,7 @@ class MessageSearch extends Message
 
         $query->andFilterWhere([
             'id' => $this->id,
+    		'league_id' => $this->league_id,
             'message_start' => $this->message_start,
             'message_end' => $this->message_end,
             'created_at' => $this->created_at,

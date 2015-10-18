@@ -184,6 +184,28 @@ class Competition extends _Competition
 	    }
 	}
 	
+	
+	/**
+	 * 
+	 */
+	public function deleteCascade() {
+		if(! $this->hasChildren()) {
+			foreach($this->getRegistrations()->each() as $registration) {
+				$registration->deleteCascade();
+			}
+			foreach($this->getStarts()->each() as $start) {
+				$start->delete();
+			}
+			
+			return $this->delete();
+		}
+		return false;
+	}
+	
+	public function hasChildren() {
+		return $this->getCompetitions()->exists();
+	}
+
 	/**
 	 * More relations
 	 */
@@ -456,6 +478,9 @@ class Competition extends _Competition
 				break;
 	    }
 		$new->competition_type = $type;
+		if(!Yii::$app->user->identity->isA(User::ROLE_ADMIN)) {
+			$new->league_id = Yii::$app->user->identity->league_id;
+		}
 		return $new;
 	}
 

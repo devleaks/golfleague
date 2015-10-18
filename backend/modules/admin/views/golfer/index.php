@@ -1,7 +1,12 @@
 <?php
 
-use yii\helpers\Html;
+use common\models\League;
+use common\models\User;
+
 use kartik\grid\GridView;
+
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\GolferSearch */
@@ -26,7 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'showFooter'=>false
         ],
         'columns' => [
-            ['class' => 'kartik\grid\SerialColumn'],
+			[
+				'attribute' => 'league_id',
+				'filter' => ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
+				'visible' => Yii::$app->user->identity->isA(User::ROLE_ADMIN),
+	            'value' => function ($model, $key, $index, $widget) {
+	                return $model->league ? $model->league->name : '';
+	            },
+			],
             [
 				'attribute' => 'name',
 				'noWrap' => true,

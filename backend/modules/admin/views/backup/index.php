@@ -10,8 +10,8 @@ use yii\widgets\ActiveForm;
 /* @var $searchModel app\models\BackupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('store', 'Backups');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('store', 'Administration'), 'url' => ['/admin']];
+$this->title = Yii::t('golf', 'Backups');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Administration'), 'url' => ['/admin']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="backup-index">
@@ -44,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
 					'restore' => function ($url, $model) {
 						return defined('YII_DEVLEAKS') ? 
 									Html::a('<span class="glyphicon glyphicon-warning-sign"></span>', Url::to(['restore-dev', 'id' => $model->id]), [
-										'title' => Yii::t('store', 'Restore database only'),
-										'data-confirm' => Yii::t('store', 'Restore database?')
+										'title' => Yii::t('golf', 'Restore database only'),
+										'data-confirm' => Yii::t('golf', 'Restore database?')
 									]) : '';
 					}
 				],
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    <?= $form->field($model, 'note')->textInput(['maxlength' => 160]) ?>
 
 	    <div class="form-group">
-	        <?= Html::submitButton(Yii::t('store', 'Create Backup'), ['class' => 'btn btn-success']) ?>
+	        <?= Html::submitButton(Yii::t('golf', 'Create Backup'), ['class' => 'btn btn-success']) ?>
 	    </div>
 	    <?php ActiveForm::end(); ?>
 

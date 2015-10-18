@@ -46,4 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+	<?=	$this->render('../media/_add', [
+		'model' => $model,
+	])?>
+
 </div>

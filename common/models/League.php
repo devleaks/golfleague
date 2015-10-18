@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\behaviors\MediaBehavior;
+
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -10,6 +12,8 @@ use yii\db\ActiveRecord;
  */
 class League extends _League
 {
+	const MAX_IMAGES = 1;
+	
     /**
      * @inheritdoc
      */
@@ -24,6 +28,10 @@ class League extends _League
                         ],
                         'value' => function() { return date('Y-m-d H:i:s'); /* mysql datetime format is ‘AAAA-MM-JJ HH:MM:SS’*/},
                 ],
+				'uploadFile' => [
+	                'class' => MediaBehavior::className(),
+	                'mediasAttributes' => ['media']
+	            ],
         ];
     }
 

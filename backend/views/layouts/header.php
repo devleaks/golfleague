@@ -3,7 +3,9 @@ use common\models\Golfer;
 
 use yii\helpers\Html;
 
-$golfer = Golfer::findOne(['user_id' => Yii::$app->user->identity->id]);
+$golfer = null;
+if(!Yii::$app->user->isGuest)
+	$golfer = Golfer::findOne(['user_id' => Yii::$app->user->identity->id]);
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
@@ -232,13 +234,13 @@ $golfer = Golfer::findOne(['user_id' => Yii::$app->user->identity->id]);
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="/uploads/profile/<?= Yii::$app->user->identity->username ?>.jpg" class="user-image" alt="User Image"/>
+                        <img src="<?= Yii::$app->user->identity->getProfilePicture() ?>" class="user-image" alt="User Image"/>
                         <span class="hidden-xs"><?= Yii::$app->user->identity->username ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="/uploads/profile/<?= Yii::$app->user->identity->username ?>.jpg" class="img-circle"
+                            <img src="<?= Yii::$app->user->identity->getProfilePicture() ?>" class="img-circle"
                                  alt="User Image"/>
 
                             <p>

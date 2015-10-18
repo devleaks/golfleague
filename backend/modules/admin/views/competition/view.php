@@ -2,9 +2,11 @@
 
 use common\models\Competition;
 use common\models\Course;
+use common\models\League;
 use common\models\Rule;
 use common\models\Season;
 use common\models\Tournament;
+use common\models\User;
 use common\models\search\RoundSearch;
 use common\models\search\StartSearch;
 use common\models\search\TournamentSearch;
@@ -48,6 +50,13 @@ if($model->recurrence) { // strips "RRULE:" at begining of string
             //'competition_type',
             'name',
             'description',
+            [
+				'attribute' => 'league_id',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => ArrayHelper::map([''=>'']+League::find()->asArray()->all(), 'id', 'name'),
+				'value' => $model->league_id ? $model->league->name : '',
+				'displayOnly' => !Yii::$app->user->identity->isA(User::ROLE_ADMIN),
+			],
             [
                 'attribute'=>'parent_id',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,

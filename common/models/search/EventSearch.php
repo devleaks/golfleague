@@ -18,8 +18,8 @@ class EventSearch extends Event
     public function rules()
     {
         return [
-            [['id', 'object_id'], 'integer'],
-            [['object_type', 'name', 'description', 'created_at', 'updated_at', 'event_type', 'status', 'event_start', 'event_end'], 'safe'],
+            [['id', 'object_id', 'league_id'], 'integer'],
+            [['object_type', 'name', 'description', 'created_at', 'updated_at', 'event_type', 'status', 'event_start', 'event_end', 'league_id'], 'safe'],
         ];
     }
 
@@ -53,6 +53,7 @@ class EventSearch extends Event
 
         $query->andFilterWhere([
             'id' => $this->id,
+        	'league_id' => $this->league_id,
             'object_id' => $this->object_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

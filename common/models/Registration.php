@@ -253,6 +253,34 @@ class Registration extends _Registration implements Opponent
 		if(!$this->hasChildren())
 			parent::delete();
 	}
+	
+	/**
+	 * 
+	 */
+	protected function deleteScorecard() {
+		if($scorecard = $this->getScorecard()->one()) {
+			$this->scorecard_id = null;
+			$this->save();
+			$this->refresh();
+			$scorecard->delete();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public function deleteCascade() {
+		$transaction = Yii::$app->db->beginTransaction();
+
+		$this->deleteScorecard();
+		
+		foreach($this->getGroups()->each() as $group) {
+			$group->remove($this);
+		}
+		
+		$this->delete();
+		$transaction->commit();
+	}
 
     /**
      * @inheritdoc
@@ -273,6 +301,13 @@ class Registration extends _Registration implements Opponent
      */
 	public function getTeam() {
 		return $this->hasOne(Team::className(), ['id' => 'group_id'])->viaTable(GroupMember::tableName(), ['registration_id' => 'id']);
+	}
+	
+	/**
+	 * 
+	 */
+	protected function getGroups() {
+        return $this->hasMany(Group::className(), ['id' => 'group_id'])->viaTable(GroupMember::tableName(), ['registration_id' => 'id']);
 	}
 
     /**
@@ -331,20 +366,8 @@ class Registration extends _Registration implements Opponent
 	}
 
 	/**
-	 * Returns registration's associated scorecard. Creates one if none exists.
-	 *
-	 * @param boolean $detailed Whether to create hole detail score for scorecard
-	 *
-	 * return common\models\Scorecard
+	 * return boolean
 	 */
-	public function getScorecard($detailed = false) {
-		if($scorecard = parent::getScorecard()->one()) {
-			return $scorecard;
-		} else {
-			return $this->makeScorecard($detailed);
-		}
-	}
-
 	public function hasScore() {
 		if($scorecard = $this->getScorecard()) {
 			return $scorecard->hasScore();

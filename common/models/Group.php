@@ -182,8 +182,14 @@ class Group extends _Group {
 	/**
 	 * Removes one registration from group
 	 */
+	protected function deleteIfEmpty() {
+		if(! $this->getGroupMembers()->exists())
+			return $this->delete();
+		return false;
+	}
+	
 	public function remove($registration) {
-		if($link = $this->getGroupMembers()->andWhere(['registration_id' => $registration->id])) {
+		if($link = $this->getGroupMembers()->andWhere(['registration_id' => $registration->id])->one()) {
 			$this->handicap -= $registration->getHandicap();
 			$this->save();
 			return $link->delete();

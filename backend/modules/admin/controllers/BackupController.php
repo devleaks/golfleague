@@ -83,11 +83,11 @@ class BackupController extends Controller
 		$model->load(Yii::$app->request->post());
 		
 		if($model->doBackup() && $model->save()) {
-			Yii::$app->session->setFlash('success', Yii::t('store', 'Backup completed.'));
+			Yii::$app->session->setFlash('success', Yii::t('golf', 'Backup completed.'));
 			return $this->redirect(['index']);
 		}
 
-		Yii::$app->session->setFlash('error', Yii::t('store', 'There was an error producing the backup: {0}.', VarDumper::dumpAsString($model->errors, 4, true))); 			
+		Yii::$app->session->setFlash('error', Yii::t('golf', 'There was an error producing the backup: {0}.', VarDumper::dumpAsString($model->errors, 4, true))); 			
 		return $this->redirect(['index']);
     }
 
@@ -157,18 +157,18 @@ class BackupController extends Controller
 		$fn = Yii::getAlias('@runtime') . '/backup/' . $model->filename;
 		
 		if(Backup::restore($fn))
-			Yii::$app->session->setFlash('success', Yii::t('store', 'Backup restored.'));
+			Yii::$app->session->setFlash('success', Yii::t('golf', 'Backup restored.'));
 		else
-			Yii::$app->session->setFlash('danger', Yii::t('store', 'Backup not restored.'));
+			Yii::$app->session->setFlash('danger', Yii::t('golf', 'Backup not restored.'));
 		
 		return $this->redirect(['/']);
 	}
 
 	public function actionDoRestore() {
 		if(Backup::restore())
-			Yii::$app->session->setFlash('success', Yii::t('store', 'Backup restored.'));
+			Yii::$app->session->setFlash('success', Yii::t('golf', 'Backup restored.'));
 		else
-			Yii::$app->session->setFlash('danger', Yii::t('store', 'Backup not restored.'));
+			Yii::$app->session->setFlash('danger', Yii::t('golf', 'Backup not restored.'));
 		
 		return $this->redirect(['/']);
 	}

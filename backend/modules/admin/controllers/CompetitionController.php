@@ -4,6 +4,7 @@ namespace backend\modules\admin\controllers;
 
 use Yii;
 use common\models\Competition;
+use common\models\User;
 use common\models\search\CompetitionSearch;
 use backend\controllers\DefaultController as GolfLeagueController;
 use yii\web\NotFoundHttpException;
@@ -34,6 +35,9 @@ class CompetitionController extends GolfLeagueController
     {
         $searchModel = new CompetitionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		if(!Yii::$app->user->identity->isA(User::ROLE_ADMIN)) {
+			$dataProvider->query->andWhere(['league_id' => Yii::$app->user->identity->league_id]);
+		}
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -144,7 +148,7 @@ class CompetitionController extends GolfLeagueController
 		if($model->getCompetitions()->exists())
 			Yii::$app->session->setFlash('warning', 'Competition contains other competitions and cannot be deleted. Delete dependent competitions first.');
 		else
-			$model->delete();
+			$model->deleteCascade();
 
         return $this->redirect(['index']);
     }

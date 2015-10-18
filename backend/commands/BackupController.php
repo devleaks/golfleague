@@ -17,10 +17,10 @@ class BackupController extends Controller {
 
 		if($model->doBackup($uniq != 'false')) {
 			if(!$model->save()) {
-				echo Yii::t('store', 'Backup info not saved.');
+				echo Yii::t('golf', 'Backup info not saved.');
 			}
 		} else {
-			echo Yii::t('store', 'There was an error producing the backup.');
+			echo Yii::t('golf', 'There was an error producing the backup.');
 		}
     }
 
@@ -29,10 +29,10 @@ class BackupController extends Controller {
 
 		if($model->doFullBackup($uniq != 'false')) {
 			if(!$model->save()) {
-				echo Yii::t('store', 'Backup info not saved.');
+				echo Yii::t('golf', 'Backup info not saved.');
 			}
 		} else {
-			echo Yii::t('store', 'There was an error producing the backup.');
+			echo Yii::t('golf', 'There was an error producing the backup.');
 		}
     }
 
@@ -50,7 +50,7 @@ class BackupController extends Controller {
 					->andWhere(['<=','created_at',$last])
 					->each() as $backup)
 			$backup->delete();
-		// echo Yii::t('store', 'Backup older than {0} deleted.', [$last]);
+		// echo Yii::t('golf', 'Backup older than {0} deleted.', [$last]);
     }
 
     public function actionDb() {

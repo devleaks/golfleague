@@ -1,9 +1,9 @@
 <?php
+
 use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-
 
 if (Yii::$app->controller->action->id === 'login') { 
 /**
@@ -15,6 +15,12 @@ if (Yii::$app->controller->action->id === 'login') {
         ['content' => $content]
     );
 } else {
+
+	/*if(Yii::$app->user->isGuest)
+	    echo Yii::$app->getResponse()->redirectt(['/user/security/login']);
+	else if(!in_array(Yii::$app->user->identity->role, ['admin', 'scorer', 'starter']))
+	    echo Yii::$app->getResponse()->redirect(['/user/security/login']);
+	*/
 
     if (class_exists('backend\assets\AppAsset')) {
         backend\assets\AppAsset::register($this);

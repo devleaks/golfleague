@@ -42,11 +42,11 @@ class _Backup extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('store', 'ID'),
-            'filename' => Yii::t('store', 'Filename'),
-            'note' => Yii::t('store', 'Note'),
-            'status' => Yii::t('store', 'Status'),
-            'created_at' => Yii::t('store', 'Created At'),
+            'id' => Yii::t('golf', 'ID'),
+            'filename' => Yii::t('golf', 'Filename'),
+            'note' => Yii::t('golf', 'Note'),
+            'status' => Yii::t('golf', 'Status'),
+            'created_at' => Yii::t('golf', 'Created At'),
         ];
     }
 }

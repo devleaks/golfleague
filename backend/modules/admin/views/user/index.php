@@ -1,6 +1,7 @@
 <?php
 
 use common\models\League;
+use common\models\User;
 
 use kartik\grid\GridView;
 
@@ -29,20 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'showFooter'=>false
         ],
         'columns' => [
-            ['class' => 'kartik\grid\SerialColumn'],
             [
 				'attribute' => 'username',
             ],
             [
 				'label' => Yii::t('golf', 'Golfer'),
                 'value' => function ($model, $key, $index, $widget) {
-                    return $model->golfer ? $model->golfer->name : '';
+                    return $model->golfer ? $model->golfer->name : Yii::t('golf', 'Not a golfer');
                 },
             ],
             'email:email',
             [
 				'attribute' => 'role',
-				'filter' => Yii::$app->golfleague->league_roles,
+				'filter' => User::getLocalizedConstants('ROLE_'),
             ],
             [
 				'label' => Yii::t('golf', 'League'),
@@ -51,6 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->league ? $model->league->name : '';
                 },
+				'visible' => Yii::$app->user->identity->isA(User::ROLE_ADMIN),
             ],
             [
 				'class' => 'kartik\grid\ActionColumn',

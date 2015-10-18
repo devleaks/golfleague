@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Facility;
+use common\models\League;
 use common\models\Golfer;
 use common\models\User;
 
@@ -69,6 +70,14 @@ $this->params['breadcrumbs'][] = $this->title;
 			        ]
 			    ]
 			],
+	        [
+				'label' => Yii::t('golf', 'League'),
+				'attribute' => 'league_id',
+				'type' => DetailView::INPUT_DROPDOWN_LIST,
+				'items' => [''=>''] + ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
+	            'value' => $model->league ? $model->league->name : '',
+				'displayOnly' => !Yii::$app->user->identity->isA(User::ROLE_ADMIN),
+	        ],
             [
                 'attribute'=>'user_id',
                 'label'=>'User',

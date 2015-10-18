@@ -1,10 +1,13 @@
 <?php
 
+use common\models\Facility;
+use common\models\League;
+use common\models\Message;
+use common\models\User;
+
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use kartik\grid\GridView;
-use common\models\Facility;
-use common\models\Message;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\MessageSearch */
@@ -30,8 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
-
-            // 'id',
+			[
+                'attribute'=>'league_id',
+				'visible' => Yii::$app->user->identity->isA(User::ROLE_ADMIN),
+				'filter' => ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
+	            'value' => function ($model, $key, $index, $widget) {
+	                return $model->league ? $model->league->name : '';
+	            },
+			],
             'subject',
 			[
                 'attribute'=>'message_type',

@@ -23,7 +23,7 @@ class Media extends _Media
      * Maximum size of thumbnail images associated with ads
      * @var integer
      */
-    const THUMBNAIL_SIZE = 150; // px;
+    const THUMBNAIL_SIZE = 160; // px;
 
     /**
      * URL to view media

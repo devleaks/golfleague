@@ -8,21 +8,21 @@ use yii\widgets\ActiveForm;
 /* @var $searchModel app\models\BackupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('store', 'Restore Database from Backup of Production');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('store', 'Administration'), 'url' => ['/admin']];
+$this->title = Yii::t('golf', 'Restore Database from Backup of Production');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('golf', 'Administration'), 'url' => ['/admin']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="backup-index">
 	
 	<?php if(!file_exists($dbfile)): ?>
 	<div class="alert alert-warning">
-		<?= Yii::t('store', 'Database file {0} not found.', $dbfile) ?>
+		<?= Yii::t('golf', 'Database file {0} not found.', $dbfile) ?>
 	</div>
 	<?php endif; ?>
 	
 	<?php if(!file_exists($mediafile)): ?>
 	<div class="alert alert-warning">
-		<?= Yii::t('store', 'Media file {0} not found.', $mediafile) ?>
+		<?= Yii::t('golf', 'Media file {0} not found.', $mediafile) ?>
 	</div>
 	<?php endif; ?>
 
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin(['action' => Url::to(['/admin/backup/do-restore'])]); ?>
 
-    <?= Html::submitButton('<i class="glyphicon glyphicon-warning-sign"></i> '.Yii::t('store', 'Restore Database from Backup of Production'), ['class' => 'btn btn-lg btn-danger']) ?>
+    <?= Html::submitButton('<i class="glyphicon glyphicon-warning-sign"></i> '.Yii::t('golf', 'Restore Database from Backup of Production'), ['class' => 'btn btn-lg btn-danger']) ?>
 
     <?php ActiveForm::end(); ?>
 

@@ -69,4 +69,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'enableEditMode'=>true,
     ]) ?>
 
+	<?=	$this->render('../media/_add', [
+		'model' => $model,
+	])?>
+
+
 </div>

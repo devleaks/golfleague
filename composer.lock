@@ -2939,12 +2939,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "68160aec8610ad3a01899e98bd2b985a70a92436"
+                "reference": "1fdc286434f1041bfa06373135d28ea575b07e81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/68160aec8610ad3a01899e98bd2b985a70a92436",
-                "reference": "68160aec8610ad3a01899e98bd2b985a70a92436",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/1fdc286434f1041bfa06373135d28ea575b07e81",
+                "reference": "1fdc286434f1041bfa06373135d28ea575b07e81",
                 "shasum": ""
             },
             "require": {
@@ -2979,7 +2979,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-09-25 11:38:48"
+            "time": "2015-10-16 18:25:52"
         },
         {
             "name": "kartik-v/yii2-export",

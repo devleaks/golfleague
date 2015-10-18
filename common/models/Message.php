@@ -27,7 +27,10 @@ class Message extends _Message
     const TYPE_RESULT = 'RESULT';
     /** Type */
     const TYPE_FIXED = 'FIXED';
+    /** Type */
+    const TYPE_SLIDER = 'SLIDER';
 	
+
     /** Status */
     const STATUS_ACTIVE = 'ACTIVE';
     /** Status */

@@ -22,7 +22,10 @@ class UserController extends GolfLeagueController
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+		if(!Yii::$app->user->identity->isA(User::ROLE_ADMIN)) {
+			$dataProvider->query->andWhere(['league_id' => Yii::$app->user->identity->league_id]);
+		}
+		
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

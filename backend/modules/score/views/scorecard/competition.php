@@ -37,7 +37,7 @@ $apply_rule = in_array($competition->competition_type, [Competition::TYPE_TOURNA
         'dataProvider' => $dataProvider,
 		'gridSettings'=> [
 			'panel'=>[
-		        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-list"></i> '.Html::encode($this->title).' </h3>',
+		        'heading' => '<h3 class="panel-title"><i class="fa fa-trophy"></i> '.Html::encode($this->title).' </h3>',
 				'footer' => Html::submitButton('Save', ['class'=>'btn btn-primary']).' '.$apply_rule.' '.
 							Html::a(Yii::t('golf', 'Scorecard Status'), Url::to(['status', 'id' => $competition->id]), ['class'=>'btn btn-primary']).' '.
 							Html::a(Yii::t('golf', 'Publish'), Url::to(['publish', 'id' => $competition->id]), ['class'=>'btn btn-success'])
