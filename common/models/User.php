@@ -46,8 +46,17 @@ class User extends \dektrium\user\models\User
         return array_merge(
 			parent::rules(),
 			[
+				// Role
 	            [['role'], 'string', 'max' => 255],
+				['role', 'default', 'value' => User::ROLE_GOLFER],
+				// League
             	[['league_id'], 'integer'],
+				['league_id', 'required',
+					'when' => function($model) {
+					        return !Yii::$app->user->identity->isAdmin();
+					 },
+					'message' => Yii::t('golf', 'A league is required if user not an administrator.')
+				]
         	]
 		);
     }

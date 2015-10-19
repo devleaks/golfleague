@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\models;
+namespace backend\models\base;
 
 use Yii;
 
@@ -13,7 +13,7 @@ use Yii;
  * @property string $status
  * @property string $created_at
  */
-class _Backup extends \yii\db\ActiveRecord
+class Backup extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
