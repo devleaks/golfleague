@@ -11,7 +11,7 @@ use yii\web\UploadedFile;
 /**
  * This is the model class for table "media".
  */
-class Media extends _Media
+class Media extends base\Media
 {
     /**
      * Maximum size of images associated with ads

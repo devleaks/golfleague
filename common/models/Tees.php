@@ -10,7 +10,7 @@ use common\behaviors\Constant;
  * This is the model class for table "tees".
  *
  */
-class Tees extends _Tees
+class Tees extends base\Tees
 {
 	use Constant;
 	

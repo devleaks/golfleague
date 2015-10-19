@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "golfers".
  */
-class Golfer extends _Golfer implements Opponent {
+class Golfer extends base\Golfer implements Opponent {
 	use Constant;
 
     /** Golfer genders */
@@ -82,7 +82,7 @@ class Golfer extends _Golfer implements Opponent {
      */
 	public static function find()
     {
-        return new GolferQuery(get_called_class());
+        return new query\GolferQuery(get_called_class());
     }
 
 

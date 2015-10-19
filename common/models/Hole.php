@@ -9,7 +9,7 @@ use common\behaviors\MediaBehavior;
 /**
  * This is the model class for table "holes".
  */
-class Hole extends _Hole
+class Hole extends base\Hole
 {
     /**
      * @inheritdoc

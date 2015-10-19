@@ -3,7 +3,6 @@
 use common\models\Facility;
 use common\models\League;
 use common\models\Message;
-use common\models\User;
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -35,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'kartik\grid\SerialColumn'],
 			[
                 'attribute'=>'league_id',
-				'visible' => Yii::$app->user->identity->isA(User::ROLE_ADMIN),
+				'visible' => Yii::$app->user->identity->isAdmin(),
 				'filter' => ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
 	            'value' => function ($model, $key, $index, $widget) {
 	                return $model->league ? $model->league->name : '';

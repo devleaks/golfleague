@@ -11,7 +11,7 @@ use common\behaviors\Constant;
 /**
  * This is the model class for table "registrations".
  */
-class Registration extends _Registration implements Opponent
+class Registration extends base\Registration implements Opponent
 {
 	use Constant;
 

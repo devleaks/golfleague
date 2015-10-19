@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "group".
  */
-class Group extends _Group {
+class Group extends base\Group {
 	use Constant;
 	
 	const GROUP_TYPE = null;

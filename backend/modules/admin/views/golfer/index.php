@@ -1,7 +1,6 @@
 <?php
 
 use common\models\League;
-use common\models\User;
 
 use kartik\grid\GridView;
 
@@ -34,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'league_id',
 				'filter' => ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
-				'visible' => Yii::$app->user->identity->isA(User::ROLE_ADMIN),
+				'visible' => Yii::$app->user->identity->isAdmin(),
 	            'value' => function ($model, $key, $index, $widget) {
 	                return $model->league ? $model->league->name : '';
 	            },

@@ -7,6 +7,6 @@ use Yii;
 /**
  * This is a model class for table "marker".
  */
-class Marker extends _Marker
+class Marker extends base\Marker
 {
 }

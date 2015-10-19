@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
  * @property string $created_at
  * @property string $updated_at
  */
-class Backup extends _Backup
+class Backup extends base\Backup
 {
     /**
      * @inheritdoc

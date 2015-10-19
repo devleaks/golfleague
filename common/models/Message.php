@@ -11,7 +11,7 @@ use Yii;
  * This is the model class for table "messages".
  *
  */
-class Message extends _Message
+class Message extends base\Message
 {
 	use Constant;
 	
@@ -90,7 +90,7 @@ class Message extends _Message
      */
 	public static function find()
     {
-        return new MessageQuery(get_called_class());
+        return new query\MessageQuery(get_called_class());
     }
 
 

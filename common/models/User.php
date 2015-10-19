@@ -82,7 +82,7 @@ class User extends \dektrium\user\models\User
      */
 	public static function find()
     {
-        return new UserQuery(get_called_class());
+        return new query\UserQuery(get_called_class());
     }
 
 
@@ -109,8 +109,18 @@ class User extends \dektrium\user\models\User
 		return $this->default_profile_picture;
 	}
 	
+	/**
+	 * Checks whether a user has a role.
+	 */
 	public function isA($roles) {
 		return is_array($roles) ? in_array($this->role, $roles) : $this->role == $roles;
+	}
+
+	/**
+	 * Check whether user is admin role. Added to prevent inclusion of User model where isA(User::ROLE_ADMIN) needed.
+	 */
+	public function isAdmin() {
+		return $this->isA(self::ROLE_ADMIN);
 	}
 
 }

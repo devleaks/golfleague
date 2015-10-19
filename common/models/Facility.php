@@ -10,7 +10,7 @@ use common\behaviors\MediaBehavior;
 /**
  * This is the model class for table "facilities".
  */
-class Facility extends _Facility
+class Facility extends base\Facility
 {
 	use Constant;
 	

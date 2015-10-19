@@ -2,7 +2,6 @@
 
 namespace common\models\search;
 
-use common\models\_Competition;
 use common\models\Event;
 use common\models\Message;
 

@@ -15,7 +15,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "competitions".
  *
  */
-class Competition extends _Competition
+class Competition extends base\Competition
 {
 	use Constant;
 	
@@ -149,7 +149,7 @@ class Competition extends _Competition
 
 	public static function find()
     {
-        return new CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);
+        return new query\CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);
     }
 
 
@@ -478,7 +478,7 @@ class Competition extends _Competition
 				break;
 	    }
 		$new->competition_type = $type;
-		if(!Yii::$app->user->identity->isA(User::ROLE_ADMIN)) {
+		if(!Yii::$app->user->identity->isAdmin()) {
 			$new->league_id = Yii::$app->user->identity->league_id;
 		}
 		return $new;

@@ -11,7 +11,7 @@ use common\behaviors\MediaBehavior;
  * This is the model class for table "courses".
  *
  */
-class Course extends _Course
+class Course extends base\Course
 {
     public $facility_name;
 

@@ -23,7 +23,7 @@ class Round extends Competition
 
 	public static function find()
     {
-        return new CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);
+        return new query\CompetitionQuery(get_called_class(), ['type' => self::COMPETITION_TYPE]);
     }
 
     /**

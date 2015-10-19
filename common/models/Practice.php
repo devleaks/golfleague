@@ -9,7 +9,7 @@ use common\behaviors\Constant;
 /**
  * This is the model class for table "practice".
  */
-class Practice extends _Practice
+class Practice extends base\Practice
 {
 	use Constant;
 

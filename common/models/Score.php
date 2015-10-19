@@ -9,7 +9,7 @@ use common\behaviors\Constant;
 /**
  * This is the model class for table "score".
  */
-class Score extends _Score
+class Score extends base\Score
 {
 	use Constant;
 	

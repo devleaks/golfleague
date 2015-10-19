@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
 /**
 * This is the model class for table "start".
  */
-class Start extends _Start
+class Start extends base\Start
 {
     /**
      * @inheritdoc

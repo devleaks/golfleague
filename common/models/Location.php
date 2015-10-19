@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "location".
  */
-class Location extends _Location
+class Location extends base\Location
 {
 	const MAX_IMAGES = 1;
 	

@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model, $key, $index, $widget) {
                     return $model->league ? $model->league->name : '';
                 },
-				'visible' => Yii::$app->user->identity->isA(User::ROLE_ADMIN),
+				'visible' => Yii::$app->user->identity->isAdmin(),
             ],
             [
 				'class' => 'kartik\grid\ActionColumn',

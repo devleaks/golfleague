@@ -18,7 +18,7 @@ class Team extends Group implements Opponent {
 
 	public static function find()
     {
-        return new GroupQuery(get_called_class(), ['type' => self::GROUP_TYPE]);
+        return new query\GroupQuery(get_called_class(), ['type' => self::GROUP_TYPE]);
     }
 
 	public function getHandicap() {

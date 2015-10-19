@@ -10,7 +10,7 @@ use common\behaviors\MediaBehavior;
 /**
  * This is the model class for table "facilities".
  */
-class HandicapHistory extends _HandicapHistory
+class HandicapHistory extends base\HandicapHistory
 {
 	use Constant;
 	

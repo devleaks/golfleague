@@ -3,7 +3,6 @@
 use common\models\Event;
 use common\models\Facility;
 use common\models\League;
-use common\models\User;
 
 use kartik\detail\DetailView;
 
@@ -32,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => ArrayHelper::map([''=>'']+League::find()->asArray()->all(), 'id', 'name'),
 				'value' => $model->league_id ? $model->league->name : '',
-				'displayOnly' => !Yii::$app->user->identity->isA(User::ROLE_ADMIN),
+				'displayOnly' => !Yii::$app->user->identity->isAdmin(),
 			],
             [
                 'attribute'=>'facility_id',

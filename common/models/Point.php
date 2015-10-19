@@ -9,7 +9,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "points".
  *
  */
-class Point extends _Point
+class Point extends base\Point
 {
     /**
      * @inheritdoc

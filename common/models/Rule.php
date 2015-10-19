@@ -8,7 +8,7 @@ use common\behaviors\Constant;
 /**
  * This is the model class for table "rules".
  */
-class Rule extends _Rule
+class Rule extends base\Rule
 {
 	use Constant;
 	

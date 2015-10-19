@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
 				'items' => [''=>''] + ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
 	            'value' => $model->league ? $model->league->name : '',
-				'displayOnly' => !Yii::$app->user->identity->isA(User::ROLE_ADMIN),
+				'displayOnly' => !Yii::$app->user->identity->isAdmin(),
 	        ],
             [
                 'attribute'=>'user_id',

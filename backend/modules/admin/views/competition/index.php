@@ -2,7 +2,6 @@
 
 use common\models\Competition;
 use common\models\League;
-use common\models\User;
 
 use kartik\grid\GridView;
 
@@ -47,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 			[
                 'attribute'=>'league_id',
-				'visible' => Yii::$app->user->identity->isA(User::ROLE_ADMIN),
+				'visible' => Yii::$app->user->identity->isAdmin(),
 				'filter' => ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
 	            'value' => function ($model, $key, $index, $widget) {
 	                return $model->league ? $model->league->name : '';

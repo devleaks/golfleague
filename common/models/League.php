@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "league".
  */
-class League extends _League
+class League extends base\League
 {
 	const MAX_IMAGES = 1;
 	

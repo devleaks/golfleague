@@ -13,7 +13,7 @@ use yii\helpers\Url;
  * This is the model class for table "events".
  *
  */
-class Event extends _Event
+class Event extends base\Event
 {
 	use Constant;
 	
@@ -99,7 +99,7 @@ class Event extends _Event
      */
 	public static function find()
     {
-        return new EventQuery(get_called_class());
+        return new query\EventQuery(get_called_class());
     }
 
 
