@@ -76,6 +76,16 @@ class User extends \dektrium\user\models\User
 	    ];
 	}
 	
+
+    /**
+     * @inheritdoc
+     */
+	public static function find()
+    {
+        return new UserQuery(get_called_class());
+    }
+
+
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -1,9 +1,13 @@
 <?php
 
 use common\models\Competition;
+use common\models\League;
 use common\models\User;
-use yii\helpers\Html;
+
 use kartik\grid\GridView;
+
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\SeasonSearch */
@@ -44,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
                 'attribute'=>'league_id',
 				'visible' => Yii::$app->user->identity->isA(User::ROLE_ADMIN),
-				'filter' => [''=>''] + ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
+				'filter' => ArrayHelper::map(League::find()->asArray()->all(), 'id', 'name'),
 	            'value' => function ($model, $key, $index, $widget) {
 	                return $model->league ? $model->league->name : '';
 	            },

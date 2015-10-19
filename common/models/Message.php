@@ -85,6 +85,15 @@ class Message extends _Message
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+	public static function find()
+    {
+        return new MessageQuery(get_called_class());
+    }
+
+
 	// just the excerpt
 	function first_n_words($number_of_words = 50) {
 	   // Where excerpts are concerned, HTML tends to behave

@@ -24,6 +24,7 @@ if(Yii::$app->user->identity->isA([User::ROLE_ADMIN, User::ROLE_MANAGER])) {
             ['label' => 'Golf courses', 'icon' => 'fa fa-flag', 'url' => ['/admin/facility'],],
             ['label' => 'Events', 'icon' => 'fa fa-calendar', 'url' => ['/admin/event'],],
             ['label' => 'Messages', 'icon' => 'fa fa-newspaper-o', 'url' => ['/admin/message'],],
+            ['label' => 'Locations', 'icon' => 'fa fa-map-marker', 'url' => ['/admin/location'],],
 		],
 	];
 }
@@ -52,9 +53,9 @@ if(in_array(Yii::$app->user->identity->role, [User::ROLE_ADMIN, User::ROLE_MANAG
 	if(Yii::$app->user->identity->isA([User::ROLE_ADMIN])) {
 		$subitems[] = ['label' => 'Leagues', 'icon' => 'fa fa-trophy', 'url' => ['/admin/league']];
 	}
-	$subitems[] = ['label' => 'Users', 'icon' => 'fa fa-user', 'url' => ['/admin/user']];
+	$subitems[] = ['label' => 'User Profiles', 'icon' => 'fa fa-user', 'url' => ['/admin/user']];
 	if(Yii::$app->user->identity->isA([User::ROLE_ADMIN])) {
-		$subitems[] = ['label' => 'Accounts', 'icon' => 'fa fa-user', 'url' => ['/user/admin']];
+		$subitems[] = ['label' => 'User Accounts', 'icon' => 'fa fa-user', 'url' => ['/user/admin']];
 		$subitems[] = ['label' => 'Backup', 'icon' => 'fa fa-download', 'url' => ['/admin/backup']];
 	}
 	$items[] = [

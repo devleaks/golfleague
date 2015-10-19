@@ -18,6 +18,12 @@ class CompetitionQuery extends ActiveQuery
             $this->andWhere(['competition_type' => $this->type]);
 			Yii::trace($this->type, 'CompetitionQuery::prepare');
         }
+		if(! Yii::$app->user->isGuest) {
+			if(! Yii::$app->user->identity->isA(User::ROLE_ADMIN)) {
+				$this->andWhere(['league_id' => Yii::$app->user->identity->league_id]);
+				Yii::trace('league='.Yii::$app->user->identity->league_id, 'CompetitionQuery::prepare');
+			}
+		}
         return parent::prepare($builder);
     }
 

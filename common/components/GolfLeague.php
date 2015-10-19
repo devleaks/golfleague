@@ -25,7 +25,6 @@ class GolfLeague extends Component
 	public $handicapSystem;
 	public $handicap_system;
 	
-	public $league_roles;
 	public $tee_colors;
 	public $days_before;
 	
@@ -40,15 +39,6 @@ class GolfLeague extends Component
 		
 		$r = new \ReflectionClass($this->handicapSystem ? $this->handicapSystem : self::HANDICAP_SYSTEM);
 		$this->handicap_system = $r->newInstance();
-		$this->league_roles = [
-			'admin' => 'Site Administrator',
-			'manager' => 'League Manager',
-			'starter' => 'Starter',
-			'scorer' => 'Scorer',
-			'golfer' => 'Golfer',
-			'golferplus' => 'Golfer+',
-			'marker' => 'Marker'
-		];
 		$this->tee_colors = [
 			'yellow' => Yii::t('golf', 'Yellow'),
 			'black' => Yii::t('golf', 'Black'),

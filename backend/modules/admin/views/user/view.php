@@ -1,10 +1,13 @@
 <?php
 
+use common\models\League;
+use common\models\User;
+
+use kartik\detail\DetailView;
+use yii2mod\selectize\Selectize;
+
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use kartik\detail\DetailView;
-use common\models\League;
-use yii2mod\selectize\Selectize;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Golfer */
@@ -34,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        [
 				'attribute' => 'role',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => Yii::$app->golfleague->league_roles,
+				'items' => User::getLocalizedConstants('ROLE_'),
 	        ],
 	        [
 				'label' => Yii::t('golf', 'League'),

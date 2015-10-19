@@ -51,7 +51,8 @@ class Team extends Group implements Opponent {
 
 	public function getScorecard() {
 		foreach($this->getRegistrations()->each() as $registration) {
-			
+			if($scorecard = $registration->getScorecard())
+				return $scorecard;
 		}
 	}
 

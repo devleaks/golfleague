@@ -94,6 +94,15 @@ class Event extends _Event
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+	public static function find()
+    {
+        return new EventQuery(get_called_class());
+    }
+
+
 	public function getColor() {
 		switch($this->event_type) {
 			case self::TYPE_COMPETITION: return 'info'; break;

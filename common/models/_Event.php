@@ -24,9 +24,11 @@ use Yii;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $location_id
  *
  * @property League $league
  * @property Facility $facility
+ * @property Location $location
  * @property _Event $recurrence0
  * @property _Event[] $events
  */
@@ -46,7 +48,7 @@ class _Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['league_id', 'facility_id', 'object_id', 'recurrence_id', 'max_players'], 'integer'],
+            [['league_id', 'facility_id', 'object_id', 'recurrence_id', 'max_players', 'location_id'], 'integer'],
             [['name', 'event_start'], 'required'],
             [['object_type', 'recurrence'], 'string'],
             [['event_start', 'event_end', 'created_at', 'updated_at'], 'safe'],
@@ -79,6 +81,7 @@ class _Event extends \yii\db\ActiveRecord
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
+            'location_id' => Yii::t('golf', 'Location ID'),
         ];
     }
 
@@ -96,6 +99,14 @@ class _Event extends \yii\db\ActiveRecord
     public function getFacility()
     {
         return $this->hasOne(Facility::className(), ['id' => 'facility_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLocation()
+    {
+        return $this->hasOne(Location::className(), ['id' => 'location_id']);
     }
 
     /**

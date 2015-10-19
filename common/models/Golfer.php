@@ -76,6 +76,16 @@ class Golfer extends _Golfer implements Opponent {
         ];
     }
 
+
+    /**
+     * @inheritdoc
+     */
+	public static function find()
+    {
+        return new GolferQuery(get_called_class());
+    }
+
+
     /**
      * @return  Golfer Currently logged in user as Golfer
      */
