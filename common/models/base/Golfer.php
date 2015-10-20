@@ -85,7 +85,7 @@ class Golfer extends \yii\db\ActiveRecord
      */
     public function getLeague()
     {
-        return $this->hasOne(League::className(), ['id' => 'league_id']);
+        return $this->hasOne(\common\models\League::className(), ['id' => 'league_id']);
     }
 
     /**
@@ -93,7 +93,7 @@ class Golfer extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(\common\models\User::className(), ['id' => 'user_id']);
     }
 
     /**
@@ -101,7 +101,7 @@ class Golfer extends \yii\db\ActiveRecord
      */
     public function getFacility()
     {
-        return $this->hasOne(Facility::className(), ['id' => 'facility_id']);
+        return $this->hasOne(\common\models\Facility::className(), ['id' => 'facility_id']);
     }
 
     /**
@@ -109,7 +109,7 @@ class Golfer extends \yii\db\ActiveRecord
      */
     public function getHandicapHistories()
     {
-        return $this->hasMany(HandicapHistory::className(), ['golfer_id' => 'id']);
+        return $this->hasMany(\common\models\HandicapHistory::className(), ['golfer_id' => 'id']);
     }
 
     /**
@@ -117,7 +117,7 @@ class Golfer extends \yii\db\ActiveRecord
      */
     public function getPractices()
     {
-        return $this->hasMany(Practice::className(), ['golfer_id' => 'id']);
+        return $this->hasMany(\common\models\Practice::className(), ['golfer_id' => 'id']);
     }
 
     /**
@@ -125,6 +125,6 @@ class Golfer extends \yii\db\ActiveRecord
      */
     public function getRegistrations()
     {
-        return $this->hasMany(Registration::className(), ['golfer_id' => 'id']);
+        return $this->hasMany(\common\models\Registration::className(), ['golfer_id' => 'id']);
     }
 }

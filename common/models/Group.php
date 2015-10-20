@@ -53,7 +53,7 @@ class Group extends base\Group {
      */
 	public static function find()
     {
-        return new GroupQuery(get_called_class(), ['type' => self::GROUP_TYPE]);
+        return new query\GroupQuery(get_called_class(), ['type' => self::GROUP_TYPE]);
     }
 
 

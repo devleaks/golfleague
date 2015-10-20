@@ -57,6 +57,6 @@ class Point extends \yii\db\ActiveRecord
      */
     public function getRules()
     {
-        return $this->hasOne(Rule::className(), ['id' => 'rule_id']);
+        return $this->hasOne(\common\models\Rule::className(), ['id' => 'rule_id']);
     }
 }

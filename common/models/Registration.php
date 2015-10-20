@@ -54,6 +54,11 @@ class Registration extends base\Registration implements Opponent
     /** Golfer is invited to next stage */
     const STATUS_QUALIFIED = 'QUALIFIED';
 
+	/** Status Collections */
+	const SC_PRE_COMPETITION = 'PRECOMP';
+	const SC_POST_COMPETITION = 'POSTCOMP';
+	const SC_PARTICIPANTS = 'PARTICIPANTS';
+	const SC_REG_OK = 'REGOK';
 
     /**
      * @inheritdoc
@@ -119,58 +124,56 @@ class Registration extends base\Registration implements Opponent
 	}
 	
 
-	static public function getLocalizedPreCompetitionStatuses() {
+	static public function getRegistrationStatusesFor($what, $localized = false) {
 		$s = [];
-		foreach([
-		    self::STATUS_UNREGISTERED,
-		    self::STATUS_PENDING,
-		    self::STATUS_INVITED,
-		    self::STATUS_REGISTERED,
-		    self::STATUS_REJECTED,
-		    self::STATUS_CONFIRMED,
-		    self::STATUS_CANCELLED,
-		] as $r)
-			$s[$r] = Yii::t('golf', $r);
+		switch($what){
+			case self::SC_PRE_COMPETITION: $s = [
+			    self::STATUS_UNREGISTERED,
+			    self::STATUS_PENDING,
+			    self::STATUS_INVITED,
+			    self::STATUS_REGISTERED,
+			    self::STATUS_REJECTED,
+			    self::STATUS_CONFIRMED,
+			    self::STATUS_CANCELLED,
+			]; break;
+			case self::SC_REG_OK: $s = [
+			    self::STATUS_UNREGISTERED,
+			    self::STATUS_PENDING,
+			    self::STATUS_INVITED,
+			    self::STATUS_REGISTERED,
+			]; break;
+			case self::SC_PARTICPIPANTS: $s = [
+			    self::STATUS_REGISTERED,
+			    self::STATUS_CONFIRMED,
+			    self::STATUS_FORFEIT,
+			    self::STATUS_MISSEDCUT,
+			    self::STATUS_ELIMINATED,
+			    self::STATUS_DISQUALIFIED,
+			    self::STATUS_WITHDRAWN,
+			    self::STATUS_QUALIFIED,
+			]; break;
+			case self::SC_POST_COMPETITION: $s = [
+			    self::STATUS_FORFEIT,
+			    self::STATUS_MISSEDCUT,
+			    self::STATUS_ELIMINATED,
+			    self::STATUS_DISQUALIFIED,
+			    self::STATUS_WITHDRAWN,
+			    self::STATUS_QUALIFIED,
+			]; break;
+		}
+		if($localized) {
+			$statuses = [];
+			foreach($s as $r)
+				$statuses[$r] = Yii::t('golf', $r);
+			return $statuses;
+		}
 		return $s;
 	}
 	
-	static public function getPreCompetitionStatuses() {
-		return array_keys(self::getLocalizedPreCompetitionStatuses());
-	}
 
-	static public function getParticipantStatuses() {
-		return [
-		    self::STATUS_REGISTERED,
-		    self::STATUS_CONFIRMED,
-		    self::STATUS_FORFEIT,
-		    self::STATUS_MISSEDCUT,
-		    self::STATUS_ELIMINATED,
-		    self::STATUS_DISQUALIFIED,
-		    self::STATUS_WITHDRAWN,
-		    self::STATUS_QUALIFIED,
-		];
-	}
-
-
-	static public function getLocalizedPostCompetitionStatuses() {
-		$s = [];
-		foreach([
-		    self::STATUS_FORFEIT,
-		    self::STATUS_MISSEDCUT,
-		    self::STATUS_ELIMINATED,
-		    self::STATUS_DISQUALIFIED,
-		    self::STATUS_WITHDRAWN,
-		    self::STATUS_QUALIFIED,
-		] as $r)
-			$s[$r] = Yii::t('golf', $r);
-		return $s;
-	}
-
-	static public function getPostCompetitionStatuses() {
-		return array_keys(self::getLocalizedPostCompetitionStatuses());
-	}
-
-	
+	/**
+	 * Associates a status with a Bootstrap color
+	 */
 	public function getLabelColors() {
 		return [
 			self::STATUS_UNREGISTERED => 'default',
@@ -194,9 +197,9 @@ class Registration extends base\Registration implements Opponent
 	 *
 	 *  @return boolean Cancellation successful
 	 */
-	public function cancel() {
+	public function cancel($force = false) {
 		$newstatus = null;
-		if($this->competition->dateOk()) {
+		if(($this->competition->dateOk()) || $force) {
 			switch($this->status) {
 			    case Registration::STATUS_CONFIRMED:
 			    case Registration::STATUS_QUALIFIED:
@@ -219,7 +222,6 @@ class Registration extends base\Registration implements Opponent
 					//not registered anyway, no change
 					break;
 			}
-			
 		}
         if($newstatus) {
 			$this->status = $newstatus;
@@ -229,6 +231,18 @@ class Registration extends base\Registration implements Opponent
 	}
 
 
+	/**
+	 *  Cancel an existing registration by changing status appropriately
+	 *
+	 *  @return boolean Cancellation successful
+	 */
+	public function approve($force = false) {
+		if(($this->competition->dateOk()) || $force) {
+			$this->status = Registration::STATUS_REGISTERED;
+        	return $this->save();
+		}
+		return false;
+	}
 	/**
 	 * Checks if registered to children competitions (if any)
 	 * @return boolean Has registrations to children competitons
@@ -366,7 +380,14 @@ class Registration extends base\Registration implements Opponent
 	}
 
 	/**
-	 * return boolean
+	 * Returns actual scorecard, not an active query
+	 */
+	public function getScorecard() {
+		return parent::getScorecard()->one();
+	}
+
+	/**
+	 * Return boolean
 	 */
 	public function hasScore() {
 		if($scorecard = $this->getScorecard()) {
@@ -374,5 +395,6 @@ class Registration extends base\Registration implements Opponent
 		}
 		return false;
 	}
+	
 	
 }

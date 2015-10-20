@@ -70,6 +70,6 @@ class Group extends \yii\db\ActiveRecord
      */
     public function getGroupMembers()
     {
-        return $this->hasMany(GroupMember::className(), ['group_id' => 'id']);
+        return $this->hasMany(\common\models\GroupMember::className(), ['group_id' => 'id']);
     }
 }

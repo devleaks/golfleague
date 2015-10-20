@@ -72,7 +72,7 @@ class Facility extends \yii\db\ActiveRecord
      */
     public function getCourses()
     {
-        return $this->hasMany(Course::className(), ['facility_id' => 'id']);
+        return $this->hasMany(\common\models\Course::className(), ['facility_id' => 'id']);
     }
 
     /**
@@ -80,7 +80,7 @@ class Facility extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(Event::className(), ['facility_id' => 'id']);
+        return $this->hasMany(\common\models\Event::className(), ['facility_id' => 'id']);
     }
 
     /**
@@ -88,7 +88,7 @@ class Facility extends \yii\db\ActiveRecord
      */
     public function getLocation()
     {
-        return $this->hasOne(Location::className(), ['id' => 'location_id']);
+        return $this->hasOne(\common\models\Location::className(), ['id' => 'location_id']);
     }
 
     /**
@@ -96,7 +96,7 @@ class Facility extends \yii\db\ActiveRecord
      */
     public function getGolfers()
     {
-        return $this->hasMany(Golfer::className(), ['facility_id' => 'id']);
+        return $this->hasMany(\common\models\Golfer::className(), ['facility_id' => 'id']);
     }
 
     /**
@@ -104,6 +104,6 @@ class Facility extends \yii\db\ActiveRecord
      */
     public function getMessages()
     {
-        return $this->hasMany(Message::className(), ['facility_id' => 'id']);
+        return $this->hasMany(\common\models\Message::className(), ['facility_id' => 'id']);
     }
 }

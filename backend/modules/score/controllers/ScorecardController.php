@@ -64,7 +64,7 @@ class ScorecardController extends GolfLeagueController
 		} else { //@todo do not loop on getScorecards twice...
 			$scorecards = [];
 			foreach($competition->getRegistrations()
-								->andWhere(['registration.status' => array_merge([Registration::STATUS_CONFIRMED], Registration::getPostCompetitionStatuses())])
+								->andWhere(['registration.status' => array_merge([Registration::STATUS_CONFIRMED], Registration::getRegistrationStatusesFor(Registration::SC_POST_COMPETITION))])
 								->each() as $registration) {
 				$scorecards[] = $registration->getScorecard(); // this will create a scorecard if none exists
 			}

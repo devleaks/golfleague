@@ -57,7 +57,7 @@ class GroupMember extends \yii\db\ActiveRecord
      */
     public function getGroup()
     {
-        return $this->hasOne(Group::className(), ['id' => 'group_id']);
+        return $this->hasOne(\common\models\Group::className(), ['id' => 'group_id']);
     }
 
     /**
@@ -65,6 +65,6 @@ class GroupMember extends \yii\db\ActiveRecord
      */
     public function getRegistration()
     {
-        return $this->hasOne(Registration::className(), ['id' => 'registration_id']);
+        return $this->hasOne(\common\models\Registration::className(), ['id' => 'registration_id']);
     }
 }

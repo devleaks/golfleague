@@ -90,7 +90,7 @@ class Event extends \yii\db\ActiveRecord
      */
     public function getLeague()
     {
-        return $this->hasOne(League::className(), ['id' => 'league_id']);
+        return $this->hasOne(\common\models\League::className(), ['id' => 'league_id']);
     }
 
     /**
@@ -98,7 +98,7 @@ class Event extends \yii\db\ActiveRecord
      */
     public function getFacility()
     {
-        return $this->hasOne(Facility::className(), ['id' => 'facility_id']);
+        return $this->hasOne(\common\models\Facility::className(), ['id' => 'facility_id']);
     }
 
     /**
@@ -106,7 +106,7 @@ class Event extends \yii\db\ActiveRecord
      */
     public function getLocation()
     {
-        return $this->hasOne(Location::className(), ['id' => 'location_id']);
+        return $this->hasOne(\common\models\Location::className(), ['id' => 'location_id']);
     }
 
     /**
@@ -114,7 +114,7 @@ class Event extends \yii\db\ActiveRecord
      */
     public function getRecurrence0()
     {
-        return $this->hasOne(_Event::className(), ['id' => 'recurrence_id']);
+        return $this->hasOne(\common\models\_Event::className(), ['id' => 'recurrence_id']);
     }
 
     /**
@@ -122,6 +122,6 @@ class Event extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(_Event::className(), ['recurrence_id' => 'id']);
+        return $this->hasMany(Event::className(), ['recurrence_id' => 'id']);
     }
 }

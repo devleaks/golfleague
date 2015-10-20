@@ -72,7 +72,7 @@ class Reccurence extends \yii\db\ActiveRecord
      */
     public function getCompetitions()
     {
-        return $this->hasMany(Competition::className(), ['recurrence_id' => 'id']);
+        return $this->hasMany(\common\models\Competition::className(), ['recurrence_id' => 'id']);
     }
 
     /**
@@ -80,6 +80,6 @@ class Reccurence extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(Event::className(), ['recurrence_id' => 'id']);
+        return $this->hasMany(\common\models\Event::className(), ['recurrence_id' => 'id']);
     }
 }

@@ -38,7 +38,7 @@ class SumChildren extends Rule {
 				->andWhere(['golfer_id' => $scorecard->registration->golfer_id]);
 				
 			$children_scorecards = Scorecard::find()
-						->andWhere(['registration_id' => $registrations->select('id')])
+						->andWhere(['id' => $registrations->select('scorecard_id')])
 						->andWhere(['status' => Scorecard::STATUS_RETURNED]);
 
 			if(intval($this->bestOf) > 0) {

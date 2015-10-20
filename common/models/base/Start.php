@@ -69,7 +69,7 @@ class Start extends \yii\db\ActiveRecord
      */
     public function getTees()
     {
-        return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
+        return $this->hasOne(\common\models\Tees::className(), ['id' => 'tees_id']);
     }
 
     /**
@@ -77,6 +77,6 @@ class Start extends \yii\db\ActiveRecord
      */
     public function getCompetition()
     {
-        return $this->hasOne(Competition::className(), ['id' => 'competition_id']);
+        return $this->hasOne(\common\models\Competition::className(), ['id' => 'competition_id']);
     }
 }

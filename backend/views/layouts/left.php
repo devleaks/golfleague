@@ -45,6 +45,7 @@ if(Yii::$app->user->identity->isA([User::ROLE_ADMIN, User::ROLE_MANAGER, User::R
         'url' => '#',
         'items' => [
             ['label' => 'Competitions', 'icon' => 'fa fa-trophy', 'url' => ['/score/competition'],],
+        	['label' => 'Markers', 'icon' => 'fa fa-user', 'url' => ['/admin/marker'],],
 		],
 	];
 }

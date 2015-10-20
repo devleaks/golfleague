@@ -61,7 +61,7 @@ class Course extends \yii\db\ActiveRecord
      */
     public function getCompetitions()
     {
-        return $this->hasMany(Competition::className(), ['course_id' => 'id']);
+        return $this->hasMany(\common\models\Competition::className(), ['course_id' => 'id']);
     }
 
     /**
@@ -69,7 +69,7 @@ class Course extends \yii\db\ActiveRecord
      */
     public function getFacility()
     {
-        return $this->hasOne(Facility::className(), ['id' => 'facility_id']);
+        return $this->hasOne(\common\models\Facility::className(), ['id' => 'facility_id']);
     }
 
     /**
@@ -77,6 +77,6 @@ class Course extends \yii\db\ActiveRecord
      */
     public function getTees()
     {
-        return $this->hasMany(Tees::className(), ['course_id' => 'id']);
+        return $this->hasMany(\common\models\Tees::className(), ['course_id' => 'id']);
     }
 }

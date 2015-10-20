@@ -127,7 +127,7 @@ class Competition extends \yii\db\ActiveRecord
      */
     public function getLeague()
     {
-        return $this->hasOne(League::className(), ['id' => 'league_id']);
+        return $this->hasOne(\common\models\League::className(), ['id' => 'league_id']);
     }
 
     /**
@@ -135,7 +135,7 @@ class Competition extends \yii\db\ActiveRecord
      */
     public function getParent()
     {
-        return $this->hasOne(_Competition::className(), ['id' => 'parent_id']);
+        return $this->hasOne(\common\models\Competition::className(), ['id' => 'parent_id']);
     }
 
     /**
@@ -143,7 +143,7 @@ class Competition extends \yii\db\ActiveRecord
      */
     public function getCompetitions()
     {
-        return $this->hasMany(_Competition::className(), ['parent_id' => 'id']);
+        return $this->hasOne(\common\models\Competition::className(), ['parent_id' => 'id']);
     }
 
     /**
@@ -159,7 +159,7 @@ class Competition extends \yii\db\ActiveRecord
      */
     public function getRule()
     {
-        return $this->hasOne(Rule::className(), ['id' => 'rule_id']);
+        return $this->hasOne(\common\models\Rule::className(), ['id' => 'rule_id']);
     }
 
     /**
@@ -167,7 +167,7 @@ class Competition extends \yii\db\ActiveRecord
      */
     public function getFinalRule()
     {
-        return $this->hasOne(Rule::className(), ['id' => 'final_rule_id']);
+        return $this->hasOne(\common\models\Rule::className(), ['id' => 'final_rule_id']);
     }
 
     /**
@@ -175,7 +175,7 @@ class Competition extends \yii\db\ActiveRecord
      */
     public function getRecurrence0()
     {
-        return $this->hasOne(_Competition::className(), ['id' => 'recurrence_id']);
+        return $this->hasOne(\common\models\Competition::className(), ['id' => 'recurrence_id']);
     }
 
     /**
@@ -183,7 +183,7 @@ class Competition extends \yii\db\ActiveRecord
      */
     public function getCompetitions0()
     {
-        return $this->hasMany(_Competition::className(), ['recurrence_id' => 'id']);
+        return $this->hasOne(\common\models\Competition::className(), ['recurrence_id' => 'id']);
     }
 
     /**
@@ -191,7 +191,7 @@ class Competition extends \yii\db\ActiveRecord
      */
     public function getRegistrations()
     {
-        return $this->hasMany(Registration::className(), ['competition_id' => 'id']);
+        return $this->hasOne(\common\models\Registration::className(), ['competition_id' => 'id']);
     }
 
     /**
@@ -199,6 +199,6 @@ class Competition extends \yii\db\ActiveRecord
      */
     public function getStarts()
     {
-        return $this->hasMany(Start::className(), ['competition_id' => 'id']);
+        return $this->hasOne(\common\models\Start::className(), ['competition_id' => 'id']);
     }
 }

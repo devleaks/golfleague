@@ -2839,16 +2839,16 @@
         },
         {
             "name": "kartik-v/yii2-date-range",
-            "version": "v1.6.3",
+            "version": "v1.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-date-range.git",
-                "reference": "fcfd163d5c1e2f299eb5f47e1aa487a86dfe56bd"
+                "reference": "37c1201bb65dcdfce10f0942d0fea4ac2abc84ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-date-range/zipball/fcfd163d5c1e2f299eb5f47e1aa487a86dfe56bd",
-                "reference": "fcfd163d5c1e2f299eb5f47e1aa487a86dfe56bd",
+                "url": "https://api.github.com/repos/kartik-v/yii2-date-range/zipball/37c1201bb65dcdfce10f0942d0fea4ac2abc84ae",
+                "reference": "37c1201bb65dcdfce10f0942d0fea4ac2abc84ae",
                 "shasum": ""
             },
             "require": {
@@ -2884,7 +2884,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-05-22 15:26:20"
+            "time": "2015-10-19 18:21:25"
         },
         {
             "name": "kartik-v/yii2-datecontrol",

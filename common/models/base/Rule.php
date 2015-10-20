@@ -97,7 +97,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getCompetitions()
     {
-        return $this->hasMany(Competition::className(), ['rule_id' => 'id']);
+        return $this->hasMany(\common\models\Competition::className(), ['rule_id' => 'id']);
     }
 
     /**
@@ -105,7 +105,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getCompetitions0()
     {
-        return $this->hasMany(Competition::className(), ['final_rule_id' => 'id']);
+        return $this->hasMany(\common\models\Competition::className(), ['final_rule_id' => 'id']);
     }
 
     /**
@@ -113,7 +113,7 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getPoints()
     {
-        return $this->hasMany(Point::className(), ['rule_id' => 'id']);
+        return $this->hasMany(\common\models\Point::className(), ['rule_id' => 'id']);
     }
 
     /**
@@ -121,6 +121,6 @@ class Rule extends \yii\db\ActiveRecord
      */
     public function getLeague()
     {
-        return $this->hasOne(League::className(), ['id' => 'league_id']);
+        return $this->hasOne(\common\models\League::className(), ['id' => 'league_id']);
     }
 }

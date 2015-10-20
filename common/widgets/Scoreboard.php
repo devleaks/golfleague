@@ -298,7 +298,7 @@ class Scoreboard extends _Scoretable {
 
 	private function print_score($scoreline) {
 		$name = $this->competition->rule->source_type;
-		// echo $this->scoreline[0]->rule->source_type.' '.$this->scoreline[0]->rule->source_direction;
+		//echo $this->scoreline[0]->rule->source_type.' '.$this->scoreline[0]->rule->source_direction;
 		$output = '';
 		$debug = '';
 		if(!$scoreline) {
@@ -439,7 +439,8 @@ class Scoreboard extends _Scoretable {
 				$rounds = [];
 				$total_topar = 0;
 				foreach($this->competition->getCompetitions()->orderBy('start_date')->each() as $round) {
-					$rounds[] = $round->getTotal($scorecard->player);
+					$t = $round->getTotal($scorecard->player);
+					$rounds[] = $t;
 					//echo $round->name.'='.$round->getTotal($scorecard->player);
 					$total_topar += $round->getToPar($scorecard->player);
 				}

@@ -75,7 +75,7 @@ class Message extends \yii\db\ActiveRecord
      */
     public function getLeague()
     {
-        return $this->hasOne(League::className(), ['id' => 'league_id']);
+        return $this->hasOne(\common\models\League::className(), ['id' => 'league_id']);
     }
 
     /**
@@ -83,7 +83,7 @@ class Message extends \yii\db\ActiveRecord
      */
     public function getFacility()
     {
-        return $this->hasOne(Facility::className(), ['id' => 'facility_id']);
+        return $this->hasOne(\common\models\Facility::className(), ['id' => 'facility_id']);
     }
 
     /**
@@ -91,6 +91,6 @@ class Message extends \yii\db\ActiveRecord
      */
     public function getCreatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
+        return $this->hasOne(\common\models\User::className(), ['id' => 'created_by']);
     }
 }

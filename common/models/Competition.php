@@ -447,7 +447,7 @@ class Competition extends base\Competition
 	 */
 	public function hasScores() {
 		// does this competition has score?
-		foreach($this->getRegistrations()->andWhere(['status' => Registration::getParticipantStatuses()])->each() as $registration) {
+		foreach($this->getRegistrations()->andWhere(['status' => Registration::getRegistrationStatusesFor(Registration::SC_PARTICIPANTS)])->each() as $registration) {
 			if($registration->hasScore())
 				return true;
 		}
@@ -519,44 +519,57 @@ class Competition extends base\Competition
 	 * @return boolean whether a golfer can register to this competition or not
 	 */
 	protected function genderOk($golfer) {
-		return $this->gender ? ($this->gender === Competition::GENDER_BOTH) ||  ($this->gender === $golfer->gender) : true;
+		$ok = $this->gender ? ($this->gender === Competition::GENDER_BOTH) ||  ($this->gender === $golfer->gender) : true;
+		if(!$ok)
+			Yii::$app->session->setFlash('error', 'You do not meet gender restriction on the competition.');
+		return $ok;
 	}
 
 	protected function handicapMinOk($golfer) {
-		return $this->handicap_min ? ($this->handicap_min < $golfer->handicap) : true;
+		$ok = $this->handicap_min ? ($this->handicap_min < $golfer->handicap) : true;
+		if(!$ok)
+			Yii::$app->session->setFlash('error', 'You do not meet minimal handicap restriction on the competition.');
+		return $ok;
 	}
 
 	protected function handicapMaxOk($golfer) {
-		return $this->handicap_max ? ($this->handicap_max > $golfer->handicap) : true;
+		$ok = $this->handicap_max ? ($this->handicap_max > $golfer->handicap) : true;
+		if(!$ok)
+			Yii::$app->session->setFlash('error', 'You do not meet maximal handicap restriction on the competition.');
+		return $ok;
 	}
 
 	protected function ageMinOk($golfer) {
-		return $this->age_min ? ($this->age_min < $golfer->age()) : true;
+		$ok = $this->age_min ? ($this->age_min < $golfer->age()) : true;
+		if(!$ok)
+			Yii::$app->session->setFlash('error', 'You do not meet minimal age restriction on the competition.');
+		return $ok;
 	}
 
 	protected function ageMaxOk($golfer) {
-		return $this->age_max ? ($this->age_max > $golfer->age()) : true;
+		$ok = $this->age_max ? ($this->age_max > $golfer->age()) : true;
+		if(!$ok)
+			Yii::$app->session->setFlash('error', 'You do not meet maximal age restriction on the competition.');
+		return $ok;
 	}
 
 	protected function golferOk($golfer) {
-		$canRegister = $this->genderOk($golfer)
-					&& $this->handicapMinOk($golfer)
-					&& $this->handicapMaxOk($golfer)
-					&& $this->ageMinOk($golfer)
-					&& $this->ageMaxOk($golfer);
-
-		if(!$canRegister)
-			Yii::$app->session->setFlash('error', 'You do not meet handicap/age/gender restriction on the competition.');
-		
-		return $canRegister;
+		return $this->genderOk($golfer)
+			&& $this->handicapMinOk($golfer)
+			&& $this->handicapMaxOk($golfer)
+			&& $this->ageMinOk($golfer)
+			&& $this->ageMaxOk($golfer);
 	}
 	
 	protected function maxPlayerOk() {
-		return intval($this->max_players) > 0 ?
+		$ok = intval($this->max_players) > 0 ?
 				$this->getRegistrations()
 					 ->andWhere(['status' => [Registration::STATUS_REGISTERED, Registration::STATUS_CONFIRMED]])
-					 ->count() <= intval($this->max_players)
+					 ->count() < intval($this->max_players) // must be < since must be a place for this registration
 			   : true;
+		if(!$ok)
+			Yii::$app->session->setFlash('error', 'Maximum number of registration reached on competition.');
+		return $ok;
 	}
 
 	public function dateOk() {
@@ -628,11 +641,11 @@ class Competition extends base\Competition
      * @var  Golfer $golfer Golfer to register
      * @return Deregistration status
      */
-    public function deregister($golfer) {
+    public function deregister($golfer, $force = false) {
         if($model = Registration::findOne([
                      'golfer_id' => $golfer->id,
                      'competition_id'   => $this->id    ]) ) {
-			return $model->cancel();
+			return $model->cancel($force);
 		}
         return false;
     }
@@ -855,9 +868,7 @@ class Competition extends base\Competition
 			}
 		}
 		if($scorecard = $this->getScorecard($player)) {
-			if($scorecard->hasScore()) {
-				return $scorecard->getScoreFromRule(true);						
-			}
+			return $scorecard->getScoreFromRule(true);						
 		}
 		return null;
 	}

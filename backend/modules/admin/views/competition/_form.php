@@ -1,7 +1,8 @@
 <?php
 
-use common\models\Rule;
 use common\models\Course;
+use common\models\League;
+use common\models\Rule;
 
 use kartik\widgets\DateTimePicker;
 use kartik\form\ActiveForm;

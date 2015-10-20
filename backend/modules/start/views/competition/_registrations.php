@@ -40,7 +40,7 @@ use common\models\Competition;
                 'value' => function($model, $key, $index, $widget) {
                 	return $model->makeLabel($model->status);
                 },
-				'filter' => Registration::getLocalizedPreCompetitionStatuses(),
+				'filter' => Registration::getRegistrationStatusesFor(Registration::SC_PRE_COMPETITION, true),
             ],
         ],
     ]); ?>

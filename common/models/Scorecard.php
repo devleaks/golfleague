@@ -356,9 +356,6 @@ class Scorecard extends base\Scorecard
 	}
 	
 	/**
-	 * For matchplay, computeMatchplay() compute up and down from scores. For strokeplay, computeMatchplay() returns the score rounded according to the rule.
-	 * In both cases, handicap is taken into account according to the rule.
-	 *
 	 * @return 	array()	Returns hole by hole points of matchplay, or hole by hole score for strokeplay.
 	 */
 	public function points() {
@@ -385,7 +382,7 @@ class Scorecard extends base\Scorecard
 			}
 			return $this_ret;
 		} else { // Strokeplay
-			return array_map(function($a) use ($r) { return round($a, $r); }, $this->score($rule->handicap));
+			return array_map(function($a) use ($r) { return round($a, $r); }, $this->getHoleData('points', $rule->handicap));
 		}
 	}
 	
@@ -559,7 +556,6 @@ class Scorecard extends base\Scorecard
 			case self::SCORE_TOPAR_NET:			$scores = $total_only ? $this->lastToPar_net()		: $this->toPar_net( 0 );	break;
 			case self::SCORE_POINTS:			$scores = $total_only ? $this->points_total()		: $this->points();			break;
 		}
-		//echo print_r($scores, true);
 		return $scores;
 	}
 

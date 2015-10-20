@@ -78,7 +78,7 @@ class Practice extends \yii\db\ActiveRecord
      */
     public function getScorecard()
     {
-        return $this->hasOne(Scorecard::className(), ['id' => 'scorecard_id']);
+        return $this->hasOne(\common\models\Scorecard::className(), ['id' => 'scorecard_id']);
     }
 
     /**
@@ -86,7 +86,7 @@ class Practice extends \yii\db\ActiveRecord
      */
     public function getGolfer()
     {
-        return $this->hasOne(Golfer::className(), ['id' => 'golfer_id']);
+        return $this->hasOne(\common\models\Golfer::className(), ['id' => 'golfer_id']);
     }
 
     /**
@@ -94,7 +94,7 @@ class Practice extends \yii\db\ActiveRecord
      */
     public function getCourse()
     {
-        return $this->hasOne(Course::className(), ['id' => 'course_id']);
+        return $this->hasOne(\common\models\Course::className(), ['id' => 'course_id']);
     }
 
     /**
@@ -102,6 +102,6 @@ class Practice extends \yii\db\ActiveRecord
      */
     public function getTees()
     {
-        return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
+        return $this->hasOne(\common\models\Tees::className(), ['id' => 'tees_id']);
     }
 }

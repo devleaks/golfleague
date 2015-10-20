@@ -46,7 +46,7 @@ class RegistrationController extends GolfLeagueController
     {
         $searchModel = new RegistrationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		$dataProvider->query->andWhere(['registration.status' => Registration::getPreCompetitionStatuses()]);
+		$dataProvider->query->andWhere(['registration.status' => Registration::getRegistrationStatusesFor(Registration::SC_PRE_COMPETITION)]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -209,7 +209,7 @@ class RegistrationController extends GolfLeagueController
         $registrations = Registration::find()
 			->where([
 				'competition_id' => $id,
-				'status' => array(Registration::STATUS_PENDING,Registration::STATUS_REGISTERED)
+				'status' => Registration::getRegistrationStatusesFor(Registration::SC_REG_OK)
 			])
 			->all();
         $registereds = [];
@@ -244,7 +244,7 @@ class RegistrationController extends GolfLeagueController
 				if($action === 'register')
                 	$competition->register($golfer, true); // force = true, by-pass registration check, starter can overwrite them.
 				else
-                	$competition->deregister($golfer);
+                	$competition->deregister($golfer, true);
             } catch (\Exception $exc) {
                 $error[] = $exc->getMessage();
             }
@@ -277,7 +277,7 @@ class RegistrationController extends GolfLeagueController
         $registrations = Registration::find()
 			->where([
 				'competition_id' => $id,
-				'status' => array(Registration::STATUS_PENDING,Registration::STATUS_REGISTERED)
+				'status' => Registration::getRegistrationStatusesFor(Registration::SC_REG_OK)
 			])
 			->all();
         $registereds = [];
@@ -342,7 +342,7 @@ class RegistrationController extends GolfLeagueController
 		foreach(Registration::find()
 			->where([
 				'competition_id' => $model->id,
-				'status' => array(Registration::STATUS_PENDING,Registration::STATUS_REGISTERED)
+				'status' => Registration::getRegistrationStatusesFor(Registration::SC_REG_OK)
 			])->each() as $registration) {
 			$model->setTees($registration);
 		}

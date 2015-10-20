@@ -43,6 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'phone',
             [
+				'attribute' => 'birthdate',
+				'type' => DetailView::INPUT_DATE,
+				'format' => 'date',
+			],
+            [
 				'attribute' => 'handicap',
 				'value' => $model->handicap.' '.$h,
 				'format' => 'raw',

@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
             	'label' => Yii::t('golf', 'Registration Status'),
-				'filter' => Registration::getLocalizedPostCompetitionStatuses(),
+				'filter' => Registration::getRegistrationStatusesFor(Registration::SC_POST_COMPETITION, true),
 				'format' => 'raw',
 				'hAlign' => GridView::ALIGN_CENTER,
                 'value' => function($model, $key, $index, $widget) {

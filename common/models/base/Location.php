@@ -72,7 +72,7 @@ class Location extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(Event::className(), ['location_id' => 'id']);
+        return $this->hasMany(\common\models\Event::className(), ['location_id' => 'id']);
     }
 
     /**
@@ -80,6 +80,6 @@ class Location extends \yii\db\ActiveRecord
      */
     public function getFacilities()
     {
-        return $this->hasMany(Facility::className(), ['location_id' => 'id']);
+        return $this->hasMany(\common\models\Facility::className(), ['location_id' => 'id']);
     }
 }

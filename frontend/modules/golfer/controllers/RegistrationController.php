@@ -117,14 +117,14 @@ having tot_count = 1
      */
     public function actionApprove($id) {
 		$model = Registration::findOne($id);
-		$model->status = Registration::STATUS_REGISTERED;
-		$model->save();
-		
-        Yii::$app->session->setFlash('success', Yii::t('golf', 'You registered to competition "{0}".', $model->competition->name));
-        return $this->render('view', [
-            'model' => $model,
-			'competition' => $model->competition,
-        ]);
+		if($model->approve()) {
+			Yii::$app->session->setFlash('success', Yii::t('golf', 'You registered to competition "{0}".', $model->competition->name));
+	        return $this->render('view', [
+	            'model' => $model,
+				'competition' => $model->competition,
+	        ]);
+		}
+		return $this->redirect(['index']);
     }
 
     /**

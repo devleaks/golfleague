@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = Html::encode($model->getFullName());
 			Scoreboard::PAR => true,
 			Scoreboard::ROUNDS => true,
 			Scoreboard::TODAY => true,
-			Scoreboard::TO_PAR => true,
+//			Scoreboard::TO_PAR => true,
 			Scoreboard::COLOR => true,
 			Scoreboard::LEGEND => true,
 		]

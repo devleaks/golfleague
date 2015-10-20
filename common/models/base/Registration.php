@@ -73,7 +73,7 @@ class Registration extends \yii\db\ActiveRecord
      */
     public function getGroupMembers()
     {
-        return $this->hasMany(GroupMember::className(), ['registration_id' => 'id']);
+        return $this->hasMany(\common\models\GroupMember::className(), ['registration_id' => 'id']);
     }
 
     /**
@@ -81,7 +81,7 @@ class Registration extends \yii\db\ActiveRecord
      */
     public function getScorecard()
     {
-        return $this->hasOne(Scorecard::className(), ['id' => 'scorecard_id']);
+        return $this->hasOne(\common\models\Scorecard::className(), ['id' => 'scorecard_id']);
     }
 
     /**
@@ -89,7 +89,7 @@ class Registration extends \yii\db\ActiveRecord
      */
     public function getCompetition()
     {
-        return $this->hasOne(Competition::className(), ['id' => 'competition_id']);
+        return $this->hasOne(\common\models\Competition::className(), ['id' => 'competition_id']);
     }
 
     /**
@@ -97,7 +97,7 @@ class Registration extends \yii\db\ActiveRecord
      */
     public function getGolfer()
     {
-        return $this->hasOne(Golfer::className(), ['id' => 'golfer_id']);
+        return $this->hasOne(\common\models\Golfer::className(), ['id' => 'golfer_id']);
     }
 
     /**
@@ -105,6 +105,6 @@ class Registration extends \yii\db\ActiveRecord
      */
     public function getTees()
     {
-        return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
+        return $this->hasOne(\common\models\Tees::className(), ['id' => 'tees_id']);
     }
 }

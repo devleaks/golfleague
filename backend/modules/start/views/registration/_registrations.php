@@ -86,7 +86,7 @@ use backend\modules\start\controllers\RegistrationController;
                 'value' => function($model, $key, $index, $widget) {
                 	return $model->makeLabel($model->status);
                 },
-				'filter' => Registration::getLocalizedPreCompetitionStatuses(),
+				'filter' => Registration::getRegistrationStatusesFor(Registration::SC_PRE_COMPETITION, true),
             ],
             ['class' => 'kartik\grid\CheckboxColumn'],
         ],

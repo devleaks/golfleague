@@ -79,7 +79,7 @@ class Tees extends \yii\db\ActiveRecord
      */
     public function getHoles()
     {
-        return $this->hasMany(Hole::className(), ['tees_id' => 'id']);
+        return $this->hasMany(\common\models\Hole::className(), ['tees_id' => 'id']);
     }
 
     /**
@@ -87,7 +87,7 @@ class Tees extends \yii\db\ActiveRecord
      */
     public function getPractices()
     {
-        return $this->hasMany(Practice::className(), ['tees_id' => 'id']);
+        return $this->hasMany(\common\models\Practice::className(), ['tees_id' => 'id']);
     }
 
     /**
@@ -95,7 +95,7 @@ class Tees extends \yii\db\ActiveRecord
      */
     public function getRegistrations()
     {
-        return $this->hasMany(Registration::className(), ['tees_id' => 'id']);
+        return $this->hasMany(\common\models\Registration::className(), ['tees_id' => 'id']);
     }
 
     /**
@@ -103,7 +103,7 @@ class Tees extends \yii\db\ActiveRecord
      */
     public function getStarts()
     {
-        return $this->hasMany(Start::className(), ['tees_id' => 'id']);
+        return $this->hasMany(\common\models\Start::className(), ['tees_id' => 'id']);
     }
 
     /**
@@ -111,6 +111,6 @@ class Tees extends \yii\db\ActiveRecord
      */
     public function getCourse()
     {
-        return $this->hasOne(Course::className(), ['id' => 'course_id']);
+        return $this->hasOne(\common\models\Course::className(), ['id' => 'course_id']);
     }
 }

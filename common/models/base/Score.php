@@ -90,7 +90,7 @@ class Score extends \yii\db\ActiveRecord
      */
     public function getHole()
     {
-        return $this->hasOne(Hole::className(), ['id' => 'hole_id']);
+        return $this->hasOne(\common\models\Hole::className(), ['id' => 'hole_id']);
     }
 
     /**
@@ -98,6 +98,6 @@ class Score extends \yii\db\ActiveRecord
      */
     public function getScorecard()
     {
-        return $this->hasOne(Scorecard::className(), ['id' => 'scorecard_id']);
+        return $this->hasOne(\common\models\Scorecard::className(), ['id' => 'scorecard_id']);
     }
 }

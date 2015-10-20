@@ -66,7 +66,7 @@ class Hole extends \yii\db\ActiveRecord
      */
     public function getTees()
     {
-        return $this->hasOne(Tees::className(), ['id' => 'tees_id']);
+        return $this->hasOne(\common\models\Tees::className(), ['id' => 'tees_id']);
     }
 
     /**
@@ -74,7 +74,7 @@ class Hole extends \yii\db\ActiveRecord
      */
     public function getScores()
     {
-        return $this->hasMany(Score::className(), ['hole_id' => 'id']);
+        return $this->hasMany(\common\models\Score::className(), ['hole_id' => 'id']);
     }
 
     /**
@@ -82,6 +82,6 @@ class Hole extends \yii\db\ActiveRecord
      */
     public function getScorecards()
     {
-        return $this->hasMany(Scorecard::className(), ['id' => 'scorecard_id'])->viaTable(Score::tableName(), ['hole_id' => 'id']);
+        return $this->hasMany(\common\models\Scorecard::className(), ['id' => 'scorecard_id'])->viaTable(Score::tableName(), ['hole_id' => 'id']);
     }
 }

@@ -79,7 +79,7 @@ class League extends \yii\db\ActiveRecord
      */
     public function getCompetitions()
     {
-        return $this->hasMany(Competition::className(), ['league_id' => 'id']);
+        return $this->hasMany(\common\models\Competition::className(), ['league_id' => 'id']);
     }
 
     /**
@@ -87,7 +87,7 @@ class League extends \yii\db\ActiveRecord
      */
     public function getEvents()
     {
-        return $this->hasMany(Event::className(), ['league_id' => 'id']);
+        return $this->hasMany(\common\models\Event::className(), ['league_id' => 'id']);
     }
 
     /**
@@ -95,7 +95,7 @@ class League extends \yii\db\ActiveRecord
      */
     public function getGolfers()
     {
-        return $this->hasMany(Golfer::className(), ['league_id' => 'id']);
+        return $this->hasMany(\common\models\Golfer::className(), ['league_id' => 'id']);
     }
 
     /**
@@ -103,7 +103,7 @@ class League extends \yii\db\ActiveRecord
      */
     public function getMessages()
     {
-        return $this->hasMany(Message::className(), ['league_id' => 'id']);
+        return $this->hasMany(\common\models\Message::className(), ['league_id' => 'id']);
     }
 
     /**
@@ -111,7 +111,7 @@ class League extends \yii\db\ActiveRecord
      */
     public function getRules()
     {
-        return $this->hasMany(Rule::className(), ['league_id' => 'id']);
+        return $this->hasMany(\common\models\Rule::className(), ['league_id' => 'id']);
     }
 
     /**
@@ -119,6 +119,6 @@ class League extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(User::className(), ['league_id' => 'id']);
+        return $this->hasMany(\common\models\User::className(), ['league_id' => 'id']);
     }
 }

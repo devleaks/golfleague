@@ -64,7 +64,7 @@ use yii\helpers\Url;
                 'value' => function($model, $key, $index, $widget) {
                 	return Yii::t('golf', $model->status);
                 },
-				'filter' => Registration::getLocalizedPostCompetitionStatuses(),
+				'filter' => Registration::getRegistrationStatusesFor(Registration::SC_POST_COMPETITION, true),
             ],
         ],
     ]); ?>

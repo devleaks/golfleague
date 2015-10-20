@@ -85,7 +85,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getGolfers()
     {
-        return $this->hasMany(Golfer::className(), ['user_id' => 'id']);
+        return $this->hasMany(\common\models\Golfer::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -93,7 +93,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getMessages()
     {
-        return $this->hasMany(Message::className(), ['created_by' => 'id']);
+        return $this->hasMany(\common\models\Message::className(), ['created_by' => 'id']);
     }
 
     /**
@@ -101,7 +101,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getProfile()
     {
-        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
+        return $this->hasOne(\common\models\Profile::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -109,7 +109,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getSocialAccounts()
     {
-        return $this->hasMany(SocialAccount::className(), ['user_id' => 'id']);
+        return $this->hasMany(\common\models\SocialAccount::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -117,7 +117,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getTokens()
     {
-        return $this->hasMany(Token::className(), ['user_id' => 'id']);
+        return $this->hasMany(\common\models\Token::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -125,6 +125,6 @@ class User extends \yii\db\ActiveRecord
      */
     public function getLeague()
     {
-        return $this->hasOne(League::className(), ['id' => 'league_id']);
+        return $this->hasOne(\common\models\League::className(), ['id' => 'league_id']);
     }
 }

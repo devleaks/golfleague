@@ -276,13 +276,13 @@
         </SQLField>
         <SQLField>
             <name><![CDATA[handicap_min]]></name>
-            <type><![CDATA[DECIMAL]]></type>
+            <type><![CDATA[DECIMAL(10,1)]]></type>
             <temporaryOriginalName><![CDATA[level]]></temporaryOriginalName>
             <uid><![CDATA[082E0E60-690E-4913-B330-E91B20853112]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[handicap_max]]></name>
-            <type><![CDATA[DECIMAL]]></type>
+            <type><![CDATA[DECIMAL(10,1)]]></type>
             <temporaryOriginalName><![CDATA[handicap_0]]></temporaryOriginalName>
             <uid><![CDATA[60172C7C-E6C6-410A-A296-79DBF60B1F37]]></uid>
         </SQLField>

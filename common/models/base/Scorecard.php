@@ -98,7 +98,7 @@ class Scorecard extends \yii\db\ActiveRecord
      */
     public function getHandicapHistories()
     {
-        return $this->hasMany(HandicapHistory::className(), ['scorecard_id' => 'id']);
+        return $this->hasMany(\common\models\HandicapHistory::className(), ['scorecard_id' => 'id']);
     }
 
     /**
@@ -106,7 +106,7 @@ class Scorecard extends \yii\db\ActiveRecord
      */
     public function getPractices()
     {
-        return $this->hasMany(Practice::className(), ['scorecard_id' => 'id']);
+        return $this->hasMany(\common\models\Practice::className(), ['scorecard_id' => 'id']);
     }
 
     /**
@@ -114,7 +114,7 @@ class Scorecard extends \yii\db\ActiveRecord
      */
     public function getRegistrations()
     {
-        return $this->hasMany(Registration::className(), ['scorecard_id' => 'id']);
+        return $this->hasMany(\common\models\Registration::className(), ['scorecard_id' => 'id']);
     }
 
     /**
@@ -122,7 +122,7 @@ class Scorecard extends \yii\db\ActiveRecord
      */
     public function getScores()
     {
-        return $this->hasMany(Score::className(), ['scorecard_id' => 'id']);
+        return $this->hasMany(\common\models\Score::className(), ['scorecard_id' => 'id']);
     }
 
     /**
@@ -130,6 +130,6 @@ class Scorecard extends \yii\db\ActiveRecord
      */
     public function getHoles()
     {
-        return $this->hasMany(Hole::className(), ['id' => 'hole_id'])->viaTable(Score::tableName(), ['scorecard_id' => 'id']);
+        return $this->hasMany(\common\models\Hole::className(), ['id' => 'hole_id'])->viaTable(Score::tableName(), ['scorecard_id' => 'id']);
     }
 }
