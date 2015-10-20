@@ -151,7 +151,7 @@ class Competition extends \yii\db\ActiveRecord
      */
     public function getCourse()
     {
-        return $this->hasOne(Course::className(), ['id' => 'course_id']);
+        return $this->hasOne(\common\models\Course::className(), ['id' => 'course_id']);
     }
 
     /**

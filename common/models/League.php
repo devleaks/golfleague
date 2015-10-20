@@ -51,4 +51,15 @@ class League extends base\League
             'updated_at' => Yii::t('golf', 'Updated At'),
         ];
     }
+
+
+    /**
+     * @inheritdoc
+     */
+	public static function find()
+    {
+        return new query\LeagueQuery(get_called_class());
+    }
+
+
 }

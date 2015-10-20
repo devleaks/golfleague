@@ -6,8 +6,7 @@ use Yii;
 use yii\db\ActiveQuery;
 
 /**
- *	ActiveQuery particularisation for users
- * Important: Read http://www.yiiframework.com/forum/index.php/topic/55466-user-identity-default-scope-problem/.
+ *	ActiveQuery particularisation for events
  */
 class EventQuery extends ActiveQuery
 {

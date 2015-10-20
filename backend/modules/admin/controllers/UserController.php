@@ -45,6 +45,55 @@ class UserController extends GolfLeagueController
     }
 
 
+    /**
+     * Shows profile settings form.
+     *
+     * @return string|\yii\web\Response
+     */
+    public function actionLeague()
+    {
+        $model = User::findOne(Yii::$app->user->identity->getId());
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('user', 'Your profile has been updated'));
+
+            return $this->refresh();
+        }
+
+        return $this->render('league', [
+            'model' => $model,
+        ]);
+    }
+
+
+    public function actionGolf()
+    {
+    	if($user = User::findOne(Yii::$app->user->identity->getId())) {
+			if($model = $user->getGolfer()->one()) {
+		        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+		            Yii::$app->getSession()->setFlash('success', Yii::t('user', 'Your profile has been updated'));
+
+		            return $this->refresh();
+			        return $this->render('golfer', [
+			            'model' => $model,
+			        ]);
+		        } else {
+			        return $this->render('golfer', [
+			            'model' => $model,
+			        ]);
+				}
+			} else {
+	            Yii::$app->getSession()->setFlash('warning', Yii::t('user', 'Your golfer profile does not exists'));
+		        return $this->redirect(['league', 'id' => $user->id]);
+			}
+		} else {
+            Yii::$app->getSession()->setFlash('danger', Yii::t('user', 'User not found'));
+		}
+		return $this->redirect(['/admin']);
+    }
+
+
+
 
     /**
      * Finds the User model based on its primary key value.
