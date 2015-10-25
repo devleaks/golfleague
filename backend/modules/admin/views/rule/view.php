@@ -56,9 +56,13 @@ $this->params['breadcrumbs'][] = $this->title;
 				'value' => $model->rule_type ? Yii::t('golf', Rule::TYPE_MATCHPLAY) : Yii::t('golf', Rule::TYPE_STROKEPLAY),
             ],
             [
-                'attribute'=>'source_type',
+                'attribute'=>'data_type',
 				'type' => DetailView::INPUT_DROPDOWN_LIST,
-				'items' => Scorecard::getConstants('SCORE_'),
+				'items' => Rule::getConstants('DATA_'),
+            ],
+            [
+                'attribute'=>'source_type',
+				'displayOnly' => true,
             ],
             [
                 'attribute'=>'source_direction',

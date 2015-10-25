@@ -115,7 +115,7 @@ class Brackets extends _Scoretable {
 {';
 			foreach($match->getScorecards()->each() as $scorecard) {
 				$url   = Url::to(['scorecard', 'id' => $scorecard->id]);
-				$points = $scorecard->getScoreFromRule(true);
+				$points = $scorecard->getTotalFromRule();
 				$thru   = $scorecard->thru;
 				$score  = 2 * $points - $thru;
 				$updowns = '';

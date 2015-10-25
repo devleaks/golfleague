@@ -142,7 +142,7 @@ class Registration extends base\Registration implements Opponent
 			    self::STATUS_INVITED,
 			    self::STATUS_REGISTERED,
 			]; break;
-			case self::SC_PARTICPIPANTS: $s = [
+			case self::SC_PARTICIPANTS: $s = [
 			    self::STATUS_REGISTERED,
 			    self::STATUS_CONFIRMED,
 			    self::STATUS_FORFEIT,

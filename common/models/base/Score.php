@@ -10,7 +10,13 @@ use Yii;
  * @property integer $scorecard_id
  * @property integer $hole_id
  * @property integer $allowed
- * @property string $score
+ * @property integer $score
+ * @property integer $score_net
+ * @property integer $stableford
+ * @property integer $stableford_net
+ * @property integer $topar
+ * @property integer $topar_net
+ * @property string $points
  * @property integer $putts
  * @property integer $penalty
  * @property integer $sand
@@ -27,9 +33,10 @@ use Yii;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property string $tie_break
  *
- * @property Hole $hole
  * @property Scorecard $scorecard
+ * @property Hole $hole
  */
 class Score extends \yii\db\ActiveRecord
 {
@@ -48,8 +55,8 @@ class Score extends \yii\db\ActiveRecord
     {
         return [
             [['hole_id'], 'required'],
-            [['hole_id', 'allowed', 'putts', 'penalty', 'sand'], 'integer'],
-            [['score'], 'number'],
+            [['hole_id', 'allowed', 'score', 'score_net', 'stableford', 'stableford_net', 'topar', 'topar_net', 'putts', 'penalty', 'sand'], 'integer'],
+            [['points', 'tie_break'], 'number'],
             [['created_at', 'updated_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
             [['regulation', 'approach', 'putt', 'approach_length', 'putt_length', 'putt2', 'putt2_length', 'teeshot', 'teeshot_length', 'status'], 'string', 'max' => 20]
@@ -66,6 +73,12 @@ class Score extends \yii\db\ActiveRecord
             'hole_id' => Yii::t('golf', 'Hole ID'),
             'allowed' => Yii::t('golf', 'Allowed'),
             'score' => Yii::t('golf', 'Score'),
+            'score_net' => Yii::t('golf', 'Score Net'),
+            'stableford' => Yii::t('golf', 'Stableford'),
+            'stableford_net' => Yii::t('golf', 'Stableford Net'),
+            'topar' => Yii::t('golf', 'Topar'),
+            'topar_net' => Yii::t('golf', 'Topar Net'),
+            'points' => Yii::t('golf', 'Points'),
             'putts' => Yii::t('golf', 'Putts'),
             'penalty' => Yii::t('golf', 'Penalty'),
             'sand' => Yii::t('golf', 'Sand'),
@@ -82,15 +95,8 @@ class Score extends \yii\db\ActiveRecord
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
+            'tie_break' => Yii::t('golf', 'Tie Break'),
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getHole()
-    {
-        return $this->hasOne(\common\models\Hole::className(), ['id' => 'hole_id']);
     }
 
     /**
@@ -99,5 +105,13 @@ class Score extends \yii\db\ActiveRecord
     public function getScorecard()
     {
         return $this->hasOne(\common\models\Scorecard::className(), ['id' => 'scorecard_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHole()
+    {
+        return $this->hasOne(\common\models\Hole::className(), ['id' => 'hole_id']);
     }
 }

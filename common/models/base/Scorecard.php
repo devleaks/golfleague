@@ -30,6 +30,10 @@ use Yii;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $marker_id
+ * @property string $exact_handicap
+ * @property string $score_entered
+ * @property string $signed_at
  *
  * @property HandicapHistory[] $handicapHistories
  * @property Practice[] $practices
@@ -53,11 +57,11 @@ class Scorecard extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['thru', 'handicap', 'rounds', 'allowed', 'score', 'score_net', 'stableford', 'stableford_net', 'topar', 'topar_net', 'position', 'putts', 'penalty'], 'integer'],
-            [['points', 'tie_break', 'teeshot', 'regulation', 'sand'], 'number'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['thru', 'handicap', 'rounds', 'allowed', 'score', 'score_net', 'stableford', 'stableford_net', 'topar', 'topar_net', 'position', 'putts', 'penalty', 'marker_id'], 'integer'],
+            [['points', 'tie_break', 'teeshot', 'regulation', 'sand', 'exact_handicap'], 'number'],
+            [['created_at', 'updated_at', 'signed_at'], 'safe'],
             [['note'], 'string', 'max' => 160],
-            [['status'], 'string', 'max' => 20]
+            [['status', 'score_entered'], 'string', 'max' => 20]
         ];
     }
 
@@ -90,6 +94,10 @@ class Scorecard extends \yii\db\ActiveRecord
             'status' => Yii::t('golf', 'Status'),
             'created_at' => Yii::t('golf', 'Created At'),
             'updated_at' => Yii::t('golf', 'Updated At'),
+            'marker_id' => Yii::t('golf', 'Marker ID'),
+            'exact_handicap' => Yii::t('golf', 'Exact Handicap'),
+            'score_entered' => Yii::t('golf', 'Score Entered'),
+            'signed_at' => Yii::t('golf', 'Signed At'),
         ];
     }
 
@@ -130,6 +138,6 @@ class Scorecard extends \yii\db\ActiveRecord
      */
     public function getHoles()
     {
-        return $this->hasMany(\common\models\Hole::className(), ['id' => 'hole_id'])->viaTable(Score::tableName(), ['scorecard_id' => 'id']);
+        return $this->hasMany(\common\models\Hole::className(), ['id' => 'hole_id'])->viaTable('score', ['scorecard_id' => 'id']);
     }
 }

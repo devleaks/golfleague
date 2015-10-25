@@ -55,6 +55,7 @@ class RuleController extends GolfLeagueController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			if(!in_array($model->rule_type, [Rule::TYPE_STROKEPLAY, Rule::TYPE_MATCHPLAY])) {
 				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCHPLAY : Rule::TYPE_STROKEPLAY;
+				$model->computeSourceType();
 				$model->save();
 			}
             return $this->redirect(['view', 'id'=>$model->id]);
@@ -79,8 +80,9 @@ class RuleController extends GolfLeagueController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			if(!in_array($model->rule_type, [Rule::TYPE_STROKEPLAY, Rule::TYPE_MATCHPLAY])) {
 				$model->rule_type = ($model->rule_type == 1) ? Rule::TYPE_MATCHPLAY : Rule::TYPE_STROKEPLAY;
-				$model->save();
 			}
+			$model->computeSourceType();
+			$model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

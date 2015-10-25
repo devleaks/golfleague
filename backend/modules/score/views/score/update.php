@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = Yii::t('golf', 'Update');
 		'gridSettings'=> [
 			'panel'=>[
 		        'heading' => '<h4>'.$this->title.'</h4>',
+				'before' => Yii::t('golf', 'Competition rule: {0}.', $scorecard->registration->competition->rule->getLabel()),
 				'footer' => Html::submitButton('Save', ['class'=>'btn btn-primary']).' '.
 							Html::a(Yii::t('golf', 'Publish'), Url::to(['publish', 'id' => $scorecard->id]), ['class'=>'btn btn-success']),
 		    ],
@@ -41,7 +42,29 @@ $this->params['breadcrumbs'][] = Yii::t('golf', 'Update');
 	            },
 			],
 			'score' => [
-				'type' => TabularForm::INPUT_TEXT,
+				'type' => function($model, $key, $index, $widget) {
+				    return  ( $model->scorecard->registration->competition->rule->source_type != 'score' ) ? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+				},
+			],
+			'score_net' => [
+				'type' => function($model, $key, $index, $widget) {
+				    return  ( $model->scorecard->registration->competition->rule->source_type != 'score_net' ) ? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+				},
+			],
+			'stableford' => [
+				'type' => function($model, $key, $index, $widget) {
+				    return  ( $model->scorecard->registration->competition->rule->source_type != 'stableford' ) ? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+				},
+			],
+			'stableford_net' => [
+				'type' => function($model, $key, $index, $widget) {
+				    return  ( $model->scorecard->registration->competition->rule->source_type != 'stableford_net' ) ? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+				},
+			],
+			'points' => [
+				'type' => function($model, $key, $index, $widget) {
+				    return  ( $model->scorecard->registration->competition->rule->source_type != 'points' ) ? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+				},
 			],
 			'putts' => [
 				'type' => TabularForm::INPUT_TEXT,

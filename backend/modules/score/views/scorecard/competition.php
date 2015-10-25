@@ -38,7 +38,8 @@ $apply_rule = in_array($competition->competition_type, [Competition::TYPE_TOURNA
 		'gridSettings'=> [
 			'panel'=>[
 		        'heading' => '<h3 class="panel-title"><i class="fa fa-trophy"></i> '.Html::encode($this->title).' </h3>',
-				'footer' => Html::submitButton('Save', ['class'=>'btn btn-primary']).' '.$apply_rule.' '.
+				'before' => Yii::t('golf', 'Competition rule: {0}.', $competition->rule->getLabel()),
+ 				'footer' => Html::submitButton('Save', ['class'=>'btn btn-primary']).' '.$apply_rule.' '.
 							Html::a(Yii::t('golf', 'Scorecard Status'), Url::to(['status', 'id' => $competition->id]), ['class'=>'btn btn-primary']).' '.
 							Html::a(Yii::t('golf', 'Publish'), Url::to(['publish', 'id' => $competition->id]), ['class'=>'btn btn-success'])
 							,
@@ -77,12 +78,38 @@ $apply_rule = in_array($competition->competition_type, [Competition::TYPE_TOURNA
 				'noWrap' => true,
 			],
 			'thru' => $input_decimal,
-			'score' => $input_decimal,
-			'score_net' => $input_decimal,
-			'stableford' => $input_decimal,
-			'stableford_net' => $input_decimal,
-			'points' => $input_decimal,
+			'score' => [
+				'type' => function($model, $key, $index, $widget) {
+				    return  ( $model->hasDetails() || ($model->registration->competition->rule->source_type != 'score') )? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+				},
+				'columnOptions' => ['width' => '100px'],
+			],
+			'score_net' => [
+				'type' => function($model, $key, $index, $widget) {
+				    return  ( $model->hasDetails() || ($model->registration->competition->rule->source_type != 'score_net') )? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+				},
+				'columnOptions' => ['width' => '100px'],
+			],
+			'stableford' => [
+				'type' => function($model, $key, $index, $widget) {
+				    return  ( $model->hasDetails() || ($model->registration->competition->rule->source_type != 'stableford') )? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+				},
+				'columnOptions' => ['width' => '100px'],
+			],
+			'stableford_net' => [
+				'type' => function($model, $key, $index, $widget) {
+				    return  ( $model->hasDetails() || ($model->registration->competition->rule->source_type != 'stableford_net') )? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+				},
+				'columnOptions' => ['width' => '100px'],
+			],
+			'points' => [
+				'type' => function($model, $key, $index, $widget) {
+				    return  ( $model->hasDetails() || ($model->registration->competition->rule->source_type != 'points') )? TabularForm::INPUT_STATIC : TabularForm::INPUT_TEXT;
+				},
+				'columnOptions' => ['width' => '100px'],
+			],
 			'rounds' => $input_decimal,			
+			'tie_break' => $input_decimal,			
 			'status' => [
 				'type' => TabularForm::INPUT_DROPDOWN_LIST,
 				'items' => Scorecard::getLocalizedConstants('STATUS_'),

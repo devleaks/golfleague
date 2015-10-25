@@ -868,7 +868,7 @@ class Competition extends base\Competition
 			}
 		}
 		if($scorecard = $this->getScorecard($player)) {
-			return $scorecard->getScoreFromRule(true);						
+			return $scorecard->getTotalFromRule();						
 		}
 		return null;
 	}

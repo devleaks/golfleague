@@ -41,7 +41,7 @@ if(! $model->rule_type) $model->rule_type = 0;
 		]
 	])->hint(Yii::t('golf', 'Type of competition: Strokeplay or Matchplay')) ?>
 				
-    <?= $form->field($model, 'source_type')->dropDownList(Scorecard::getConstants('SCORE_'))
+    <?= $form->field($model, 'data_type')->dropDownList(Rule::getConstants('DATA_'))
 			->hint(Yii::t('golf', 'Source column for score')) ?>
 
     <?= $form->field($model, 'source_direction')->dropDownList(Scorecard::getConstants('DIRECTION_'))

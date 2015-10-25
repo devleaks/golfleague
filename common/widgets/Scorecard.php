@@ -195,7 +195,7 @@ ENDofCSS;
 		);
 		
 		$rule = $this->scorecard->registration ? $this->scorecard->registration->competition->rule : new Rule();
-		$stableford_points = $rule->getStablefordPoints();
+		$stableford_points = $rule->stablefordPoints;
 
 		$output = ''; // print_r($this->scorecard->score(), true);
 		foreach($displays as $key => $display) {

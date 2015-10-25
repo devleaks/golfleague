@@ -16,6 +16,10 @@ class Rule extends base\Rule
 	const TYPE_STROKEPLAY = 'STROKE';
 	const TYPE_MATCHPLAY  = 'MATCH';
 	
+	/** Input data type */
+	const DATA_STROKES		= 'STROKES';
+	const DATA_STABLEFORD	= 'STABLEFORD';
+	const DATA_POINTS		= 'POINTS';
 
 	/** Type/semantic of points in points column. Used for rounding, comparison, etc. */
 	const POINT_FORMAT		= 'INT';
@@ -31,6 +35,17 @@ class Rule extends base\Rule
 	public $matchMethods;
 	
 	public $defaultMethodName = 'Standard';
+	
+	public $stablefordPoints = [
+		-4 => 6, //sure
+		-3 => 5,
+		-2 => 4,
+		-1 => 3,
+		 0 => 2,
+		 1 => 1,
+		 2 => 0,
+		 3 => 0,
+	];
 	
     /**
      * @inheritdoc
@@ -81,6 +96,7 @@ class Rule extends base\Rule
 			[
 	            [['source_direction'], 'in', 'range' => array_keys(Scorecard::getConstants('DIRECTION_'))],
             	[['source_type', 'destination_type'], 'in', 'range' => array_keys(Scorecard::getConstants('SCORE_'))],
+            	[['data_type'], 'in', 'range' => array_keys(self::getConstants('DATA_'))],
 	            [['status'], 'in', 'range' => array_keys(self::getConstants('STATUS_'))],
 	            [['flightMethods', 'teamMethods', 'matchMethods'], 'safe'],
         	]
@@ -104,6 +120,15 @@ class Rule extends base\Rule
 	        default:
 	           return new self;
 	    }
+	}
+	
+	
+	public function computeSourceType() {
+		switch($this->data_type) {
+			case self::DATA_STROKES:	$this->source_type = $this->handicap ? Scorecard::SCORE_NET 			: Scorecard::SCORE_GROSS;		break;
+			case self::DATA_STABLEFORD: $this->source_type = $this->handicap ? Scorecard::SCORE_STABLEFORD_NET	: Scorecard::SCORE_STABLEFORD;	break;
+			case self::DATA_POINTS:		$this->source_type = Scorecard::SCORE_POINTS;	break;
+		}
 	}
 	
 	/**
@@ -134,30 +159,14 @@ class Rule extends base\Rule
 	}
 
     /**
-	 * Return points for stableford calculation
-     */
-	public static function getStablefordPoints() {
-		return [
-			-4 => 6, //sure
-			-3 => 5,
-			-2 => 4,
-			-1 => 3,
-			 0 => 2,
-			 1 => 1,
-			 2 => 0,
-			 3 => 0,
-		];
-	}
-
-    /**
 	 * Return stableford points for supplied score relative to par.
 	 *
 	 * @param integer $score Score relative to par. Par is 0, bogey = 1, birdy = -1, etc.
 	 *
-	 * @return integer Stableford points for score according to point table supplied by getStablefordPoints().
+	 * @return integer Stableford points for score according to point table supplied by stablefordPoints.
      */
 	public static function stablefordPoint($score) {
-		$points = self::getStablefordPoints();
+		$points = self::$stablefordPoints;
 		return in_array($score, array_keys($points)) ? $points[$score] : 0;
 	}
 	
@@ -233,5 +242,15 @@ class Rule extends base\Rule
 		return $classname;
 	}
 
+	public function getLabel() {
+		$str = $this->name.' — ';
+		$str .= $this->team_size > 1 ? Yii::t('golf', 'Team of {0}', $this->team_size) : Yii::t('golf', 'Single');
+		$str .= ' ';
+		$str .= $this->rule_type == self::TYPE_MATCHPLAY ? Yii::t('golf', 'matchplay') : Yii::t('golf', 'strokeplay');
+		$str .= ', ';
+		$str .= $this->handicap ? Yii::t('golf', 'with handicap') : Yii::t('golf', 'no handicap');
+		$str .= strtolower(' ('.$this->source_type.' '.Yii::t('golf', $this->source_direction).')');
+		return $str;
+	}
 	
 }

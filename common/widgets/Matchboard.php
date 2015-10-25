@@ -191,7 +191,7 @@ class Matchboard extends _Scoretable {
 			
 
 			/* total, always displayed */
-			$points = $opponent->scorecard->getScoreFromRule(true);
+			$points = $opponent->scorecard->getTotalFromRule();
 			$thru   = $opponent->scorecard->thru;
 			$score  = 2 * $points - $thru;
 			

@@ -321,7 +321,7 @@ class Scoreboard extends _Scoretable {
 			$refs = $scoreline->scorecard->score(true);
 		}
 
-		$stableford_points = $this->competition->rule->getStablefordPoints();
+		$stableford_points = $this->competition->rule->stablefordPoints;
 		$pid = $scoreline->scorecard->player->id;
 
 		/* position & name (& score type if necessary) */
@@ -426,8 +426,8 @@ class Scoreboard extends _Scoretable {
 					'curr' => $scorecard->getScoreFromRule(),
 					'round' => $this->competition->getRoundNumber(),
 					'thru' => $scorecard->thru,
-					'today'	=> $this->getOption(self::TO_PAR) ? $scorecard->getScoreFromRule(true) : $scorecard->lastToPar(),
-					'total'	=> $scorecard->getScoreFromRule(true),
+					'today'	=> $this->getOption(self::TO_PAR) ? $scorecard->getTotalFromRule() : $scorecard->lastToPar(),
+					'total'	=> $scorecard->getTotalFromRule(),
 					'totals' => [],
 					'topar' => $scorecard->lastToPar(),
 					'stats' => [],
@@ -454,7 +454,7 @@ class Scoreboard extends _Scoretable {
 					'curr' => $current ? $current->getScoreFromRule() : null,
 					'round' => $this->competition->getRoundNumber(),
 					'thru' => $current ? $current->thru : 0,
-					'today'	=> $current ? $current->getScoreFromRule(true) : $scorecard->getScoreFromFinalRule(),
+					'today'	=> $current ? $current->getTotalFromRule() : $scorecard->getScoreFromFinalRule(),
 					'total'	=> array_sum($rounds),
 					'totals' => $rounds,
 					'topar' => $total_topar,

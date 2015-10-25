@@ -18,17 +18,17 @@ class Scorecard extends base\Scorecard
 	const STATUS_RETURNED	= 'RETURNED';
 	const STATUS_DISQUAL	= 'DISQUA';
 	const STATUS_NOSHOW		= 'NOSHOW';
-	
 
 	/** Score types (i.e. column name) */
 	const SCORE_GROSS		= 'score';
 	const SCORE_NET			= 'score_net';
 	const SCORE_STABLEFORD	= 'stableford';
 	const SCORE_STABLEFORD_NET	= 'stableford_net';
-	const SCORE_POINTS		= 'points';
 	const SCORE_TOPAR		= 'topar';
 	const SCORE_TOPAR_NET	= 'topar_net';
-
+	const SCORE_POINTS		= 'points';
+	const SCORE_TIEBREAK	= 'tie_break';
+	
 	/** allowed is not a score */
 	const ALLOWED			= 'allowed';
 
@@ -115,6 +115,27 @@ class Scorecard extends base\Scorecard
     }
 
 	/**
+	 * Checks whether detail data exist for this scorecard.
+	 * @return boolean
+	 */
+	public function hasDetails() { // opposed to isCompetition()
+		return $this->getScores()->exists();
+	}
+	
+	/**
+	 * Checks whether detail data exist for this scorecard.
+	 * @return boolean
+	 */
+	public function upToDate() {
+		if($this->hasDetails()) {
+			$last_score_date = $this->getScores()->max('updated_at');
+			Yii::trace($last_score_date.' <= '.$this->updated_at, 'Scorecard::upToDate');
+			return $last_score_date <= $this->updated_at;
+		}
+		return true;
+	}
+
+	/**
 	 * Cascade delete scores attached to this scorecard
 	 */	
 	public function deleteScores() {
@@ -133,7 +154,7 @@ class Scorecard extends base\Scorecard
 		$this->topar = null;        
 		$this->topar_net = null;  
 		$this->status = self::STATUS_OPEN;     
-		$this->save();
+		return $this->save();
 	}
 
     /**
@@ -167,45 +188,24 @@ class Scorecard extends base\Scorecard
 	}
 	
 	/**
-	 * Returns scorecard "player". Returns something that implement Player interface (golfer, team).
+	 * Returns scorecard "player". Returns something that implement Opponent interface (golfer, team).
+	 *
+	 * @return Opponent
 	 */
 	public function getPlayer() {
 		if($this->practice)
 			return $this->practice->golfer;
 
-		return $this->registration->competition->isTeamCompetition() ? $this->registration->team : $this->registration->golfer;
+		return $this->registration->competition->rule->team_score ? $this->registration->team : $this->registration->golfer;
 	}
 	
 	/**
-	 * Creates Score entry for each hole of the scorecard if none exists.
+	 * Get scores ordered by hole position
 	 */
-	public function makeScores() {
-		if( !$this->hasDetails() && $this->tees) {
-			$allowed = $this->player->allowed($this->tees);
-			$holes = $this->tees->getHoles()->orderBy('position')->indexBy('position')->all();
-			$hole_count = count($holes);
-			
-			$holes_to_play = $this->holes();
-			$start_hole = $this->startHole();
-
-			Yii::trace('toplay='.$holes_to_play.', tees='.$this->tees->holes.', start='.$start_hole, 'Scorecard::makeScores');
-
-			if($holes_to_play > $this->tees->holes) {
-				return;
-			}
-
-			for($i = 0; $i < $holes_to_play; $i++) {
-				$hole_num = $start_hole + $i % $hole_count;
-				$score = new Score([
-					'scorecard_id' => $this->id,
-					'hole_id' => $holes[$hole_num]->id,
-					'allowed' => $allowed[$hole_num - 1],
-				]);
-				$score->save();
-			}
-		}
+	public function getScoreWithHoles() {
+		return $this->getScores()->joinWith('hole')->orderBy('hole.position');
 	}
-	
+
 	/**
 	 * Returns a scorecard title
 	 *
@@ -225,21 +225,67 @@ class Scorecard extends base\Scorecard
 		return $label;
 	}
 	
+	/**
+	 * Check if current scorecard uses handicap calculation.
+	 */
+	public function useHandicap() {
+		return $this->practice || $this->registration->competition->rule->handicap;
+	}
+
+	/**
+	 * Creates Score entry for each hole of the scorecard if none exists.
+	 */
+	public function makeScores() {
+		if( !$this->hasDetails() && $this->tees ) {
+			$holes = $this->tees->getHoles()->orderBy('position')->indexBy('position')->all();
+			$hole_count = count($holes);
+			
+			$holes_to_play = $this->holes();
+			$start_hole = $this->startHole();
+
+			Yii::trace('toplay='.$holes_to_play.', tees='.$this->tees->holes.', start='.$start_hole, 'Scorecard::makeScores');
+
+			if($holes_to_play > $this->tees->holes) {
+				return;
+			}
+
+			for($i = 0; $i < $holes_to_play; $i++) {
+				$hole_num = $start_hole + $i % $hole_count;
+				$score = new Score([
+					'scorecard_id' => $this->id,
+					'hole_id' => $holes[$hole_num]->id,
+				]);
+				$score->save();
+			}
+			if($this->useHandicap())
+				$this->computeAllowed();
+		}
+	}
+	
+	/**
+	 * Determine is scorecard has score.
+	 *
+	 */
 	public function hasScore() {
 		return $this->thru > 0;
 	}
 	
 	/**
-	 * Utility function used for development, do not use.
+	 * Compute allowed strokes for scorecard and for each hole.
 	 */
-	protected function doAllowed() {
+	protected function computeAllowed() {
 		if($this->tees) {
-			$i = 0;
+			$this->exact_handicap = $this->player->handicap;
 			$a = $this->player->allowed($this->tees);
-			foreach($this->getScores()->joinWith('hole')->orderBy('hole.position')->each() as $score) {
-				$score->allowed = $a[$i++];
-				$score->save();
-			}	
+			$this->handicap = array_sum($a); // playing handicap
+			$this->save();
+			if($this->hasDetails()) {				
+				$i = 0;
+				foreach($this->getScoreWithHoles()->each() as $score) {
+					$score->allowed = $a[$i++];
+					$score->save();
+				}
+			}
 		}		
 	}
 
@@ -247,40 +293,32 @@ class Scorecard extends base\Scorecard
 	 * Get array of values for different scoring data.
 	 */
 	private function getHoleData($data, $net = false) {
+		$column = $net ? $data.'_net' : $data;
 		$r = [];
-		$a = $net ? $this->allowed() : array_fill(0, 18, 0);
-		$i = 0;
-		foreach($this->getScores()->joinWith('hole')->orderBy('hole.position')->each() as $score) {
-			$r[$i] = intval($score->$data);
-			if($net && $r[$i] > 0)
-				$r[$i] -= $a[$i];
-			$i++;
+		foreach($this->getScoreWithHoles()->each() as $score) {
+			$r[] = $score->$column;
 		}
 		return $r;
 	}
 	
 	public function allowed() {
-		return $this->getHoleData('allowed');
+		return $this->getHoleData(self::ALLOWED);
 	}
 
 	public function score($net = false) {
-		return $this->getHoleData('score', $net);
+		return $this->getHoleData(self::SCORE_GROSS, $net);
 	}
 
 	public function stableford($net = false) {
-		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
-		$n = $this->score($net);
-		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
-		if($this->tees) {
-			$p = $this->tees->pars();
-			for($i = 0; $i< count($n); $i++) {
-				if($n[$i] > 0) {
-					$s[$i] = $rule->stablefordPoint($n[$i] - $p[$i]);
-				}
-				//Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':stb='.$s[$i], 'Scorecard::stableford');
-			}			
-		}
-		return $s;
+		return $this->getHoleData(self::SCORE_STABLEFORD, $net);
+	}
+
+	public function tie_break() {
+		return $this->getHoleData(self::SCORE_TIEBREAK);
+	}
+
+	public function points() {
+		return $this->getHoleData(self::SCORE_POINTS);
 	}
 
 	public function toPar($start = 0, $net = false) {
@@ -336,6 +374,16 @@ class Scorecard extends base\Scorecard
 		return $this->hasDetails() ? array_sum($this->stableford(true)) : $this->stableford_net;
 	}
 
+	public function points_total() {
+		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
+		// Yii::trace('rounding:'.$rule->getRounding());
+		return $this->hasDetails() ? array_sum($this->points()) : round($this->points, $rule->getRounding());
+	}
+
+	public function tie_break_total() {
+		return $this->hasDetails() ? array_sum($this->tie_break()) : $this->tie_break;
+	}
+
 	public function lastToPar($net = false) {
 		if($this->hasDetails()) {
 			$to_par = $net ? $this->toPar_net() : $this->toPar();
@@ -358,7 +406,7 @@ class Scorecard extends base\Scorecard
 	/**
 	 * @return 	array()	Returns hole by hole points of matchplay, or hole by hole score for strokeplay.
 	 */
-	public function points() {
+	public function matchPoints() {
 		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
 		$r = $rule->getRounding();
 		if($rule->rule_type == Rule::TYPE_MATCHPLAY) {
@@ -390,7 +438,6 @@ class Scorecard extends base\Scorecard
 	 * For matchplay, isWinner() determines if scorecard is winner in regard to opponent'score.
 	 *
 	 * @return 	boolean|null	Returns true if winner, false if looser, or null if draw.
-	 *
 	 */
 	public function isWinner() {
 		$winner = null;
@@ -418,45 +465,37 @@ class Scorecard extends base\Scorecard
 		return $winner;
 	}
 
-	public function points_total() {
-		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
-		// Yii::trace('rounding:'.$rule->getRounding());
-		return $this->hasDetails() ? array_sum($this->points()) : round($this->points, $rule->getRounding());
-	}
-
-	/**
-	 * Get array of values for different scoring data.
-	 */
-	public function hasDetails() { // opposed to isCompetition()
-		return $this->getScores()->exists();
-	}
-	
-	public function upToDate() {
-		$last_score_date = $this->getScores()->max('updated_at');
-		Yii::trace($last_score_date.' <= '.$this->updated_at, 'Scorecard::upToDate');
-		return $last_score_date <= $this->updated_at;
-	}
-
 	/**
 	 * Compute scorecard scores from detailed scores
 	 */
+	protected function isValidScore($s) { // tricky to detect 0 scores in Stableford
+		return intval($s) > 0 || ($s === '0') || ($s === 0);
+	}
+	
+	protected function guessThru() {
+		$score = $this->getScoreFromRule();
+		//Yii::trace('Score '.print_r($score, true), 'Scorecard::updateScorecard');
+		$thru = 0;
+		while($thru < count($score) && $this->isValidScore($score[$thru]))
+			$thru++;
+			
+		Yii::trace('Thru '.$thru, 'Scorecard::updateScorecard');
+		return $thru;
+	}
+	
 	public function updateScorecard() {
 		if( $this->upToDate() || !$this->hasDetails() ) return;
 		
-		$score = $this->score();
-		$thru = 0;
-		while($thru < count($score) && intval($score[$thru]) > 0)
-			$thru++;
-			
-		$this->thru = $thru;
-		if($this->thru > 0) {
-			
-			$this->score = array_sum($score);
+		$this->thru = $this->guessThru();
+		if($this->thru > 0) {	
+			$this->score = array_sum($this->score());
 			$this->score_net = array_sum($this->score(true));
 			$this->stableford = array_sum($this->stableford());
 			$this->stableford_net = array_sum($this->stableford(true));
 			$this->topar = array_sum($this->toPar());
 			$this->topar_net = array_sum($this->toPar_net());
+			$this->points = array_sum($this->points());
+			$this->tie_break = array_sum($this->tie_break());
 		
 			$this->putts = array_sum($this->getHoleData('putts'));
 			$this->penalty = array_sum($this->getHoleData('penalty'));
@@ -466,14 +505,14 @@ class Scorecard extends base\Scorecard
 			
 
 			$sand = $this->getHoleData('sand');
-			$ok = 0; $nok = 0;
+			$ok = 0; $tot = 0;
 			for($i = 0; $i < count($sand); $i++) {
-				if($sand[$i] === 0)
-					$nok++;
-				else if ($sand[$i] === 1)
+				if(isValidScore($sand[$i]))
+					$tot++;
+				if ($sand[$i])
 					$ok++;
 			}
-			$this->sand = ($ok + $nok) > 0 ? round($ok / ($ok + $nok), 2) : 0;	
+			$this->sand = $tot > 0 ? round($ok / $tot, 2) : 0;	
 		}
 		
 		$this->validate();
@@ -504,33 +543,8 @@ class Scorecard extends base\Scorecard
 	}
 	
 	/**
-	 *	Validates consistency of all golf scores on card.
+	 *	Returns matchplay's opponent.
 	 */
-	public function validate() {
-		
-		return true;
-	}
-	
-	/**
-	 *
-	 */
-	public function compute($what = null) {
-		switch($what) {
-			case self::COMPUTE_GROSS_TO_NET:
-				$allowed = array_sum($this->player->allowed($this->tees));
-				$this->score_net = $this->score - $allowed;
-				break;
-			case self::COMPUTE_MATCHPLAY:
-				if($this->hasDetails())
-					$this->points = array_sum($this->points());
-				break;
-			default:
-				return $this->validate();
-		}
-		return $this->save();
-	}
-
-
 	public function getOpponent() {
 		if($r = $this->getRegistration()->one()) {
 			return $r->getOpponent();
@@ -544,19 +558,38 @@ class Scorecard extends base\Scorecard
      *	@param boolean $total_only Whether to return hole per hole score or total only
 	 *	@return number|array()	Returns requested total score or array of hole per hole score.
      */
-	public function getScoreFromRule($total_only = false) {
+	protected function getScoreFromRuleInternal($rule, $total_only) {
 		$scores = null;
-		switch($this->registration->competition->rule->source_type) {
-			case self::ALLOWED:					$scores = $total_only ? $this->allowed_total()		: $this->allowed();			break;
-			case self::SCORE_GROSS:				$scores = $total_only ? $this->score_total()		: $this->score();			break;
-			case self::SCORE_NET:				$scores = $total_only ? $this->score_net_total()	: $this->score(true);		break;
-			case self::SCORE_STABLEFORD:		$scores = $total_only ? $this->stableford_total()	: $this->stableford();		break;
-			case self::SCORE_STABLEFORD_NET:	$scores = $total_only ? $this->stableford_net_total() : $this->stableford(true);	break;
-			case self::SCORE_TOPAR:				$scores = $total_only ? $this->lastToPar()			: $this->toPar( 0 );		break;
-			case self::SCORE_TOPAR_NET:			$scores = $total_only ? $this->lastToPar_net()		: $this->toPar_net( 0 );	break;
-			case self::SCORE_POINTS:			$scores = $total_only ? $this->points_total()		: $this->points();			break;
+		Yii::trace('Source '.$rule->source_type.($rule->handicap ? ' handicap' : ' NO handicap'), 'Scorecard::getScoreFromRuleInternal');
+		switch($rule->source_type) {
+			case self::ALLOWED:					$scores = $total_only ? $this->allowed_total()			: $this->allowed();				break;
+			case self::SCORE_GROSS:				$scores = $total_only ? $this->score_total()			: $this->score();				break;
+			case self::SCORE_NET:				$scores = $total_only ? $this->score_net_total()		: $this->score(true);			break;
+			case self::SCORE_STABLEFORD:		$scores = $total_only ? $this->stableford_total()		: $this->stableford();			break;
+			case self::SCORE_STABLEFORD_NET:	$scores = $total_only ? $this->stableford_net_total()	: $this->stableford(true);		break;
+			case self::SCORE_TOPAR:				$scores = $total_only ? $this->lastToPar()				: $this->toPar( 0 );			break;
+			case self::SCORE_TOPAR_NET:			$scores = $total_only ? $this->lastToPar_net()			: $this->toPar_net( 0 );		break;
+			case self::SCORE_POINTS:			$scores = $total_only ? $this->points_total()			: $this->points();				break;
 		}
 		return $scores;
+	}
+
+    /**
+     *	Returns the score column corresponding to the competition's rule.
+     *
+	 *	@return array()	Returns array of hole per hole score.
+     */
+	public function getScoreFromRule() {
+		return $this->getScoreFromRuleInternal($this->registration->competition->rule, false);
+	}
+
+    /**
+     *	Returns the score column corresponding to the competition's rule.
+     *
+	 *	@return number	Returns requested total score.
+     */
+	public function getTotalFromRule() {
+		return $this->getScoreFromRuleInternal($this->registration->competition->rule, true);
 	}
 
     /**
@@ -565,20 +598,30 @@ class Scorecard extends base\Scorecard
      *
 	 *	@return number	Returns computed total score.
      */
-	public function getScoreFromFinalRule() {
-		$scores = null;
-//		echo 'yep '.$this->registration->competition->finalRule->id.', '; // @bug?
+	public function getScoreFromFinalRule($total_only = false) {
 		if($rule = Rule::findOne($this->registration->competition->final_rule_id))
-			switch($rule->destination_type) {
-				case self::SCORE_GROSS:				$scores = $this->score;				break;
-				case self::SCORE_NET:				$scores = $this->score_net;			break;
-				case self::SCORE_STABLEFORD:		$scores = $this->stableford;		break;
-				case self::SCORE_STABLEFORD_NET:	$scores = $this->stableford_net; 	break;
-				case self::SCORE_TOPAR:				$scores = $this->lastToPar();		break;
-				case self::SCORE_TOPAR_NET:			$scores = $this->lastToPar_net();	break;
-				case self::SCORE_POINTS:			$scores = $this->points;			break;
-			}
-		return $scores;
+			return $this->getScoreFromRuleInternal($rule, $total_only);
+		return null;
 	}
+
+	/**
+	 *
+	 */
+	public function compute($what = null) {
+		switch($what) {
+			case self::COMPUTE_GROSS_TO_NET:
+				$allowed = array_sum($this->player->allowed($this->tees));
+				$this->score_net = $this->score - $allowed;
+				break;
+			case self::COMPUTE_MATCHPLAY:
+				if($this->hasDetails())
+					$this->points = array_sum($this->matchPoints());
+				break;
+			default:
+				return $this->validate();
+		}
+		return $this->save();
+	}
+
 
 }
