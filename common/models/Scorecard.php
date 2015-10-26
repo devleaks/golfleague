@@ -232,6 +232,18 @@ class Scorecard extends base\Scorecard
 		return $this->practice || $this->registration->competition->rule->handicap;
 	}
 
+
+	/**
+	 * Tries to guess if data is a valid score (can be 0 but cannot be null)
+	 *
+	 * @return boolean
+	 */
+	protected function isValidScore($s) { // tricky to detect 0 scores in Stableford
+		return intval($s) > 0 || ($s === '0') || ($s === 0);
+	}
+	
+	
+
 	/**
 	 * Creates Score entry for each hole of the scorecard if none exists.
 	 */
@@ -270,6 +282,10 @@ class Scorecard extends base\Scorecard
 		return $this->thru > 0;
 	}
 	
+	
+	public function getRule() {
+		return $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
+	}
 	/**
 	 * Compute allowed strokes for scorecard and for each hole.
 	 */
@@ -322,15 +338,22 @@ class Scorecard extends base\Scorecard
 	}
 
 	public function toPar($start = 0, $net = false) {
-		$n = $this->score($net);
+		$rule = $this->getRule();
+		$stableford = $rule->data_type == Rule::DATA_STABLEFORD;
+		$n = $stableford ? $this->stableford($net) : $this->score($net);
 		$s = count($n) > 0 ? array_fill(0, count($n), null) : [];
-		if($this->tees) {
+		if($this->tees && (count($n) > 0)) {
 			$p = $this->tees->pars();
 			$topar = $start;
 			for($i = 0; $i< count($n); $i++) {
-				if($n[$i] > 0) {
-					$topar += ($n[$i] - $p[$i]);
-					$s[$i] = $topar;
+				if($this->isValidScore($n[$i])) {
+					if($stableford) {
+						$topar += ($n[$i] - $rule->stablefordPoints[0]);
+						$s[$i] = $topar;
+					} else {
+						$topar += ($n[$i] - $p[$i]);
+						$s[$i] = $topar;
+					}
 				}
 				//Yii::trace($i.'=>net='.$n[$i].':par='.$p[$i].':topar='.$s[$i], 'Scorecard::toPar');
 			}
@@ -375,7 +398,7 @@ class Scorecard extends base\Scorecard
 	}
 
 	public function points_total() {
-		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
+		$rule = $this->getRule();
 		// Yii::trace('rounding:'.$rule->getRounding());
 		return $this->hasDetails() ? array_sum($this->points()) : round($this->points, $rule->getRounding());
 	}
@@ -390,8 +413,15 @@ class Scorecard extends base\Scorecard
 			return $to_par[ $this->thruIndex() ];
 		} else {
 			if($this->tees) {
-				$par = array_sum(array_slice($this->tees->pars(), 0, $this->thru));
-				$scr = $net ?  $this->score_net_total() :  $this->score_total(); 
+				$rule = $this->getRule();
+				$stableford = $rule->data_type == Rule::DATA_STABLEFORD;
+				if($stableford) {
+					$par = $this->thru * $rule->stablefordPoints[0];
+					$scr = $net ?  $this->stableford_net_total() :  $this->stableford_total(); 
+				} else {
+					$par = array_sum(array_slice($this->tees->pars(), 0, $this->thru));
+					$scr = $net ?  $this->score_net_total() :  $this->score_total(); 
+				}
 				//Yii::trace('ThruIdx='.$this->thruIndex().', Par='.$par.', Score='.$scr, 'Scorecard::lastToPar');
 				return $this->thru > 0 ? $scr - $par : null;
 			}
@@ -407,7 +437,7 @@ class Scorecard extends base\Scorecard
 	 * @return 	array()	Returns hole by hole points of matchplay, or hole by hole score for strokeplay.
 	 */
 	public function matchPoints() {
-		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
+		$rule = $this->getRule();
 		$r = $rule->getRounding();
 		if($rule->rule_type == Rule::TYPE_MATCHPLAY) {
 			$this_ret = [];
@@ -441,7 +471,7 @@ class Scorecard extends base\Scorecard
 	 */
 	public function isWinner() {
 		$winner = null;
-		$rule = $this->registration ? $this->registration->competition->rule : new Rule(); // note: rule is required for matches
+		$rule = $this->getRule(); // note: rule is required for matches
 		if($rule->rule_type == Rule::TYPE_MATCHPLAY) {
 			// Get opponent scorecard
 			if($opponent = $this->getOpponent()) {
@@ -468,10 +498,6 @@ class Scorecard extends base\Scorecard
 	/**
 	 * Compute scorecard scores from detailed scores
 	 */
-	protected function isValidScore($s) { // tricky to detect 0 scores in Stableford
-		return intval($s) > 0 || ($s === '0') || ($s === 0);
-	}
-	
 	protected function guessThru() {
 		$score = $this->getScoreFromRule();
 		//Yii::trace('Score '.print_r($score, true), 'Scorecard::updateScorecard');
@@ -560,7 +586,7 @@ class Scorecard extends base\Scorecard
      */
 	protected function getScoreFromRuleInternal($rule, $total_only) {
 		$scores = null;
-		Yii::trace('Source '.$rule->source_type.($rule->handicap ? ' handicap' : ' NO handicap'), 'Scorecard::getScoreFromRuleInternal');
+		Yii::trace('Source '.$rule->source_type.($rule->handicap ? ' WITH handicap' : ' NO handicap'), 'Scorecard::getScoreFromRuleInternal');
 		switch($rule->source_type) {
 			case self::ALLOWED:					$scores = $total_only ? $this->allowed_total()			: $this->allowed();				break;
 			case self::SCORE_GROSS:				$scores = $total_only ? $this->score_total()			: $this->score();				break;

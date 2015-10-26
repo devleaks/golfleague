@@ -38,6 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
 			],
             [
+            	'label' => Yii::t('golf', 'Registration Status'),
+				'filter' => Registration::getRegistrationStatusesFor(Registration::SC_POST_COMPETITION, true),
+				'format' => 'raw',
+				'hAlign' => GridView::ALIGN_CENTER,
+                'value' => function($model, $key, $index, $widget) {
+                	return $model->registration ? $model->registration->makeLabel($model->registration->status) : '';
+                },
+            ],
+            [
                 'attribute' => 'status',
     			'label' => Yii::t('golf', 'Scorecard Status'),
 				'format' => 'raw',
@@ -46,15 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 	return $model->makeLabel($model->status);
                 },
 				'filter' => Scorecard::getLocalizedConstants('STATUS_'),
-            ],
-            [
-            	'label' => Yii::t('golf', 'Registration Status'),
-				'filter' => Registration::getRegistrationStatusesFor(Registration::SC_POST_COMPETITION, true),
-				'format' => 'raw',
-				'hAlign' => GridView::ALIGN_CENTER,
-                'value' => function($model, $key, $index, $widget) {
-                	return $model->registration ? $model->registration->makeLabel($model->registration->status) : '';
-                },
             ],
 			[
 				'class' => 'kartik\grid\ActionColumn',

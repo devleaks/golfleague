@@ -71,4 +71,12 @@ May be event have a max. number of participant; also time slots for registration
 
 Refactor: Unify Match, Team, Flight in BuildXXXForXXX procedures.
 
+----------
+
+allow golfer to enter their match stats without changing their score.
+
+----------
+
+add date_from/date_to to tees (for validity)
+
 
