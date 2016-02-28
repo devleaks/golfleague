@@ -8,19 +8,19 @@ Welcome to Yii Golf League, a golf league management application.
 
 Yii Golf League is a web application designed to organize golf leagues and includes
 
--   Round, tournament, and seasons scheduling,
+-   Round, tournament, and season scheduling,
 
--   Registrations to competitions,
+-   Registration to competitions,
 
 -   Competition planning and organisation (flights, start lists…)
 
--   Score entry and publication, including live leaderboard.
+-   Score entry and publication, including live leaderboards.
 
-The application also has basic bloging system, and can associate photo galeries
-to all kinds of objects (courses, golfers, etc.) and events.
+The application also has a basic bloging system, and can associate photo galeries
+to all kinds of things (competitions, courses, golfers, etc.) and events.
 
 
 The web application is developed with the PHP Yii Framework, hence its name.
-But don't worry, you can rename it as you want!
+
 
 Now Go. Play golf.

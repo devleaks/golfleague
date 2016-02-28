@@ -13,6 +13,10 @@ use yii\db\ActiveRecord;
 class Location extends base\Location
 {
 	const MAX_IMAGES = 1;
+
+	public $lat;
+	public $lon;
+	public $zoom;
 	
     /**
      * @inheritdoc
@@ -38,6 +42,19 @@ class Location extends base\Location
     /**
      * @inheritdoc
      */
+    public function rules()
+    {
+        return array_merge(
+			parent::rules(),
+			[
+				[['lat', 'lon', 'zoom'], 'safe'],
+        	]
+		);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [
@@ -52,6 +69,22 @@ class Location extends base\Location
             'status' => Yii::t('golf', 'Status'),
             'updated_at' => Yii::t('golf', 'Updated At'),
             'created_at' => Yii::t('golf', 'Created At'),
+
+            'lat' => Yii::t('golf', 'Latitude'),
+            'lon' => Yii::t('golf', 'Longitude'),
+            'zoom' => Yii::t('golf', 'Zoom'),
         ];
     }
+
+	public function save($runValidation = true, $attributeNames = NULL) {
+		$this->position = implode(';', [$this->lat, $this->lon, $this->zoom]);
+		return parent::save($runValidation, $attributeNames);		
+	}
+
+	public function parseLatLon() {
+		$arr = explode(';', $this->position);
+		$this->lat = $arr[0];
+		$this->lon = $arr[1];
+		$this->zoom = $arr[2];
+	}
 }

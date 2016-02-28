@@ -4,6 +4,7 @@ namespace backend\modules\admin\controllers;
 
 use Yii;
 use common\models\Facility;
+use common\models\Location;
 use common\models\search\FacilitySearch;
 use backend\controllers\DefaultController as GolfLeagueController;
 use yii\web\NotFoundHttpException;
@@ -56,6 +57,26 @@ class FacilityController extends GolfLeagueController
             return $this->render('view', ['model'=>$model]);
         }
     }
+
+    /**
+     * Displays a single Location model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionAddress($id)
+    {
+        $facility = $this->findModel($id);
+		$model = new Location();
+		$model->name = $facility->name;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+		$facility->location_id = $model->id;
+		$facility->save();
+        return $this->redirect(['view', 'id' => $facility->id]);
+        } else {
+        return $this->render('view', ['model' => $facility]);
+		}
+	}
 
 
     /**

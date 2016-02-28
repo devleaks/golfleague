@@ -82,7 +82,7 @@ The Classname is the name of the PHP class that implements the Rule. The PHP
 class must be in \common\models\Rule domain name.
 
 The Compute function of a Rule class is applied to the scorecards of the
-competition. It only affects the scorecards of the competition. It is used, for
+competition. It only affects the scorecards of that competition. It is used, for
 example for a Tournament, to compute the sum of points or strokes from all
 Rounds of that Tournament.
 
@@ -91,5 +91,5 @@ parsed from the parameter string and passed to the rule class instance before if
 it is executed.
 
 Example of parameters for a Rule would be, for example, the number or players
-and ties kept after a cut after 2 matches in a 4 matches tournament. (A typical
+and ties kept after a cut after 2 rounds in a 4 round tournament. (A typical
 PGA Tour tournament rule.)

@@ -3,23 +3,20 @@ The Definitive Guide to Yii Golf League
 
 All Rights Reserved.
 
-2015 (c) devleaks.
+2015 and beyond (c) devleaks.
 
 
 Introduction
 ------------
 
 * [About Yii Golf League](about.md)
-
-
-Getting Started
----------------
-
-* [Yii Golf League Concepts](intro.md)
+* [Getting Started](intro.md)
 
 
 Running Your League
 -------------------
+
+Yii Golf League for Administrator, Managers, Starters, and Scorers
 
 * [Creating Your Golf Environment](facilities.md)
 * [Competitions](competitions.md)
@@ -30,8 +27,10 @@ Running Your League
 * [Reporting Scores](scores.md)
 
 
-Golfers on Your Site
---------------------
+Golfers
+-------
+
+Yii Golf League for Golfers and Friends
 
 * [Introduction](comm.md)
 * [Messages](messages.md)
@@ -43,6 +42,8 @@ Golfers on Your Site
 
 Appendix
 --------
+
+Yii Golf League for Administrator, and hackers
 
 * [Installing Yii Golf League](install.md)
 * [Upgrading Yii Golf League](upgrade.md)

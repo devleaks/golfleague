@@ -49,21 +49,19 @@ types of competitions (tournaments and seasons) aggregate scores from rounds.
 
 For exemple, if you have a PGA Tour style of 4-day competitions, you would play a competition of type Round each day,
 and all 4 competitions would be grouped into a competition of type Tournament, may be with a "cut" after 2 days.
-Similarly, all your PGA Tour style Tournaments may be grouped into a season-long competition of type "Season".
+Similarly, all Tournaments may be grouped into a season-long competition of type "Season", very much like the PGA Tour.
  
 
 Competition Rules
 -----------------
 
-Competition follow rules.
-
-At round level, competition rule are traditional golf rule systems: Strokeplay, matchplay, Stableford, foursome, best ball...
+At Round level, competition rule are traditional golf rule systems: Strokeplay, matchplay, Stableford, foursome, best ball...
 Most competition can be played while taking handicap into account or not.
 
-At tournament and season levels, rules traditionally found in common systems are available:
-Simple sum of scores, Best of three scores, points per position...
+At Tournament and Season levels, rules traditionally found in common systems are available:
+Simple sum of scores, best of three scores, points per position...
 
-If necessary, Yii Golf League allow you to develop and insert your personal rule system if you need through a simple plugin system.
+If necessary, Yii Golf League allow you to develop and add your personal rule system if you need through a simple plugin system.
 
 
 Scoring
@@ -82,7 +80,8 @@ Golf course and more
 --------------------
 
 Rounds of golf are played at golf course facilities.
-The application allows organizers to enter such facilities, their location, pictures,
+
+Golf course and facilities need to be entered, together with their location, pictures,
 and more importantly, golf related data such as course rating and slope indices,
 which are mandatory if handicap is taken into account.
  
@@ -91,7 +90,7 @@ Golfers
 -------
 
 Competitions are played by golfer who can apply for access to the application.
-Once their application has been approved, golfer can
+Once their application has been approved by a league manager, golfers can
 
   - View calendar of competitions,
   - Register to participate to competitions, or to events such as dinners,
@@ -124,7 +123,6 @@ hole or print custom scorecards.
 This completes the setup of your « environment » . You can now refer to these
 golfers and golf courses in your competitions.
 
- 
 #### New Competition
 
 Second, you add or create your competition. If it is a simple, single match event, add a

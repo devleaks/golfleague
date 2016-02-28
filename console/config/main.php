@@ -23,6 +23,13 @@ return [
                 ],
             ],
         ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=golfleague',
+            'username' => 'golfleague',
+            'password' => 'golfleague',
+            'charset' => 'utf8',
+        ],
     ],
     'params' => $params,
 ];

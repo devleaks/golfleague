@@ -1,7 +1,7 @@
 <?php
 
-use common\models\Facility;
 use common\models\Course;
+use common\models\Facility;
 
 use kartik\detail\DetailView;
 
@@ -53,6 +53,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?=	$this->render('../media/_add', [
 	'model' => $model,
+])?>
+
+<?=	$this->render('../location/_search', [
+	'facility' => $model,
 ])?>
 
 </div>

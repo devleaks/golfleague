@@ -19,12 +19,12 @@ if(Yii::$app->user->identity->isA([User::ROLE_ADMIN, User::ROLE_MANAGER])) {
         'url' => '#',
         'items' => [
             ['label' => 'Competitions', 'icon' => 'fa fa-trophy', 'url' => ['/admin/competition'],],
-        	['label' => 'Rules', 'icon' => 'fa fa-legal', 'url' => ['/admin/rule'],],
             ['label' => 'Golfers', 'icon' => 'fa fa-user', 'url' => ['/admin/golfer'],],
             ['label' => 'Golf courses', 'icon' => 'fa fa-flag', 'url' => ['/admin/facility'],],
+            ['label' => 'Locations', 'icon' => 'fa fa-map-marker', 'url' => ['/admin/location'],],
             ['label' => 'Events', 'icon' => 'fa fa-calendar', 'url' => ['/admin/event'],],
             ['label' => 'Messages', 'icon' => 'fa fa-newspaper-o', 'url' => ['/admin/message'],],
-            ['label' => 'Locations', 'icon' => 'fa fa-map-marker', 'url' => ['/admin/location'],],
+        	['label' => 'Rules', 'icon' => 'fa fa-legal', 'url' => ['/admin/rule'],],
 		],
 	];
 }
@@ -76,6 +76,7 @@ if(defined('YII_DEBUG')) {
         	['label' => 'Debug', 'icon' => 'fa fa-bug', 'url' => ['/debug']],
             ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],
         	['label' => 'Frontend', 'icon' => 'fa fa-heart', 'url' => ['/../golfleague']],
+        	['label' => 'Documentation', 'icon' => 'fa fa-support', 'url' => ['/../golfleague/doc/guide-README.html']],
             // ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
 		],
 	];

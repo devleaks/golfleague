@@ -54,7 +54,7 @@ class LocationController extends Controller
         return $this->redirect(['view', 'id' => $model->id]);
         } else {
         return $this->render('view', ['model' => $model]);
-}
+		}
     }
 
     /**
