@@ -1,4 +1,6 @@
 <?php
+use devleaks\weather\Weather;
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 /* @var $this yii\web\View */
@@ -47,6 +49,32 @@ $this->title = 'Golf League - Administration';
 				</ul>
             </div>
         </div>
+
+
+        <div class="row">
+	
+	        <div class="col-lg-6 col-lg-offset-3">
+				<?php   echo '<div id="weather"></div>';
+						if(isset(Yii::$app->params['FORECAST_APIKEY'])) {
+							echo Weather::widget([
+								'id' => 'weather',
+								'pluginOptions' => [
+									'celsius' => true,
+									'cacheTime' => 60,
+									'key' => Yii::$app->params['FORECAST_APIKEY'],
+									'lat' => Yii::$app->params['FORECAST_DEFAULT_LAT'],
+									'lon' => Yii::$app->params['FORECAST_DEFAULT_LON'],
+								]
+							]);
+						} else {
+							Yii::$app->session->setFlash('error', 'Weather: No API key.');
+						}
+				?>
+	        </div>
+
+        </div>
+
+
 
     </div>
 </div>
