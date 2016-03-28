@@ -734,7 +734,7 @@
         },
         {
             "name": "bower-asset/intro.js",
-            "version": "2.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/usablica/intro.js.git",
@@ -921,12 +921,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/collective/jquery.recurrenceinput.js.git",
-                "reference": "f6728bd38afb7e00efc1849bdc69ca22f670d582"
+                "reference": "2a3b93c8f4758ef1a6a5893a7a504f3f38f0ac73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/collective/jquery.recurrenceinput.js/zipball/f6728bd38afb7e00efc1849bdc69ca22f670d582",
-                "reference": "f6728bd38afb7e00efc1849bdc69ca22f670d582",
+                "url": "https://api.github.com/repos/collective/jquery.recurrenceinput.js/zipball/2a3b93c8f4758ef1a6a5893a7a504f3f38f0ac73",
+                "reference": "2a3b93c8f4758ef1a6a5893a7a504f3f38f0ac73",
                 "shasum": ""
             },
             "require": {
@@ -938,7 +938,8 @@
                     "./src/jquery.recurrenceinput.js",
                     "./src/jquery.recurrenceinput.css"
                 ]
-            }
+            },
+            "time": "2015-07-16 16:46:53"
         },
         {
             "name": "bower-asset/local-storage-lite",
@@ -1126,16 +1127,16 @@
         },
         {
             "name": "bower-asset/packery",
-            "version": "dev-master",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/metafizzy/packery.git",
-                "reference": "afc4deb136a8db66d8ccf83a0d3265a86bc3132d"
+                "reference": "82750a1c8b3f680fa603b91b9873891ce25d65e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/metafizzy/packery/zipball/afc4deb136a8db66d8ccf83a0d3265a86bc3132d",
-                "reference": "afc4deb136a8db66d8ccf83a0d3265a86bc3132d",
+                "url": "https://api.github.com/repos/metafizzy/packery/zipball/82750a1c8b3f680fa603b91b9873891ce25d65e7",
+                "reference": "82750a1c8b3f680fa603b91b9873891ce25d65e7",
                 "shasum": ""
             },
             "require": {
@@ -1143,7 +1144,7 @@
                 "bower-asset/outlayer": "~2.0.0"
             },
             "require-dev": {
-                "bower-asset/draggabilly": ">=2.1.0,<3",
+                "bower-asset/draggabilly": ">=2.1.0,<3.0.0",
                 "bower-asset/jquery": ">=2,<4",
                 "bower-asset/jquery-bridget": "~2.0.0",
                 "bower-asset/jquery-ui-draggable": "*",
@@ -1154,16 +1155,25 @@
                 "bower-asset-main": "js/packery.js",
                 "bower-asset-ignore": [
                     "**/.*",
-                    "test/",
-                    "examples/",
                     "contributing.md",
                     "package.json",
-                    "Gruntfile.js",
-                    "sandbox/"
+                    "gulpfile.js",
+                    "sandbox/",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
                 ]
             },
-            "description": "Gapless, draggable layout library",
-            "time": "2016-01-21 03:52:01"
+            "license": [
+                "GPL-3.0"
+            ],
+            "description": "Gapless, draggable grid layouts",
+            "keywords": [
+                "draggable",
+                "grid",
+                "layout"
+            ]
         },
         {
             "name": "bower-asset/punycode",
@@ -1198,12 +1208,12 @@
             "version": "v2.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jkbrzt/rrule.git",
+                "url": "https://github.com/jakubroztocil/rrule.git",
                 "reference": "2e4c3254b48497dc3856225949e552ac9876382d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jkbrzt/rrule/zipball/2e4c3254b48497dc3856225949e552ac9876382d",
+                "url": "https://api.github.com/repos/jakubroztocil/rrule/zipball/2e4c3254b48497dc3856225949e552ac9876382d",
                 "reference": "2e4c3254b48497dc3856225949e552ac9876382d",
                 "shasum": ""
             },
@@ -2599,12 +2609,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "dbc8d1b9b67daaab357bcc41dbf549c3684cf5f1"
+                "reference": "fddd2c240452e6c8990c4ef75e0265b455aa7968"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/fddd2c240452e6c8990c4ef75e0265b455aa7968",
-                "reference": "dbc8d1b9b67daaab357bcc41dbf549c3684cf5f1",
+                "reference": "fddd2c240452e6c8990c4ef75e0265b455aa7968",
                 "shasum": ""
             },
             "require-dev": {
@@ -2639,7 +2649,7 @@
                 "font",
                 "icon"
             ],
-            "time": "2015-11-23 14:42:32"
+            "time": "2015-11-30 17:28:02"
         },
         {
             "name": "ibrarturi/yii2-latlng-finder",
@@ -6111,13 +6121,13 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9",
+                "php": ">=5.3.9",
                 "symfony/polyfill-mbstring": "~1.0"
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/event-dispatcher": "~2.8|~3.0",
-                "symfony/process": "~2.8|~3.0"
+                "symfony/event-dispatcher": "~2.1|~3.0.0",
+                "symfony/process": "~2.1|~3.0.0"
             },
             "suggest": {
                 "psr/log": "For using the console logger",
@@ -6127,7 +6137,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -6171,12 +6181,12 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -6211,21 +6221,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "623bda0abd9aa29e529c8e9c08b3b84171914723"
+                "reference": "c90fabdd97e431ee19b6383999cf35334dff27da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/623bda0abd9aa29e529c8e9c08b3b84171914723",
-                "reference": "623bda0abd9aa29e529c8e9c08b3b84171914723",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/c90fabdd97e431ee19b6383999cf35334dff27da",
+                "reference": "c90fabdd97e431ee19b6383999cf35334dff27da",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -6252,7 +6262,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-01-27 05:14:46"
+            "time": "2016-01-14 08:26:52"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -6319,21 +6329,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "dfecef47506179db2501430e732adbf3793099c8"
+                "reference": "6f1979c3b0f4c22c77a8a8971afaa7dd07f082ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/dfecef47506179db2501430e732adbf3793099c8",
-                "reference": "dfecef47506179db2501430e732adbf3793099c8",
+                "url": "https://api.github.com/repos/symfony/process/zipball/6f1979c3b0f4c22c77a8a8971afaa7dd07f082ac",
+                "reference": "6f1979c3b0f4c22c77a8a8971afaa7dd07f082ac",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -6360,7 +6370,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-02 13:44:19"
+            "time": "2016-01-06 09:59:23"
         },
         {
             "name": "thomaspark/bootswatch",
