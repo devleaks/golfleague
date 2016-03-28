@@ -180,4 +180,26 @@ class CompetitionController extends GolfLeagueController
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    /**
+     * Creates a new Competition model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionTest()
+    {
+        $model = Competition::getNew(Competition::TYPE_ROUND);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+			if(count($model->errors)>0)
+				Yii::$app->session->setFlash('warning', 'Errors: '.print_r($model->errors, true));
+            return $this->render('recurinput', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+
 }

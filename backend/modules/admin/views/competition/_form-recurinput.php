@@ -75,7 +75,6 @@ $model->recurrence = 'RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU;UNTIL=20150929T00000
 			<div class='col-lg-8'>
 			<?= $form->field($model, 'recurrence')->widget(RecurInput::className(), [
 		            'pluginOptions' => [
-		                'todayHighlight' => true
 					]
 				])->label(Yii::t('golf', 'Repeat Event')) ?>
 			</div>

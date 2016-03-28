@@ -112,9 +112,9 @@ class PracticeController extends Controller
 		$practice = $this->findModel($id);
 		$scorecard = $practice->getScorecard(true);
 		
-		if(isset($_POST['Score'])) {
+		if($scores = Yii::$app->request->post('Score')) {
 			$count = 0;
-			foreach (Yii::$app->request->post('Score') as $k => $dataToLoad) {
+			foreach ($scores as $k => $dataToLoad) {
 				$pk = explode('_', $k);
 				if($model = Score::findOne(['scorecard_id'=>$pk[0], 'hole_id' =>$pk[1]])) {
 	                $ret = $model->setAttributes($dataToLoad);
@@ -185,22 +185,17 @@ class PracticeController extends Controller
 
 	public function actionTees() {
 	    $out = [];
-	    if (isset($_POST['depdrop_parents'])) {
-	        $parents = $_POST['depdrop_parents'];
-	        if ($parents != null) {
-	            $course_id = $parents[0];
-				if($course = Course::findOne($course_id)) {
-					$selected = null;
-					foreach($course->getTeesWithHoles() as $tees) {
-						if(!$selected) $selected = $tees->id;
-						$out[] = ['id' => $tees->id, 'name' => $tees->name];
-					}
+		if($parents = Yii::$app->request->post('depdrop_parents')) {
+            $course_id = $parents[0];
+			if($course = Course::findOne($course_id)) {
+				$selected = null;
+				foreach($course->getTeesWithHoles() as $tees) {
+					if(!$selected) $selected = $tees->id;
+					$out[] = ['id' => $tees->id, 'name' => $tees->name];
 				}
-	            echo Json::encode(['output'=>$out, 'selected'=>'']);
-	            return;
-	        }
-	    }
-	    echo Json::encode(['output'=>'', 'selected'=>'']);
+			}
+ 	    }
+	    echo Json::encode(['output'=> (count($out) ? $out : ''), 'selected'=>'']);
 	}
 
 }

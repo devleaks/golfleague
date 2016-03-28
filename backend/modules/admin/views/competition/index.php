@@ -13,7 +13,7 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $buttons = '<div class="btn-group">
-	<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">'.Yii::t('golf', 'New').' <span class="caret"></span></button>
+	<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">'.Yii::t('golf', 'New...').' <span class="caret"></span></button>
 	<ul class="dropdown-menu" role="menu">';
 foreach(Competition::getConstants('TYPE_') as $competition) {
 	$buttons .= '<li>'. Html::a(Yii::t('golf', $competition), ['create', 'type' => $competition]) .'</li>';	
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'floatHeader'=>true,
         'panel' => [
             'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
-            'before'=>$buttons,                                                                                                                                                          	
+            'after'=>$buttons,                                                                                                                                                          	
             'showFooter'=>false
         ],
         'columns' => [

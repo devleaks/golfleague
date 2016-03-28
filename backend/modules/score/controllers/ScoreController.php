@@ -49,9 +49,9 @@ class ScoreController extends GolfLeagueController
 	        ]);
 		}			
 		
-		if(isset($_POST['Score'])) {
+		if($scores = Yii::$app->request->post('Score')) {
 			$count = 0;
-			foreach (Yii::$app->request->post('Score') as $k => $dataToLoad) {
+			foreach ($scores as $k => $dataToLoad) {
 				$pk = explode('_', $k);
 				if($model = Score::findOne(['scorecard_id'=>$pk[0], 'hole_id' =>$pk[1]])) {
 	                $ret = $model->setAttributes($dataToLoad);
@@ -62,7 +62,7 @@ class ScoreController extends GolfLeagueController
 			}
 			if($count > 0) {
 				$scorecard->updateScorecard();
-				Yii::$app->session->setFlash('success', Yii::t('golf', 'Scorecard updated.'));
+				Yii::$app->session->setFlash('success', Yii::t('golf', '{$count} scorecard updated.'));
 			}
 		} else {
 			$scorecard->makeScores();

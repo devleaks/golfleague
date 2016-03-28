@@ -46,8 +46,8 @@ class ScorecardController extends GolfLeagueController
     {
 		$competition = $this->findCompetition($id);
 
-		if(isset($_POST['Scorecard'])) {
-	        $models = Scorecard::find()->andWhere(['id' => array_keys($_POST['Scorecard'])])->indexBy('id')->all();
+		if($scorecards = Yii::$app->request->post('Scorecard')) {
+	        $models = Scorecard::find()->andWhere(['id' => array_keys($scorecards)])->indexBy('id')->all();
 	        if (! Scorecard::loadMultiple($models, Yii::$app->request->post()) || ! Scorecard::validateMultiple($models)) {
 				$errors = [];
 				foreach($models as $model) {

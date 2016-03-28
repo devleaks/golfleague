@@ -44,7 +44,7 @@ class HoleController extends GolfLeagueController
     public function actionUpdates() {
 		$errors = '';
 		$tees_id = null;
-        $models = Hole::find()->where(['id' => array_keys($_POST['Hole'])])->indexBy('id')->all();
+        $models = Hole::find()->where(['id' => array_keys(Yii::$app->request->post('Hole'))])->indexBy('id')->all();
         if (Hole::loadMultiple($models, Yii::$app->request->post()) && Hole::validateMultiple($models)) {
             $count = 0;
             foreach ($models as $model) {

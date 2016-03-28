@@ -108,18 +108,18 @@ class FlightController extends GroupController
 			$flights = json_decode($savedflights);
 			
 			$to_save = false;
-			if(isset($_POST['GLtimeStart'])) {
+			if($GLtimeStart = Yii::$app->request->post('GLtimeStart')) {
 				$start_day = date('Y-m-d', strtotime($competition->start_date));
-				$start_time = $start_day.' '.Yii::$app->request->post('GLtimeStart');
+				$start_time = $start_day.' '.$GLtimeStart;
 				$competition->start_date = $start_time;
 				$to_save = true;
 			}
-			if(isset($_POST['GLdeltaStart'])) {
-				$competition->flight_time = intval(Yii::$app->request->post('GLdeltaStart'));
+			if($GLdeltaStart = Yii::$app->request->post('GLdeltaStart')) {
+				$competition->flight_time = intval($GLdeltaStart);
 				$to_save = true;			
 			}
-			if(isset($_POST['GLflightSize'])) {
-				$competition->flight_size = intval(Yii::$app->request->post('GLflightSize'));
+			if($GLflightSize = Yii::$app->request->post('GLflightSize')) {
+				$competition->flight_size = intval($GLflightSize);
 				$to_save = true;
 			}
 			if($to_save)

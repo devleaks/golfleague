@@ -140,7 +140,7 @@ class PointController extends GolfLeagueController
     public function actionUpdates() {
 		$errors = '';
 		$rule_id = null;
-        $models = Point::find()->where(['id' => array_keys($_POST['Point'])])->indexBy('id')->all();
+        $models = Point::find()->where(['id' => array_keys(Yii::$app->request->post('Point'))])->indexBy('id')->all();
         if (Point::loadMultiple($models, Yii::$app->request->post()) && Point::validateMultiple($models)) {
             $count = 0;
             foreach ($models as $model) {
