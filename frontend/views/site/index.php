@@ -3,6 +3,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 /* @var $this yii\web\View */
 $this->title = 'Yii Golf League';
+
+$appasset = frontend\assets\AppAsset::register($this);
+
 ?>
 <div class="site-index">
 
@@ -15,7 +18,7 @@ $this->title = 'Yii Golf League';
 
         <p><a class="btn btn-lg btn-success" href="<?= Url::to(['/user/login']) ?>">Get started with Your Golf League</a></p>
 
-		<img src="/igolf/images/welcome.png" class="center" />
+		<img src="<?= $appasset->baseUrl ?>/images/welcome.png" class="center" />
 
     </div>
 

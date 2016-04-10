@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $content string */
 
 dmstr\web\AdminLteAsset::register($this);
-backend\assets\AppAsset::register($this);
+$appasset = frontend\assets\AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ backend\assets\AppAsset::register($this);
 <body class="login-page">
 
 <div style="text-align: center; padding-top: 40px;" >
-	<img src="/igolf/images/welcome.png" />
+	<img src="<?= $appasset->baseUrl ?>/images/welcome.png" />
 </div>
 
 <?php $this->beginBody() ?>

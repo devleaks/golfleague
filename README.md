@@ -20,13 +20,13 @@ attached to it.
 DEVELOPMENT STATUS
 ------------------
 
-The application is under development and not ready for download.
+The application is under development and not ready for use.
 
 
 REQUIREMENTS
 ------------
 
-The minimum requirement by this application template that your Web server supports PHP 5.4.0.
+The minimum requirement by this application template that your Web server supports PHP 5.6.0.
 
 
 ACKNOWLEDGEMENT
@@ -34,7 +34,7 @@ ACKNOWLEDGEMENT
 
 I would like to thank all Yii Code developer for providing us with an elegant, secure, reliable development framework.
 
-In particuler, I would like to thank Kartik Visweswaran, who isn't part of the core members, but who added numerous,
+In particular, I would like to thank Kartik Visweswaran, who isn't part of the core members, but who added numerous,
 extremely useful extensions to Yii, and which help us to code faster, nicer looking, interfaces.
 
 Fianlly, I also  thank others Yii Community members who developed extensions or simply answer forum posts.
