@@ -75,7 +75,8 @@
         "bower-asset/jquery.recurrenceinput.js": "dev-master",
         "kartik-v/yii2-popover-x": "*",
         "machour/yii2-sparkline": "*",
-        "ibrarturi/yii2-latlng-finder": "dev-master"
+        "ibrarturi/yii2-latlng-finder": "dev-master",
+        "insolita/yii2-iconpicker": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

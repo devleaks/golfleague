@@ -48,12 +48,17 @@ trait Constant {
 	/**
 	 * Generates colored labels for Document. Color depends on document status.
 	 *
+	 * @param $what Column to generate a label for. Must be a valid attribute. No check!
+	 *
 	 * @return string HTML fragment
 	 */
-	function makeLabel($str) {
-		$colors = $this->getLabelColors();
-		$color  = in_array($str, array_keys($colors)) ? $colors[$str] : 'default';
-		return '<span class="label label-'.$color.'">'.Yii::t('golf', $str).'</span>';
+	function makeLabel($what) {
+		if(isset($this->$what)) {
+			$colors = $this->getLabelColors($what);
+			$color  = in_array($this->$what, array_keys($colors)) ? $colors[$this->$what] : 'default';
+			return '<span class="label label-'.$color.'">'.Yii::t('gip', $this->$what).'</span>';
+		}
+		return '<span class="label label-default">'.Yii::t('gip', 'Property {0} not found for {1}.', [$what, $this::className()]).'</span>';
 	}
 
 

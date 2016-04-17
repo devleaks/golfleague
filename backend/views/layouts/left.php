@@ -39,14 +39,19 @@ if(Yii::$app->user->identity->isA([User::ROLE_ADMIN, User::ROLE_MANAGER, User::R
 	];
 }
 if(Yii::$app->user->identity->isA([User::ROLE_ADMIN, User::ROLE_MANAGER, User::ROLE_SCORER])) {
+	$subitems = [];
+	if(Yii::$app->user->identity->isA([User::ROLE_ADMIN])) {
+		$subitems[] = ['label' => 'Presentations', 'icon' => 'fa fa-paint-brush', 'url' => ['/score/presentation']];
+		$subitems[] = ['label' => 'Animations', 'icon' => 'fa fa-magic', 'url' => ['/score/animation']];
+	}
+	$subitems[] = ['label' => 'Stories', 'icon' => 'fa fa-newspaper-o', 'url' => ['/score/story']];
+	$subitems[] = ['label' => 'Competitions', 'icon' => 'fa fa-trophy', 'url' => ['/score/competition']];
+	$subitems[] = ['label' => 'Markers', 'icon' => 'fa fa-user', 'url' => ['/admin/marker']];
 	$items[] = [
         'label' => 'Report',
         'icon' => 'fa fa-server',
         'url' => '#',
-        'items' => [
-            ['label' => 'Competitions', 'icon' => 'fa fa-trophy', 'url' => ['/score/competition'],],
-        	['label' => 'Markers', 'icon' => 'fa fa-user', 'url' => ['/admin/marker'],],
-		],
+        'items' => $subitems,
 	];
 }
 if(in_array(Yii::$app->user->identity->role, [User::ROLE_ADMIN, User::ROLE_MANAGER])) {
