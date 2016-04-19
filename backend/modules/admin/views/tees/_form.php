@@ -34,7 +34,7 @@ use common\models\Tees;
     <?= $form->field($model, 'slope_rating')->textInput(['maxlength' => 20]) ?>
 
 
-    <?= $form->field($model, 'color')->dropDownList(Yii::$app->params['tees_colors']) ?>
+    <?= $form->field($model, 'color')->dropDownList(Yii::$app->golfleague->tee_colors) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('golf', 'Create') : Yii::t('golf', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

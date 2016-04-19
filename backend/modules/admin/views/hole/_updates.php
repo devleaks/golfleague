@@ -23,7 +23,7 @@ if( sizeof($tees->getHoles()->all()) == 0 ) {
 	    $buttons .= '<ul class="dropdown-menu" role="menu">';
 
 	    foreach($tees_with_holes->each() as $twh) {
-	        $buttons .=  '<li>'.Html::a($twh->name.' ('.Yii::$app->params['tees_colors'][$twh->color].')', ['tees/copyholes', 'id' => $tees->id, 'copy_id' => $twh->id]).'</li>';
+	        $buttons .=  '<li>'.Html::a($twh->name.' ('.Yii::$app->golfleague->tee_colors[$twh->color].')', ['tees/copyholes', 'id' => $tees->id, 'copy_id' => $twh->id]).'</li>';
 		}
 
 		$buttons .= '</ul>';

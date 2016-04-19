@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('golf', 'Tees');
-$tees_color = Yii::$app->params['tees_colors'];
+$tees_color = Yii::$app->golfleague->tee_colors;
 ?>
 <div class="tees-index">
 

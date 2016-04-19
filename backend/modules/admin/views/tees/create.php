@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Tees */
 
 $this->title = Yii::t('golf', 'Create Tees');
-$this->params['breadcrumbs'][] = ['label' => $model->course->name, 'url' => ['course/view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->course->name, 'url' => ['course/view', 'id' => $model->course->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tees-create">

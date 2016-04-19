@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title . ' (' . Yii::t('golf', ucfirst($m
 					'showPaletteOnly' => true,
 				    'showPalette' => true,
 				    'palette' => [
-				        array_keys(Yii::$app->params['tees_colors'])
+				        array_keys(Yii::$app->golfleague->tee_colors)
 				    ]
 				]],
             	'value' => '<span class="glyphicon glyphicon-filter" style="color: '.$model->color.';"></span>',
