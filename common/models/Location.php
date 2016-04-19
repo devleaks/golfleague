@@ -82,9 +82,11 @@ class Location extends base\Location
 	}
 
 	public function parseLatLon() {
-		$arr = explode(';', $this->position);
-		$this->lat = $arr[0];
-		$this->lon = $arr[1];
-		$this->zoom = $arr[2];
+		if($this->position) {
+			$arr = explode(';', $this->position);
+			$this->lat = $arr[0];
+			$this->lon = $arr[1];
+			$this->zoom = $arr[2];
+		}
 	}
 }
