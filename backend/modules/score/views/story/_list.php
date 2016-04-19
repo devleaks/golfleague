@@ -17,8 +17,9 @@ use yii\widgets\Pjax;
     <?php Pjax::begin(); echo GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'kartik\grid\SerialColumn'],
+//            ['class' => 'kartik\grid\SerialColumn'],
 
+        	'position',
             'title',
 //            'header',
 //            'body:ntext',

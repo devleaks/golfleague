@@ -19,6 +19,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $title
  * @property string $header
  * @property string $body
+ * @property integer $position
  * @property integer $presentation_id
  * @property integer $animation_id
  * @property string $animation_parameters
@@ -95,7 +96,7 @@ abstract class Story extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'presentation_id', 'animation_id', 'updated_by', 'created_by'], 'integer'],
+            [['parent_id', 'position', 'presentation_id', 'animation_id', 'updated_by', 'created_by'], 'integer'],
             [['story_type', 'body', 'animation_parameters', 'animation_data'], 'string'],
             [['title', 'header'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
@@ -125,6 +126,7 @@ abstract class Story extends \yii\db\ActiveRecord
             'title' => Yii::t('golf', 'Title'),
             'header' => Yii::t('golf', 'Header'),
             'body' => Yii::t('golf', 'Body'),
+            'position' => Yii::t('golf', 'Position'),
             'presentation_id' => Yii::t('golf', 'Presentation ID'),
             'animation_id' => Yii::t('golf', 'Animation ID'),
             'animation_parameters' => Yii::t('golf', 'Animation Parameters'),

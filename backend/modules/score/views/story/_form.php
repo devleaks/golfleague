@@ -43,6 +43,8 @@ $model->story_type = 'STORY';
 					]
 			],
 
+			'position'=>['type'=> Form::INPUT_TEXT, 'options'=>['placeholder'=>'Enter Position...']],
+
 			'status'=>['type'=> Form::INPUT_DROPDOWN_LIST, 'options'=>['placeholder'=>'Enter Status...', 'maxlength'=>40], 'items' => Story::getLocalizedConstants('STATUS_')],
 
 			'presentation_id'=>['type'=> Form::INPUT_DROPDOWN_LIST, 'options'=>['placeholder'=>'Enter Presentation...'], 'items' => ['' => ''] + Presentation::getList()],

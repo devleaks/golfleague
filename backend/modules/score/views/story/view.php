@@ -53,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				]
 				
             ],
+			'position',
             [
                 'attribute'=>'presentation_id',
                 'value'=> $model->presentation ? $model->presentation->display_name : '',
@@ -109,7 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?php
 		if($model->story_type == Story::TYPE_STORY) {
 			$dataProvider = new ActiveDataProvider([
-				'query' => $model->getStories(),
+				'query' => $model->getStories()->orderBy('position'),
 			]);
 
 	        echo $this->render('_list', [
